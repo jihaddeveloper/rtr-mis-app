@@ -28,7 +28,8 @@ import { Card } from "react-native-shadow-cards";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-const { width, height } = Dimensions.get("window");
+const { height } = Dimensions.get("window").height / 2.5;
+const { width } = Dimensions.get("window").width / 2.5;
 
 export default class MonthlyBookCheckoutScreen extends React.Component {
   constructor(props) {

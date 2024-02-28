@@ -19,7 +19,11 @@ import {
 } from "react-native";
 import { Card } from "react-native-shadow-cards";
 
-const { width, height } = Dimensions.get("window");
+const screenDimensions = Dimensions.get("screen");
+const windowDimensions = Dimensions.get("window");
+
+const { height } = screenDimensions.height / 2.5;
+const { width } = screenDimensions.width / 2.5;
 
 function HomeScreen({ navigation }) {
   React.useEffect(() => {
@@ -45,8 +49,7 @@ function HomeScreen({ navigation }) {
             marginRight: 100,
           }}
         >
-          McGovern-Dole International Food for Education and Child Nutrition
-          Programme
+          Home
         </Text>
       </View>
       <Card style={{ padding: 10, margin: 10, flex: 1 }}>
@@ -63,12 +66,12 @@ function HomeScreen({ navigation }) {
             <TouchableOpacity>
               <Image
                 style={{
-                  height: "60%",
+                  height: "70%",
                   width: "100%",
                   resizeMode: "contain",
                   alignItems: "center",
                 }}
-                source={require("../assets/rtrwfp.png")}
+                source={require("../assets/rtrnew.png")}
               ></Image>
             </TouchableOpacity>
           </View>
@@ -76,72 +79,73 @@ function HomeScreen({ navigation }) {
       </Card>
 
       <Card style={{ padding: 10, margin: 10, flex: 1, marginTop: 10 }}>
-        <View style={{ flexDirection: "row", marginTop: 80 }}>
-          <View style={{ flex: 1, padding: 2 }}>
-            <View>
-              <Button
-                title="বিদ্যালয়ের বই চেক আউট/ইন তথ্য ফরম"
-                onPress={() => navigation.navigate("BookCheckoutSchool")}
-              ></Button>
+        <View style={{ marginTop: 40 }}>
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ flex: 1, padding: 2 }}>
+              <View>
+                <Button
+                  title="বাংলা ক্লাস পর্যবেক্ষণ ফরম ১ম ও ২য় শ্রেণি"
+                  onPress={() => navigation.navigate("BanglaClass")}
+                ></Button>
+              </View>
+            </View>
+            <View style={{ flex: 1, padding: 2 }}>
+              <View>
+                <Button
+                  title="বই চেক আউট/ইন তথ্য ফরম"
+                  // onPress={() => navigation.navigate("BookCheckoutSchool")}
+                ></Button>
+              </View>
             </View>
           </View>
-          <View style={{ flex: 1, padding: 2 }}>
-            <View>
-              <Button
-                title="কমিউনিটির বই চেক আউট/ইন তথ্য ফরম"
-                onPress={() => navigation.navigate("BookCheckoutCommunity")}
-              ></Button>
+          {/* <View style={{ flexDirection: "row", marginTop: 5 }}>
+            <View style={{ flex: 1, padding: 2 }}>
+              <View>
+                <Button
+                  title="কমিউনিটির বই চেক আউট/ইন তথ্য ফরম"
+                  onPress={() => navigation.navigate("BookCheckoutCommunity")}
+                ></Button>
+              </View>
             </View>
-          </View>
-        </View>
+          </View> */}
 
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ flex: 1, padding: 2 }}>
-            <View>
-              <Button
-                title="শ্রেণীকক্ষ পাঠাগার পর্যবেক্ষণ ফরম"
-                onPress={() => navigation.navigate("LibraryManagement")}
-              ></Button>
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ flex: 1, padding: 2 }}>
+              <View>
+                <Button
+                  title="শ্রেণীকক্ষ পাঠাগার পর্যবেক্ষণ ফরম"
+                  // onPress={() => navigation.navigate("LibraryManagement")}
+                ></Button>
+              </View>
+            </View>
+            <View style={{ flex: 1, padding: 2 }}>
+              <View>
+                <Button
+                  title="পড়ার ঘণ্টা কার্যক্রম পর্যবেক্ষণ ফরম"
+                  // onPress={() => navigation.navigate("LibraryReading")}
+                ></Button>
+              </View>
             </View>
           </View>
-          <View style={{ flex: 1, padding: 2 }}>
-            <View>
-              <Button
-                title="পড়ার ঘণ্টা কার্যক্রম পর্যবেক্ষণ ফরম"
-                onPress={() => navigation.navigate("LibraryReading")}
-              ></Button>
-            </View>
-          </View>
-        </View>
 
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ flex: 1, padding: 2 }}>
-            <View>
-              <Button
-                title="বাংলা ক্লাস পর্যবেক্ষণ ফরম"
-                onPress={() => navigation.navigate("BanglaClass")}
-              ></Button>
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ flex: 1, padding: 2 }}>
+              <View>
+                <Button
+                  title="শ্রেণিকক্ষ কার্যক্রম প্রাক-প্রাথমিক"
+                  // onPress={() => navigation.navigate("PrePrimaryClass")}
+                ></Button>
+              </View>
+            </View>
+            <View style={{ flex: 1, padding: 2 }}>
+              <View>
+                <Button
+                  title="বিদ্যালয়ের সামগ্রিক পর্যবেক্ষণ ফরম"
+                  // onPress={() => navigation.navigate("OverallSchool")}
+                ></Button>
+              </View>
             </View>
           </View>
-          <View style={{ flex: 1, padding: 2 }}>
-            <View>
-              <Button
-                title="বিদ্যালয়ের সামগ্রিক পর্যবেক্ষণ ফরম"
-                onPress={() => navigation.navigate("OverallSchool")}
-              ></Button>
-            </View>
-          </View>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ flex: 1, padding: 2 }}>
-            <View>
-              <Button
-                title="শ্রেণিকক্ষ কার্যক্রম  প্রাক-প্রাথমিক"
-                onPress={() => navigation.navigate("PrePrimaryClass")}
-              ></Button>
-            </View>
-          </View>
-          <View style={{ flex: 1, padding: 2 }}></View>
         </View>
       </Card>
 

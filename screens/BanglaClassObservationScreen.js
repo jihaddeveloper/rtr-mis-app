@@ -28,7 +28,15 @@ import { Card } from "react-native-shadow-cards";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-const { width, height } = Dimensions.get("window");
+import CollapsibleView from "@eliav2/react-native-collapsible-view";
+
+import ExpandableView from "react-native-expandable-view";
+
+const screenDimensions = Dimensions.get("screen");
+const windowDimensions = Dimensions.get("window");
+
+const { height } = screenDimensions.height / 2.5;
+const { width } = screenDimensions.width / 2.5;
 
 export default class BanglaClassObservationScreen extends React.Component {
   constructor(props) {
@@ -120,6 +128,54 @@ export default class BanglaClassObservationScreen extends React.Component {
       lastFollowupTopic1: "",
       lastFollowupTopic2: "",
       lastFollowupTopic3: "",
+
+      ind11TeacherFollowedTeacherGuideInClassStatus: "",
+      ind11TeacherFollowedTeacherGuideInClassNote: "",
+
+      ind12FollowedIDoWeDoYouDoStatus: "",
+      ind12FollowedIDoWeDoYouDoNote: "",
+
+      ind13IndependentReadingOppertunityStatus: "",
+      ind13IndependentReadingOppertunityNote: "",
+
+      ind14FollowedContinuityOfLessonStatus: "",
+      ind14FollowedContinuityOfLessonNote: "",
+
+      ind15InstructedToUseWorkbookStatus: "",
+      ind15InstructedToUseWorkbookNote: "",
+
+      ind16CompletedOneTaskAfterAnotherStatus: "",
+      ind16CompletedOneTaskAfterAnotherNote: "",
+
+      ind21LessonConsistentlyIntimeStatus: "",
+      ind21LessonConsistentlyIntimeNote: "",
+
+      ind22CorrectlyPronouncedStatus: "",
+      ind22CorrectlyPronouncedNote: "",
+
+      ind23TaughtCorrectlyAllowPracticeStatus: "",
+      ind23TaughtCorrectlyAllowPracticeNote: "",
+
+      ind24DemonstratesFluentReadingStatus: "",
+      ind24DemonstratesFluentReadingNote: "",
+
+      ind25AllowReadIndividuallyPairsGroupsStatus: "",
+      ind25AllowReadIndividuallyPairsGroupsNote: "",
+
+      ind26FollowsInstructionsInWrittingStatus: "",
+      ind26FollowsInstructionsInWrittingNote: "",
+
+      ind31AskedHelpfulQuestionsStatus: "",
+      ind31AskedHelpfulQuestionsNote: "",
+
+      ind32TaughtVocabularyNewSentanceStatus: "",
+      ind32TaughtVocabularyNewSentanceNote: "",
+
+      ind33CheckWritingSpellingPuncuationStatus: "",
+      ind33CheckWritingSpellingPuncuationNote: "",
+
+      ind34CheckedWeDoYouDoStatus: "",
+      ind34CheckedWeDoYouDoNote: "",
 
       ind1PhonemicAwarenessStatus: "",
       ind1PhonemicAwarenessNotes: "",
@@ -822,6 +878,55 @@ export default class BanglaClassObservationScreen extends React.Component {
       mode,
       startTime,
       endTime,
+
+      ind11TeacherFollowedTeacherGuideInClassStatus,
+      ind11TeacherFollowedTeacherGuideInClassNote,
+
+      ind12FollowedIDoWeDoYouDoStatus,
+      ind12FollowedIDoWeDoYouDoNote,
+
+      ind13IndependentReadingOppertunityStatus,
+      ind13IndependentReadingOppertunityNote,
+
+      ind14FollowedContinuityOfLessonStatus,
+      ind14FollowedContinuityOfLessonNote,
+
+      ind15InstructedToUseWorkbookStatus,
+      ind15InstructedToUseWorkbookNote,
+
+      ind16CompletedOneTaskAfterAnotherStatus,
+      ind16CompletedOneTaskAfterAnotherNote,
+
+      ind21LessonConsistentlyIntimeStatus,
+      ind21LessonConsistentlyIntimeNote,
+
+      ind22CorrectlyPronouncedStatus,
+      ind22CorrectlyPronouncedNote,
+
+      ind23TaughtCorrectlyAllowPracticeStatus,
+      ind23TaughtCorrectlyAllowPracticeNote,
+
+      ind24DemonstratesFluentReadingStatus,
+      ind24DemonstratesFluentReadingNote,
+
+      ind25AllowReadIndividuallyPairsGroupsStatus,
+      ind25AllowReadIndividuallyPairsGroupsNote,
+
+      ind26FollowsInstructionsInWrittingStatus,
+      ind26FollowsInstructionsInWrittingNote,
+
+      ind31AskedHelpfulQuestionsStatus,
+      ind31AskedHelpfulQuestionsNote,
+
+      ind32TaughtVocabularyNewSentanceStatus,
+      ind32TaughtVocabularyNewSentanceNote,
+
+      ind33CheckWritingSpellingPuncuationStatus,
+      ind33CheckWritingSpellingPuncuationNote,
+
+      ind34CheckedWeDoYouDoStatus,
+      ind34CheckedWeDoYouDoNote,
+
       ind1PhonemicAwarenessStatus,
       ind2LetterIdentificationStatus,
       ind3VocabularyIdentificationStatus,
@@ -854,14 +959,34 @@ export default class BanglaClassObservationScreen extends React.Component {
           >
             বাংলা ক্লাস পর্যবেক্ষণ ফরম
           </Text>
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: "bold",
+              marginTop: 0,
+              alignContent: "center",
+              textAlign: "center",
+              alignSelf: "center",
+              marginLeft: 100,
+              marginRight: 100,
+            }}
+          >
+            (Bangla Class Observation Form)
+          </Text>
         </View>
 
         <ScrollView>
           <View style={{ padding: 10 }}>
             <Text style={styles.bigRedText}>সাধারণ তথ্য:</Text>
-
+            <Text style={styles.bigRedText}>(General Information:)</Text>
+            <ExpandableView>
+              <View>
+                <Text>My expandable view</Text>
+              </View>
+            </ExpandableView>
             <Card style={{ padding: 10, margin: 10, flex: 1 }}>
-              <View style={{ flexDirection: "row", padding: 10 }}>
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
+                <View style={{ flex: 1 }}></View>
                 <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
                     <Text
@@ -872,16 +997,36 @@ export default class BanglaClassObservationScreen extends React.Component {
                     >
                       তারিখ:
                     </Text>
+
                     <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
                     >
                       *
                     </Text>
                   </View>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Date:)
+                  </Text>
                   <Text style={{ fontSize: 14 }}>
                     {String(this.state.date.toISOString().slice(0, 10))}
                   </Text>
-                  <Button onPress={this.datepicker} title="Select Date" />
+                  <Button
+                    style={{
+                      height: 40,
+                      width: 10,
+                    }}
+                    onPress={this.datepicker}
+                    title="Select"
+                  />
                   {show && (
                     <DateTimePicker
                       value={date}
@@ -889,9 +1034,17 @@ export default class BanglaClassObservationScreen extends React.Component {
                       is24Hour={true}
                       display="default"
                       onChange={this.setDate}
+                      style={{
+                        height: 40,
+                        width: 10,
+                      }}
                     />
                   )}
                 </View>
+                <View style={{ flex: 1 }}></View>
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
                     <Text
@@ -903,15 +1056,27 @@ export default class BanglaClassObservationScreen extends React.Component {
                       মাস:
                     </Text>
                     <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
                     >
                       *
                     </Text>
                   </View>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Month:)
+                  </Text>
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 140,
                     }}
                     selectedValue={this.state.pickerMonth}
                     onValueChange={(value) => {
@@ -919,7 +1084,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     <Picker.Item label={"January"} value={"January"} />
                     <Picker.Item label={"February"} value={"February"} />
                     <Picker.Item label={"March"} value={"March"} />
@@ -948,15 +1113,27 @@ export default class BanglaClassObservationScreen extends React.Component {
                       বছর:
                     </Text>
                     <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
                     >
                       *
                     </Text>
                   </View>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Year:)
+                  </Text>
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 140,
                     }}
                     selectedValue={this.state.pickerYear}
                     onValueChange={(value) => {
@@ -964,7 +1141,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     <Picker.Item label={"2018"} value={"2018"} />
                     <Picker.Item label={"2019"} value={"2019"} />
                     <Picker.Item label={"2020"} value={"2020"} />
@@ -979,7 +1156,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                 </View>
               </View>
 
-              <View style={{ flexDirection: "row", padding: 10 }}>
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
                     <Text
@@ -991,15 +1168,27 @@ export default class BanglaClassObservationScreen extends React.Component {
                       জেলা:
                     </Text>
                     <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
                     >
                       *
                     </Text>
                   </View>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (District:)
+                  </Text>
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 160,
                     }}
                     selectedValue={this.state.pickerDistrict}
                     onValueChange={(item, key) => {
@@ -1011,7 +1200,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item key={""} label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item key={""} label={"Select"} value={""} />
                     {districts.map((item) => {
                       //console.log(item);
                       return (
@@ -1035,15 +1224,27 @@ export default class BanglaClassObservationScreen extends React.Component {
                       উপজেলা:
                     </Text>
                     <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
                     >
                       *
                     </Text>
                   </View>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Sub District:)
+                  </Text>
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 160,
                     }}
                     selectedValue={this.state.pickerUpazilla}
                     onValueChange={(item, key) => {
@@ -1054,7 +1255,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item key={""} label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item key={""} label={"Select"} value={""} />
                     {upazillas
                       .filter(
                         (item) =>
@@ -1073,7 +1274,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                 </View>
               </View>
 
-              <View style={{ flexDirection: "row", padding: 10 }}>
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
                     <Text
@@ -1085,15 +1286,27 @@ export default class BanglaClassObservationScreen extends React.Component {
                       ফিল্ড অফিস:
                     </Text>
                     <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
                     >
                       *
                     </Text>
                   </View>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Field Office:)
+                  </Text>
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 130,
                     }}
                     selectedValue={this.state.pickerOffice}
                     onValueChange={(value) => {
@@ -1101,14 +1314,15 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     <Picker.Item label={"DFO"} value={"DFO"} />
                     <Picker.Item label={"CFO"} value={"CFO"} />
                     <Picker.Item label={"NFO"} value={"NFO"} />
                     <Picker.Item label={"MFO"} value={"MFO"} />
+                    <Picker.Item label={"NrFO"} value={"NrFO"} />
                   </Picker>
                 </View>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 2 }}>
                   <View style={{ flexDirection: "row" }}>
                     <Text
                       style={{
@@ -1119,15 +1333,27 @@ export default class BanglaClassObservationScreen extends React.Component {
                       প্রোজেক্ট:
                     </Text>
                     <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
                     >
                       *
                     </Text>
                   </View>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Project:)
+                  </Text>
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 200,
                     }}
                     selectedValue={this.state.pickerProject}
                     onValueChange={(value) => {
@@ -1135,7 +1361,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     <Picker.Item
                       label={"WFP funded project"}
                       value={"WFP funded project"}
@@ -1152,43 +1378,15 @@ export default class BanglaClassObservationScreen extends React.Component {
                       label={"Moulvibazar LP Program"}
                       value={"Moulvibazar LP Program"}
                     />
+                    <Picker.Item
+                      label={"Narail LP Program"}
+                      value={"Narail LP Program"}
+                    />
                   </Picker>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      ভিজিট নম্বর:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <TextInput
-                    style={{
-                      height: 30,
-                      width: 100,
-                      padding: 5,
-                      borderWidth: 1,
-                    }}
-                    keyboardType="numeric"
-                    placeholder=""
-                    editable={true}
-                    onChangeText={(text) =>
-                      this.setState({ visitNo: Number(text) })
-                    }
-                    value={this.state.visitNo + ""}
-                  />
                 </View>
               </View>
 
-              <View style={{ flexDirection: "row", padding: 10 }}>
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
                     <Text
@@ -1200,15 +1398,27 @@ export default class BanglaClassObservationScreen extends React.Component {
                       দায়িত্ব প্রাপ্ত এলপিও
                     </Text>
                     <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
                     >
                       *
                     </Text>
                   </View>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (LPO:)
+                  </Text>
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 160,
                     }}
                     selectedValue={this.state.pickerLPO}
                     onValueChange={(value) => {
@@ -1219,7 +1429,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     {this.state.allEmployee
                       .filter((item) => {
                         return item.designation.includes("LPO");
@@ -1247,15 +1457,27 @@ export default class BanglaClassObservationScreen extends React.Component {
                       দায়িত্ব প্রাপ্ত এলএফ
                     </Text>
                     <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
                     >
                       *
                     </Text>
                   </View>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (LF:)
+                  </Text>
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 160,
                     }}
                     selectedValue={this.state.pickerLF}
                     onValueChange={(value) => {
@@ -1266,7 +1488,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     {this.state.allEmployee
                       .filter((item) => {
                         return (
@@ -1285,7 +1507,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                       })}
                   </Picker>
                 </View>
-                <View style={{ flex: 1 }}>
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
+                <View style={{ flex: 2 }}>
                   <View style={{ flexDirection: "row" }}>
                     <Text
                       style={{
@@ -1296,15 +1521,27 @@ export default class BanglaClassObservationScreen extends React.Component {
                       বিদ্যালয়ের নাম:
                     </Text>
                     <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
                     >
                       *
                     </Text>
                   </View>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (School:)
+                  </Text>
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 200,
                     }}
                     selectedValue={this.state.pickerSchool}
                     onValueChange={(value) => {
@@ -1312,7 +1549,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     {this.state.allSchool
                       .filter((item) => {
                         return item.lf === this.state.pickerLF.employeeRegId;
@@ -1328,9 +1565,53 @@ export default class BanglaClassObservationScreen extends React.Component {
                       })}
                   </Picker>
                 </View>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      ভিজিট নম্বর:
+                    </Text>
+                    <Text
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
+                    >
+                      *
+                    </Text>
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Visit No:)
+                  </Text>
+                  <TextInput
+                    style={{
+                      height: 30,
+                      width: 80,
+                      padding: 5,
+                      borderWidth: 1,
+                    }}
+                    keyboardType="numeric"
+                    placeholder=""
+                    editable={true}
+                    onChangeText={(text) =>
+                      this.setState({ visitNo: Number(text) })
+                    }
+                    value={this.state.visitNo + ""}
+                  />
+                </View>
               </View>
 
-              <View style={{ flexDirection: "row", padding: 10 }}>
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 1 }}>
                   <Text
                     style={{
@@ -1339,6 +1620,14 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                   >
                     শ্রেণী:
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Grade:)
                   </Text>
                   <Picker
                     style={{
@@ -1351,7 +1640,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     <Picker.Item label={"Pre-Primary"} value={"Pre-Primary"} />
                     <Picker.Item label={"Grade 1"} value={"Grade 1"} />
                     <Picker.Item label={"Grade 2"} value={"Grade 2"} />
@@ -1369,6 +1658,14 @@ export default class BanglaClassObservationScreen extends React.Component {
                   >
                     শাখা:
                   </Text>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Section:)
+                  </Text>
                   <Picker
                     style={{
                       height: 40,
@@ -1380,7 +1677,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     <Picker.Item label={"A"} value={"A"} />
                     <Picker.Item label={"B"} value={"B"} />
                     <Picker.Item label={"C"} value={"C"} />
@@ -1389,7 +1686,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                 </View>
               </View>
 
-              <View style={{ flexDirection: "row", padding: 10 }}>
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 1 }}>
                   <Text
                     style={{
@@ -1399,11 +1696,18 @@ export default class BanglaClassObservationScreen extends React.Component {
                   >
                     শ্রেণি শিক্ষকের নাম:
                   </Text>
-
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Class Teacher:)
+                  </Text>
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 180,
                     }}
                     selectedValue={this.state.classTeacher}
                     onValueChange={(value) => {
@@ -1413,7 +1717,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     {this.state.allTeacher
                       .filter((item) => {
                         return (
@@ -1461,10 +1765,18 @@ export default class BanglaClassObservationScreen extends React.Component {
                   >
                     লিঙ্গ:
                   </Text>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Gender:)
+                  </Text>
                   <Picker
                     style={{
                       height: 40,
-                      width: 200,
+                      width: 130,
                     }}
                     selectedValue={this.state.classTeacherGender}
                     onValueChange={(value) => {
@@ -1472,7 +1784,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     <Picker.Item label={"Female"} value={"Female"} />
                     <Picker.Item label={"Male"} value={"Male"} />
                     <Picker.Item label={"Other"} value={"Other"} />
@@ -1480,7 +1792,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                 </View>
               </View>
 
-              <View style={{ flexDirection: "row", padding: 10 }}>
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 1 }}>
                   <Text
                     style={{
@@ -1489,6 +1801,14 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                   >
                     সংশ্লিষ্ট বিষয়ে প্রশিক্ষণপ্রাপ্ত শিক্ষক পাঠ পরিচালনা করছেন
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Traind Teacher:)
                   </Text>
                   <View style={{ flexDirection: "row" }}>
                     <Picker
@@ -1502,7 +1822,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       }}
                       itemStyle={{ color: "white" }}
                     >
-                      <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                      <Picker.Item label={"Select"} value={""} />
                       <Picker.Item label={"Yes"} value={"Yes"} />
                       <Picker.Item label={"No"} value={"No"} />
                     </Picker>
@@ -1510,7 +1830,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                 </View>
               </View>
 
-              <View style={{ flexDirection: "row", padding: 10 }}>
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
                     <View style={{ flex: 1 }}>
@@ -1522,10 +1842,18 @@ export default class BanglaClassObservationScreen extends React.Component {
                       >
                         ক্লাস শুরুর সময়:
                       </Text>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        (Class Start Time:)
+                      </Text>
                       <TextInput
                         style={{
                           height: 30,
-                          width: 200,
+                          width: 100,
                           padding: 5,
                           borderWidth: 1,
                         }}
@@ -1563,10 +1891,18 @@ export default class BanglaClassObservationScreen extends React.Component {
                       >
                         ক্লাস শেষের সময়:
                       </Text>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        (Class End Time:)
+                      </Text>
                       <TextInput
                         style={{
                           height: 30,
-                          width: 200,
+                          width: 100,
                           padding: 5,
                           borderWidth: 1,
                         }}
@@ -1598,7 +1934,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                     </View>
                   </View>
                 </View>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 2 }}>
                   <Text
                     style={{
                       fontSize: 16,
@@ -1606,6 +1942,14 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                   >
                     পাঠ নং/ পাঠের নাম:
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Lesson:)
                   </Text>
                   <TextInput
                     style={{
@@ -1629,6 +1973,14 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                   >
                     পিরিয়ড:
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Period:)
                   </Text>
                   <TextInput
                     style={{
@@ -1667,7 +2019,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                 </View>
               </View>
 
-              <View style={{ flexDirection: "row", padding: 10 }}>
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 1 }}>
                   <Text
                     style={{
@@ -1677,17 +2029,49 @@ export default class BanglaClassObservationScreen extends React.Component {
                   >
                     ভর্তিকৃত শিশুর সংখ্যা:
                   </Text>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Admitted Student:)
+                  </Text>
                   <View style={{ flexDirection: "row" }}>
                     <View style={{ flex: 1 }}>
                       <Text>মেয়ে:</Text>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        (Girls:)
+                      </Text>
                       <Text>ছেলে:</Text>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        (Boys:)
+                      </Text>
                       <Text>মোট:</Text>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        (Total:)
+                      </Text>
                     </View>
                     <View style={{ flex: 1 }}>
                       <TextInput
                         style={{
                           height: 30,
-                          width: 100,
+                          width: 50,
                           padding: 5,
                           borderWidth: 1,
                         }}
@@ -1706,7 +2090,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       <TextInput
                         style={{
                           height: 30,
-                          width: 100,
+                          width: 50,
                           padding: 5,
                           borderWidth: 1,
                         }}
@@ -1724,7 +2108,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       <TextInput
                         style={{
                           height: 30,
-                          width: 100,
+                          width: 50,
                           padding: 5,
                           borderWidth: 1,
                         }}
@@ -1745,17 +2129,49 @@ export default class BanglaClassObservationScreen extends React.Component {
                   >
                     উপস্থিত শিশুর সংখ্যা :
                   </Text>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Present Student:)
+                  </Text>
                   <View style={{ flexDirection: "row" }}>
                     <View style={{ flex: 1 }}>
                       <Text>মেয়ে:</Text>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        (Girls:)
+                      </Text>
                       <Text>ছেলে:</Text>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        (Boys:)
+                      </Text>
                       <Text>মোট:</Text>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        (Total:)
+                      </Text>
                     </View>
                     <View style={{ flex: 1 }}>
                       <TextInput
                         style={{
                           height: 30,
-                          width: 100,
+                          width: 50,
                           padding: 5,
                           borderWidth: 1,
                         }}
@@ -1773,7 +2189,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       <TextInput
                         style={{
                           height: 30,
-                          width: 100,
+                          width: 50,
                           padding: 5,
                           borderWidth: 1,
                         }}
@@ -1791,7 +2207,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       <TextInput
                         style={{
                           height: 30,
-                          width: 100,
+                          width: 50,
                           padding: 5,
                           borderWidth: 1,
                         }}
@@ -1805,7 +2221,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                 </View>
               </View>
 
-              <View style={{ flexDirection: "row", padding: 10 }}>
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
                     <Text
@@ -1817,16 +2233,27 @@ export default class BanglaClassObservationScreen extends React.Component {
                       পরিদর্শক এর নাম:
                     </Text>
                     <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
                     >
                       *
                     </Text>
                   </View>
-
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Visitor:)
+                  </Text>
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 250,
                     }}
                     selectedValue={this.state.pickerVisitor}
                     onValueChange={(value) => {
@@ -1834,7 +2261,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     {this.state.allEmployee.map((item) => {
                       return (
                         <Picker.Item
@@ -1846,6 +2273,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                     })}
                   </Picker>
                 </View>
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
                     <Text
@@ -1857,16 +2287,27 @@ export default class BanglaClassObservationScreen extends React.Component {
                       পদবী:
                     </Text>
                     <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
                     >
                       *
                     </Text>
                   </View>
-
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Visitor Designation:)
+                  </Text>
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 180,
                     }}
                     selectedValue={this.state.pickerDesignation}
                     onValueChange={(value) => {
@@ -1921,7 +2362,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     {this.state.allDesignation.map((item) => {
                       return (
                         <Picker.Item
@@ -1944,12 +2385,28 @@ export default class BanglaClassObservationScreen extends React.Component {
                       পরিদর্শক এর অফিস:
                     </Text>
                     <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
                     >
                       *
                     </Text>
                   </View>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Visitor Office:)
+                  </Text>
                   <Picker
+                    style={{
+                      height: 40,
+                      width: 130,
+                    }}
                     selectedValue={this.state.pickerVisitorOffice}
                     onValueChange={(value) => {
                       this.setState({ pickerVisitorOffice: value });
@@ -1978,22 +2435,19 @@ export default class BanglaClassObservationScreen extends React.Component {
                       }
                     }}
                     itemStyle={{ color: "white" }}
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     <Picker.Item label={"CO"} value={"CO"} />
                     <Picker.Item label={"DFO"} value={"DFO"} />
                     <Picker.Item label={"CFO"} value={"CFO"} />
                     <Picker.Item label={"NFO"} value={"NFO"} />
                     <Picker.Item label={"MFO"} value={"MFO"} />
+                    <Picker.Item label={"NrFO"} value={"NrFO"} />
                   </Picker>
                 </View>
               </View>
 
-              <View style={{ flexDirection: "row", padding: 10 }}>
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 2 }}>
                   <Text
                     style={{
@@ -2003,10 +2457,18 @@ export default class BanglaClassObservationScreen extends React.Component {
                   >
                     মন্তব্য :
                   </Text>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Comment:)
+                  </Text>
                   <TextInput
                     style={{
                       height: 80,
-                      width: 520,
+                      width: 340,
                       padding: 5,
                       borderWidth: 1,
                     }}
@@ -2022,10 +2484,12 @@ export default class BanglaClassObservationScreen extends React.Component {
                   />
                 </View>
               </View>
+
+              {/* <CollapsibleView title="Click to open"></CollapsibleView> */}
             </Card>
           </View>
 
-          <View style={{ padding: 10 }}>
+          {/* <View style={{ padding: 10 }}>
             <Text style={styles.bigRedText}>নির্দেশনা </Text>
             <Card style={{ padding: 10, margin: 10 }}>
               <Text style={{ padding: 5 }}>
@@ -2088,13 +2552,13 @@ export default class BanglaClassObservationScreen extends React.Component {
                 </View>
               </View>
             </Card>
-          </View>
+          </View> */}
 
           <View style={{ padding: 10 }}>
             <Text style={styles.bigRedText}>ইনডিকেটর</Text>
-
+            <Text style={styles.bigRedText}>(Indicator)</Text>
             <Card style={{ padding: 10, margin: 10, flex: 1 }}>
-              <View style={{ padding: 5, flexDirection: "row" }}>
+              <View style={{ padding: 5 }}>
                 <Text
                   style={{
                     backgroundColor: "green",
@@ -2102,8 +2566,16 @@ export default class BanglaClassObservationScreen extends React.Component {
                     fontWeight: "bold",
                   }}
                 >
-                  পাঠ চলাকালীন (পাঠ উপস্থাপনের শুরু থেকে দেখতে হবে এবং সার্বিক
-                  অংশের সূচকগুলা শেষে দেখতে হবে ।)
+                  প্রায়োরিটি এরিয়া - ১: পাঠদান পরিকল্পনা অনুসরণ
+                </Text>
+                <Text
+                  style={{
+                    backgroundColor: "green",
+                    fontSize: 18,
+                    fontWeight: "bold",
+                  }}
+                >
+                  (Priority Area - 1: Following the lesson plan)
                 </Text>
               </View>
               <View style={{ padding: 5 }}>
@@ -2124,12 +2596,18 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                   >
                     <Text>
-                      ১. শিক্ষক ধ্বনি সচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের
-                      ধ্বনি সঠিকভাবে উচ্চারণ করেছেন এবং শিক্ষার্থীদের চর্চা করার
-                      সুযোগ দিয়েছেন ।
+                      ১ক. শিক্ষক ক্লাস চলাকালীন শিক্ষক-নির্দেশিকা অনুসরণ করেছেন
+                      এবং প্রয়োজনে দেখেছেন ।
+                    </Text>
+                    <Text>
+                      (1a. The teacher followed the teacher-guide during the
+                      class And saw if necessary.)
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
-                      অগ্রাধিকার এরিয়া: ২
+                      অগ্রাধিকার এরিয়া: ১
+                    </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      (Priority Area: 1)
                     </Text>
                   </Card>
                   <Card
@@ -2143,14 +2621,16 @@ export default class BanglaClassObservationScreen extends React.Component {
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>পর্যবেক্ষণ: </Text>
+                        <Text>(Observation:)</Text>
                         <Picker
                           style={{
                             height: 40,
-                            width: 150,
+                            width: 140,
                           }}
                           onValueChange={(value) => {
                             this.setState({
-                              ind1PhonemicAwarenessStatus: value,
+                              ind11TeacherFollowedTeacherGuideInClassStatus:
+                                value,
                             });
 
                             // Set teacher status
@@ -2264,22 +2744,26 @@ export default class BanglaClassObservationScreen extends React.Component {
                             // }
                             // Set teacher status
                           }}
-                          selectedValue={this.state.ind1PhonemicAwarenessStatus}
+                          selectedValue={
+                            this.state
+                              .ind11TeacherFollowedTeacherGuideInClassStatus
+                          }
                           itemStyle={{ color: "white" }}
                         >
-                          <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                          <Picker.Item label={"হ্যাঁ"} value={"Yes"} />
-                          <Picker.Item label={"না"} value={"No"} />
-                          <Picker.Item label={"আংশিক"} value={"Partial"} />
+                          <Picker.Item label={"Select"} value={""} />
+                          <Picker.Item label={"Yes"} value={"Yes"} />
+                          <Picker.Item label={"No"} value={"No"} />
+                          <Picker.Item label={"Partial"} value={"Partial"} />
                           <Picker.Item label={"N/A"} value={"N/A"} />
                         </Picker>
                       </View>
                       <View style={{ flex: 2, padding: 2 }}>
                         <Text>মন্তব্য: </Text>
+                        <Text>(Comment:)</Text>
                         <TextInput
                           style={{
                             height: 50,
-                            width: 350,
+                            width: 230,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2287,14 +2771,19 @@ export default class BanglaClassObservationScreen extends React.Component {
                           placeholder=""
                           editable={true}
                           onChangeText={(text) =>
-                            this.setState({ ind1PhonemicAwarenessNotes: text })
+                            this.setState({
+                              ind11TeacherFollowedTeacherGuideInClassNote: text,
+                            })
                           }
-                          value={this.state.ind1PhonemicAwarenessNotes + ""}
+                          value={
+                            this.state
+                              .ind11TeacherFollowedTeacherGuideInClassNote + ""
+                          }
                         ></TextInput>
                       </View>
                     </View>
                   </Card>
-                  {ind1PhonemicAwarenessStatus === "No" && (
+                  {ind11TeacherFollowedTeacherGuideInClassStatus === "No" && (
                     <View>
                       <Card
                         style={{
@@ -2304,7 +2793,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                           alignSelf: "center",
                         }}
                       >
-                        <Text style={{ fontWeight: "bold" }}>
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
                           না: বর্ণ (বর্ণ, কারচিহ্ন, যুক্তবর্ণ) পড়া বা বর্ণ ও
                           শব্দাংশ মিলিয়ে শব্দ পড়ার কাজটি শিক্ষক সহায়িকাতে
                           উল্লেখিত নির্দেশনা অনুযায়ী শেখান নি এবং শিক্ষার্থীদের
@@ -2313,7 +2802,8 @@ export default class BanglaClassObservationScreen extends React.Component {
                       </Card>
                     </View>
                   )}
-                  {ind1PhonemicAwarenessStatus === "Partial" && (
+                  {ind11TeacherFollowedTeacherGuideInClassStatus ===
+                    "Partial" && (
                     <View>
                       <Card
                         style={{
@@ -2323,7 +2813,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                           alignSelf: "center",
                         }}
                       >
-                        <Text style={{ fontWeight: "bold" }}>
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
                           আংশিক: বর্ণ (বর্ণ, কারচিহ্ন, যুক্তবর্ণ) পড়া বা বর্ণ ও
                           শব্দাংশ মিলিয়ে শব্দ পড়ার কাজে শিক্ষক সহায়িকাতে
                           উল্লেখিত এক বা একাধিক ধাপ নির্দেশনা অনুযায়ী করেন নি
@@ -2342,31 +2832,52 @@ export default class BanglaClassObservationScreen extends React.Component {
                     alignSelf: "center",
                   }}
                 >
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
                     <Text>
-                      ২. শিক্ষক সঠিকভাবে বর্ণ পড়া বা বর্ণ ও শব্দাংশ মিলিয়ে শব্দ
-                      পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।
-                      (প্রযোজ্য ক্ষেত্রে)
+                      ১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ
+                      করেছেন ।
+                    </Text>
+                    <Text>
+                      (1b. Teachers follow the 'I do-we do-you do' method in the
+                      classroom)
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
                       অগ্রাধিকার এরিয়া: ১
                     </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      (Priority Area: 1)
+                    </Text>
                   </Card>
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>পর্যবেক্ষণ: </Text>
+                        <Text>(Observation:)</Text>
                         <Picker
                           style={{
                             height: 40,
-                            width: 150,
+                            width: 140,
                           }}
                           selectedValue={
-                            this.state.ind2LetterIdentificationStatus
+                            this.state.ind12FollowedIDoWeDoYouDoStatus
                           }
                           onValueChange={(value) => {
                             this.setState({
-                              ind2LetterIdentificationStatus: value,
+                              ind12FollowedIDoWeDoYouDoStatus: value,
                             });
 
                             // Set teacher status
@@ -2445,19 +2956,20 @@ export default class BanglaClassObservationScreen extends React.Component {
                           }}
                           itemStyle={{ color: "white" }}
                         >
-                          <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                          <Picker.Item label={"হ্যাঁ"} value={"Yes"} />
-                          <Picker.Item label={"না"} value={"No"} />
-                          <Picker.Item label={"আংশিক"} value={"Partial"} />
+                          <Picker.Item label={"Select"} value={""} />
+                          <Picker.Item label={"Yes"} value={"Yes"} />
+                          <Picker.Item label={"No"} value={"No"} />
+                          <Picker.Item label={"Partial"} value={"Partial"} />
                           <Picker.Item label={"N/A"} value={"N/A"} />
                         </Picker>
                       </View>
                       <View style={{ flex: 2, padding: 2 }}>
                         <Text>মন্তব্য: </Text>
+                        <Text>(Comment:)</Text>
                         <TextInput
                           style={{
                             height: 50,
-                            width: 350,
+                            width: 230,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2466,15 +2978,15 @@ export default class BanglaClassObservationScreen extends React.Component {
                           editable={true}
                           onChangeText={(text) =>
                             this.setState({
-                              ind2LetterIdentificationNotes: text,
+                              ind12FollowedIDoWeDoYouDoNote: text,
                             })
                           }
-                          value={this.state.ind2LetterIdentificationNotes + ""}
+                          value={this.state.ind12FollowedIDoWeDoYouDoNote + ""}
                         ></TextInput>
                       </View>
                     </View>
                   </Card>
-                  {ind2LetterIdentificationStatus === "No" && (
+                  {ind12FollowedIDoWeDoYouDoStatus === "No" && (
                     <View>
                       <Card
                         style={{
@@ -2484,7 +2996,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                           alignSelf: "center",
                         }}
                       >
-                        <Text style={{ fontWeight: "bold" }}>
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
                           না: বর্ণ (বর্ণ, কারচিহ্ন, যুক্তবর্ণ) পড়া বা বর্ণ ও
                           শব্দাংশ মিলিয়ে শব্দ পড়ার কাজটি শিক্ষক সহায়িকাতে
                           উল্লেখিত নির্দেশনা অনুযায়ী শেখান নি এবং শিক্ষার্থীদের
@@ -2493,7 +3005,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       </Card>
                     </View>
                   )}
-                  {ind2LetterIdentificationStatus === "Partial" && (
+                  {ind12FollowedIDoWeDoYouDoStatus === "Partial" && (
                     <View>
                       <Card
                         style={{
@@ -2503,7 +3015,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                           alignSelf: "center",
                         }}
                       >
-                        <Text style={{ fontWeight: "bold" }}>
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
                           আংশিক: বর্ণ (বর্ণ, কারচিহ্ন, যুক্তবর্ণ) পড়া বা বর্ণ ও
                           শব্দাংশ মিলিয়ে শব্দ পড়ার কাজে শিক্ষক সহায়িকাতে
                           উল্লেখিত এক বা একাধিক ধাপ নির্দেশনা অনুযায়ী করেন নি
@@ -2522,31 +3034,52 @@ export default class BanglaClassObservationScreen extends React.Component {
                     alignSelf: "center",
                   }}
                 >
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
                     <Text>
-                      ৩. শিক্ষক শব্দ ভাণ্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং
-                      শিক্ষার্থীদের শব্দগুলো ব্যবহার করে নতুন বাক্য গঠনের সুযোগ
-                      দিয়েছেন । (প্রযোজ্য ক্ষেত্রে)
+                      ১গ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার
+                      সুযোগ দিয়েছেন ।
+                    </Text>
+                    <Text>
+                      (1c. Teacher makes students read independently during
+                      class)
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
-                      অগ্রাধিকার এরিয়া: ৩
+                      অগ্রাধিকার এরিয়া: ১
+                    </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      (Priority Area: 1)
                     </Text>
                   </Card>
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>পর্যবেক্ষণ: </Text>
+                        <Text>(Observation:)</Text>
                         <Picker
                           style={{
                             height: 50,
-                            width: 150,
+                            width: 140,
                           }}
                           selectedValue={
-                            this.state.ind3VocabularyIdentificationStatus
+                            this.state.ind13IndependentReadingOppertunityStatus
                           }
                           onValueChange={(value) => {
                             this.setState({
-                              ind3VocabularyIdentificationStatus: value,
+                              ind13IndependentReadingOppertunityStatus: value,
                             });
 
                             // Set teacher status
@@ -2625,19 +3158,20 @@ export default class BanglaClassObservationScreen extends React.Component {
                           }}
                           itemStyle={{ color: "white" }}
                         >
-                          <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                          <Picker.Item label={"হ্যাঁ"} value={"Yes"} />
-                          <Picker.Item label={"না"} value={"No"} />
-                          <Picker.Item label={"আংশিক"} value={"Partial"} />
+                          <Picker.Item label={"Select"} value={""} />
+                          <Picker.Item label={"Yes"} value={"Yes"} />
+                          <Picker.Item label={"No"} value={"No"} />
+                          <Picker.Item label={"Partial"} value={"Partial"} />
                           <Picker.Item label={"N/A"} value={"N/A"} />
                         </Picker>
                       </View>
                       <View style={{ flex: 2, padding: 2 }}>
                         <Text>মন্তব্য: </Text>
+                        <Text>(Comment:)</Text>
                         <TextInput
                           style={{
                             height: 50,
-                            width: 350,
+                            width: 230,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2646,17 +3180,18 @@ export default class BanglaClassObservationScreen extends React.Component {
                           editable={true}
                           onChangeText={(text) =>
                             this.setState({
-                              ind3VocabularyIdentificationNotes: text,
+                              ind13IndependentReadingOppertunityNote: text,
                             })
                           }
                           value={
-                            this.state.ind3VocabularyIdentificationNotes + ""
+                            this.state.ind13IndependentReadingOppertunityNote +
+                            ""
                           }
                         ></TextInput>
                       </View>
                     </View>
                   </Card>
-                  {ind3VocabularyIdentificationStatus === "No" && (
+                  {ind13IndependentReadingOppertunityStatus === "No" && (
                     <View>
                       <Card
                         style={{
@@ -2666,7 +3201,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                           alignSelf: "center",
                         }}
                       >
-                        <Text style={{ fontWeight: "bold" }}>
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
                           না: শিক্ষক শব্দভান্ডারের সংশ্লিষ্ট শব্দগুলো অর্থসহ
                           শেখান নি এবং শব্দগুলো ব্যবহার করে শিক্ষার্থীদের নতুন
                           বাক্য তৈরির সুযোগ দেন নি।
@@ -2674,7 +3209,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       </Card>
                     </View>
                   )}
-                  {ind3VocabularyIdentificationStatus === "Partial" && (
+                  {ind13IndependentReadingOppertunityStatus === "Partial" && (
                     <View>
                       <Card
                         style={{
@@ -2684,7 +3219,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                           alignSelf: "center",
                         }}
                       >
-                        <Text style={{ fontWeight: "bold" }}>
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
                           আংশিক: শিক্ষক শব্দভান্ডারের সংশ্লিষ্ট শব্দগুলোর যেকোন
                           একটি (প্রযোজ্য ক্ষেত্রে একাধিক) অর্থসহ শেখাননি অথবা
                           শব্দগুলো ব্যবহার করে শিক্ষার্থীদের নতুন বাক্য তৈরির
@@ -2703,33 +3238,55 @@ export default class BanglaClassObservationScreen extends React.Component {
                     alignSelf: "center",
                   }}
                 >
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
                     <Text>
-                      ৪. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি , শুদ্ধ
-                      উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন
-                      এবং শিক্ষার্থীদের শব্দ ভাণ্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন
-                      এবং শিক্ষার্থীদের শব্দগুলো ব্যবহার করে নতুন বাক্য গঠনের
-                      সুযোগ দিয়েছেন । (প্রযোজ্য ক্ষেত্রে)
+                      ১ঘ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর
+                      গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর পাঠের
+                      ধারাবাহিকতা অনুসরণ করে পড়িয়েছেন ।
+                    </Text>
+                    <Text>
+                      (1d. Students workbook tasks, books, notebooks and LF's
+                      from the last observation form it was seen that the
+                      lessons after the last visit taught following the
+                      sequence.)
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
-                      অগ্রাধিকার এরিয়া: ২
+                      অগ্রাধিকার এরিয়া: ১
+                    </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      (Priority Area: 1)
                     </Text>
                   </Card>
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>পর্যবেক্ষণ: </Text>
+                        <Text>(Observation:)</Text>
                         <Picker
                           style={{
                             height: 50,
-                            width: 150,
+                            width: 140,
                           }}
                           selectedValue={
-                            this.state.ind4FluencyIdentificationStatus
+                            this.state.ind14FollowedContinuityOfLessonStatus
                           }
                           onValueChange={(value) => {
                             this.setState({
-                              ind4FluencyIdentificationStatus: value,
+                              ind14FollowedContinuityOfLessonStatus: value,
                             });
 
                             // Set teacher status
@@ -2808,19 +3365,20 @@ export default class BanglaClassObservationScreen extends React.Component {
                           }}
                           itemStyle={{ color: "white" }}
                         >
-                          <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                          <Picker.Item label={"হ্যাঁ"} value={"Yes"} />
-                          <Picker.Item label={"না"} value={"No"} />
-                          <Picker.Item label={"আংশিক"} value={"Partial"} />
+                          <Picker.Item label={"Select"} value={""} />
+                          <Picker.Item label={"Yes"} value={"Yes"} />
+                          <Picker.Item label={"No"} value={"No"} />
+                          <Picker.Item label={"Partial"} value={"Partial"} />
                           <Picker.Item label={"N/A"} value={"N/A"} />
                         </Picker>
                       </View>
                       <View style={{ flex: 2, padding: 2 }}>
                         <Text>মন্তব্য: </Text>
+                        <Text>(Comment:)</Text>
                         <TextInput
                           style={{
                             height: 50,
-                            width: 350,
+                            width: 230,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2829,15 +3387,17 @@ export default class BanglaClassObservationScreen extends React.Component {
                           editable={true}
                           onChangeText={(text) =>
                             this.setState({
-                              ind4FluencyIdentificationNotes: text,
+                              ind14FollowedContinuityOfLessonNote: text,
                             })
                           }
-                          value={this.state.ind4FluencyIdentificationNotes + ""}
+                          value={
+                            this.state.ind14FollowedContinuityOfLessonNote + ""
+                          }
                         ></TextInput>
                       </View>
                     </View>
                   </Card>
-                  {ind4FluencyIdentificationStatus === "No" && (
+                  {ind14FollowedContinuityOfLessonStatus === "No" && (
                     <View>
                       <Card
                         style={{
@@ -2847,7 +3407,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                           alignSelf: "center",
                         }}
                       >
-                        <Text style={{ fontWeight: "bold" }}>
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
                           না: অনুচ্ছেদ পড়ার সময় শিক্ষক সঠিক গতি, শুদ্ধ উচ্চারণ ও
                           ভাবভঙ্গি বজায় রেখে পড়ে দেখাননি এবং শিক্ষার্থীদের চর্চা
                           করার সুযোগ দেন নি।
@@ -2855,7 +3415,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       </Card>
                     </View>
                   )}
-                  {ind4FluencyIdentificationStatus === "Partial" && (
+                  {ind14FollowedContinuityOfLessonStatus === "Partial" && (
                     <View>
                       <Card
                         style={{
@@ -2865,7 +3425,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                           alignSelf: "center",
                         }}
                       >
-                        <Text style={{ fontWeight: "bold" }}>
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
                           আংশিক: অনুচ্ছেদ পড়ার সময় শিক্ষক সঠিক গতি/ শুদ্ধ
                           উচ্চারণ/ ভাবভঙ্গি (প্রযোজ্য ক্ষেত্রে) বজায় রেখে পড়েন
                           নি অথবা শিক্ষার্থীদের চর্চা করার সুযোগ দেন নি।
@@ -2883,28 +3443,51 @@ export default class BanglaClassObservationScreen extends React.Component {
                     alignSelf: "center",
                   }}
                 >
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
                     <Text>
-                      ৫. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন
-                      করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন । (প্রযোজ্য
-                      ক্ষেত্রে)
+                      ১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা
+                      দিয়েছেন ।
+                    </Text>
+                    <Text>
+                      (1e. Teachers guide students to work in the workbook)
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
-                      অগ্রাধিকার এরিয়া: ৩
+                      অগ্রাধিকার এরিয়া: ১
+                    </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      (Priority Area: 1)
                     </Text>
                   </Card>
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>পর্যবেক্ষণ: </Text>
                         <Picker
                           style={{
                             height: 50,
-                            width: 150,
+                            width: 140,
                           }}
-                          selectedValue={this.state.ind5ComprehensionStatus}
+                          selectedValue={
+                            this.state.ind15InstructedToUseWorkbookStatus
+                          }
                           onValueChange={(value) => {
-                            this.setState({ ind5ComprehensionStatus: value });
+                            this.setState({
+                              ind15InstructedToUseWorkbookStatus: value,
+                            });
 
                             // Set teacher status
                             if (
@@ -2982,19 +3565,20 @@ export default class BanglaClassObservationScreen extends React.Component {
                           }}
                           itemStyle={{ color: "white" }}
                         >
-                          <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                          <Picker.Item label={"হ্যাঁ"} value={"Yes"} />
-                          <Picker.Item label={"না"} value={"No"} />
-                          <Picker.Item label={"আংশিক"} value={"Partial"} />
+                          <Picker.Item label={"Select"} value={""} />
+                          <Picker.Item label={"Yes"} value={"Yes"} />
+                          <Picker.Item label={"No"} value={"No"} />
+                          <Picker.Item label={"Partial"} value={"Partial"} />
                           <Picker.Item label={"N/A"} value={"N/A"} />
                         </Picker>
                       </View>
                       <View style={{ flex: 2, padding: 2 }}>
                         <Text>মন্তব্য: </Text>
+                        <Text>(Comment:)</Text>
                         <TextInput
                           style={{
                             height: 50,
-                            width: 350,
+                            width: 230,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3003,15 +3587,17 @@ export default class BanglaClassObservationScreen extends React.Component {
                           editable={true}
                           onChangeText={(text) =>
                             this.setState({
-                              ind5ComprehensionNotes: text,
+                              ind15InstructedToUseWorkbookNote: text,
                             })
                           }
-                          value={this.state.ind5ComprehensionNotes + ""}
+                          value={
+                            this.state.ind15InstructedToUseWorkbookNote + ""
+                          }
                         ></TextInput>
                       </View>
                     </View>
                   </Card>
-                  {ind5ComprehensionStatus === "No" && (
+                  {ind15InstructedToUseWorkbookStatus === "No" && (
                     <View>
                       <Card
                         style={{
@@ -3021,14 +3607,14 @@ export default class BanglaClassObservationScreen extends React.Component {
                           alignSelf: "center",
                         }}
                       >
-                        <Text style={{ fontWeight: "bold" }}>
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
                           না: শিক্ষক বোধগম্যতায় সঠিক উত্তর খোঁজার জন্য
                           শিক্ষার্থীদের সহায়ক প্রশ্ন করেন নি।
                         </Text>
                       </Card>
                     </View>
                   )}
-                  {ind5ComprehensionStatus === "Partial" && (
+                  {ind15InstructedToUseWorkbookStatus === "Partial" && (
                     <View>
                       <Card
                         style={{
@@ -3038,7 +3624,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                           alignSelf: "center",
                         }}
                       >
-                        <Text style={{ fontWeight: "bold" }}>
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
                           আংশিক: শিক্ষার্থীরা সঠিক উত্তর খুঁজে না পেলে শিক্ষক এক
                           বা একাধিক প্রশ্নের ক্ষেত্রে সহায়ক প্রশ্ন করে সঠিক
                           উত্তর খুঁজে পেতে সহায়তা করেন নি বা সঠিক উত্তর খোঁজার
@@ -3057,28 +3643,50 @@ export default class BanglaClassObservationScreen extends React.Component {
                     alignSelf: "center",
                   }}
                 >
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
                     <Text>
-                      ৬. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ / শব্দ / বাক্য
-                      লেখার কাজ করিয়েছেন । (প্রযোজ্য ক্ষেত্রে)
+                      ১চ. শিক্ষক স্বচ্ছন্দে পাঠের একটি কাজের পর আরেকটি কাজ
+                      সম্পন্ন করেছেন ।
+                    </Text>
+                    <Text>
+                      (1f. The teacher eases the lesson one task after another)
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
-                      অগ্রাধিকার এরিয়া: ২
+                      অগ্রাধিকার এরিয়া: ১
+                    </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      (Priority Area: 1)
                     </Text>
                   </Card>
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>পর্যবেক্ষণ: </Text>
                         <Picker
                           style={{
                             height: 50,
-                            width: 150,
+                            width: 140,
                           }}
-                          selectedValue={this.state.ind6WritingActivitiesStatus}
+                          selectedValue={
+                            this.state.ind16CompletedOneTaskAfterAnotherStatus
+                          }
                           onValueChange={(value) => {
                             this.setState({
-                              ind6WritingActivitiesStatus: value,
+                              ind16CompletedOneTaskAfterAnotherStatus: value,
                             });
 
                             // Set teacher status
@@ -3157,19 +3765,20 @@ export default class BanglaClassObservationScreen extends React.Component {
                           }}
                           itemStyle={{ color: "white" }}
                         >
-                          <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                          <Picker.Item label={"হ্যাঁ"} value={"Yes"} />
-                          <Picker.Item label={"না"} value={"No"} />
-                          <Picker.Item label={"আংশিক"} value={"Partial"} />
+                          <Picker.Item label={"Select"} value={""} />
+                          <Picker.Item label={"Yes"} value={"Yes"} />
+                          <Picker.Item label={"No"} value={"No"} />
+                          <Picker.Item label={"Partial"} value={"Partial"} />
                           <Picker.Item label={"N/A"} value={"N/A"} />
                         </Picker>
                       </View>
                       <View style={{ flex: 2, padding: 2 }}>
                         <Text>মন্তব্য: </Text>
+                        <Text>(Comment:)</Text>
                         <TextInput
                           style={{
                             height: 50,
-                            width: 350,
+                            width: 230,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3178,15 +3787,18 @@ export default class BanglaClassObservationScreen extends React.Component {
                           editable={true}
                           onChangeText={(text) =>
                             this.setState({
-                              ind6WritingActivitiesNotes: text,
+                              ind16CompletedOneTaskAfterAnotherNote: text,
                             })
                           }
-                          value={this.state.ind6WritingActivitiesNotes + ""}
+                          value={
+                            this.state.ind16CompletedOneTaskAfterAnotherNote +
+                            ""
+                          }
                         ></TextInput>
                       </View>
                     </View>
                   </Card>
-                  {ind6WritingActivitiesStatus === "No" && (
+                  {ind16CompletedOneTaskAfterAnotherStatus === "No" && (
                     <View>
                       <Card
                         style={{
@@ -3196,14 +3808,14 @@ export default class BanglaClassObservationScreen extends React.Component {
                           alignSelf: "center",
                         }}
                       >
-                        <Text style={{ fontWeight: "bold" }}>
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
                           না: শিক্ষক সহায়িকার সঠিক নির্দেশনা অনুযায়ী শিক্ষক
                           বর্ণ/ যুক্তবর্ণ /শব্দ/ বাক্য লেখার কাজ করাননি।
                         </Text>
                       </Card>
                     </View>
                   )}
-                  {ind6WritingActivitiesStatus === "Partial" && (
+                  {ind16CompletedOneTaskAfterAnotherStatus === "Partial" && (
                     <View>
                       <Card
                         style={{
@@ -3213,7 +3825,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                           alignSelf: "center",
                         }}
                       >
-                        <Text style={{ fontWeight: "bold" }}>
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
                           আংশিক: শিক্ষক সহায়িকার নির্দেশনা অনুযায়ী এক বা একাধিক
                           ধাপ অনুসরণ ব্যাতিরেকে শিক্ষক বর্ণ/ যুক্তবর্ণ /শব্দ/
                           বাক্য লেখার কাজ করিয়েছেন।
@@ -3223,7 +3835,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                   )}
                 </Card>
 
-                <View style={{ padding: 5, flexDirection: "row" }}>
+                <View style={{ padding: 5 }}>
                   <Text
                     style={{
                       backgroundColor: "green",
@@ -3231,8 +3843,16 @@ export default class BanglaClassObservationScreen extends React.Component {
                       fontWeight: "bold",
                     }}
                   >
-                    সার্বিক (সমগ্র পাঠ উপস্থাপন সংশ্লিষ্ট এবং সম্পূর্ণ পাঠ
-                    উপস্থাপন শেষে পূরণ করেতে হবে)
+                    প্রায়োরিটি এরিয়া - ২: মৌলিক পাঠদান দক্ষতা
+                  </Text>
+                  <Text
+                    style={{
+                      backgroundColor: "green",
+                      fontSize: 18,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Priority Area - 2: Basic Teaching Skills)
                   </Text>
                 </View>
 
@@ -3244,28 +3864,52 @@ export default class BanglaClassObservationScreen extends React.Component {
                     alignSelf: "center",
                   }}
                 >
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
                     <Text>
-                      ৭. শিক্ষক শিখন-শেখানো কার্যক্রমে আমি করি-আমরা করি-তুমি কর
-                      পদ্ধতিটি ব্যবহার করেছেন । (প্রযোজ্য ক্ষেত্রে)
+                      ২ক. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ
+                      ধারাবাহিভাবে বাস্তবায়ন করেছেন ।
+                    </Text>
+                    <Text>
+                      (2a. All lesson assignments within the time allotted by
+                      the teacher continuously implemented.)
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
-                      অগ্রাধিকার এরিয়া: ১
+                      অগ্রাধিকার এরিয়া: ২
+                    </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      (Priority Area: 2)
                     </Text>
                   </Card>
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>পর্যবেক্ষণ: </Text>
+                        <Text>(Observation:)</Text>
                         <Picker
                           style={{
                             height: 50,
-                            width: 150,
+                            width: 140,
                           }}
-                          selectedValue={this.state.ind7IDoWeDoYouDoStatus}
+                          selectedValue={
+                            this.state.ind21LessonConsistentlyIntimeStatus
+                          }
                           onValueChange={(value) => {
                             this.setState({
-                              ind7IDoWeDoYouDoStatus: value,
+                              ind21LessonConsistentlyIntimeStatus: value,
                             });
 
                             // Set teacher status
@@ -3344,19 +3988,20 @@ export default class BanglaClassObservationScreen extends React.Component {
                           }}
                           itemStyle={{ color: "white" }}
                         >
-                          <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                          <Picker.Item label={"হ্যাঁ"} value={"Yes"} />
-                          <Picker.Item label={"না"} value={"No"} />
-                          <Picker.Item label={"আংশিক"} value={"Partial"} />
+                          <Picker.Item label={"Select"} value={""} />
+                          <Picker.Item label={"Yes"} value={"Yes"} />
+                          <Picker.Item label={"No"} value={"No"} />
+                          <Picker.Item label={"Partial"} value={"Partial"} />
                           <Picker.Item label={"N/A"} value={"N/A"} />
                         </Picker>
                       </View>
                       <View style={{ flex: 2, padding: 2 }}>
                         <Text>মন্তব্য: </Text>
+                        <Text>(Comment:)</Text>
                         <TextInput
                           style={{
                             height: 50,
-                            width: 350,
+                            width: 230,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3365,15 +4010,17 @@ export default class BanglaClassObservationScreen extends React.Component {
                           editable={true}
                           onChangeText={(text) =>
                             this.setState({
-                              ind7IDoWeDoYouDoNotes: text,
+                              ind21LessonConsistentlyIntimeNote: text,
                             })
                           }
-                          value={this.state.ind7IDoWeDoYouDoNotes + ""}
+                          value={
+                            this.state.ind21LessonConsistentlyIntimeNote + ""
+                          }
                         ></TextInput>
                       </View>
                     </View>
                   </Card>
-                  {ind7IDoWeDoYouDoStatus === "No" && (
+                  {ind21LessonConsistentlyIntimeStatus === "No" && (
                     <View>
                       <Card
                         style={{
@@ -3383,7 +4030,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                           alignSelf: "center",
                         }}
                       >
-                        <Text style={{ fontWeight: "bold" }}>
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
                           না: শিখন-শেখানো কার্যক্রমে রুম টু রিড প্রদত্ত
                           নির্দেশনা অনুযায়ী ‘আমি করি-আমরা করি-তুমি কর’ পদ্ধতি
                           অনুসরণ করেন নি।
@@ -3391,7 +4038,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       </Card>
                     </View>
                   )}
-                  {ind7IDoWeDoYouDoStatus === "Partial" && (
+                  {ind21LessonConsistentlyIntimeStatus === "Partial" && (
                     <View>
                       <Card
                         style={{
@@ -3401,7 +4048,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                           alignSelf: "center",
                         }}
                       >
-                        <Text style={{ fontWeight: "bold" }}>
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
                           আংশিক: শিখন-শেখানো কার্যক্রমে রুম টু রিড প্রদত্ত
                           নির্দেশনায় উল্লেখিত এক বা একাধিক কাজে/ধাপে ‘আমি
                           করি-আমরা করি-তুমি কর’ পদ্ধতি অনুসরণ করেন নি।
@@ -3419,27 +4066,53 @@ export default class BanglaClassObservationScreen extends React.Component {
                     alignSelf: "center",
                   }}
                 >
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
                     <Text>
-                      ৮. শিক্ষক শিক্ষার্থীদের এককভাবে বা জুটিতে বা দলে পড়ার
-                      সুযোগ দিয়েছেন । (প্রযোজ্য ক্ষেত্রে)
+                      ২খ. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের
+                      ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।
+                    </Text>
+                    <Text>
+                      (2b. All letters and words used by the teacher in phonics
+                      work pronounce the sounds correctly.)
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
-                      অগ্রাধিকার এরিয়া: ১
+                      অগ্রাধিকার এরিয়া: ২
+                    </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      (Priority Area: 2)
                     </Text>
                   </Card>
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>পর্যবেক্ষণ: </Text>
+                        <Text>(Observation:)</Text>
                         <Picker
                           style={{
                             height: 50,
-                            width: 150,
+                            width: 140,
                           }}
-                          selectedValue={this.state.ind8GroupWorkStatus}
+                          selectedValue={
+                            this.state.ind22CorrectlyPronouncedStatus
+                          }
                           onValueChange={(value) => {
-                            this.setState({ ind8GroupWorkStatus: value });
+                            this.setState({
+                              ind22CorrectlyPronouncedStatus: value,
+                            });
 
                             // Set teacher status
                             if (
@@ -3517,19 +4190,20 @@ export default class BanglaClassObservationScreen extends React.Component {
                           }}
                           itemStyle={{ color: "white" }}
                         >
-                          <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                          <Picker.Item label={"হ্যাঁ"} value={"Yes"} />
-                          <Picker.Item label={"না"} value={"No"} />
-                          <Picker.Item label={"আংশিক"} value={"Partial"} />
+                          <Picker.Item label={"Select"} value={""} />
+                          <Picker.Item label={"Yes"} value={"Yes"} />
+                          <Picker.Item label={"No"} value={"No"} />
+                          <Picker.Item label={"Partial"} value={"Partial"} />
                           <Picker.Item label={"N/A"} value={"N/A"} />
                         </Picker>
                       </View>
                       <View style={{ flex: 2, padding: 2 }}>
                         <Text>মন্তব্য: </Text>
+                        <Text>(Comment:)</Text>
                         <TextInput
                           style={{
                             height: 50,
-                            width: 350,
+                            width: 230,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3538,15 +4212,15 @@ export default class BanglaClassObservationScreen extends React.Component {
                           editable={true}
                           onChangeText={(text) =>
                             this.setState({
-                              ind8GroupWorkNotes: text,
+                              ind22CorrectlyPronouncedNote: text,
                             })
                           }
-                          value={this.state.ind8GroupWorkNotes + ""}
+                          value={this.state.ind22CorrectlyPronouncedNote + ""}
                         ></TextInput>
                       </View>
                     </View>
                   </Card>
-                  {ind8GroupWorkStatus === "No" && (
+                  {ind22CorrectlyPronouncedStatus === "No" && (
                     <View>
                       <Card
                         style={{
@@ -3556,7 +4230,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                           alignSelf: "center",
                         }}
                       >
-                        <Text style={{ fontWeight: "bold" }}>
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
                           না: শিক্ষক শিক্ষার্থীদের ‘পড়ি লিখি শিখি’ ওয়ার্কবুক ও
                           ‘আমার বাংলা বই’ -এর নির্ধারিত পড়ার অংশে নির্দেশনা
                           অনুযায়ী বর্ণ/ শব্দ/ বাক্য এককভাবে বা জুটিতে বা দলে
@@ -3565,7 +4239,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       </Card>
                     </View>
                   )}
-                  {ind8GroupWorkStatus === "Partial" && (
+                  {ind22CorrectlyPronouncedStatus === "Partial" && (
                     <View>
                       <Card
                         style={{
@@ -3575,7 +4249,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                           alignSelf: "center",
                         }}
                       >
-                        <Text style={{ fontWeight: "bold" }}>
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
                           আংশিক: শিক্ষক শিক্ষার্থীদের ‘পড়ি লিখি শিখি’ ওয়ার্কবুক
                           অথবা ‘আমার বাংলা বই’ -এর নির্ধারিত পড়ার অংশে যেকোন এক
                           বা একাধিক কাজে (বর্ণ/ শব্দ/ বাক্য) নির্দেশনা অনুযায়ী
@@ -3594,375 +4268,54 @@ export default class BanglaClassObservationScreen extends React.Component {
                     alignSelf: "center",
                   }}
                 >
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
                     <Text>
-                      ৯. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ
-                      ধারাবাহিকভাবে সম্পন্ন করেছেন ।
+                      ২গ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/
+                      যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং
+                      শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।
                     </Text>
-                    <Text style={{ fontWeight: "bold" }}>
-                      অগ্রাধিকার এরিয়া: ৩
-                    </Text>
-                  </Card>
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
-                    <View style={{ flexDirection: "row" }}>
-                      <View style={{ flex: 1, padding: 2 }}>
-                        <Text>পর্যবেক্ষণ: </Text>
-                        <Picker
-                          style={{
-                            height: 50,
-                            width: 150,
-                          }}
-                          selectedValue={this.state.ind9TimeOnTaskStatus}
-                          onValueChange={(value) => {
-                            this.setState({ ind9TimeOnTaskStatus: value });
-
-                            // Set teacher status
-                            if (
-                              (this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" ||
-                                this.state.ind1PhonemicAwarenessStatus ===
-                                  "N/A") &&
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind4FluencyIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind6WritingActivitiesStatus ===
-                                "Yes" ||
-                                this.state.ind6WritingActivitiesStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
-                                "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" &&
-                              this.state.ind2LetterIdentificationStatus ===
-                                "Yes" &&
-                              this.state.ind3VocabularyIdentificationStatus ===
-                                "Yes" &&
-                              this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" &&
-                              this.state.ind5ComprehensionStatus === "Yes" &&
-                              this.state.ind6WritingActivitiesStatus ===
-                                "Yes" &&
-                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                              this.state.ind8GroupWorkStatus === "Yes" &&
-                              this.state.ind9TimeOnTaskStatus === "Yes" &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
-                                "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
-                            }
-                            // Set teacher status
-                          }}
-                          itemStyle={{ color: "white" }}
-                        >
-                          <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                          <Picker.Item label={"হ্যাঁ"} value={"Yes"} />
-                          <Picker.Item label={"না"} value={"No"} />
-                          <Picker.Item label={"আংশিক"} value={"Partial"} />
-                          <Picker.Item label={"N/A"} value={"N/A"} />
-                        </Picker>
-                      </View>
-                      <View style={{ flex: 2, padding: 2 }}>
-                        <Text>মন্তব্য: </Text>
-                        <TextInput
-                          style={{
-                            height: 50,
-                            width: 350,
-                            padding: 5,
-                            borderWidth: 1,
-                          }}
-                          keyboardType="default"
-                          placeholder=""
-                          editable={true}
-                          onChangeText={(text) =>
-                            this.setState({
-                              ind9TimeOnTaskNotes: text,
-                            })
-                          }
-                          value={this.state.ind9TimeOnTaskNotes + ""}
-                        ></TextInput>
-                      </View>
-                    </View>
-                  </Card>
-                  {ind9TimeOnTaskStatus === "No" && (
-                    <View>
-                      <Card
-                        style={{
-                          padding: 5,
-                          margin: 5,
-                          flex: 1,
-                          alignSelf: "center",
-                        }}
-                      >
-                        <Text style={{ fontWeight: "bold" }}>
-                          না: শিক্ষক রুম টু রিড প্রদত্ত নির্দেশনা অনুযায়ী
-                          নির্ধারিত সময়ে সবগুলো কাজ ধারাবাহিকভাবে করেন নি।
-                        </Text>
-                      </Card>
-                    </View>
-                  )}
-                  {ind9TimeOnTaskStatus === "Partial" && (
-                    <View>
-                      <Card
-                        style={{
-                          padding: 5,
-                          margin: 5,
-                          flex: 1,
-                          alignSelf: "center",
-                        }}
-                      >
-                        <Text style={{ fontWeight: "bold" }}>
-                          আংশিক: শিক্ষক রুম টু রিড প্রদত্ত নির্দেশনা অনুযায়ী
-                          নির্ধারিত সময়ে সবগুলো কাজ করেননি অথবা ধারাবাহিকভাবে
-                          সবগুলো কাজ করেন নি।
-                        </Text>
-                      </Card>
-                    </View>
-                  )}
-                </Card>
-
-                <Card
-                  style={{
-                    padding: 10,
-                    margin: 10,
-                    flex: 1,
-                    alignSelf: "center",
-                  }}
-                >
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
                     <Text>
-                      ১০. শিক্ষক পাঠের শিখন-শেখানো কাজে সহায়ক উপকরণ (রুম টু রিড
-                      কর্তৃক প্রদত্ত) ব্যবহার করেছেন ।
+                      (2c. Teacher read letters/hyphens correctly or letters/
+                      taught word reading by combining letters and syllables and
+                      Students are given the opportunity to practice.)
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
                       অগ্রাধিকার এরিয়া: ২
                     </Text>
-                  </Card>
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
-                    <View style={{ flexDirection: "row" }}>
-                      <View style={{ flex: 1, padding: 2 }}>
-                        <Text>পর্যবেক্ষণ: </Text>
-                        <Picker
-                          style={{
-                            height: 50,
-                            width: 150,
-                          }}
-                          selectedValue={this.state.ind10UseTeachingAidStatus}
-                          onValueChange={(value) => {
-                            this.setState({ ind10UseTeachingAidStatus: value });
-
-                            // Set teacher status
-                            if (
-                              (this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" ||
-                                this.state.ind1PhonemicAwarenessStatus ===
-                                  "N/A") &&
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind4FluencyIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind6WritingActivitiesStatus ===
-                                "Yes" ||
-                                this.state.ind6WritingActivitiesStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
-                                "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" &&
-                              this.state.ind2LetterIdentificationStatus ===
-                                "Yes" &&
-                              this.state.ind3VocabularyIdentificationStatus ===
-                                "Yes" &&
-                              this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" &&
-                              this.state.ind5ComprehensionStatus === "Yes" &&
-                              this.state.ind6WritingActivitiesStatus ===
-                                "Yes" &&
-                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                              this.state.ind8GroupWorkStatus === "Yes" &&
-                              this.state.ind9TimeOnTaskStatus === "Yes" &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
-                                "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
-                            }
-                            // Set teacher status
-                          }}
-                          itemStyle={{ color: "white" }}
-                        >
-                          <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                          <Picker.Item label={"হ্যাঁ"} value={"Yes"} />
-                          <Picker.Item label={"না"} value={"No"} />
-                          <Picker.Item label={"আংশিক"} value={"Partial"} />
-                          <Picker.Item label={"N/A"} value={"N/A"} />
-                        </Picker>
-                      </View>
-                      <View style={{ flex: 2, padding: 2 }}>
-                        <Text>মন্তব্য: </Text>
-                        <TextInput
-                          style={{
-                            height: 50,
-                            width: 350,
-                            padding: 5,
-                            borderWidth: 1,
-                          }}
-                          keyboardType="default"
-                          placeholder=""
-                          editable={true}
-                          onChangeText={(text) =>
-                            this.setState({
-                              ind10UseTeachingAidNotes: text,
-                            })
-                          }
-                          value={this.state.ind10UseTeachingAidNotes + ""}
-                        ></TextInput>
-                      </View>
-                    </View>
-                  </Card>
-                  {ind10UseTeachingAidStatus === "No" && (
-                    <View>
-                      <Card
-                        style={{
-                          padding: 5,
-                          margin: 5,
-                          flex: 1,
-                          alignSelf: "center",
-                        }}
-                      >
-                        <Text style={{ fontWeight: "bold" }}>
-                          না: শিক্ষক পাঠ চলাকালীন রুম টু রিড প্রদত্ত নির্দেশনা
-                          অনুযায়ী কোন সহায়ক উপকরণ ব্যবহার করেন নি।
-                        </Text>
-                      </Card>
-                    </View>
-                  )}
-                  {ind10UseTeachingAidStatus === "Partial" && (
-                    <View>
-                      <Card
-                        style={{
-                          padding: 5,
-                          margin: 5,
-                          flex: 1,
-                          alignSelf: "center",
-                        }}
-                      >
-                        <Text style={{ fontWeight: "bold" }}>
-                          আংশিক: শিক্ষক পাঠ নির্দেশনা অনুযায়ী রুম টু রিড প্রদত্ত
-                          যে যে সহায়ক উপকরণ ব্যবহারের কথা ছিল তার এক বা একাধিক
-                          উপকরণ ব্যবহার করেন নি। অথবা সকল সহায়ক উপকরণ ব্যবহার
-                          করেছেন তবে সঠিক সময়ে ব্যবহার করেন নি।
-                        </Text>
-                      </Card>
-                    </View>
-                  )}
-                </Card>
-
-                <Card
-                  style={{
-                    padding: 10,
-                    margin: 10,
-                    flex: 1,
-                    alignSelf: "center",
-                  }}
-                >
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
-                    <Text>
-                      ১১. শিক্ষার্থীদের বই, ওয়ার্কবুকের কাজ নিশ্চিত করে যে গত
-                      ভিজিটের পর পাঠের ধারাবাহিকতা অনুসারে অগ্রগতি হয়েছে ।
-                    </Text>
                     <Text style={{ fontWeight: "bold" }}>
-                      অগ্রাধিকার এরিয়া: ২
+                      (Priority Area: 2)
                     </Text>
                   </Card>
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>পর্যবেক্ষণ: </Text>
+                        <Text>(Observation:)</Text>
                         <Picker
                           style={{
                             height: 50,
-                            width: 150,
+                            width: 140,
                           }}
                           selectedValue={
-                            this.state.ind11ContinuityOfLessonsStatus
+                            this.state.ind23TaughtCorrectlyAllowPracticeStatus
                           }
                           onValueChange={(value) => {
                             this.setState({
-                              ind11ContinuityOfLessonsStatus: value,
+                              ind23TaughtCorrectlyAllowPracticeStatus: value,
                             });
 
                             // Set teacher status
@@ -4041,19 +4394,20 @@ export default class BanglaClassObservationScreen extends React.Component {
                           }}
                           itemStyle={{ color: "white" }}
                         >
-                          <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                          <Picker.Item label={"হ্যাঁ"} value={"Yes"} />
-                          <Picker.Item label={"না"} value={"No"} />
-                          <Picker.Item label={"আংশিক"} value={"Partial"} />
+                          <Picker.Item label={"Select"} value={""} />
+                          <Picker.Item label={"Yes"} value={"Yes"} />
+                          <Picker.Item label={"No"} value={"No"} />
+                          <Picker.Item label={"Partial"} value={"Partial"} />
                           <Picker.Item label={"N/A"} value={"N/A"} />
                         </Picker>
                       </View>
                       <View style={{ flex: 2, padding: 2 }}>
                         <Text>মন্তব্য: </Text>
+                        <Text>(Comment:)</Text>
                         <TextInput
                           style={{
                             height: 50,
-                            width: 350,
+                            width: 230,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4062,15 +4416,18 @@ export default class BanglaClassObservationScreen extends React.Component {
                           editable={true}
                           onChangeText={(text) =>
                             this.setState({
-                              ind11ContinuityOfLessonsNotes: text,
+                              ind23TaughtCorrectlyAllowPracticeNote: text,
                             })
                           }
-                          value={this.state.ind11ContinuityOfLessonsNotes + ""}
+                          value={
+                            this.state.ind23TaughtCorrectlyAllowPracticeNote +
+                            ""
+                          }
                         ></TextInput>
                       </View>
                     </View>
                   </Card>
-                  {ind11ContinuityOfLessonsStatus === "No" && (
+                  {ind23TaughtCorrectlyAllowPracticeStatus === "No" && (
                     <View>
                       <Card
                         style={{
@@ -4080,15 +4437,14 @@ export default class BanglaClassObservationScreen extends React.Component {
                           alignSelf: "center",
                         }}
                       >
-                        <Text style={{ fontWeight: "bold" }}>
-                          না: বেশিরভাগ শিক্ষার্থীদের বই, ওয়ার্কবুক এবং এলএফ-এর
-                          গত পর্যবেক্ষণ ফরম দেখলে বোঝা যায় যে গতবারের পরিদর্শনের
-                          পর থেকে কোন পাঠেরই ধারাবাহিকতা অনুসরণ করা হয় নি।
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
+                          না: শিক্ষক রুম টু রিড প্রদত্ত নির্দেশনা অনুযায়ী
+                          নির্ধারিত সময়ে সবগুলো কাজ ধারাবাহিকভাবে করেন নি।
                         </Text>
                       </Card>
                     </View>
                   )}
-                  {ind11ContinuityOfLessonsStatus === "Partial" && (
+                  {ind23TaughtCorrectlyAllowPracticeStatus === "Partial" && (
                     <View>
                       <Card
                         style={{
@@ -4098,11 +4454,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                           alignSelf: "center",
                         }}
                       >
-                        <Text style={{ fontWeight: "bold" }}>
-                          আংশিক: বেশিরভাগ শিক্ষার্থীদের বই, ওয়ার্কবুক এবং
-                          এলএফ-এর গত পর্যবেক্ষণ ফরম দেখলে বোঝা যায় যে গত
-                          পরিদর্শনের পর থেকে মাঝের এক বা একাধিক পাঠ পরিচালিত হয়
-                          নি।
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
+                          আংশিক: শিক্ষক রুম টু রিড প্রদত্ত নির্দেশনা অনুযায়ী
+                          নির্ধারিত সময়ে সবগুলো কাজ করেননি অথবা ধারাবাহিকভাবে
+                          সবগুলো কাজ করেন নি।
                         </Text>
                       </Card>
                     </View>
@@ -4117,28 +4472,55 @@ export default class BanglaClassObservationScreen extends React.Component {
                     alignSelf: "center",
                   }}
                 >
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
                     <Text>
-                      ১২. শিক্ষক ছেলে-মেয়ে, বিশেষ চাহিদা সম্পন্ন ও পিছিয়ে পড়া
-                      শিক্ষার্থীদেরকে পাঠের কাজে এবং মূল্যায়নে অংশগ্রহণ করিয়েছেন
-                      ।
+                      ২ঘ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ
+                      উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে
+                      দেখিয়েছেন ।
+                    </Text>
+                    <Text>
+                      (2d. Teacher presents students reading fluency (proper
+                      pace, clear reading with retention of pronunciation and
+                      expression) and showed)
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
-                      অগ্রাধিকার এরিয়া: ১
+                      অগ্রাধিকার এরিয়া: ২
+                    </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      (Priority Area: 2)
                     </Text>
                   </Card>
-                  <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>পর্যবেক্ষণ: </Text>
+                        <Text>(Observation:)</Text>
                         <Picker
                           style={{
                             height: 50,
-                            width: 150,
+                            width: 140,
                           }}
-                          selectedValue={this.state.ind12AssessmentStatus}
+                          selectedValue={
+                            this.state.ind24DemonstratesFluentReadingStatus
+                          }
                           onValueChange={(value) => {
-                            this.setState({ ind12AssessmentStatus: value });
+                            this.setState({
+                              ind24DemonstratesFluentReadingStatus: value,
+                            });
 
                             // Set teacher status
                             if (
@@ -4216,19 +4598,20 @@ export default class BanglaClassObservationScreen extends React.Component {
                           }}
                           itemStyle={{ color: "white" }}
                         >
-                          <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                          <Picker.Item label={"হ্যাঁ"} value={"Yes"} />
-                          <Picker.Item label={"না"} value={"No"} />
-                          <Picker.Item label={"আংশিক"} value={"Partial"} />
+                          <Picker.Item label={"Select"} value={""} />
+                          <Picker.Item label={"Yes"} value={"Yes"} />
+                          <Picker.Item label={"No"} value={"No"} />
+                          <Picker.Item label={"Partial"} value={"Partial"} />
                           <Picker.Item label={"N/A"} value={"N/A"} />
                         </Picker>
                       </View>
                       <View style={{ flex: 2, padding: 2 }}>
                         <Text>মন্তব্য: </Text>
+                        <Text>(Comment:)</Text>
                         <TextInput
                           style={{
                             height: 50,
-                            width: 350,
+                            width: 230,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4237,15 +4620,17 @@ export default class BanglaClassObservationScreen extends React.Component {
                           editable={true}
                           onChangeText={(text) =>
                             this.setState({
-                              ind12AssessmentNotes: text,
+                              ind24DemonstratesFluentReadingNote: text,
                             })
                           }
-                          value={this.state.ind12AssessmentNotes + ""}
+                          value={
+                            this.state.ind24DemonstratesFluentReadingNote + ""
+                          }
                         ></TextInput>
                       </View>
                     </View>
                   </Card>
-                  {ind12AssessmentStatus === "No" && (
+                  {ind24DemonstratesFluentReadingStatus === "No" && (
                     <View>
                       <Card
                         style={{
@@ -4255,7 +4640,417 @@ export default class BanglaClassObservationScreen extends React.Component {
                           alignSelf: "center",
                         }}
                       >
-                        <Text style={{ fontWeight: "bold" }}>
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
+                          না: শিক্ষক পাঠ চলাকালীন রুম টু রিড প্রদত্ত নির্দেশনা
+                          অনুযায়ী কোন সহায়ক উপকরণ ব্যবহার করেন নি।
+                        </Text>
+                      </Card>
+                    </View>
+                  )}
+                  {ind24DemonstratesFluentReadingStatus === "Partial" && (
+                    <View>
+                      <Card
+                        style={{
+                          padding: 5,
+                          margin: 5,
+                          flex: 1,
+                          alignSelf: "center",
+                        }}
+                      >
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
+                          আংশিক: শিক্ষক পাঠ নির্দেশনা অনুযায়ী রুম টু রিড প্রদত্ত
+                          যে যে সহায়ক উপকরণ ব্যবহারের কথা ছিল তার এক বা একাধিক
+                          উপকরণ ব্যবহার করেন নি। অথবা সকল সহায়ক উপকরণ ব্যবহার
+                          করেছেন তবে সঠিক সময়ে ব্যবহার করেন নি।
+                        </Text>
+                      </Card>
+                    </View>
+                  )}
+                </Card>
+
+                <Card
+                  style={{
+                    padding: 10,
+                    margin: 10,
+                    flex: 1,
+                    alignSelf: "center",
+                  }}
+                >
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
+                    <Text>
+                      ২ঙ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে
+                      পড়ার সুযোগ দিয়েছেন ।
+                    </Text>
+                    <Text>
+                      (2e. The teacher gave students the opportunity to read
+                      several times individually or in pairs or groups.)
+                    </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      অগ্রাধিকার এরিয়া: ২
+                    </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      (Priority Area: 2)
+                    </Text>
+                  </Card>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
+                    <View style={{ flexDirection: "row" }}>
+                      <View style={{ flex: 1, padding: 2 }}>
+                        <Text>পর্যবেক্ষণ: </Text>
+                        <Text>(Observation:)</Text>
+                        <Picker
+                          style={{
+                            height: 50,
+                            width: 140,
+                          }}
+                          selectedValue={
+                            this.state
+                              .ind25AllowReadIndividuallyPairsGroupsStatus
+                          }
+                          onValueChange={(value) => {
+                            this.setState({
+                              ind25AllowReadIndividuallyPairsGroupsStatus:
+                                value,
+                            });
+
+                            // Set teacher status
+                            if (
+                              (this.state.ind1PhonemicAwarenessStatus ===
+                                "Yes" ||
+                                this.state.ind1PhonemicAwarenessStatus ===
+                                  "N/A") &&
+                              (this.state.ind2LetterIdentificationStatus ===
+                                "Yes" ||
+                                this.state.ind2LetterIdentificationStatus ===
+                                  "N/A") &&
+                              (this.state.ind4FluencyIdentificationStatus ===
+                                "Yes" ||
+                                this.state.ind4FluencyIdentificationStatus ===
+                                  "N/A") &&
+                              (this.state.ind6WritingActivitiesStatus ===
+                                "Yes" ||
+                                this.state.ind6WritingActivitiesStatus ===
+                                  "N/A") &&
+                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
+                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
+                              (this.state.ind8GroupWorkStatus === "Yes" ||
+                                this.state.ind8GroupWorkStatus === "N/A") &&
+                              this.state.ind10UseTeachingAidStatus === "Yes" &&
+                              this.state.ind11ContinuityOfLessonsStatus ===
+                                "Yes" &&
+                              this.state.ind12AssessmentStatus === "Yes"
+                            ) {
+                              this.setState({
+                                teacherStatus: "Priority 3",
+                              });
+                            } else if (
+                              this.state.ind1PhonemicAwarenessStatus ===
+                                "Yes" &&
+                              this.state.ind2LetterIdentificationStatus ===
+                                "Yes" &&
+                              this.state.ind3VocabularyIdentificationStatus ===
+                                "Yes" &&
+                              this.state.ind4FluencyIdentificationStatus ===
+                                "Yes" &&
+                              this.state.ind5ComprehensionStatus === "Yes" &&
+                              this.state.ind6WritingActivitiesStatus ===
+                                "Yes" &&
+                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
+                              this.state.ind8GroupWorkStatus === "Yes" &&
+                              this.state.ind9TimeOnTaskStatus === "Yes" &&
+                              this.state.ind10UseTeachingAidStatus === "Yes" &&
+                              this.state.ind11ContinuityOfLessonsStatus ===
+                                "Yes" &&
+                              this.state.ind12AssessmentStatus === "Yes"
+                            ) {
+                              this.setState({
+                                teacherStatus: "Priority 3",
+                              });
+                            } else if (
+                              (this.state.ind2LetterIdentificationStatus ===
+                                "Yes" ||
+                                this.state.ind2LetterIdentificationStatus ===
+                                  "N/A") &&
+                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
+                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
+                              (this.state.ind8GroupWorkStatus === "Yes" ||
+                                this.state.ind8GroupWorkStatus === "N/A") &&
+                              this.state.ind12AssessmentStatus === "Yes"
+                            ) {
+                              this.setState({
+                                teacherStatus: "Priority 2",
+                              });
+                            } else {
+                              this.setState({
+                                teacherStatus: "Priority 1",
+                              });
+                            }
+                            // Set teacher status
+                          }}
+                          itemStyle={{ color: "white" }}
+                        >
+                          <Picker.Item label={"Select"} value={""} />
+                          <Picker.Item label={"Yes"} value={"Yes"} />
+                          <Picker.Item label={"No"} value={"No"} />
+                          <Picker.Item label={"Partial"} value={"Partial"} />
+                          <Picker.Item label={"N/A"} value={"N/A"} />
+                        </Picker>
+                      </View>
+                      <View style={{ flex: 2, padding: 2 }}>
+                        <Text>মন্তব্য: </Text>
+                        <Text>(Comment:)</Text>
+                        <TextInput
+                          style={{
+                            height: 50,
+                            width: 230,
+                            padding: 5,
+                            borderWidth: 1,
+                          }}
+                          keyboardType="default"
+                          placeholder=""
+                          editable={true}
+                          onChangeText={(text) =>
+                            this.setState({
+                              ind25AllowReadIndividuallyPairsGroupsNote: text,
+                            })
+                          }
+                          value={
+                            this.state
+                              .ind25AllowReadIndividuallyPairsGroupsNote + ""
+                          }
+                        ></TextInput>
+                      </View>
+                    </View>
+                  </Card>
+                  {ind25AllowReadIndividuallyPairsGroupsStatus === "No" && (
+                    <View>
+                      <Card
+                        style={{
+                          padding: 5,
+                          margin: 5,
+                          flex: 1,
+                          alignSelf: "center",
+                        }}
+                      >
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
+                          না: বেশিরভাগ শিক্ষার্থীদের বই, ওয়ার্কবুক এবং এলএফ-এর
+                          গত পর্যবেক্ষণ ফরম দেখলে বোঝা যায় যে গতবারের পরিদর্শনের
+                          পর থেকে কোন পাঠেরই ধারাবাহিকতা অনুসরণ করা হয় নি।
+                        </Text>
+                      </Card>
+                    </View>
+                  )}
+                  {ind25AllowReadIndividuallyPairsGroupsStatus ===
+                    "Partial" && (
+                    <View>
+                      <Card
+                        style={{
+                          padding: 5,
+                          margin: 5,
+                          flex: 1,
+                          alignSelf: "center",
+                        }}
+                      >
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
+                          আংশিক: বেশিরভাগ শিক্ষার্থীদের বই, ওয়ার্কবুক এবং
+                          এলএফ-এর গত পর্যবেক্ষণ ফরম দেখলে বোঝা যায় যে গত
+                          পরিদর্শনের পর থেকে মাঝের এক বা একাধিক পাঠ পরিচালিত হয়
+                          নি।
+                        </Text>
+                      </Card>
+                    </View>
+                  )}
+                </Card>
+
+                <Card
+                  style={{
+                    padding: 10,
+                    margin: 10,
+                    flex: 1,
+                    alignSelf: "center",
+                  }}
+                >
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
+                    <Text>
+                      ২চ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য
+                      লেখার কাজ করিয়েছেন ।
+                    </Text>
+                    <Text>
+                      (2f. The teacher has done the work of writing
+                      letters/hyphens/words/sentences as per instructions.)
+                    </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      অগ্রাধিকার এরিয়া: ২
+                    </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      (Priority Area: 2)
+                    </Text>
+                  </Card>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
+                    <View style={{ flexDirection: "row" }}>
+                      <View style={{ flex: 1, padding: 2 }}>
+                        <Text>পর্যবেক্ষণ: </Text>
+                        <Text>(Observation:)</Text>
+                        <Picker
+                          style={{
+                            height: 50,
+                            width: 140,
+                          }}
+                          selectedValue={
+                            this.state.ind26FollowsInstructionsInWrittingStatus
+                          }
+                          onValueChange={(value) => {
+                            this.setState({
+                              ind26FollowsInstructionsInWrittingStatus: value,
+                            });
+
+                            // Set teacher status
+                            if (
+                              (this.state.ind1PhonemicAwarenessStatus ===
+                                "Yes" ||
+                                this.state.ind1PhonemicAwarenessStatus ===
+                                  "N/A") &&
+                              (this.state.ind2LetterIdentificationStatus ===
+                                "Yes" ||
+                                this.state.ind2LetterIdentificationStatus ===
+                                  "N/A") &&
+                              (this.state.ind4FluencyIdentificationStatus ===
+                                "Yes" ||
+                                this.state.ind4FluencyIdentificationStatus ===
+                                  "N/A") &&
+                              (this.state.ind6WritingActivitiesStatus ===
+                                "Yes" ||
+                                this.state.ind6WritingActivitiesStatus ===
+                                  "N/A") &&
+                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
+                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
+                              (this.state.ind8GroupWorkStatus === "Yes" ||
+                                this.state.ind8GroupWorkStatus === "N/A") &&
+                              this.state.ind10UseTeachingAidStatus === "Yes" &&
+                              this.state.ind11ContinuityOfLessonsStatus ===
+                                "Yes" &&
+                              this.state.ind12AssessmentStatus === "Yes"
+                            ) {
+                              this.setState({
+                                teacherStatus: "Priority 3",
+                              });
+                            } else if (
+                              this.state.ind1PhonemicAwarenessStatus ===
+                                "Yes" &&
+                              this.state.ind2LetterIdentificationStatus ===
+                                "Yes" &&
+                              this.state.ind3VocabularyIdentificationStatus ===
+                                "Yes" &&
+                              this.state.ind4FluencyIdentificationStatus ===
+                                "Yes" &&
+                              this.state.ind5ComprehensionStatus === "Yes" &&
+                              this.state.ind6WritingActivitiesStatus ===
+                                "Yes" &&
+                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
+                              this.state.ind8GroupWorkStatus === "Yes" &&
+                              this.state.ind9TimeOnTaskStatus === "Yes" &&
+                              this.state.ind10UseTeachingAidStatus === "Yes" &&
+                              this.state.ind11ContinuityOfLessonsStatus ===
+                                "Yes" &&
+                              this.state.ind12AssessmentStatus === "Yes"
+                            ) {
+                              this.setState({
+                                teacherStatus: "Priority 3",
+                              });
+                            } else if (
+                              (this.state.ind2LetterIdentificationStatus ===
+                                "Yes" ||
+                                this.state.ind2LetterIdentificationStatus ===
+                                  "N/A") &&
+                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
+                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
+                              (this.state.ind8GroupWorkStatus === "Yes" ||
+                                this.state.ind8GroupWorkStatus === "N/A") &&
+                              this.state.ind12AssessmentStatus === "Yes"
+                            ) {
+                              this.setState({
+                                teacherStatus: "Priority 2",
+                              });
+                            } else {
+                              this.setState({
+                                teacherStatus: "Priority 1",
+                              });
+                            }
+                            // Set teacher status
+                          }}
+                          itemStyle={{ color: "white" }}
+                        >
+                          <Picker.Item label={"Select"} value={""} />
+                          <Picker.Item label={"Yes"} value={"Yes"} />
+                          <Picker.Item label={"No"} value={"No"} />
+                          <Picker.Item label={"Partial"} value={"Partial"} />
+                          <Picker.Item label={"N/A"} value={"N/A"} />
+                        </Picker>
+                      </View>
+                      <View style={{ flex: 2, padding: 2 }}>
+                        <Text>মন্তব্য: </Text>
+                        <Text>(Comment:)</Text>
+                        <TextInput
+                          style={{
+                            height: 50,
+                            width: 230,
+                            padding: 5,
+                            borderWidth: 1,
+                          }}
+                          keyboardType="default"
+                          placeholder=""
+                          editable={true}
+                          onChangeText={(text) =>
+                            this.setState({
+                              ind26FollowsInstructionsInWrittingNote: text,
+                            })
+                          }
+                          value={
+                            this.state.ind26FollowsInstructionsInWrittingNote +
+                            ""
+                          }
+                        ></TextInput>
+                      </View>
+                    </View>
+                  </Card>
+                  {ind26FollowsInstructionsInWrittingStatus === "No" && (
+                    <View>
+                      <Card
+                        style={{
+                          padding: 5,
+                          margin: 5,
+                          flex: 1,
+                          alignSelf: "center",
+                        }}
+                      >
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
                           না: শিক্ষক ছেলে-মেয়ে, বিশেষ চাহিদাসম্পন্ন ও পিছিয়ে পড়া
                           শিক্ষার্থীসহ সকল শিক্ষার্থীদের পাঠের কাজে এবং
                           মূল্যায়নে প্রতিনিধিত্বমূলক অংশগ্রহণ নিশ্চিত করেন নি।
@@ -4263,7 +5058,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       </Card>
                     </View>
                   )}
-                  {ind12AssessmentStatus === "Partial" && (
+                  {ind26FollowsInstructionsInWrittingStatus === "Partial" && (
                     <View>
                       <Card
                         style={{
@@ -4273,11 +5068,839 @@ export default class BanglaClassObservationScreen extends React.Component {
                           alignSelf: "center",
                         }}
                       >
-                        <Text style={{ fontWeight: "bold" }}>
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
                           আংশিক: শিক্ষক ছেলে-মেয়ে অথবা বিশেষ চাহিদা সম্পন্ন
                           (প্রযোজ্য ক্ষেত্রে) অথবা পিছিয়ে পড়া শিক্ষার্থী দের (যে
                           কোন একদল) পাঠের কাজে এবং মূল্যায়নে প্রতিনিধিত্বমূলক
                           অংশগ্রহণ নিশ্চিত করেন নি।
+                        </Text>
+                      </Card>
+                    </View>
+                  )}
+                </Card>
+
+                <View style={{ padding: 5 }}>
+                  <Text
+                    style={{
+                      backgroundColor: "green",
+                      fontSize: 18,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    প্রায়োরিটি এরিয়া - ৩: উচ্চতর দক্ষতা অর্জন
+                  </Text>
+                  <Text
+                    style={{
+                      backgroundColor: "green",
+                      fontSize: 18,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Priority Area – 3: Achieving Higher Teaching Skills)
+                  </Text>
+                </View>
+
+                <Card
+                  style={{
+                    padding: 10,
+                    margin: 10,
+                    flex: 1,
+                    alignSelf: "center",
+                  }}
+                >
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
+                    <Text>
+                      ৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন
+                      করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।
+                    </Text>
+                    <Text>
+                      (3a. For correct answers, the teacher asked students
+                      helpful questions or taught them strategies for finding
+                      answers.)
+                    </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      অগ্রাধিকার এরিয়া: ৩
+                    </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      (Priority Area: 3)
+                    </Text>
+                  </Card>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
+                    <View style={{ flexDirection: "row" }}>
+                      <View style={{ flex: 1, padding: 2 }}>
+                        <Text>পর্যবেক্ষণ: </Text>
+                        <Text>(Observation:)</Text>
+                        <Picker
+                          style={{
+                            height: 50,
+                            width: 140,
+                          }}
+                          selectedValue={
+                            this.state.ind31AskedHelpfulQuestionsStatus
+                          }
+                          onValueChange={(value) => {
+                            this.setState({
+                              ind31AskedHelpfulQuestionsStatus: value,
+                            });
+
+                            // Set teacher status
+                            if (
+                              (this.state.ind1PhonemicAwarenessStatus ===
+                                "Yes" ||
+                                this.state.ind1PhonemicAwarenessStatus ===
+                                  "N/A") &&
+                              (this.state.ind2LetterIdentificationStatus ===
+                                "Yes" ||
+                                this.state.ind2LetterIdentificationStatus ===
+                                  "N/A") &&
+                              (this.state.ind4FluencyIdentificationStatus ===
+                                "Yes" ||
+                                this.state.ind4FluencyIdentificationStatus ===
+                                  "N/A") &&
+                              (this.state.ind6WritingActivitiesStatus ===
+                                "Yes" ||
+                                this.state.ind6WritingActivitiesStatus ===
+                                  "N/A") &&
+                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
+                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
+                              (this.state.ind8GroupWorkStatus === "Yes" ||
+                                this.state.ind8GroupWorkStatus === "N/A") &&
+                              this.state.ind10UseTeachingAidStatus === "Yes" &&
+                              this.state.ind11ContinuityOfLessonsStatus ===
+                                "Yes" &&
+                              this.state.ind12AssessmentStatus === "Yes"
+                            ) {
+                              this.setState({
+                                teacherStatus: "Priority 3",
+                              });
+                            } else if (
+                              this.state.ind1PhonemicAwarenessStatus ===
+                                "Yes" &&
+                              this.state.ind2LetterIdentificationStatus ===
+                                "Yes" &&
+                              this.state.ind3VocabularyIdentificationStatus ===
+                                "Yes" &&
+                              this.state.ind4FluencyIdentificationStatus ===
+                                "Yes" &&
+                              this.state.ind5ComprehensionStatus === "Yes" &&
+                              this.state.ind6WritingActivitiesStatus ===
+                                "Yes" &&
+                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
+                              this.state.ind8GroupWorkStatus === "Yes" &&
+                              this.state.ind9TimeOnTaskStatus === "Yes" &&
+                              this.state.ind10UseTeachingAidStatus === "Yes" &&
+                              this.state.ind11ContinuityOfLessonsStatus ===
+                                "Yes" &&
+                              this.state.ind12AssessmentStatus === "Yes"
+                            ) {
+                              this.setState({
+                                teacherStatus: "Priority 3",
+                              });
+                            } else if (
+                              (this.state.ind2LetterIdentificationStatus ===
+                                "Yes" ||
+                                this.state.ind2LetterIdentificationStatus ===
+                                  "N/A") &&
+                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
+                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
+                              (this.state.ind8GroupWorkStatus === "Yes" ||
+                                this.state.ind8GroupWorkStatus === "N/A") &&
+                              this.state.ind12AssessmentStatus === "Yes"
+                            ) {
+                              this.setState({
+                                teacherStatus: "Priority 2",
+                              });
+                            } else {
+                              this.setState({
+                                teacherStatus: "Priority 1",
+                              });
+                            }
+                            // Set teacher status
+                          }}
+                          itemStyle={{ color: "white" }}
+                        >
+                          <Picker.Item label={"Select"} value={""} />
+                          <Picker.Item label={"Yes"} value={"Yes"} />
+                          <Picker.Item label={"No"} value={"No"} />
+                          <Picker.Item label={"Partial"} value={"Partial"} />
+                          <Picker.Item label={"N/A"} value={"N/A"} />
+                        </Picker>
+                      </View>
+                      <View style={{ flex: 2, padding: 2 }}>
+                        <Text>মন্তব্য: </Text>
+                        <Text>(Comment:)</Text>
+                        <TextInput
+                          style={{
+                            height: 50,
+                            width: 230,
+                            padding: 5,
+                            borderWidth: 1,
+                          }}
+                          keyboardType="default"
+                          placeholder=""
+                          editable={true}
+                          onChangeText={(text) =>
+                            this.setState({
+                              ind31AskedHelpfulQuestionsNote: text,
+                            })
+                          }
+                          value={this.state.ind31AskedHelpfulQuestionsNote + ""}
+                        ></TextInput>
+                      </View>
+                    </View>
+                  </Card>
+                  {ind31AskedHelpfulQuestionsStatus === "No" && (
+                    <View>
+                      <Card
+                        style={{
+                          padding: 5,
+                          margin: 5,
+                          flex: 1,
+                          alignSelf: "center",
+                        }}
+                      >
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
+                          না: শিখন-শেখানো কার্যক্রমে রুম টু রিড প্রদত্ত
+                          নির্দেশনা অনুযায়ী ‘আমি করি-আমরা করি-তুমি কর’ পদ্ধতি
+                          অনুসরণ করেন নি।
+                        </Text>
+                      </Card>
+                    </View>
+                  )}
+                  {ind31AskedHelpfulQuestionsStatus === "Partial" && (
+                    <View>
+                      <Card
+                        style={{
+                          padding: 5,
+                          margin: 5,
+                          flex: 1,
+                          alignSelf: "center",
+                        }}
+                      >
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
+                          আংশিক: শিখন-শেখানো কার্যক্রমে রুম টু রিড প্রদত্ত
+                          নির্দেশনায় উল্লেখিত এক বা একাধিক কাজে/ধাপে ‘আমি
+                          করি-আমরা করি-তুমি কর’ পদ্ধতি অনুসরণ করেন নি।
+                        </Text>
+                      </Card>
+                    </View>
+                  )}
+                </Card>
+
+                <Card
+                  style={{
+                    padding: 10,
+                    margin: 10,
+                    flex: 1,
+                    alignSelf: "center",
+                  }}
+                >
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
+                    <Text>
+                      ৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং
+                      শিক্ষার্থীদের শব্দগুলো ব্যবহার করে নতুন বাক্য গঠনের সুযোগ
+                      দিয়েছেন ।
+                    </Text>
+                    <Text>
+                      (3b. The teacher taught the vocabulary words with meaning
+                      and gave students opportunities to form new sentences
+                      using the words.)
+                    </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      অগ্রাধিকার এরিয়া: ৩
+                    </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      (Priority Area: 3)
+                    </Text>
+                  </Card>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
+                    <View style={{ flexDirection: "row" }}>
+                      <View style={{ flex: 1, padding: 2 }}>
+                        <Text>পর্যবেক্ষণ: </Text>
+                        <Text>(Observation:)</Text>
+                        <Picker
+                          style={{
+                            height: 50,
+                            width: 140,
+                          }}
+                          selectedValue={
+                            this.state.ind32TaughtVocabularyNewSentanceStatus
+                          }
+                          onValueChange={(value) => {
+                            this.setState({
+                              ind32TaughtVocabularyNewSentanceStatus: value,
+                            });
+
+                            // Set teacher status
+                            if (
+                              (this.state.ind1PhonemicAwarenessStatus ===
+                                "Yes" ||
+                                this.state.ind1PhonemicAwarenessStatus ===
+                                  "N/A") &&
+                              (this.state.ind2LetterIdentificationStatus ===
+                                "Yes" ||
+                                this.state.ind2LetterIdentificationStatus ===
+                                  "N/A") &&
+                              (this.state.ind4FluencyIdentificationStatus ===
+                                "Yes" ||
+                                this.state.ind4FluencyIdentificationStatus ===
+                                  "N/A") &&
+                              (this.state.ind6WritingActivitiesStatus ===
+                                "Yes" ||
+                                this.state.ind6WritingActivitiesStatus ===
+                                  "N/A") &&
+                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
+                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
+                              (this.state.ind8GroupWorkStatus === "Yes" ||
+                                this.state.ind8GroupWorkStatus === "N/A") &&
+                              this.state.ind10UseTeachingAidStatus === "Yes" &&
+                              this.state.ind11ContinuityOfLessonsStatus ===
+                                "Yes" &&
+                              this.state.ind12AssessmentStatus === "Yes"
+                            ) {
+                              this.setState({
+                                teacherStatus: "Priority 3",
+                              });
+                            } else if (
+                              this.state.ind1PhonemicAwarenessStatus ===
+                                "Yes" &&
+                              this.state.ind2LetterIdentificationStatus ===
+                                "Yes" &&
+                              this.state.ind3VocabularyIdentificationStatus ===
+                                "Yes" &&
+                              this.state.ind4FluencyIdentificationStatus ===
+                                "Yes" &&
+                              this.state.ind5ComprehensionStatus === "Yes" &&
+                              this.state.ind6WritingActivitiesStatus ===
+                                "Yes" &&
+                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
+                              this.state.ind8GroupWorkStatus === "Yes" &&
+                              this.state.ind9TimeOnTaskStatus === "Yes" &&
+                              this.state.ind10UseTeachingAidStatus === "Yes" &&
+                              this.state.ind11ContinuityOfLessonsStatus ===
+                                "Yes" &&
+                              this.state.ind12AssessmentStatus === "Yes"
+                            ) {
+                              this.setState({
+                                teacherStatus: "Priority 3",
+                              });
+                            } else if (
+                              (this.state.ind2LetterIdentificationStatus ===
+                                "Yes" ||
+                                this.state.ind2LetterIdentificationStatus ===
+                                  "N/A") &&
+                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
+                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
+                              (this.state.ind8GroupWorkStatus === "Yes" ||
+                                this.state.ind8GroupWorkStatus === "N/A") &&
+                              this.state.ind12AssessmentStatus === "Yes"
+                            ) {
+                              this.setState({
+                                teacherStatus: "Priority 2",
+                              });
+                            } else {
+                              this.setState({
+                                teacherStatus: "Priority 1",
+                              });
+                            }
+                            // Set teacher status
+                          }}
+                          itemStyle={{ color: "white" }}
+                        >
+                          <Picker.Item label={"Select"} value={""} />
+                          <Picker.Item label={"Yes"} value={"Yes"} />
+                          <Picker.Item label={"No"} value={"No"} />
+                          <Picker.Item label={"Partial"} value={"Partial"} />
+                          <Picker.Item label={"N/A"} value={"N/A"} />
+                        </Picker>
+                      </View>
+                      <View style={{ flex: 2, padding: 2 }}>
+                        <Text>মন্তব্য: </Text>
+                        <Text>(Comment:)</Text>
+                        <TextInput
+                          style={{
+                            height: 50,
+                            width: 230,
+                            padding: 5,
+                            borderWidth: 1,
+                          }}
+                          keyboardType="default"
+                          placeholder=""
+                          editable={true}
+                          onChangeText={(text) =>
+                            this.setState({
+                              ind32TaughtVocabularyNewSentanceNote: text,
+                            })
+                          }
+                          value={
+                            this.state.ind32TaughtVocabularyNewSentanceNote + ""
+                          }
+                        ></TextInput>
+                      </View>
+                    </View>
+                  </Card>
+                  {ind32TaughtVocabularyNewSentanceStatus === "No" && (
+                    <View>
+                      <Card
+                        style={{
+                          padding: 5,
+                          margin: 5,
+                          flex: 1,
+                          alignSelf: "center",
+                        }}
+                      >
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
+                          না: শিক্ষক শিক্ষার্থীদের ‘পড়ি লিখি শিখি’ ওয়ার্কবুক ও
+                          ‘আমার বাংলা বই’ -এর নির্ধারিত পড়ার অংশে নির্দেশনা
+                          অনুযায়ী বর্ণ/ শব্দ/ বাক্য এককভাবে বা জুটিতে বা দলে
+                          পড়ার সুযোগ দেননি।
+                        </Text>
+                      </Card>
+                    </View>
+                  )}
+                  {ind32TaughtVocabularyNewSentanceStatus === "Partial" && (
+                    <View>
+                      <Card
+                        style={{
+                          padding: 5,
+                          margin: 5,
+                          flex: 1,
+                          alignSelf: "center",
+                        }}
+                      >
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
+                          আংশিক: শিক্ষক শিক্ষার্থীদের ‘পড়ি লিখি শিখি’ ওয়ার্কবুক
+                          অথবা ‘আমার বাংলা বই’ -এর নির্ধারিত পড়ার অংশে যেকোন এক
+                          বা একাধিক কাজে (বর্ণ/ শব্দ/ বাক্য) নির্দেশনা অনুযায়ী
+                          এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দেননি।
+                        </Text>
+                      </Card>
+                    </View>
+                  )}
+                </Card>
+
+                <Card
+                  style={{
+                    padding: 10,
+                    margin: 10,
+                    flex: 1,
+                    alignSelf: "center",
+                  }}
+                >
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
+                    <Text>
+                      ৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি
+                      চিহ্নের ব্যবহার নিশ্চিত করেছেন ।
+                    </Text>
+                    <Text>
+                      (3c. The teacher checked the students' writing to ensure
+                      correct spelling and punctuation.)
+                    </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      অগ্রাধিকার এরিয়া: ৩
+                    </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      (Priority Area: 3)
+                    </Text>
+                  </Card>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
+                    <View style={{ flexDirection: "row" }}>
+                      <View style={{ flex: 1, padding: 2 }}>
+                        <Text>পর্যবেক্ষণ: </Text>
+                        <Text>(Observation:)</Text>
+                        <Picker
+                          style={{
+                            height: 50,
+                            width: 140,
+                          }}
+                          selectedValue={
+                            this.state.ind33CheckWritingSpellingPuncuationStatus
+                          }
+                          onValueChange={(value) => {
+                            this.setState({
+                              ind33CheckWritingSpellingPuncuationStatus: value,
+                            });
+
+                            // Set teacher status
+                            if (
+                              (this.state.ind1PhonemicAwarenessStatus ===
+                                "Yes" ||
+                                this.state.ind1PhonemicAwarenessStatus ===
+                                  "N/A") &&
+                              (this.state.ind2LetterIdentificationStatus ===
+                                "Yes" ||
+                                this.state.ind2LetterIdentificationStatus ===
+                                  "N/A") &&
+                              (this.state.ind4FluencyIdentificationStatus ===
+                                "Yes" ||
+                                this.state.ind4FluencyIdentificationStatus ===
+                                  "N/A") &&
+                              (this.state.ind6WritingActivitiesStatus ===
+                                "Yes" ||
+                                this.state.ind6WritingActivitiesStatus ===
+                                  "N/A") &&
+                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
+                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
+                              (this.state.ind8GroupWorkStatus === "Yes" ||
+                                this.state.ind8GroupWorkStatus === "N/A") &&
+                              this.state.ind10UseTeachingAidStatus === "Yes" &&
+                              this.state.ind11ContinuityOfLessonsStatus ===
+                                "Yes" &&
+                              this.state.ind12AssessmentStatus === "Yes"
+                            ) {
+                              this.setState({
+                                teacherStatus: "Priority 3",
+                              });
+                            } else if (
+                              this.state.ind1PhonemicAwarenessStatus ===
+                                "Yes" &&
+                              this.state.ind2LetterIdentificationStatus ===
+                                "Yes" &&
+                              this.state.ind3VocabularyIdentificationStatus ===
+                                "Yes" &&
+                              this.state.ind4FluencyIdentificationStatus ===
+                                "Yes" &&
+                              this.state.ind5ComprehensionStatus === "Yes" &&
+                              this.state.ind6WritingActivitiesStatus ===
+                                "Yes" &&
+                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
+                              this.state.ind8GroupWorkStatus === "Yes" &&
+                              this.state.ind9TimeOnTaskStatus === "Yes" &&
+                              this.state.ind10UseTeachingAidStatus === "Yes" &&
+                              this.state.ind11ContinuityOfLessonsStatus ===
+                                "Yes" &&
+                              this.state.ind12AssessmentStatus === "Yes"
+                            ) {
+                              this.setState({
+                                teacherStatus: "Priority 3",
+                              });
+                            } else if (
+                              (this.state.ind2LetterIdentificationStatus ===
+                                "Yes" ||
+                                this.state.ind2LetterIdentificationStatus ===
+                                  "N/A") &&
+                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
+                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
+                              (this.state.ind8GroupWorkStatus === "Yes" ||
+                                this.state.ind8GroupWorkStatus === "N/A") &&
+                              this.state.ind12AssessmentStatus === "Yes"
+                            ) {
+                              this.setState({
+                                teacherStatus: "Priority 2",
+                              });
+                            } else {
+                              this.setState({
+                                teacherStatus: "Priority 1",
+                              });
+                            }
+                            // Set teacher status
+                          }}
+                          itemStyle={{ color: "white" }}
+                        >
+                          <Picker.Item label={"Select"} value={""} />
+                          <Picker.Item label={"Yes"} value={"Yes"} />
+                          <Picker.Item label={"No"} value={"No"} />
+                          <Picker.Item label={"Partial"} value={"Partial"} />
+                          <Picker.Item label={"N/A"} value={"N/A"} />
+                        </Picker>
+                      </View>
+                      <View style={{ flex: 2, padding: 2 }}>
+                        <Text>মন্তব্য: </Text>
+                        <Text>(Comment:)</Text>
+                        <TextInput
+                          style={{
+                            height: 50,
+                            width: 230,
+                            padding: 5,
+                            borderWidth: 1,
+                          }}
+                          keyboardType="default"
+                          placeholder=""
+                          editable={true}
+                          onChangeText={(text) =>
+                            this.setState({
+                              ind33CheckWritingSpellingPuncuationNote: text,
+                            })
+                          }
+                          value={
+                            this.state.ind33CheckWritingSpellingPuncuationNote +
+                            ""
+                          }
+                        ></TextInput>
+                      </View>
+                    </View>
+                  </Card>
+                  {ind33CheckWritingSpellingPuncuationStatus === "No" && (
+                    <View>
+                      <Card
+                        style={{
+                          padding: 5,
+                          margin: 5,
+                          flex: 1,
+                          alignSelf: "center",
+                        }}
+                      >
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
+                          না: শিক্ষক রুম টু রিড প্রদত্ত নির্দেশনা অনুযায়ী
+                          নির্ধারিত সময়ে সবগুলো কাজ ধারাবাহিকভাবে করেন নি।
+                        </Text>
+                      </Card>
+                    </View>
+                  )}
+                  {ind33CheckWritingSpellingPuncuationStatus === "Partial" && (
+                    <View>
+                      <Card
+                        style={{
+                          padding: 5,
+                          margin: 5,
+                          flex: 1,
+                          alignSelf: "center",
+                        }}
+                      >
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
+                          আংশিক: শিক্ষক রুম টু রিড প্রদত্ত নির্দেশনা অনুযায়ী
+                          নির্ধারিত সময়ে সবগুলো কাজ করেননি অথবা ধারাবাহিকভাবে
+                          সবগুলো কাজ করেন নি।
+                        </Text>
+                      </Card>
+                    </View>
+                  )}
+                </Card>
+
+                <Card
+                  style={{
+                    padding: 10,
+                    margin: 10,
+                    flex: 1,
+                    alignSelf: "center",
+                  }}
+                >
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
+                    <Text>
+                      ৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ
+                      গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।
+                    </Text>
+                    <Text>
+                      (3d. During the 'we do-you do' task, the teacher checks
+                      whether the students have participated properly.)
+                    </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      অগ্রাধিকার এরিয়া: ৩
+                    </Text>
+                    <Text style={{ fontWeight: "bold" }}>
+                      (Priority Area: 3)
+                    </Text>
+                  </Card>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
+                    <View style={{ flexDirection: "row" }}>
+                      <View style={{ flex: 1, padding: 2 }}>
+                        <Text>পর্যবেক্ষণ: </Text>
+                        <Text>(Observation:)</Text>
+                        <Picker
+                          style={{
+                            height: 50,
+                            width: 140,
+                          }}
+                          selectedValue={this.state.ind34CheckedWeDoYouDoStatus}
+                          onValueChange={(value) => {
+                            this.setState({
+                              ind34CheckedWeDoYouDoStatus: value,
+                            });
+
+                            // Set teacher status
+                            if (
+                              (this.state.ind1PhonemicAwarenessStatus ===
+                                "Yes" ||
+                                this.state.ind1PhonemicAwarenessStatus ===
+                                  "N/A") &&
+                              (this.state.ind2LetterIdentificationStatus ===
+                                "Yes" ||
+                                this.state.ind2LetterIdentificationStatus ===
+                                  "N/A") &&
+                              (this.state.ind4FluencyIdentificationStatus ===
+                                "Yes" ||
+                                this.state.ind4FluencyIdentificationStatus ===
+                                  "N/A") &&
+                              (this.state.ind6WritingActivitiesStatus ===
+                                "Yes" ||
+                                this.state.ind6WritingActivitiesStatus ===
+                                  "N/A") &&
+                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
+                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
+                              (this.state.ind8GroupWorkStatus === "Yes" ||
+                                this.state.ind8GroupWorkStatus === "N/A") &&
+                              this.state.ind10UseTeachingAidStatus === "Yes" &&
+                              this.state.ind11ContinuityOfLessonsStatus ===
+                                "Yes" &&
+                              this.state.ind12AssessmentStatus === "Yes"
+                            ) {
+                              this.setState({
+                                teacherStatus: "Priority 3",
+                              });
+                            } else if (
+                              this.state.ind1PhonemicAwarenessStatus ===
+                                "Yes" &&
+                              this.state.ind2LetterIdentificationStatus ===
+                                "Yes" &&
+                              this.state.ind3VocabularyIdentificationStatus ===
+                                "Yes" &&
+                              this.state.ind4FluencyIdentificationStatus ===
+                                "Yes" &&
+                              this.state.ind5ComprehensionStatus === "Yes" &&
+                              this.state.ind6WritingActivitiesStatus ===
+                                "Yes" &&
+                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
+                              this.state.ind8GroupWorkStatus === "Yes" &&
+                              this.state.ind9TimeOnTaskStatus === "Yes" &&
+                              this.state.ind10UseTeachingAidStatus === "Yes" &&
+                              this.state.ind11ContinuityOfLessonsStatus ===
+                                "Yes" &&
+                              this.state.ind12AssessmentStatus === "Yes"
+                            ) {
+                              this.setState({
+                                teacherStatus: "Priority 3",
+                              });
+                            } else if (
+                              (this.state.ind2LetterIdentificationStatus ===
+                                "Yes" ||
+                                this.state.ind2LetterIdentificationStatus ===
+                                  "N/A") &&
+                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
+                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
+                              (this.state.ind8GroupWorkStatus === "Yes" ||
+                                this.state.ind8GroupWorkStatus === "N/A") &&
+                              this.state.ind12AssessmentStatus === "Yes"
+                            ) {
+                              this.setState({
+                                teacherStatus: "Priority 2",
+                              });
+                            } else {
+                              this.setState({
+                                teacherStatus: "Priority 1",
+                              });
+                            }
+                            // Set teacher status
+                          }}
+                          itemStyle={{ color: "white" }}
+                        >
+                          <Picker.Item label={"Select"} value={""} />
+                          <Picker.Item label={"Yes"} value={"Yes"} />
+                          <Picker.Item label={"No"} value={"No"} />
+                          <Picker.Item label={"Partial"} value={"Partial"} />
+                          <Picker.Item label={"N/A"} value={"N/A"} />
+                        </Picker>
+                      </View>
+                      <View style={{ flex: 2, padding: 2 }}>
+                        <Text>মন্তব্য: </Text>
+                        <Text>(Comment:)</Text>
+                        <TextInput
+                          style={{
+                            height: 50,
+                            width: 230,
+                            padding: 5,
+                            borderWidth: 1,
+                          }}
+                          keyboardType="default"
+                          placeholder=""
+                          editable={true}
+                          onChangeText={(text) =>
+                            this.setState({
+                              ind34CheckedWeDoYouDoNote: text,
+                            })
+                          }
+                          value={this.state.ind34CheckedWeDoYouDoNote + ""}
+                        ></TextInput>
+                      </View>
+                    </View>
+                  </Card>
+                  {ind34CheckedWeDoYouDoStatus === "No" && (
+                    <View>
+                      <Card
+                        style={{
+                          padding: 5,
+                          margin: 5,
+                          flex: 1,
+                          alignSelf: "center",
+                        }}
+                      >
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
+                          না: শিক্ষক পাঠ চলাকালীন রুম টু রিড প্রদত্ত নির্দেশনা
+                          অনুযায়ী কোন সহায়ক উপকরণ ব্যবহার করেন নি।
+                        </Text>
+                      </Card>
+                    </View>
+                  )}
+                  {ind34CheckedWeDoYouDoStatus === "Partial" && (
+                    <View>
+                      <Card
+                        style={{
+                          padding: 5,
+                          margin: 5,
+                          flex: 1,
+                          alignSelf: "center",
+                        }}
+                      >
+                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
+                          আংশিক: শিক্ষক পাঠ নির্দেশনা অনুযায়ী রুম টু রিড প্রদত্ত
+                          যে যে সহায়ক উপকরণ ব্যবহারের কথা ছিল তার এক বা একাধিক
+                          উপকরণ ব্যবহার করেন নি। অথবা সকল সহায়ক উপকরণ ব্যবহার
+                          করেছেন তবে সঠিক সময়ে ব্যবহার করেন নি।
                         </Text>
                       </Card>
                     </View>
@@ -4290,14 +5913,21 @@ export default class BanglaClassObservationScreen extends React.Component {
           <View style={{ padding: 10 }}>
             <Card style={{ padding: 10, margin: 10, flex: 1 }}>
               <Text style={{ backgroundColor: "green" }}>
-                শ্রেণি শিক্ষকের সাথে আলোচনার জন্য গুরুত্বপূর্ণ কিছু বিষয় ঃ
+                শিক্ষককে পরামর্শ দেয়ার জন্য গুরুত্বপূর্ণ কিছু বিষয় :
+              </Text>
+              <Text style={{ backgroundColor: "green" }}>
+                (Some important points to suggest to the teacher:)
               </Text>
               <View style={{ padding: 5 }}>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1, padding: 2 }}>
                     <Text>
-                      শিক্ষক ভালো করেছেন এমন ২/৩ টি সূচক ( অগ্রাধিকার এরিয়ায়র
-                      নম্বর ) উল্লেখ করুন ।
+                      ক্লাস চলাকালীন শিক্ষক ভালো করেছেন এমন ১/২ টি বিষয় উল্লেখ
+                      করুন ।
+                    </Text>
+                    <Text>
+                      (Mention 1/2 things the teacher did well during the
+                      class.)
                     </Text>
                   </View>
                 </View>
@@ -4443,7 +6073,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       }}
                       itemStyle={{ color: "white" }}
                     >
-                      <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                      <Picker.Item label={"Select"} value={""} />
                       {this.state.allBanglaIndicator.map((item) => {
                         return (
                           <Picker.Item
@@ -4543,7 +6173,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       }}
                       itemStyle={{ color: "white" }}
                     >
-                      <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                      <Picker.Item label={"Select"} value={""} />
                       {this.state.allBanglaIndicator.map((item) => {
                         return (
                           <Picker.Item
@@ -4565,12 +6195,12 @@ export default class BanglaClassObservationScreen extends React.Component {
                       value={this.state.bestPracticeInd2}
                     ></TextInput>
                   </View>
-                  <View style={{ flex: 1, padding: 2 }}>
+                  {/* <View style={{ flex: 1, padding: 2 }}>
                     <Text>৩.</Text>
                     <Picker
                       style={{
                         height: 40,
-                        width: 150,
+                        width: 120,
                       }}
                       selectedValue={this.state.bestPracticeInd3}
                       onValueChange={(value) => {
@@ -4578,7 +6208,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       }}
                       itemStyle={{ color: "white" }}
                     >
-                      <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                      <Picker.Item label={"Select"} value={""} />
                       {this.state.allBanglaIndicator.map((item) => {
                         return (
                           <Picker.Item
@@ -4599,17 +6229,23 @@ export default class BanglaClassObservationScreen extends React.Component {
                       editable={false}
                       value={this.state.bestPracticeInd3}
                     ></TextInput>
-                  </View>
+                  </View> */}
                 </View>
                 <View style={{ flexDirection: "row", marginTop: 20 }}>
                   <View style={{ flex: 1, padding: 2 }}>
                     <Text>
-                      অগ্রাধিকারভিত্তিতে শিক্ষককে তার নিজস্ব উন্নয়নের জন্য যে
-                      ১/২ টি সূচক (এরিয়ার নম্বর) চিহ্নিত করেছেন তা উল্লেখ করুন
-                      এবং তিনি তার উন্নয়নে কিভাবে এটি করবেন সেটি উল্লেখ করুন ।
+                      প্রায়োরিটি এরিয়ার আলোকে যে বিষয়গুলোতে শিক্ষকের আরো ভালো
+                      করার সুযোগ আছে তা উল্লেখ করুন ।
+                    </Text>
+                    <Text>
+                      (Based on the priority areas, mention the areas where the
+                      teacher has room to improve.)
                     </Text>
                   </View>
                 </View>
+
+                <Text>প্রায়োরিটি এরিয়ার বিষয়:</Text>
+                <Text>(Priority Area)</Text>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1, padding: 2 }}>
                     <Text>১.</Text>
@@ -4624,7 +6260,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       }}
                       itemStyle={{ color: "white" }}
                     >
-                      <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                      <Picker.Item label={"Select"} value={""} />
                       {this.state.allBanglaIndicator.map((item) => {
                         return (
                           <Picker.Item
@@ -4659,7 +6295,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       }}
                       itemStyle={{ color: "white" }}
                     >
-                      <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                      <Picker.Item label={"Select"} value={""} />
                       {this.state.allBanglaIndicator.map((item) => {
                         return (
                           <Picker.Item
@@ -4682,9 +6318,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                     ></TextInput>
                   </View>
                 </View>
+
                 <View style={{ flexDirection: "row", marginTop: 20 }}>
                   <View style={{ flex: 1, padding: 2 }}>
-                    <Text>কিভাবে করবেন ঃ</Text>
+                    <Text>শিক্ষকের করনীয়:</Text>
+                    <Text>( Teacher to do:)</Text>
                   </View>
                 </View>
                 <View style={{ flexDirection: "row" }}>
@@ -4721,10 +6359,8 @@ export default class BanglaClassObservationScreen extends React.Component {
                 </View>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1, padding: 2 }}>
-                    <Text>
-                      যে কাজ গুলো করার জন্য শ্রেণি শিক্ষক একমত হয়েছেন সেটি/
-                      সেগুলো উল্লেখ করুন ।
-                    </Text>
+                    <Text>এলএফ-এর করনীয়:</Text>
+                    <Text>(LF to do:)</Text>
                   </View>
                 </View>
                 <View style={{ flexDirection: "row" }}>
@@ -4764,15 +6400,18 @@ export default class BanglaClassObservationScreen extends React.Component {
           </View>
 
           <View style={{ padding: 10 }}>
-            <Text style={styles.bigRedText}>মূল্যায়নঃ </Text>
-
+            <Text style={styles.bigRedText}>মূল্যায়ন: </Text>
+            <Text style={styles.bigRedText}>(Assessment:) </Text>
             <Card style={{ padding: 10, margin: 10, flex: 1 }}>
               <View style={{ padding: 5 }}>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1, padding: 2 }}>
                     <Text style={{ backgroundColor: "green" }}>
-                      দৈবচয়ন পদ্ধতিতে ৫ জন শিক্ষার্থী নির্বাচন করুন এবং
-                      সংক্ষিপ্ত মূল্যায়ন করুনঃ
+                      দৈবচয়ন পদ্ধতিতে ৩ জন শিক্ষার্থী নির্বাচন করুন এবং
+                      সংক্ষিপ্ত মূল্যায়ন করুন:
+                    </Text>
+                    <Text style={{ backgroundColor: "green" }}>
+                      (Randomly select 3 students and do a brief evaluation:)
                     </Text>
                   </View>
                 </View>
@@ -4780,7 +6419,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                   <View style={{ flex: 1, padding: 2 }}>
                     <Text>
                       মূল্যায়নের জন্য নির্বাচিত বর্ণ, শব্দ অথবা বাক্য এখানে
-                      লিখুনঃ
+                      লিখুন:
+                    </Text>
+                    <Text>
+                      (Enter the letter, word or sentence selected for
+                      assessment here:)
                     </Text>
                   </View>
                 </View>
@@ -4804,7 +6447,8 @@ export default class BanglaClassObservationScreen extends React.Component {
                 </View>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1, padding: 2 }}>
-                    <Text>শিক্ষার্থীর নামঃ</Text>
+                    <Text>শিক্ষার্থীর নাম:</Text>
+                    <Text>(Student Name:)</Text>
                   </View>
                   <View style={{ flex: 1, padding: 2 }}>
                     <TextInput
@@ -4848,7 +6492,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       value={this.state.student3 + ""}
                     ></TextInput>
                   </View>
-                  <View style={{ flex: 1, padding: 2 }}>
+                  {/* <View style={{ flex: 1, padding: 2 }}>
                     <TextInput
                       style={{ height: 70, padding: 5, borderWidth: 1 }}
                       placeholder=""
@@ -4875,12 +6519,13 @@ export default class BanglaClassObservationScreen extends React.Component {
                       }
                       value={this.state.student5 + ""}
                     ></TextInput>
-                  </View>
+                  </View> */}
                 </View>
 
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1, padding: 2 }}>
-                    <Text>সঠিক বলেছেঃ</Text>
+                    <Text>সঠিক বলেছে:</Text>
+                    <Text>(Correctly said:)</Text>
                   </View>
                   <View style={{ flex: 1, padding: 2 }}>
                     <TextInput
@@ -4927,7 +6572,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       value={this.state.noRightFor3 + ""}
                     ></TextInput>
                   </View>
-                  <View style={{ flex: 1, padding: 2 }}>
+                  {/* <View style={{ flex: 1, padding: 2 }}>
                     <TextInput
                       style={{ height: 30, padding: 5, borderWidth: 1 }}
                       placeholder=""
@@ -4956,11 +6601,12 @@ export default class BanglaClassObservationScreen extends React.Component {
                       }
                       value={this.state.noRightFor5 + ""}
                     ></TextInput>
-                  </View>
+                  </View> */}
                 </View>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1, padding: 2 }}>
-                    <Text>ভুল বলেছেঃ</Text>
+                    <Text>ভুল বলেছে:</Text>
+                    <Text>( Wrong said:)</Text>
                   </View>
                   <View style={{ flex: 1, padding: 2 }}>
                     <TextInput
@@ -5007,7 +6653,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       value={this.state.noWrongFor3 + ""}
                     ></TextInput>
                   </View>
-                  <View style={{ flex: 1, padding: 2 }}>
+                  {/* <View style={{ flex: 1, padding: 2 }}>
                     <TextInput
                       style={{ height: 30, padding: 5, borderWidth: 1 }}
                       placeholder=""
@@ -5036,11 +6682,12 @@ export default class BanglaClassObservationScreen extends React.Component {
                       }
                       value={this.state.noWrongFor5 + ""}
                     ></TextInput>
-                  </View>
+                  </View> */}
                 </View>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1, padding: 2 }}>
-                    <Text>মোট সংখ্যাঃ</Text>
+                    <Text>মোট সংখ্যা:</Text>
+                    <Text>(Total Number:)</Text>
                   </View>
                   <View style={{ flex: 1, padding: 2 }}>
                     <TextInput
@@ -5069,7 +6716,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       value={this.state.totalFor3 + ""}
                     ></TextInput>
                   </View>
-                  <View style={{ flex: 1, padding: 2 }}>
+                  {/* <View style={{ flex: 1, padding: 2 }}>
                     <TextInput
                       style={{ height: 30, padding: 5, borderWidth: 1 }}
                       placeholder=""
@@ -5086,7 +6733,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       editable={false}
                       value={this.state.totalFor5 + ""}
                     ></TextInput>
-                  </View>
+                  </View> */}
                 </View>
               </View>
             </Card>
@@ -5094,6 +6741,7 @@ export default class BanglaClassObservationScreen extends React.Component {
 
           <View style={{ padding: 10 }}>
             <Text style={styles.bigRedText}>শিক্ষকের অবস্থা</Text>
+            <Text style={styles.bigRedText}>(Teacher Status)</Text>
             <Card style={{ padding: 10, margin: 10, flex: 1 }}>
               <View style={{ padding: 5 }}>
                 <View style={{ flexDirection: "row" }}>
@@ -5105,6 +6753,14 @@ export default class BanglaClassObservationScreen extends React.Component {
                       }}
                     >
                       ইনডিকেটর অনুযায়ী শিক্ষকের অবস্থা
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      (Status of teachers according to indicators)
                     </Text>
                   </View>
                   <View style={{ flex: 1, padding: 2 }}>
