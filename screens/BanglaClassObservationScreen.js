@@ -85,6 +85,8 @@ export default class BanglaClassObservationScreen extends React.Component {
       // Date picker property
 
       // General data
+      rtrSchoolId: "",
+      yearOfSupport: "",
       visitNo: 0,
       pickerOffice: "",
       pickerProject: "",
@@ -135,83 +137,44 @@ export default class BanglaClassObservationScreen extends React.Component {
       ind12FollowedIDoWeDoYouDoStatus: "",
       ind12FollowedIDoWeDoYouDoNote: "",
 
-      ind13IndependentReadingOppertunityStatus: "",
-      ind13IndependentReadingOppertunityNote: "",
+      ind13FollowedContinuityOfLessonStatus: "",
+      ind13FollowedContinuityOfLessonNote: "",
 
-      ind14FollowedContinuityOfLessonStatus: "",
-      ind14FollowedContinuityOfLessonNote: "",
+      ind14ImplementedAllTaskInTimeStatus: "",
+      ind14ImplementedAllTaskInTimeNote: "",
 
       ind15InstructedToUseWorkbookStatus: "",
       ind15InstructedToUseWorkbookNote: "",
 
-      ind16CompletedOneTaskAfterAnotherStatus: "",
-      ind16CompletedOneTaskAfterAnotherNote: "",
+      ind16IndependentReadingOpportunityStatus: "",
+      ind16IndependentReadingOpportunityNote: "",
 
-      ind21LessonConsistentlyIntimeStatus: "",
-      ind21LessonConsistentlyIntimeNote: "",
+      ind21CorrectlyPronouncedStatus: "",
+      ind21CorrectlyPronouncedNote: "",
 
-      ind22CorrectlyPronouncedStatus: "",
-      ind22CorrectlyPronouncedNote: "",
+      ind22TaughtCorrectlyAllowPracticeStatus: "",
+      ind22TaughtCorrectlyAllowPracticeNote: "",
 
-      ind23TaughtCorrectlyAllowPracticeStatus: "",
-      ind23TaughtCorrectlyAllowPracticeNote: "",
+      ind23DemonstratesFluentReadingStatus: "",
+      ind23DemonstratesFluentReadingNote: "",
 
-      ind24DemonstratesFluentReadingStatus: "",
-      ind24DemonstratesFluentReadingNote: "",
+      ind24AllowReadIndividuallyPairGroupsStatus: "",
+      ind24AllowReadIndividuallyPairGroupsNote: "",
 
-      ind25AllowReadIndividuallyPairsGroupsStatus: "",
-      ind25AllowReadIndividuallyPairsGroupsNote: "",
-
-      ind26FollowsInstructionsInWrittingStatus: "",
-      ind26FollowsInstructionsInWrittingNote: "",
+      ind25FollowsInstructionsInWritingStatus: "",
+      ind25FollowsInstructionsInWritingNote: "",
 
       ind31AskedHelpfulQuestionsStatus: "",
       ind31AskedHelpfulQuestionsNote: "",
 
-      ind32TaughtVocabularyNewSentanceStatus: "",
-      ind32TaughtVocabularyNewSentanceNote: "",
+      ind32TaughtVocabularyNewSentenceStatus: "",
+      ind32TaughtVocabularyNewSentenceNote: "",
 
-      ind33CheckWritingSpellingPuncuationStatus: "",
-      ind33CheckWritingSpellingPuncuationNote: "",
+      ind33CheckWritingSpellingPunctuationStatus: "",
+      ind33CheckWritingSpellingPunctuationNote: "",
 
       ind34CheckedWeDoYouDoStatus: "",
       ind34CheckedWeDoYouDoNote: "",
-
-      ind1PhonemicAwarenessStatus: "",
-      ind1PhonemicAwarenessNotes: "",
-
-      ind2LetterIdentificationStatus: "",
-      ind2LetterIdentificationNotes: "",
-
-      ind3VocabularyIdentificationStatus: "",
-      ind3VocabularyIdentificationNotes: "",
-
-      ind4FluencyIdentificationStatus: "",
-      ind4FluencyIdentificationNotes: "",
-
-      ind5ComprehensionStatus: "",
-      ind5ComprehensionNotes: "",
-
-      ind6WritingActivitiesStatus: "",
-      ind6WritingActivitiesNotes: "",
-
-      ind7IDoWeDoYouDoStatus: "",
-      ind7IDoWeDoYouDoNotes: "",
-
-      ind8GroupWorkStatus: "",
-      ind8GroupWorkNotes: "",
-
-      ind9TimeOnTaskStatus: "",
-      ind9TimeOnTaskNotes: "",
-
-      ind10UseTeachingAidStatus: "",
-      ind10UseTeachingAidNotes: "",
-
-      ind11ContinuityOfLessonsStatus: "",
-      ind11ContinuityOfLessonsNotes: "",
-
-      ind12AssessmentStatus: "",
-      ind12AssessmentNotes: "",
 
       bestPracticeInd1: "",
       bestPracticeInd2: "",
@@ -221,6 +184,9 @@ export default class BanglaClassObservationScreen extends React.Component {
       coachingSupportInd2: "",
       coachingSupportDetailsInd1: "",
       coachingSupportDetailsInd2: "",
+
+      coachingSupportTeacher: "",
+      coachingSupportLF: "",
 
       agreedStatement1: "",
       agreedStatement2: "",
@@ -321,6 +287,8 @@ export default class BanglaClassObservationScreen extends React.Component {
   updateToInitialState = () => {
     this.setState({
       // General data
+      rtrSchoolId: "",
+      yearOfSupport: "",
       visitNo: 0,
       pickerOffice: "",
       pickerProject: "",
@@ -363,41 +331,50 @@ export default class BanglaClassObservationScreen extends React.Component {
       lastFollowupTopic2: "",
       lastFollowupTopic3: "",
 
-      ind1PhonemicAwarenessStatus: "",
-      ind1PhonemicAwarenessNotes: "",
+      ind11TeacherFollowedTeacherGuideInClassStatus: "",
+      ind11TeacherFollowedTeacherGuideInClassNote: "",
 
-      ind2LetterIdentificationStatus: "",
-      ind2LetterIdentificationNotes: "",
+      ind12FollowedIDoWeDoYouDoStatus: "",
+      ind12FollowedIDoWeDoYouDoNote: "",
 
-      ind3VocabularyIdentificationStatus: "",
-      ind3VocabularyIdentificationNotes: "",
+      ind13FollowedContinuityOfLessonStatus: "",
+      ind13FollowedContinuityOfLessonNote: "",
 
-      ind4FluencyIdentificationStatus: "",
-      ind4FluencyIdentificationNotes: "",
+      ind14ImplementedAllTaskInTimeStatus: "",
+      ind14ImplementedAllTaskInTimeNote: "",
 
-      ind5ComprehensionStatus: "",
-      ind5ComprehensionNotes: "",
+      ind15InstructedToUseWorkbookStatus: "",
+      ind15InstructedToUseWorkbookNote: "",
 
-      ind6WritingActivitiesStatus: "",
-      ind6WritingActivitiesNotes: "",
+      ind16IndependentReadingOpportunityStatus: "",
+      ind16IndependentReadingOpportunityNote: "",
 
-      ind7IDoWeDoYouDoStatus: "",
-      ind7IDoWeDoYouDoNotes: "",
+      ind21CorrectlyPronouncedStatus: "",
+      ind21CorrectlyPronouncedNote: "",
 
-      ind8GroupWorkStatus: "",
-      ind8GroupWorkNotes: "",
+      ind22TaughtCorrectlyAllowPracticeStatus: "",
+      ind22TaughtCorrectlyAllowPracticeNote: "",
 
-      ind9TimeOnTaskStatus: "",
-      ind9TimeOnTaskNotes: "",
+      ind23DemonstratesFluentReadingStatus: "",
+      ind23DemonstratesFluentReadingNote: "",
 
-      ind10UseTeachingAidStatus: "",
-      ind10UseTeachingAidNotes: "",
+      ind24AllowReadIndividuallyPairGroupsStatus: "",
+      ind24AllowReadIndividuallyPairGroupsNote: "",
 
-      ind11ContinuityOfLessonsStatus: "",
-      ind11ContinuityOfLessonsNotes: "",
+      ind25FollowsInstructionsInWritingStatus: "",
+      ind25FollowsInstructionsInWritingNote: "",
 
-      ind12AssessmentStatus: "",
-      ind12AssessmentNotes: "",
+      ind31AskedHelpfulQuestionsStatus: "",
+      ind31AskedHelpfulQuestionsNote: "",
+
+      ind32TaughtVocabularyNewSentenceStatus: "",
+      ind32TaughtVocabularyNewSentenceNote: "",
+
+      ind33CheckWritingSpellingPunctuationStatus: "",
+      ind33CheckWritingSpellingPunctuationNote: "",
+
+      ind34CheckedWeDoYouDoStatus: "",
+      ind34CheckedWeDoYouDoNote: "",
 
       bestPracticeInd1: "",
       bestPracticeInd2: "",
@@ -407,6 +384,9 @@ export default class BanglaClassObservationScreen extends React.Component {
       coachingSupportInd2: "",
       coachingSupportDetailsInd1: "",
       coachingSupportDetailsInd2: "",
+
+      coachingSupportTeacher: "",
+      coachingSupportLF: "",
 
       agreedStatement1: "",
       agreedStatement2: "",
@@ -471,14 +451,17 @@ export default class BanglaClassObservationScreen extends React.Component {
   // Get All School
   getAllSchool = async () => {
     try {
-      const response = await axios("http://118.179.80.51:8080/api/v1/schools", {
-        method: "GET",
-        mode: "no-cors",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios(
+        "http://118.179.80.51:8080/api/v1/di-school",
+        {
+          method: "GET",
+          mode: "no-cors",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       this.setState({ allSchool: response.data, isLoading: false });
     } catch (error) {
@@ -490,7 +473,9 @@ export default class BanglaClassObservationScreen extends React.Component {
   // Get All Teacher
   getAllTeacher = async () => {
     try {
-      const response = await fetch("http://118.179.80.51:8080/api/v1/teachers");
+      const response = await fetch(
+        "http://118.179.80.51:8080/api/v1/di-teacher"
+      );
       const json = await response.json();
       this.setState({ allTeacher: json });
     } catch (error) {
@@ -505,7 +490,7 @@ export default class BanglaClassObservationScreen extends React.Component {
   getAllEmployee = async () => {
     try {
       const response = await axios(
-        "http://118.179.80.51:8080/api/v1/employees",
+        "http://118.179.80.51:8080/api/v1/di-employee",
         {
           method: "GET",
           mode: "no-cors",
@@ -549,7 +534,7 @@ export default class BanglaClassObservationScreen extends React.Component {
   getAllBanglaIndicator = async () => {
     try {
       const response = await axios(
-        "http://118.179.80.51:8080/api/v1/bangla-indicator",
+        "http://118.179.80.51:8080/api/v1/di-bangla-indicator",
         {
           method: "GET",
           mode: "no-cors",
@@ -571,7 +556,7 @@ export default class BanglaClassObservationScreen extends React.Component {
   getAllBanglaClassObservation = async () => {
     try {
       const response = await axios(
-        "http://118.179.80.51:8080/api/v1/bangla-class",
+        "http://118.179.80.51:8080/api/v1/di-bangla-class",
         {
           method: "GET",
           mode: "no-cors",
@@ -602,6 +587,8 @@ export default class BanglaClassObservationScreen extends React.Component {
       date: this.state.date,
       month: this.state.pickerMonth,
       year: this.state.pickerYear,
+      rtrSchoolId: this.state.rtrSchoolId,
+      yearOfSupport: this.state.yearOfSupport,
       district: this.state.pickerDistrict.name,
       upazilla: this.state.pickerUpazilla.name,
       fieldOffice: this.state.pickerOffice,
@@ -637,44 +624,74 @@ export default class BanglaClassObservationScreen extends React.Component {
       lastFollowupTopic2: this.state.lastFollowupTopic2,
       lastFollowupTopic3: this.state.lastFollowupTopic3,
 
-      ind1PhonemicAwarenessStatus: this.state.ind1PhonemicAwarenessStatus,
-      ind1PhonemicAwarenessNotes: this.state.ind1PhonemicAwarenessNotes,
+      ind11TeacherFollowedTeacherGuideInClassStatus:
+        this.state.ind11TeacherFollowedTeacherGuideInClassStatus,
+      ind11TeacherFollowedTeacherGuideInClassNote:
+        this.state.ind11TeacherFollowedTeacherGuideInClassNote,
 
-      ind2LetterIdentificationStatus: this.state.ind2LetterIdentificationStatus,
-      ind2LetterIdentificationNotes: this.state.ind2LetterIdentificationNotes,
+      ind12FollowedIDoWeDoYouDoStatus:
+        this.state.ind12FollowedIDoWeDoYouDoStatus,
+      ind12FollowedIDoWeDoYouDoNote: this.state.ind12FollowedIDoWeDoYouDoNote,
 
-      ind3VocabularyIdentificationStatus:
-        this.state.ind3VocabularyIdentificationStatus,
-      ind3VocabularyIdentificationNotes:
-        this.state.ind3VocabularyIdentificationNotes,
+      ind13FollowedContinuityOfLessonStatus:
+        this.state.ind13FollowedContinuityOfLessonStatus,
+      ind13FollowedContinuityOfLessonNote:
+        this.state.ind13FollowedContinuityOfLessonNote,
 
-      ind4FluencyIdentificationStatus:
-        this.state.ind4FluencyIdentificationStatus,
-      ind4FluencyIdentificationNotes: this.state.ind4FluencyIdentificationNotes,
+      ind14ImplementedAllTaskInTimeStatus:
+        this.state.ind14ImplementedAllTaskInTimeStatus,
+      ind14ImplementedAllTaskInTimeNote:
+        this.state.ind14ImplementedAllTaskInTimeNote,
 
-      ind5ComprehensionStatus: this.state.ind5ComprehensionStatus,
-      ind5ComprehensionNotes: this.state.ind5ComprehensionNotes,
+      ind15InstructedToUseWorkbookStatus:
+        this.state.ind15InstructedToUseWorkbookStatus,
+      ind15InstructedToUseWorkbookNote:
+        this.state.ind15InstructedToUseWorkbookNote,
 
-      ind6WritingActivitiesStatus: this.state.ind6WritingActivitiesStatus,
-      ind6WritingActivitiesNotes: this.state.ind6WritingActivitiesNotes,
+      ind16IndependentReadingOpportunityStatus:
+        this.state.ind16IndependentReadingOpportunityStatus,
+      ind16IndependentReadingOpportunityNote:
+        this.state.ind16IndependentReadingOpportunityNote,
 
-      ind7IDoWeDoYouDoStatus: this.state.ind7IDoWeDoYouDoStatus,
-      ind7IDoWeDoYouDoNotes: this.state.ind7IDoWeDoYouDoNotes,
+      ind21CorrectlyPronouncedStatus: this.state.ind21CorrectlyPronouncedStatus,
+      ind21CorrectlyPronouncedNote: this.state.ind21CorrectlyPronouncedNote,
 
-      ind8GroupWorkStatus: this.state.ind8GroupWorkStatus,
-      ind8GroupWorkNotes: this.state.ind8GroupWorkNotes,
+      ind22TaughtCorrectlyAllowPracticeStatus:
+        this.state.ind22TaughtCorrectlyAllowPracticeStatus,
+      ind22TaughtCorrectlyAllowPracticeNote:
+        this.state.ind22TaughtCorrectlyAllowPracticeNote,
 
-      ind9TimeOnTaskStatus: this.state.ind9TimeOnTaskStatus,
-      ind9TimeOnTaskNotes: this.state.ind9TimeOnTaskNotes,
+      ind23DemonstratesFluentReadingStatus:
+        this.state.ind23DemonstratesFluentReadingStatus,
+      ind23DemonstratesFluentReadingNote:
+        this.state.ind23DemonstratesFluentReadingNote,
 
-      ind10UseTeachingAidStatus: this.state.ind10UseTeachingAidStatus,
-      ind10UseTeachingAidNotes: this.state.ind10UseTeachingAidNotes,
+      ind24AllowReadIndividuallyPairGroupsStatus:
+        this.state.ind24AllowReadIndividuallyPairGroupsStatus,
+      ind24AllowReadIndividuallyPairGroupsNote:
+        this.state.ind24AllowReadIndividuallyPairGroupsNote,
 
-      ind11ContinuityOfLessonsStatus: this.state.ind11ContinuityOfLessonsStatus,
-      ind11ContinuityOfLessonsNotes: this.state.ind11ContinuityOfLessonsNotes,
+      ind25FollowsInstructionsInWritingStatus:
+        this.state.ind25FollowsInstructionsInWritingStatus,
+      ind25FollowsInstructionsInWritingNote:
+        this.state.ind25FollowsInstructionsInWritingNote,
 
-      ind12AssessmentStatus: this.state.ind12AssessmentStatus,
-      ind12AssessmentNotes: this.state.ind12AssessmentNotes,
+      ind31AskedHelpfulQuestionsStatus:
+        this.state.ind31AskedHelpfulQuestionsStatus,
+      ind31AskedHelpfulQuestionsNote: this.state.ind31AskedHelpfulQuestionsNote,
+
+      ind32TaughtVocabularyNewSentenceStatus:
+        this.state.ind32TaughtVocabularyNewSentenceStatus,
+      ind32TaughtVocabularyNewSentenceNote:
+        this.state.ind32TaughtVocabularyNewSentenceNote,
+
+      ind33CheckWritingSpellingPunctuationStatus:
+        this.state.ind33CheckWritingSpellingPunctuationStatus,
+      ind33CheckWritingSpellingPunctuationNote:
+        this.state.ind33CheckWritingSpellingPunctuationNote,
+
+      ind34CheckedWeDoYouDoStatus: this.state.ind34CheckedWeDoYouDoStatus,
+      ind34CheckedWeDoYouDoNote: this.state.ind34CheckedWeDoYouDoNote,
 
       bestPracticeInd1: this.state.bestPracticeInd1,
       bestPracticeInd2: this.state.bestPracticeInd2,
@@ -684,6 +701,9 @@ export default class BanglaClassObservationScreen extends React.Component {
       coachingSupportInd2: this.state.coachingSupportInd2,
       coachingSupportDetailsInd1: this.state.coachingSupportDetailsInd1,
       coachingSupportDetailsInd2: this.state.coachingSupportDetailsInd2,
+
+      coachingSupportTeacher: this.state.coachingSupportTeacher,
+      coachingSupportLF: this.state.coachingSupportLF,
 
       agreedStatement1: this.state.agreedStatement1,
       agreedStatement2: this.state.agreedStatement2,
@@ -820,7 +840,7 @@ export default class BanglaClassObservationScreen extends React.Component {
       // Send data to API
       try {
         let response = await fetch(
-          "http://118.179.80.51:8080/api/v1/bangla-class",
+          "http://118.179.80.51:8080/api/v1/di-bangla-class",
           {
             method: "POST",
             mode: "no-cors",
@@ -885,60 +905,44 @@ export default class BanglaClassObservationScreen extends React.Component {
       ind12FollowedIDoWeDoYouDoStatus,
       ind12FollowedIDoWeDoYouDoNote,
 
-      ind13IndependentReadingOppertunityStatus,
-      ind13IndependentReadingOppertunityNote,
+      ind13FollowedContinuityOfLessonStatus,
+      ind13FollowedContinuityOfLessonNote,
 
-      ind14FollowedContinuityOfLessonStatus,
-      ind14FollowedContinuityOfLessonNote,
+      ind14ImplementedAllTaskInTimeStatus,
+      ind14ImplementedAllTaskInTimeNote,
 
       ind15InstructedToUseWorkbookStatus,
       ind15InstructedToUseWorkbookNote,
 
-      ind16CompletedOneTaskAfterAnotherStatus,
-      ind16CompletedOneTaskAfterAnotherNote,
+      ind16IndependentReadingOpportunityStatus,
+      ind16IndependentReadingOpportunityNote,
 
-      ind21LessonConsistentlyIntimeStatus,
-      ind21LessonConsistentlyIntimeNote,
+      ind21CorrectlyPronouncedStatus,
+      ind21CorrectlyPronouncedNote,
 
-      ind22CorrectlyPronouncedStatus,
-      ind22CorrectlyPronouncedNote,
+      ind22TaughtCorrectlyAllowPracticeStatus,
+      ind22TaughtCorrectlyAllowPracticeNote,
 
-      ind23TaughtCorrectlyAllowPracticeStatus,
-      ind23TaughtCorrectlyAllowPracticeNote,
+      ind23DemonstratesFluentReadingStatus,
+      ind23DemonstratesFluentReadingNote,
 
-      ind24DemonstratesFluentReadingStatus,
-      ind24DemonstratesFluentReadingNote,
+      ind24AllowReadIndividuallyPairGroupsStatus,
+      ind24AllowReadIndividuallyPairGroupsNote,
 
-      ind25AllowReadIndividuallyPairsGroupsStatus,
-      ind25AllowReadIndividuallyPairsGroupsNote,
-
-      ind26FollowsInstructionsInWrittingStatus,
-      ind26FollowsInstructionsInWrittingNote,
+      ind25FollowsInstructionsInWritingStatus,
+      ind25FollowsInstructionsInWritingNote,
 
       ind31AskedHelpfulQuestionsStatus,
       ind31AskedHelpfulQuestionsNote,
 
-      ind32TaughtVocabularyNewSentanceStatus,
-      ind32TaughtVocabularyNewSentanceNote,
+      ind32TaughtVocabularyNewSentenceStatus,
+      ind32TaughtVocabularyNewSentenceNote,
 
-      ind33CheckWritingSpellingPuncuationStatus,
-      ind33CheckWritingSpellingPuncuationNote,
+      ind33CheckWritingSpellingPunctuationStatus,
+      ind33CheckWritingSpellingPunctuationNote,
 
       ind34CheckedWeDoYouDoStatus,
       ind34CheckedWeDoYouDoNote,
-
-      ind1PhonemicAwarenessStatus,
-      ind2LetterIdentificationStatus,
-      ind3VocabularyIdentificationStatus,
-      ind4FluencyIdentificationStatus,
-      ind5ComprehensionStatus,
-      ind6WritingActivitiesStatus,
-      ind7IDoWeDoYouDoStatus,
-      ind8GroupWorkStatus,
-      ind9TimeOnTaskStatus,
-      ind10UseTeachingAidStatus,
-      ind11ContinuityOfLessonsStatus,
-      ind12AssessmentStatus,
     } = this.state;
     // For Datepicker
 
@@ -1353,7 +1357,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                   <Picker
                     style={{
                       height: 40,
-                      width: 200,
+                      width: 240,
                     }}
                     selectedValue={this.state.pickerProject}
                     onValueChange={(value) => {
@@ -1418,7 +1422,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                   <Picker
                     style={{
                       height: 40,
-                      width: 160,
+                      width: 180,
                     }}
                     selectedValue={this.state.pickerLPO}
                     onValueChange={(value) => {
@@ -1432,7 +1436,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                     <Picker.Item label={"Select"} value={""} />
                     {this.state.allEmployee
                       .filter((item) => {
-                        return item.designation.includes("LPO");
+                        return (
+                          item.designation.includes("PO") &&
+                          item.office === this.state.pickerOffice
+                        );
                       })
                       .map((item) => {
                         return (
@@ -1477,7 +1484,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                   <Picker
                     style={{
                       height: 40,
-                      width: 160,
+                      width: 180,
                     }}
                     selectedValue={this.state.pickerLF}
                     onValueChange={(value) => {
@@ -1541,7 +1548,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                   <Picker
                     style={{
                       height: 40,
-                      width: 200,
+                      width: 220,
                     }}
                     selectedValue={this.state.pickerSchool}
                     onValueChange={(value) => {
@@ -1608,6 +1615,118 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }
                     value={this.state.visitNo + ""}
                   />
+                </View>
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      স্কুল আইডি
+                    </Text>
+                    <Text
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
+                    >
+                      *
+                    </Text>
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (School ID:)
+                  </Text>
+                  <Picker
+                    style={{
+                      height: 40,
+                      width: 200,
+                    }}
+                    selectedValue={this.state.rtrSchoolId}
+                    onValueChange={(value) => {
+                      this.setState({
+                        rtrSchoolId: value,
+                      });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    <Picker.Item label={"Select"} value={""} />
+                    {this.state.allSchool
+                      .filter((item) => {
+                        return item.lf === this.state.pickerLF.employeeRegId;
+                      })
+                      .map((item) => {
+                        return (
+                          <Picker.Item
+                            key={item.id}
+                            label={item.gsdId}
+                            value={item.gsdId}
+                          />
+                        );
+                      })}
+                  </Picker>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      সাপোর্ট ইয়ার
+                    </Text>
+                    <Text
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
+                    >
+                      *
+                    </Text>
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Year of Support:)
+                  </Text>
+                  <Picker
+                    style={{
+                      height: 40,
+                      width: 160,
+                    }}
+                    selectedValue={this.state.yearOfSupport}
+                    onValueChange={(value) => {
+                      this.setState({
+                        yearOfSupport: value,
+                      });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    <Picker.Item label={"Select"} value={""} />
+                    <Picker.Item label={"1"} value={"1"} />
+                    <Picker.Item label={"2"} value={"2"} />
+                    <Picker.Item label={"3"} value={"3"} />
+                    <Picker.Item label={"4"} value={"4"} />
+                    <Picker.Item label={"5"} value={"5"} />
+                    <Picker.Item label={"6"} value={"6"} />
+                    <Picker.Item label={"7"} value={"7"} />
+                    <Picker.Item label={"8"} value={"8"} />
+                  </Picker>
                 </View>
               </View>
 
@@ -1737,24 +1856,25 @@ export default class BanglaClassObservationScreen extends React.Component {
                         );
                       })}
                   </Picker>
-
-                  {/* <TextInput
-                    style={{
-                      height: 30,
-                      width: 200,
-                      padding: 5,
-                      borderWidth: 1,
-                    }}
-                    keyboardType="default"
-                    placeholder=""
-                    editable={true}
-                    onChangeText={(text) =>
-                      this.setState({
-                        classTeacher: text,
-                      })
-                    }
-                    value={this.state.classTeacher + ""}
-                  /> */}
+                  <View>
+                    <TextInput
+                      style={{
+                        height: 30,
+                        width: 160,
+                        padding: 5,
+                        borderWidth: 2,
+                      }}
+                      keyboardType="default"
+                      placeholder=""
+                      editable={true}
+                      onChangeText={(text) =>
+                        this.setState({
+                          classTeacher: text,
+                        })
+                      }
+                      value={this.state.classTeacher + ""}
+                    />
+                  </View>
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text
@@ -2596,12 +2716,13 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                   >
                     <Text>
-                      ১ক. শিক্ষক ক্লাস চলাকালীন শিক্ষক-নির্দেশিকা অনুসরণ করেছেন
-                      এবং প্রয়োজনে দেখেছেন ।
+                      ১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে
+                      শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।
                     </Text>
                     <Text>
-                      (1a. The teacher followed the teacher-guide during the
-                      class And saw if necessary.)
+                      (1a. The teacher conducted the class activities following
+                      the guidelines for use of the workbook and observed as
+                      necessary.)
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
                       অগ্রাধিকার এরিয়া: ১
@@ -2635,67 +2756,157 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              (this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" ||
-                                this.state.ind1PhonemicAwarenessStatus ===
-                                  "N/A") &&
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind4FluencyIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind6WritingActivitiesStatus ===
-                                "Yes" ||
-                                this.state.ind6WritingActivitiesStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes" &&
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
+                                "Yes" &&
+                              this.state.ind15InstructedToUseWorkbookStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
+                                "Yes" &&
+                              this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind23DemonstratesFluentReadingStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes" &&
+                              (this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 3",
                               });
                             } else if (
-                              this.state.ind1PhonemicAwarenessStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind2LetterIdentificationStatus ===
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
                                 "Yes" &&
-                              this.state.ind3VocabularyIdentificationStatus ===
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
                                 "Yes" &&
-                              this.state.ind4FluencyIdentificationStatus ===
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
                                 "Yes" &&
-                              this.state.ind5ComprehensionStatus === "Yes" &&
-                              this.state.ind6WritingActivitiesStatus ===
+                              this.state.ind15InstructedToUseWorkbookStatus ===
                                 "Yes" &&
-                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                              this.state.ind8GroupWorkStatus === "Yes" &&
-                              this.state.ind9TimeOnTaskStatus === "Yes" &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              (this.state.ind2LetterIdentificationStatus ===
+                              (this.state.ind21CorrectlyPronouncedStatus ===
                                 "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 2",
@@ -2705,43 +2916,6 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 teacherStatus: "Priority 1",
                               });
                             }
-                            // Set teacher status
-
-                            // Set teacher status
-                            // if (
-                            //   this.state.ind1PhonemicAwarenessStatus ===
-                            //     "Yes" &&
-                            //   this.state.ind2LetterIdentificationStatus ===
-                            //     "Yes" &&
-                            //   this.state.ind4FluencyIdentificationStatus ===
-                            //     "Yes" &&
-                            //   this.state.ind6WritingActivitiesStatus ===
-                            //     "Yes" &&
-                            //   this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                            //   this.state.ind8GroupWorkStatus === "Yes" &&
-                            //   this.state.ind10UseTeachingAidStatus === "Yes" &&
-                            //   this.state.ind11ContinuityOfLessonsStatus ===
-                            //     "Yes" &&
-                            //   this.state.ind12AssessmentStatus === "Yes"
-                            // ) {
-                            //   this.setState({
-                            //     teacherStatus: "Priority 3",
-                            //   });
-                            // } else if (
-                            //   this.state.ind2LetterIdentificationStatus ===
-                            //     "Yes" &&
-                            //   this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                            //   this.state.ind8GroupWorkStatus === "Yes" &&
-                            //   this.state.ind12AssessmentStatus === "Yes"
-                            // ) {
-                            //   this.setState({
-                            //     teacherStatus: "Priority 2",
-                            //   });
-                            // } else {
-                            //   this.setState({
-                            //     teacherStatus: "Priority 1",
-                            //   });
-                            // }
                             // Set teacher status
                           }}
                           selectedValue={
@@ -2794,10 +2968,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          না: বর্ণ (বর্ণ, কারচিহ্ন, যুক্তবর্ণ) পড়া বা বর্ণ ও
-                          শব্দাংশ মিলিয়ে শব্দ পড়ার কাজটি শিক্ষক সহায়িকাতে
-                          উল্লেখিত নির্দেশনা অনুযায়ী শেখান নি এবং শিক্ষার্থীদের
-                          চর্চা করার সুযোগ দেন নি।
+                          পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে,
+                          কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব
+                          কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে
+                          নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।
                         </Text>
                       </Card>
                     </View>
@@ -2814,10 +2988,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          আংশিক: বর্ণ (বর্ণ, কারচিহ্ন, যুক্তবর্ণ) পড়া বা বর্ণ ও
-                          শব্দাংশ মিলিয়ে শব্দ পড়ার কাজে শিক্ষক সহায়িকাতে
-                          উল্লেখিত এক বা একাধিক ধাপ নির্দেশনা অনুযায়ী করেন নি
-                          অথবা শিক্ষার্থীদের চর্চা করার সুযোগ দেন নি।
+                          পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে,
+                          কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব
+                          কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে
+                          নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।
                         </Text>
                       </Card>
                     </View>
@@ -2882,67 +3056,157 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              (this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" ||
-                                this.state.ind1PhonemicAwarenessStatus ===
-                                  "N/A") &&
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind4FluencyIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind6WritingActivitiesStatus ===
-                                "Yes" ||
-                                this.state.ind6WritingActivitiesStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes" &&
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
+                                "Yes" &&
+                              this.state.ind15InstructedToUseWorkbookStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
+                                "Yes" &&
+                              this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind23DemonstratesFluentReadingStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes" &&
+                              (this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 3",
                               });
                             } else if (
-                              this.state.ind1PhonemicAwarenessStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind2LetterIdentificationStatus ===
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
                                 "Yes" &&
-                              this.state.ind3VocabularyIdentificationStatus ===
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
                                 "Yes" &&
-                              this.state.ind4FluencyIdentificationStatus ===
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
                                 "Yes" &&
-                              this.state.ind5ComprehensionStatus === "Yes" &&
-                              this.state.ind6WritingActivitiesStatus ===
+                              this.state.ind15InstructedToUseWorkbookStatus ===
                                 "Yes" &&
-                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                              this.state.ind8GroupWorkStatus === "Yes" &&
-                              this.state.ind9TimeOnTaskStatus === "Yes" &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              (this.state.ind2LetterIdentificationStatus ===
+                              (this.state.ind21CorrectlyPronouncedStatus ===
                                 "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 2",
@@ -2997,10 +3261,13 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          না: বর্ণ (বর্ণ, কারচিহ্ন, যুক্তবর্ণ) পড়া বা বর্ণ ও
-                          শব্দাংশ মিলিয়ে শব্দ পড়ার কাজটি শিক্ষক সহায়িকাতে
-                          উল্লেখিত নির্দেশনা অনুযায়ী শেখান নি এবং শিক্ষার্থীদের
-                          চর্চা করার সুযোগ দেন নি।
+                          ‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে
+                          শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা
+                          করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার
+                          চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন
+                          করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য
+                          করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা
+                          স্বাধীনভাবে কাজ করার চেষ্টা করে।
                         </Text>
                       </Card>
                     </View>
@@ -3016,10 +3283,13 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          আংশিক: বর্ণ (বর্ণ, কারচিহ্ন, যুক্তবর্ণ) পড়া বা বর্ণ ও
-                          শব্দাংশ মিলিয়ে শব্দ পড়ার কাজে শিক্ষক সহায়িকাতে
-                          উল্লেখিত এক বা একাধিক ধাপ নির্দেশনা অনুযায়ী করেন নি
-                          অথবা শিক্ষার্থীদের চর্চা করার সুযোগ দেন নি।
+                          ‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে
+                          শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা
+                          করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার
+                          চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন
+                          করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য
+                          করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা
+                          স্বাধীনভাবে কাজ করার চেষ্টা করে।
                         </Text>
                       </Card>
                     </View>
@@ -3043,12 +3313,14 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                   >
                     <Text>
-                      ১গ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার
-                      সুযোগ দিয়েছেন ।
+                      ১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর
+                      গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক
+                      ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।
                     </Text>
                     <Text>
-                      (1c. Teacher makes students read independently during
-                      class)
+                      (1c. The past observation form of students' workbook work,
+                      books, notebooks and LF showed that the teacher followed
+                      the lesson consistently after the last visit.)
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
                       অগ্রাধিকার এরিয়া: ১
@@ -3075,76 +3347,166 @@ export default class BanglaClassObservationScreen extends React.Component {
                             width: 140,
                           }}
                           selectedValue={
-                            this.state.ind13IndependentReadingOppertunityStatus
+                            this.state.ind13FollowedContinuityOfLessonStatus
                           }
                           onValueChange={(value) => {
                             this.setState({
-                              ind13IndependentReadingOppertunityStatus: value,
+                              ind13FollowedContinuityOfLessonStatus: value,
                             });
 
                             // Set teacher status
                             if (
-                              (this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" ||
-                                this.state.ind1PhonemicAwarenessStatus ===
-                                  "N/A") &&
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind4FluencyIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind6WritingActivitiesStatus ===
-                                "Yes" ||
-                                this.state.ind6WritingActivitiesStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes" &&
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
+                                "Yes" &&
+                              this.state.ind15InstructedToUseWorkbookStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
+                                "Yes" &&
+                              this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind23DemonstratesFluentReadingStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes" &&
+                              (this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 3",
                               });
                             } else if (
-                              this.state.ind1PhonemicAwarenessStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind2LetterIdentificationStatus ===
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
                                 "Yes" &&
-                              this.state.ind3VocabularyIdentificationStatus ===
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
                                 "Yes" &&
-                              this.state.ind4FluencyIdentificationStatus ===
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
                                 "Yes" &&
-                              this.state.ind5ComprehensionStatus === "Yes" &&
-                              this.state.ind6WritingActivitiesStatus ===
+                              this.state.ind15InstructedToUseWorkbookStatus ===
                                 "Yes" &&
-                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                              this.state.ind8GroupWorkStatus === "Yes" &&
-                              this.state.ind9TimeOnTaskStatus === "Yes" &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              (this.state.ind2LetterIdentificationStatus ===
+                              (this.state.ind21CorrectlyPronouncedStatus ===
                                 "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 2",
@@ -3180,18 +3542,17 @@ export default class BanglaClassObservationScreen extends React.Component {
                           editable={true}
                           onChangeText={(text) =>
                             this.setState({
-                              ind13IndependentReadingOppertunityNote: text,
+                              ind13FollowedContinuityOfLessonNote: text,
                             })
                           }
                           value={
-                            this.state.ind13IndependentReadingOppertunityNote +
-                            ""
+                            this.state.ind13FollowedContinuityOfLessonNote + ""
                           }
                         ></TextInput>
                       </View>
                     </View>
                   </Card>
-                  {ind13IndependentReadingOppertunityStatus === "No" && (
+                  {ind13FollowedContinuityOfLessonStatus === "No" && (
                     <View>
                       <Card
                         style={{
@@ -3202,14 +3563,16 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          না: শিক্ষক শব্দভান্ডারের সংশ্লিষ্ট শব্দগুলো অর্থসহ
-                          শেখান নি এবং শব্দগুলো ব্যবহার করে শিক্ষার্থীদের নতুন
-                          বাক্য তৈরির সুযোগ দেন নি।
+                          পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও
+                          ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে।
+                          পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ
+                          পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয়
+                          পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয়।
                         </Text>
                       </Card>
                     </View>
                   )}
-                  {ind13IndependentReadingOppertunityStatus === "Partial" && (
+                  {ind13FollowedContinuityOfLessonStatus === "Partial" && (
                     <View>
                       <Card
                         style={{
@@ -3220,10 +3583,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          আংশিক: শিক্ষক শব্দভান্ডারের সংশ্লিষ্ট শব্দগুলোর যেকোন
-                          একটি (প্রযোজ্য ক্ষেত্রে একাধিক) অর্থসহ শেখাননি অথবা
-                          শব্দগুলো ব্যবহার করে শিক্ষার্থীদের নতুন বাক্য তৈরির
-                          সুযোগ দেন নি।
+                          পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও
+                          ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে।
+                          পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ
+                          পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয়
+                          পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয়।
                         </Text>
                       </Card>
                     </View>
@@ -3247,15 +3611,12 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                   >
                     <Text>
-                      ১ঘ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর
-                      গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর পাঠের
-                      ধারাবাহিকতা অনুসরণ করে পড়িয়েছেন ।
+                      ১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ
+                      ধারাবাহিভাবে বাস্তবায়ন করেছেন ।
                     </Text>
                     <Text>
-                      (1d. Students workbook tasks, books, notebooks and LF's
-                      from the last observation form it was seen that the
-                      lessons after the last visit taught following the
-                      sequence.)
+                      (1d. The teacher has consistently implemented all the
+                      tasks of the lesson within the stipulated time.)
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
                       অগ্রাধিকার এরিয়া: ১
@@ -3282,76 +3643,166 @@ export default class BanglaClassObservationScreen extends React.Component {
                             width: 140,
                           }}
                           selectedValue={
-                            this.state.ind14FollowedContinuityOfLessonStatus
+                            this.state.ind14ImplementedAllTaskInTimeStatus
                           }
                           onValueChange={(value) => {
                             this.setState({
-                              ind14FollowedContinuityOfLessonStatus: value,
+                              ind14ImplementedAllTaskInTimeStatus: value,
                             });
 
                             // Set teacher status
                             if (
-                              (this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" ||
-                                this.state.ind1PhonemicAwarenessStatus ===
-                                  "N/A") &&
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind4FluencyIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind6WritingActivitiesStatus ===
-                                "Yes" ||
-                                this.state.ind6WritingActivitiesStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes" &&
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
+                                "Yes" &&
+                              this.state.ind15InstructedToUseWorkbookStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
+                                "Yes" &&
+                              this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind23DemonstratesFluentReadingStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes" &&
+                              (this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 3",
                               });
                             } else if (
-                              this.state.ind1PhonemicAwarenessStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind2LetterIdentificationStatus ===
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
                                 "Yes" &&
-                              this.state.ind3VocabularyIdentificationStatus ===
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
                                 "Yes" &&
-                              this.state.ind4FluencyIdentificationStatus ===
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
                                 "Yes" &&
-                              this.state.ind5ComprehensionStatus === "Yes" &&
-                              this.state.ind6WritingActivitiesStatus ===
+                              this.state.ind15InstructedToUseWorkbookStatus ===
                                 "Yes" &&
-                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                              this.state.ind8GroupWorkStatus === "Yes" &&
-                              this.state.ind9TimeOnTaskStatus === "Yes" &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              (this.state.ind2LetterIdentificationStatus ===
+                              (this.state.ind21CorrectlyPronouncedStatus ===
                                 "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 2",
@@ -3387,17 +3838,17 @@ export default class BanglaClassObservationScreen extends React.Component {
                           editable={true}
                           onChangeText={(text) =>
                             this.setState({
-                              ind14FollowedContinuityOfLessonNote: text,
+                              ind14ImplementedAllTaskInTimeNote: text,
                             })
                           }
                           value={
-                            this.state.ind14FollowedContinuityOfLessonNote + ""
+                            this.state.ind14ImplementedAllTaskInTimeNote + ""
                           }
                         ></TextInput>
                       </View>
                     </View>
                   </Card>
-                  {ind14FollowedContinuityOfLessonStatus === "No" && (
+                  {ind14ImplementedAllTaskInTimeStatus === "No" && (
                     <View>
                       <Card
                         style={{
@@ -3408,14 +3859,15 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          না: অনুচ্ছেদ পড়ার সময় শিক্ষক সঠিক গতি, শুদ্ধ উচ্চারণ ও
-                          ভাবভঙ্গি বজায় রেখে পড়ে দেখাননি এবং শিক্ষার্থীদের চর্চা
-                          করার সুযোগ দেন নি।
+                          শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম
+                          থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো
+                          প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ
+                          ধারাবাহিকভাবে বাস্তবায়ন করতে হবে।
                         </Text>
                       </Card>
                     </View>
                   )}
-                  {ind14FollowedContinuityOfLessonStatus === "Partial" && (
+                  {ind14ImplementedAllTaskInTimeStatus === "Partial" && (
                     <View>
                       <Card
                         style={{
@@ -3426,9 +3878,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          আংশিক: অনুচ্ছেদ পড়ার সময় শিক্ষক সঠিক গতি/ শুদ্ধ
-                          উচ্চারণ/ ভাবভঙ্গি (প্রযোজ্য ক্ষেত্রে) বজায় রেখে পড়েন
-                          নি অথবা শিক্ষার্থীদের চর্চা করার সুযোগ দেন নি।
+                          শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম
+                          থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো
+                          প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ
+                          ধারাবাহিকভাবে বাস্তবায়ন করতে হবে।
                         </Text>
                       </Card>
                     </View>
@@ -3491,67 +3944,157 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              (this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" ||
-                                this.state.ind1PhonemicAwarenessStatus ===
-                                  "N/A") &&
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind4FluencyIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind6WritingActivitiesStatus ===
-                                "Yes" ||
-                                this.state.ind6WritingActivitiesStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes" &&
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
+                                "Yes" &&
+                              this.state.ind15InstructedToUseWorkbookStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
+                                "Yes" &&
+                              this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind23DemonstratesFluentReadingStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes" &&
+                              (this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 3",
                               });
                             } else if (
-                              this.state.ind1PhonemicAwarenessStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind2LetterIdentificationStatus ===
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
                                 "Yes" &&
-                              this.state.ind3VocabularyIdentificationStatus ===
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
                                 "Yes" &&
-                              this.state.ind4FluencyIdentificationStatus ===
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
                                 "Yes" &&
-                              this.state.ind5ComprehensionStatus === "Yes" &&
-                              this.state.ind6WritingActivitiesStatus ===
+                              this.state.ind15InstructedToUseWorkbookStatus ===
                                 "Yes" &&
-                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                              this.state.ind8GroupWorkStatus === "Yes" &&
-                              this.state.ind9TimeOnTaskStatus === "Yes" &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              (this.state.ind2LetterIdentificationStatus ===
+                              (this.state.ind21CorrectlyPronouncedStatus ===
                                 "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 2",
@@ -3608,8 +4151,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          না: শিক্ষক বোধগম্যতায় সঠিক উত্তর খোঁজার জন্য
-                          শিক্ষার্থীদের সহায়ক প্রশ্ন করেন নি।
+                          শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয়
+                          থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর
+                          মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের
+                          সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে।
                         </Text>
                       </Card>
                     </View>
@@ -3625,10 +4170,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          আংশিক: শিক্ষার্থীরা সঠিক উত্তর খুঁজে না পেলে শিক্ষক এক
-                          বা একাধিক প্রশ্নের ক্ষেত্রে সহায়ক প্রশ্ন করে সঠিক
-                          উত্তর খুঁজে পেতে সহায়তা করেন নি বা সঠিক উত্তর খোঁজার
-                          কৌশল শেখান নি।
+                          শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয়
+                          থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর
+                          মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের
+                          সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে।
                         </Text>
                       </Card>
                     </View>
@@ -3652,11 +4197,12 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                   >
                     <Text>
-                      ১চ. শিক্ষক স্বচ্ছন্দে পাঠের একটি কাজের পর আরেকটি কাজ
-                      সম্পন্ন করেছেন ।
+                      ১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার
+                      সুযোগ দিয়েছেন ।
                     </Text>
                     <Text>
-                      (1f. The teacher eases the lesson one task after another)
+                      (1f. The teacher gave students the opportunity to read
+                      independently during the class.)
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
                       অগ্রাধিকার এরিয়া: ১
@@ -3682,76 +4228,166 @@ export default class BanglaClassObservationScreen extends React.Component {
                             width: 140,
                           }}
                           selectedValue={
-                            this.state.ind16CompletedOneTaskAfterAnotherStatus
+                            this.state.ind16IndependentReadingOpportunityStatus
                           }
                           onValueChange={(value) => {
                             this.setState({
-                              ind16CompletedOneTaskAfterAnotherStatus: value,
+                              ind16IndependentReadingOpportunityStatus: value,
                             });
 
                             // Set teacher status
                             if (
-                              (this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" ||
-                                this.state.ind1PhonemicAwarenessStatus ===
-                                  "N/A") &&
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind4FluencyIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind6WritingActivitiesStatus ===
-                                "Yes" ||
-                                this.state.ind6WritingActivitiesStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes" &&
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
+                                "Yes" &&
+                              this.state.ind15InstructedToUseWorkbookStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
+                                "Yes" &&
+                              this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind23DemonstratesFluentReadingStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes" &&
+                              (this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 3",
                               });
                             } else if (
-                              this.state.ind1PhonemicAwarenessStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind2LetterIdentificationStatus ===
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
                                 "Yes" &&
-                              this.state.ind3VocabularyIdentificationStatus ===
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
                                 "Yes" &&
-                              this.state.ind4FluencyIdentificationStatus ===
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
                                 "Yes" &&
-                              this.state.ind5ComprehensionStatus === "Yes" &&
-                              this.state.ind6WritingActivitiesStatus ===
+                              this.state.ind15InstructedToUseWorkbookStatus ===
                                 "Yes" &&
-                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                              this.state.ind8GroupWorkStatus === "Yes" &&
-                              this.state.ind9TimeOnTaskStatus === "Yes" &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              (this.state.ind2LetterIdentificationStatus ===
+                              (this.state.ind21CorrectlyPronouncedStatus ===
                                 "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 2",
@@ -3787,18 +4423,18 @@ export default class BanglaClassObservationScreen extends React.Component {
                           editable={true}
                           onChangeText={(text) =>
                             this.setState({
-                              ind16CompletedOneTaskAfterAnotherNote: text,
+                              ind16IndependentReadingOpportunityNote: text,
                             })
                           }
                           value={
-                            this.state.ind16CompletedOneTaskAfterAnotherNote +
+                            this.state.ind16IndependentReadingOpportunityNote +
                             ""
                           }
                         ></TextInput>
                       </View>
                     </View>
                   </Card>
-                  {ind16CompletedOneTaskAfterAnotherStatus === "No" && (
+                  {ind16IndependentReadingOpportunityStatus === "No" && (
                     <View>
                       <Card
                         style={{
@@ -3809,13 +4445,16 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          না: শিক্ষক সহায়িকার সঠিক নির্দেশনা অনুযায়ী শিক্ষক
-                          বর্ণ/ যুক্তবর্ণ /শব্দ/ বাক্য লেখার কাজ করাননি।
+                          শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি
+                          চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে
+                          এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে
+                          উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া
+                          প্রয়োজন।
                         </Text>
                       </Card>
                     </View>
                   )}
-                  {ind16CompletedOneTaskAfterAnotherStatus === "Partial" && (
+                  {ind16IndependentReadingOpportunityStatus === "Partial" && (
                     <View>
                       <Card
                         style={{
@@ -3826,9 +4465,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          আংশিক: শিক্ষক সহায়িকার নির্দেশনা অনুযায়ী এক বা একাধিক
-                          ধাপ অনুসরণ ব্যাতিরেকে শিক্ষক বর্ণ/ যুক্তবর্ণ /শব্দ/
-                          বাক্য লেখার কাজ করিয়েছেন।
+                          শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি
+                          চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে
+                          এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে
+                          উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া
+                          প্রয়োজন।
                         </Text>
                       </Card>
                     </View>
@@ -3873,214 +4514,12 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                   >
                     <Text>
-                      ২ক. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ
-                      ধারাবাহিভাবে বাস্তবায়ন করেছেন ।
-                    </Text>
-                    <Text>
-                      (2a. All lesson assignments within the time allotted by
-                      the teacher continuously implemented.)
-                    </Text>
-                    <Text style={{ fontWeight: "bold" }}>
-                      অগ্রাধিকার এরিয়া: ২
-                    </Text>
-                    <Text style={{ fontWeight: "bold" }}>
-                      (Priority Area: 2)
-                    </Text>
-                  </Card>
-                  <Card
-                    style={{
-                      padding: 5,
-                      margin: 5,
-                      flex: 1,
-                      alignSelf: "center",
-                    }}
-                  >
-                    <View style={{ flexDirection: "row" }}>
-                      <View style={{ flex: 1, padding: 2 }}>
-                        <Text>পর্যবেক্ষণ: </Text>
-                        <Text>(Observation:)</Text>
-                        <Picker
-                          style={{
-                            height: 50,
-                            width: 140,
-                          }}
-                          selectedValue={
-                            this.state.ind21LessonConsistentlyIntimeStatus
-                          }
-                          onValueChange={(value) => {
-                            this.setState({
-                              ind21LessonConsistentlyIntimeStatus: value,
-                            });
-
-                            // Set teacher status
-                            if (
-                              (this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" ||
-                                this.state.ind1PhonemicAwarenessStatus ===
-                                  "N/A") &&
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind4FluencyIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind6WritingActivitiesStatus ===
-                                "Yes" ||
-                                this.state.ind6WritingActivitiesStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
-                                "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" &&
-                              this.state.ind2LetterIdentificationStatus ===
-                                "Yes" &&
-                              this.state.ind3VocabularyIdentificationStatus ===
-                                "Yes" &&
-                              this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" &&
-                              this.state.ind5ComprehensionStatus === "Yes" &&
-                              this.state.ind6WritingActivitiesStatus ===
-                                "Yes" &&
-                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                              this.state.ind8GroupWorkStatus === "Yes" &&
-                              this.state.ind9TimeOnTaskStatus === "Yes" &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
-                                "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
-                            }
-                            // Set teacher status
-                          }}
-                          itemStyle={{ color: "white" }}
-                        >
-                          <Picker.Item label={"Select"} value={""} />
-                          <Picker.Item label={"Yes"} value={"Yes"} />
-                          <Picker.Item label={"No"} value={"No"} />
-                          <Picker.Item label={"Partial"} value={"Partial"} />
-                          <Picker.Item label={"N/A"} value={"N/A"} />
-                        </Picker>
-                      </View>
-                      <View style={{ flex: 2, padding: 2 }}>
-                        <Text>মন্তব্য: </Text>
-                        <Text>(Comment:)</Text>
-                        <TextInput
-                          style={{
-                            height: 50,
-                            width: 230,
-                            padding: 5,
-                            borderWidth: 1,
-                          }}
-                          keyboardType="default"
-                          placeholder=""
-                          editable={true}
-                          onChangeText={(text) =>
-                            this.setState({
-                              ind21LessonConsistentlyIntimeNote: text,
-                            })
-                          }
-                          value={
-                            this.state.ind21LessonConsistentlyIntimeNote + ""
-                          }
-                        ></TextInput>
-                      </View>
-                    </View>
-                  </Card>
-                  {ind21LessonConsistentlyIntimeStatus === "No" && (
-                    <View>
-                      <Card
-                        style={{
-                          padding: 5,
-                          margin: 5,
-                          flex: 1,
-                          alignSelf: "center",
-                        }}
-                      >
-                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          না: শিখন-শেখানো কার্যক্রমে রুম টু রিড প্রদত্ত
-                          নির্দেশনা অনুযায়ী ‘আমি করি-আমরা করি-তুমি কর’ পদ্ধতি
-                          অনুসরণ করেন নি।
-                        </Text>
-                      </Card>
-                    </View>
-                  )}
-                  {ind21LessonConsistentlyIntimeStatus === "Partial" && (
-                    <View>
-                      <Card
-                        style={{
-                          padding: 5,
-                          margin: 5,
-                          flex: 1,
-                          alignSelf: "center",
-                        }}
-                      >
-                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          আংশিক: শিখন-শেখানো কার্যক্রমে রুম টু রিড প্রদত্ত
-                          নির্দেশনায় উল্লেখিত এক বা একাধিক কাজে/ধাপে ‘আমি
-                          করি-আমরা করি-তুমি কর’ পদ্ধতি অনুসরণ করেন নি।
-                        </Text>
-                      </Card>
-                    </View>
-                  )}
-                </Card>
-
-                <Card
-                  style={{
-                    padding: 10,
-                    margin: 10,
-                    flex: 1,
-                    alignSelf: "center",
-                  }}
-                >
-                  <Card
-                    style={{
-                      padding: 5,
-                      margin: 5,
-                      flex: 1,
-                      alignSelf: "center",
-                    }}
-                  >
-                    <Text>
-                      ২খ. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের
+                      ২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের
                       ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।
                     </Text>
                     <Text>
-                      (2b. All letters and words used by the teacher in phonics
-                      work pronounce the sounds correctly.)
+                      (2a. The teacher has correctly pronounced the sounds of
+                      all the letters and words used in the phonics activity.)
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
                       অগ্রাধিকার এরিয়া: ২
@@ -4107,76 +4546,166 @@ export default class BanglaClassObservationScreen extends React.Component {
                             width: 140,
                           }}
                           selectedValue={
-                            this.state.ind22CorrectlyPronouncedStatus
+                            this.state.ind21CorrectlyPronouncedStatus
                           }
                           onValueChange={(value) => {
                             this.setState({
-                              ind22CorrectlyPronouncedStatus: value,
+                              ind21CorrectlyPronouncedStatus: value,
                             });
 
                             // Set teacher status
                             if (
-                              (this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" ||
-                                this.state.ind1PhonemicAwarenessStatus ===
-                                  "N/A") &&
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind4FluencyIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind6WritingActivitiesStatus ===
-                                "Yes" ||
-                                this.state.ind6WritingActivitiesStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes" &&
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
+                                "Yes" &&
+                              this.state.ind15InstructedToUseWorkbookStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
+                                "Yes" &&
+                              this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind23DemonstratesFluentReadingStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes" &&
+                              (this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 3",
                               });
                             } else if (
-                              this.state.ind1PhonemicAwarenessStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind2LetterIdentificationStatus ===
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
                                 "Yes" &&
-                              this.state.ind3VocabularyIdentificationStatus ===
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
                                 "Yes" &&
-                              this.state.ind4FluencyIdentificationStatus ===
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
                                 "Yes" &&
-                              this.state.ind5ComprehensionStatus === "Yes" &&
-                              this.state.ind6WritingActivitiesStatus ===
+                              this.state.ind15InstructedToUseWorkbookStatus ===
                                 "Yes" &&
-                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                              this.state.ind8GroupWorkStatus === "Yes" &&
-                              this.state.ind9TimeOnTaskStatus === "Yes" &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              (this.state.ind2LetterIdentificationStatus ===
+                              (this.state.ind21CorrectlyPronouncedStatus ===
                                 "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 2",
@@ -4212,15 +4741,15 @@ export default class BanglaClassObservationScreen extends React.Component {
                           editable={true}
                           onChangeText={(text) =>
                             this.setState({
-                              ind22CorrectlyPronouncedNote: text,
+                              ind21CorrectlyPronouncedNote: text,
                             })
                           }
-                          value={this.state.ind22CorrectlyPronouncedNote + ""}
+                          value={this.state.ind21CorrectlyPronouncedNote + ""}
                         ></TextInput>
                       </View>
                     </View>
                   </Card>
-                  {ind22CorrectlyPronouncedStatus === "No" && (
+                  {ind21CorrectlyPronouncedStatus === "No" && (
                     <View>
                       <Card
                         style={{
@@ -4231,15 +4760,14 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          না: শিক্ষক শিক্ষার্থীদের ‘পড়ি লিখি শিখি’ ওয়ার্কবুক ও
-                          ‘আমার বাংলা বই’ -এর নির্ধারিত পড়ার অংশে নির্দেশনা
-                          অনুযায়ী বর্ণ/ শব্দ/ বাক্য এককভাবে বা জুটিতে বা দলে
-                          পড়ার সুযোগ দেননি।
+                          শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর
+                          শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে
+                          সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।
                         </Text>
                       </Card>
                     </View>
                   )}
-                  {ind22CorrectlyPronouncedStatus === "Partial" && (
+                  {ind21CorrectlyPronouncedStatus === "Partial" && (
                     <View>
                       <Card
                         style={{
@@ -4250,10 +4778,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          আংশিক: শিক্ষক শিক্ষার্থীদের ‘পড়ি লিখি শিখি’ ওয়ার্কবুক
-                          অথবা ‘আমার বাংলা বই’ -এর নির্ধারিত পড়ার অংশে যেকোন এক
-                          বা একাধিক কাজে (বর্ণ/ শব্দ/ বাক্য) নির্দেশনা অনুযায়ী
-                          এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দেননি।
+                          শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর
+                          শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে
+                          সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।
                         </Text>
                       </Card>
                     </View>
@@ -4277,14 +4804,14 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                   >
                     <Text>
-                      ২গ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/
+                      ২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/
                       যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং
                       শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।
                     </Text>
                     <Text>
-                      (2c. Teacher read letters/hyphens correctly or letters/
-                      taught word reading by combining letters and syllables and
-                      Students are given the opportunity to practice.)
+                      (2b. The teacher taught correct letter/hybrid reading or
+                      letter/hyphen and syllable reading and gave the students
+                      an opportunity to practice.)
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
                       অগ্রাধিকার এরিয়া: ২
@@ -4311,76 +4838,166 @@ export default class BanglaClassObservationScreen extends React.Component {
                             width: 140,
                           }}
                           selectedValue={
-                            this.state.ind23TaughtCorrectlyAllowPracticeStatus
+                            this.state.ind22TaughtCorrectlyAllowPracticeStatus
                           }
                           onValueChange={(value) => {
                             this.setState({
-                              ind23TaughtCorrectlyAllowPracticeStatus: value,
+                              ind22TaughtCorrectlyAllowPracticeStatus: value,
                             });
 
                             // Set teacher status
                             if (
-                              (this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" ||
-                                this.state.ind1PhonemicAwarenessStatus ===
-                                  "N/A") &&
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind4FluencyIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind6WritingActivitiesStatus ===
-                                "Yes" ||
-                                this.state.ind6WritingActivitiesStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes" &&
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
+                                "Yes" &&
+                              this.state.ind15InstructedToUseWorkbookStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
+                                "Yes" &&
+                              this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind23DemonstratesFluentReadingStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes" &&
+                              (this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 3",
                               });
                             } else if (
-                              this.state.ind1PhonemicAwarenessStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind2LetterIdentificationStatus ===
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
                                 "Yes" &&
-                              this.state.ind3VocabularyIdentificationStatus ===
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
                                 "Yes" &&
-                              this.state.ind4FluencyIdentificationStatus ===
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
                                 "Yes" &&
-                              this.state.ind5ComprehensionStatus === "Yes" &&
-                              this.state.ind6WritingActivitiesStatus ===
+                              this.state.ind15InstructedToUseWorkbookStatus ===
                                 "Yes" &&
-                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                              this.state.ind8GroupWorkStatus === "Yes" &&
-                              this.state.ind9TimeOnTaskStatus === "Yes" &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              (this.state.ind2LetterIdentificationStatus ===
+                              (this.state.ind21CorrectlyPronouncedStatus ===
                                 "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 2",
@@ -4416,18 +5033,18 @@ export default class BanglaClassObservationScreen extends React.Component {
                           editable={true}
                           onChangeText={(text) =>
                             this.setState({
-                              ind23TaughtCorrectlyAllowPracticeNote: text,
+                              ind22TaughtCorrectlyAllowPracticeNote: text,
                             })
                           }
                           value={
-                            this.state.ind23TaughtCorrectlyAllowPracticeNote +
+                            this.state.ind22TaughtCorrectlyAllowPracticeNote +
                             ""
                           }
                         ></TextInput>
                       </View>
                     </View>
                   </Card>
-                  {ind23TaughtCorrectlyAllowPracticeStatus === "No" && (
+                  {ind22TaughtCorrectlyAllowPracticeStatus === "No" && (
                     <View>
                       <Card
                         style={{
@@ -4438,13 +5055,15 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          না: শিক্ষক রুম টু রিড প্রদত্ত নির্দেশনা অনুযায়ী
-                          নির্ধারিত সময়ে সবগুলো কাজ ধারাবাহিকভাবে করেন নি।
+                          বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে
+                          শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া
+                          শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও
+                          পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।
                         </Text>
                       </Card>
                     </View>
                   )}
-                  {ind23TaughtCorrectlyAllowPracticeStatus === "Partial" && (
+                  {ind22TaughtCorrectlyAllowPracticeStatus === "Partial" && (
                     <View>
                       <Card
                         style={{
@@ -4455,9 +5074,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          আংশিক: শিক্ষক রুম টু রিড প্রদত্ত নির্দেশনা অনুযায়ী
-                          নির্ধারিত সময়ে সবগুলো কাজ করেননি অথবা ধারাবাহিকভাবে
-                          সবগুলো কাজ করেন নি।
+                          বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে
+                          শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া
+                          শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও
+                          পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।
                         </Text>
                       </Card>
                     </View>
@@ -4481,14 +5101,14 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                   >
                     <Text>
-                      ২ঘ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ
+                      ২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ
                       উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে
                       দেখিয়েছেন ।
                     </Text>
                     <Text>
-                      (2d. Teacher presents students reading fluency (proper
-                      pace, clear reading with retention of pronunciation and
-                      expression) and showed)
+                      (2c. The teacher demonstrates fluent reading (reading with
+                      correct pace, correct pronunciation and expression) to the
+                      students.)
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
                       অগ্রাধিকার এরিয়া: ২
@@ -4515,76 +5135,166 @@ export default class BanglaClassObservationScreen extends React.Component {
                             width: 140,
                           }}
                           selectedValue={
-                            this.state.ind24DemonstratesFluentReadingStatus
+                            this.state.ind23DemonstratesFluentReadingStatus
                           }
                           onValueChange={(value) => {
                             this.setState({
-                              ind24DemonstratesFluentReadingStatus: value,
+                              ind23DemonstratesFluentReadingStatus: value,
                             });
 
                             // Set teacher status
                             if (
-                              (this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" ||
-                                this.state.ind1PhonemicAwarenessStatus ===
-                                  "N/A") &&
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind4FluencyIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind6WritingActivitiesStatus ===
-                                "Yes" ||
-                                this.state.ind6WritingActivitiesStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes" &&
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
+                                "Yes" &&
+                              this.state.ind15InstructedToUseWorkbookStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
+                                "Yes" &&
+                              this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind23DemonstratesFluentReadingStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes" &&
+                              (this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 3",
                               });
                             } else if (
-                              this.state.ind1PhonemicAwarenessStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind2LetterIdentificationStatus ===
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
                                 "Yes" &&
-                              this.state.ind3VocabularyIdentificationStatus ===
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
                                 "Yes" &&
-                              this.state.ind4FluencyIdentificationStatus ===
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
                                 "Yes" &&
-                              this.state.ind5ComprehensionStatus === "Yes" &&
-                              this.state.ind6WritingActivitiesStatus ===
+                              this.state.ind15InstructedToUseWorkbookStatus ===
                                 "Yes" &&
-                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                              this.state.ind8GroupWorkStatus === "Yes" &&
-                              this.state.ind9TimeOnTaskStatus === "Yes" &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              (this.state.ind2LetterIdentificationStatus ===
+                              (this.state.ind21CorrectlyPronouncedStatus ===
                                 "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 2",
@@ -4620,17 +5330,17 @@ export default class BanglaClassObservationScreen extends React.Component {
                           editable={true}
                           onChangeText={(text) =>
                             this.setState({
-                              ind24DemonstratesFluentReadingNote: text,
+                              ind23DemonstratesFluentReadingNote: text,
                             })
                           }
                           value={
-                            this.state.ind24DemonstratesFluentReadingNote + ""
+                            this.state.ind23DemonstratesFluentReadingNote + ""
                           }
                         ></TextInput>
                       </View>
                     </View>
                   </Card>
-                  {ind24DemonstratesFluentReadingStatus === "No" && (
+                  {ind23DemonstratesFluentReadingStatus === "No" && (
                     <View>
                       <Card
                         style={{
@@ -4641,13 +5351,16 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          না: শিক্ষক পাঠ চলাকালীন রুম টু রিড প্রদত্ত নির্দেশনা
-                          অনুযায়ী কোন সহায়ক উপকরণ ব্যবহার করেন নি।
+                          শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের
+                          সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা
+                          শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া
+                          প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে
+                          পড়তে হয় সে দক্ষতা অর্জন করে।
                         </Text>
                       </Card>
                     </View>
                   )}
-                  {ind24DemonstratesFluentReadingStatus === "Partial" && (
+                  {ind23DemonstratesFluentReadingStatus === "Partial" && (
                     <View>
                       <Card
                         style={{
@@ -4658,10 +5371,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          আংশিক: শিক্ষক পাঠ নির্দেশনা অনুযায়ী রুম টু রিড প্রদত্ত
-                          যে যে সহায়ক উপকরণ ব্যবহারের কথা ছিল তার এক বা একাধিক
-                          উপকরণ ব্যবহার করেন নি। অথবা সকল সহায়ক উপকরণ ব্যবহার
-                          করেছেন তবে সঠিক সময়ে ব্যবহার করেন নি।
+                          শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের
+                          সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা
+                          শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া
+                          প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে
+                          পড়তে হয় সে দক্ষতা অর্জন করে।
                         </Text>
                       </Card>
                     </View>
@@ -4685,11 +5399,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                   >
                     <Text>
-                      ২ঙ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে
+                      ২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে
                       পড়ার সুযোগ দিয়েছেন ।
                     </Text>
                     <Text>
-                      (2e. The teacher gave students the opportunity to read
+                      (2d. The teacher gave students the opportunity to read
                       several times individually or in pairs or groups.)
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
@@ -4718,77 +5432,166 @@ export default class BanglaClassObservationScreen extends React.Component {
                           }}
                           selectedValue={
                             this.state
-                              .ind25AllowReadIndividuallyPairsGroupsStatus
+                              .ind24AllowReadIndividuallyPairGroupsStatus
                           }
                           onValueChange={(value) => {
                             this.setState({
-                              ind25AllowReadIndividuallyPairsGroupsStatus:
-                                value,
+                              ind24AllowReadIndividuallyPairGroupsStatus: value,
                             });
 
                             // Set teacher status
                             if (
-                              (this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" ||
-                                this.state.ind1PhonemicAwarenessStatus ===
-                                  "N/A") &&
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind4FluencyIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind6WritingActivitiesStatus ===
-                                "Yes" ||
-                                this.state.ind6WritingActivitiesStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes" &&
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
+                                "Yes" &&
+                              this.state.ind15InstructedToUseWorkbookStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
+                                "Yes" &&
+                              this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind23DemonstratesFluentReadingStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes" &&
+                              (this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 3",
                               });
                             } else if (
-                              this.state.ind1PhonemicAwarenessStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind2LetterIdentificationStatus ===
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
                                 "Yes" &&
-                              this.state.ind3VocabularyIdentificationStatus ===
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
                                 "Yes" &&
-                              this.state.ind4FluencyIdentificationStatus ===
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
                                 "Yes" &&
-                              this.state.ind5ComprehensionStatus === "Yes" &&
-                              this.state.ind6WritingActivitiesStatus ===
+                              this.state.ind15InstructedToUseWorkbookStatus ===
                                 "Yes" &&
-                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                              this.state.ind8GroupWorkStatus === "Yes" &&
-                              this.state.ind9TimeOnTaskStatus === "Yes" &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              (this.state.ind2LetterIdentificationStatus ===
+                              (this.state.ind21CorrectlyPronouncedStatus ===
                                 "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 2",
@@ -4824,18 +5627,18 @@ export default class BanglaClassObservationScreen extends React.Component {
                           editable={true}
                           onChangeText={(text) =>
                             this.setState({
-                              ind25AllowReadIndividuallyPairsGroupsNote: text,
+                              ind24AllowReadIndividuallyPairGroupsNote: text,
                             })
                           }
                           value={
                             this.state
-                              .ind25AllowReadIndividuallyPairsGroupsNote + ""
+                              .ind24AllowReadIndividuallyPairGroupsNote + ""
                           }
                         ></TextInput>
                       </View>
                     </View>
                   </Card>
-                  {ind25AllowReadIndividuallyPairsGroupsStatus === "No" && (
+                  {ind24AllowReadIndividuallyPairGroupsStatus === "No" && (
                     <View>
                       <Card
                         style={{
@@ -4846,15 +5649,14 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          না: বেশিরভাগ শিক্ষার্থীদের বই, ওয়ার্কবুক এবং এলএফ-এর
-                          গত পর্যবেক্ষণ ফরম দেখলে বোঝা যায় যে গতবারের পরিদর্শনের
-                          পর থেকে কোন পাঠেরই ধারাবাহিকতা অনুসরণ করা হয় নি।
+                          পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার
+                          দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল
+                          টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।
                         </Text>
                       </Card>
                     </View>
                   )}
-                  {ind25AllowReadIndividuallyPairsGroupsStatus ===
-                    "Partial" && (
+                  {ind24AllowReadIndividuallyPairGroupsStatus === "Partial" && (
                     <View>
                       <Card
                         style={{
@@ -4865,10 +5667,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          আংশিক: বেশিরভাগ শিক্ষার্থীদের বই, ওয়ার্কবুক এবং
-                          এলএফ-এর গত পর্যবেক্ষণ ফরম দেখলে বোঝা যায় যে গত
-                          পরিদর্শনের পর থেকে মাঝের এক বা একাধিক পাঠ পরিচালিত হয়
-                          নি।
+                          পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার
+                          দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল
+                          টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।
                         </Text>
                       </Card>
                     </View>
@@ -4892,11 +5693,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                     }}
                   >
                     <Text>
-                      ২চ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য
+                      ২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য
                       লেখার কাজ করিয়েছেন ।
                     </Text>
                     <Text>
-                      (2f. The teacher has done the work of writing
+                      (2e. The teacher has done the work of writing
                       letters/hyphens/words/sentences as per instructions.)
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
@@ -4924,76 +5725,166 @@ export default class BanglaClassObservationScreen extends React.Component {
                             width: 140,
                           }}
                           selectedValue={
-                            this.state.ind26FollowsInstructionsInWrittingStatus
+                            this.state.ind25FollowsInstructionsInWritingStatus
                           }
                           onValueChange={(value) => {
                             this.setState({
-                              ind26FollowsInstructionsInWrittingStatus: value,
+                              ind25FollowsInstructionsInWritingStatus: value,
                             });
 
                             // Set teacher status
                             if (
-                              (this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" ||
-                                this.state.ind1PhonemicAwarenessStatus ===
-                                  "N/A") &&
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind4FluencyIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind6WritingActivitiesStatus ===
-                                "Yes" ||
-                                this.state.ind6WritingActivitiesStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes" &&
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
+                                "Yes" &&
+                              this.state.ind15InstructedToUseWorkbookStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
+                                "Yes" &&
+                              this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind23DemonstratesFluentReadingStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes" &&
+                              (this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 3",
                               });
                             } else if (
-                              this.state.ind1PhonemicAwarenessStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind2LetterIdentificationStatus ===
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
                                 "Yes" &&
-                              this.state.ind3VocabularyIdentificationStatus ===
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
                                 "Yes" &&
-                              this.state.ind4FluencyIdentificationStatus ===
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
                                 "Yes" &&
-                              this.state.ind5ComprehensionStatus === "Yes" &&
-                              this.state.ind6WritingActivitiesStatus ===
+                              this.state.ind15InstructedToUseWorkbookStatus ===
                                 "Yes" &&
-                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                              this.state.ind8GroupWorkStatus === "Yes" &&
-                              this.state.ind9TimeOnTaskStatus === "Yes" &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              (this.state.ind2LetterIdentificationStatus ===
+                              (this.state.ind21CorrectlyPronouncedStatus ===
                                 "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 2",
@@ -5029,18 +5920,18 @@ export default class BanglaClassObservationScreen extends React.Component {
                           editable={true}
                           onChangeText={(text) =>
                             this.setState({
-                              ind26FollowsInstructionsInWrittingNote: text,
+                              ind25FollowsInstructionsInWritingNote: text,
                             })
                           }
                           value={
-                            this.state.ind26FollowsInstructionsInWrittingNote +
+                            this.state.ind25FollowsInstructionsInWritingNote +
                             ""
                           }
                         ></TextInput>
                       </View>
                     </View>
                   </Card>
-                  {ind26FollowsInstructionsInWrittingStatus === "No" && (
+                  {ind25FollowsInstructionsInWritingStatus === "No" && (
                     <View>
                       <Card
                         style={{
@@ -5051,14 +5942,14 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          না: শিক্ষক ছেলে-মেয়ে, বিশেষ চাহিদাসম্পন্ন ও পিছিয়ে পড়া
-                          শিক্ষার্থীসহ সকল শিক্ষার্থীদের পাঠের কাজে এবং
-                          মূল্যায়নে প্রতিনিধিত্বমূলক অংশগ্রহণ নিশ্চিত করেন নি।
+                          বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং
+                          গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা
+                          বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।
                         </Text>
                       </Card>
                     </View>
                   )}
-                  {ind26FollowsInstructionsInWrittingStatus === "Partial" && (
+                  {ind25FollowsInstructionsInWritingStatus === "Partial" && (
                     <View>
                       <Card
                         style={{
@@ -5069,10 +5960,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          আংশিক: শিক্ষক ছেলে-মেয়ে অথবা বিশেষ চাহিদা সম্পন্ন
-                          (প্রযোজ্য ক্ষেত্রে) অথবা পিছিয়ে পড়া শিক্ষার্থী দের (যে
-                          কোন একদল) পাঠের কাজে এবং মূল্যায়নে প্রতিনিধিত্বমূলক
-                          অংশগ্রহণ নিশ্চিত করেন নি।
+                          বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং
+                          গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা
+                          বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।
                         </Text>
                       </Card>
                     </View>
@@ -5159,67 +6049,157 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              (this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" ||
-                                this.state.ind1PhonemicAwarenessStatus ===
-                                  "N/A") &&
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind4FluencyIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind6WritingActivitiesStatus ===
-                                "Yes" ||
-                                this.state.ind6WritingActivitiesStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes" &&
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
+                                "Yes" &&
+                              this.state.ind15InstructedToUseWorkbookStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
+                                "Yes" &&
+                              this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind23DemonstratesFluentReadingStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind25FollowsInstructionsInWrittingStatus ===
+                                "Yes" &&
+                              (this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentanceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentanceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentanceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPuncuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPuncuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPuncuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 3",
                               });
                             } else if (
-                              this.state.ind1PhonemicAwarenessStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind2LetterIdentificationStatus ===
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
                                 "Yes" &&
-                              this.state.ind3VocabularyIdentificationStatus ===
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
                                 "Yes" &&
-                              this.state.ind4FluencyIdentificationStatus ===
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
                                 "Yes" &&
-                              this.state.ind5ComprehensionStatus === "Yes" &&
-                              this.state.ind6WritingActivitiesStatus ===
+                              this.state.ind15InstructedToUseWorkbookStatus ===
                                 "Yes" &&
-                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                              this.state.ind8GroupWorkStatus === "Yes" &&
-                              this.state.ind9TimeOnTaskStatus === "Yes" &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind16IndependentReadingOppertunityStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              (this.state.ind2LetterIdentificationStatus ===
+                              (this.state.ind21CorrectlyPronouncedStatus ===
                                 "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWrittingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWrittingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWrittingStatus ===
+                                  "Partial" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentanceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentanceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentanceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPuncuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPuncuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPuncuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 2",
@@ -5274,9 +6254,8 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          না: শিখন-শেখানো কার্যক্রমে রুম টু রিড প্রদত্ত
-                          নির্দেশনা অনুযায়ী ‘আমি করি-আমরা করি-তুমি কর’ পদ্ধতি
-                          অনুসরণ করেন নি।
+                          সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন
+                          করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।
                         </Text>
                       </Card>
                     </View>
@@ -5292,9 +6271,8 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          আংশিক: শিখন-শেখানো কার্যক্রমে রুম টু রিড প্রদত্ত
-                          নির্দেশনায় উল্লেখিত এক বা একাধিক কাজে/ধাপে ‘আমি
-                          করি-আমরা করি-তুমি কর’ পদ্ধতি অনুসরণ করেন নি।
+                          সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন
+                          করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।
                         </Text>
                       </Card>
                     </View>
@@ -5319,8 +6297,8 @@ export default class BanglaClassObservationScreen extends React.Component {
                   >
                     <Text>
                       ৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং
-                      শিক্ষার্থীদের শব্দগুলো ব্যবহার করে নতুন বাক্য গঠনের সুযোগ
-                      দিয়েছেন ।
+                      শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক
+                      শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।
                     </Text>
                     <Text>
                       (3b. The teacher taught the vocabulary words with meaning
@@ -5352,76 +6330,166 @@ export default class BanglaClassObservationScreen extends React.Component {
                             width: 140,
                           }}
                           selectedValue={
-                            this.state.ind32TaughtVocabularyNewSentanceStatus
+                            this.state.ind32TaughtVocabularyNewSentenceStatus
                           }
                           onValueChange={(value) => {
                             this.setState({
-                              ind32TaughtVocabularyNewSentanceStatus: value,
+                              ind32TaughtVocabularyNewSentenceStatus: value,
                             });
 
                             // Set teacher status
                             if (
-                              (this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" ||
-                                this.state.ind1PhonemicAwarenessStatus ===
-                                  "N/A") &&
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind4FluencyIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind6WritingActivitiesStatus ===
-                                "Yes" ||
-                                this.state.ind6WritingActivitiesStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes" &&
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
+                                "Yes" &&
+                              this.state.ind15InstructedToUseWorkbookStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
+                                "Yes" &&
+                              this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind23DemonstratesFluentReadingStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes" &&
+                              (this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 3",
                               });
                             } else if (
-                              this.state.ind1PhonemicAwarenessStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind2LetterIdentificationStatus ===
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
                                 "Yes" &&
-                              this.state.ind3VocabularyIdentificationStatus ===
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
                                 "Yes" &&
-                              this.state.ind4FluencyIdentificationStatus ===
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
                                 "Yes" &&
-                              this.state.ind5ComprehensionStatus === "Yes" &&
-                              this.state.ind6WritingActivitiesStatus ===
+                              this.state.ind15InstructedToUseWorkbookStatus ===
                                 "Yes" &&
-                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                              this.state.ind8GroupWorkStatus === "Yes" &&
-                              this.state.ind9TimeOnTaskStatus === "Yes" &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              (this.state.ind2LetterIdentificationStatus ===
+                              (this.state.ind21CorrectlyPronouncedStatus ===
                                 "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 2",
@@ -5457,17 +6525,17 @@ export default class BanglaClassObservationScreen extends React.Component {
                           editable={true}
                           onChangeText={(text) =>
                             this.setState({
-                              ind32TaughtVocabularyNewSentanceNote: text,
+                              ind32TaughtVocabularyNewSentenceNote: text,
                             })
                           }
                           value={
-                            this.state.ind32TaughtVocabularyNewSentanceNote + ""
+                            this.state.ind32TaughtVocabularyNewSentenceNote + ""
                           }
                         ></TextInput>
                       </View>
                     </View>
                   </Card>
-                  {ind32TaughtVocabularyNewSentanceStatus === "No" && (
+                  {ind32TaughtVocabularyNewSentenceStatus === "No" && (
                     <View>
                       <Card
                         style={{
@@ -5478,15 +6546,15 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          না: শিক্ষক শিক্ষার্থীদের ‘পড়ি লিখি শিখি’ ওয়ার্কবুক ও
-                          ‘আমার বাংলা বই’ -এর নির্ধারিত পড়ার অংশে নির্দেশনা
-                          অনুযায়ী বর্ণ/ শব্দ/ বাক্য এককভাবে বা জুটিতে বা দলে
-                          পড়ার সুযোগ দেননি।
+                          শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে
+                          তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার
+                          করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে
+                          রাখতে পারে এবং গল্পটি বুঝতে পারে।
                         </Text>
                       </Card>
                     </View>
                   )}
-                  {ind32TaughtVocabularyNewSentanceStatus === "Partial" && (
+                  {ind32TaughtVocabularyNewSentenceStatus === "Partial" && (
                     <View>
                       <Card
                         style={{
@@ -5497,10 +6565,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          আংশিক: শিক্ষক শিক্ষার্থীদের ‘পড়ি লিখি শিখি’ ওয়ার্কবুক
-                          অথবা ‘আমার বাংলা বই’ -এর নির্ধারিত পড়ার অংশে যেকোন এক
-                          বা একাধিক কাজে (বর্ণ/ শব্দ/ বাক্য) নির্দেশনা অনুযায়ী
-                          এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দেননি।
+                          শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে
+                          তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার
+                          করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে
+                          রাখতে পারে এবং গল্পটি বুঝতে পারে।
                         </Text>
                       </Card>
                     </View>
@@ -5556,76 +6624,167 @@ export default class BanglaClassObservationScreen extends React.Component {
                             width: 140,
                           }}
                           selectedValue={
-                            this.state.ind33CheckWritingSpellingPuncuationStatus
+                            this.state
+                              .ind33CheckWritingSpellingPunctuationStatus
                           }
                           onValueChange={(value) => {
                             this.setState({
-                              ind33CheckWritingSpellingPuncuationStatus: value,
+                              ind33CheckWritingSpellingPunctuationStatus: value,
                             });
 
                             // Set teacher status
                             if (
-                              (this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" ||
-                                this.state.ind1PhonemicAwarenessStatus ===
-                                  "N/A") &&
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind4FluencyIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind6WritingActivitiesStatus ===
-                                "Yes" ||
-                                this.state.ind6WritingActivitiesStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes" &&
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
+                                "Yes" &&
+                              this.state.ind15InstructedToUseWorkbookStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
+                                "Yes" &&
+                              this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind23DemonstratesFluentReadingStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes" &&
+                              (this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 3",
                               });
                             } else if (
-                              this.state.ind1PhonemicAwarenessStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind2LetterIdentificationStatus ===
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
                                 "Yes" &&
-                              this.state.ind3VocabularyIdentificationStatus ===
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
                                 "Yes" &&
-                              this.state.ind4FluencyIdentificationStatus ===
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
                                 "Yes" &&
-                              this.state.ind5ComprehensionStatus === "Yes" &&
-                              this.state.ind6WritingActivitiesStatus ===
+                              this.state.ind15InstructedToUseWorkbookStatus ===
                                 "Yes" &&
-                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                              this.state.ind8GroupWorkStatus === "Yes" &&
-                              this.state.ind9TimeOnTaskStatus === "Yes" &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              (this.state.ind2LetterIdentificationStatus ===
+                              (this.state.ind21CorrectlyPronouncedStatus ===
                                 "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 2",
@@ -5661,18 +6820,18 @@ export default class BanglaClassObservationScreen extends React.Component {
                           editable={true}
                           onChangeText={(text) =>
                             this.setState({
-                              ind33CheckWritingSpellingPuncuationNote: text,
+                              ind33CheckWritingSpellingPunctuationNote: text,
                             })
                           }
                           value={
-                            this.state.ind33CheckWritingSpellingPuncuationNote +
-                            ""
+                            this.state
+                              .ind33CheckWritingSpellingPunctuationNote + ""
                           }
                         ></TextInput>
                       </View>
                     </View>
                   </Card>
-                  {ind33CheckWritingSpellingPuncuationStatus === "No" && (
+                  {ind33CheckWritingSpellingPunctuationStatus === "No" && (
                     <View>
                       <Card
                         style={{
@@ -5683,13 +6842,15 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          না: শিক্ষক রুম টু রিড প্রদত্ত নির্দেশনা অনুযায়ী
-                          নির্ধারিত সময়ে সবগুলো কাজ ধারাবাহিকভাবে করেন নি।
+                          শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি
+                          পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে
+                          গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং
+                          যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ।
                         </Text>
                       </Card>
                     </View>
                   )}
-                  {ind33CheckWritingSpellingPuncuationStatus === "Partial" && (
+                  {ind33CheckWritingSpellingPunctuationStatus === "Partial" && (
                     <View>
                       <Card
                         style={{
@@ -5700,9 +6861,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          আংশিক: শিক্ষক রুম টু রিড প্রদত্ত নির্দেশনা অনুযায়ী
-                          নির্ধারিত সময়ে সবগুলো কাজ করেননি অথবা ধারাবাহিকভাবে
-                          সবগুলো কাজ করেন নি।
+                          শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি
+                          পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে
+                          গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং
+                          যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ।
                         </Text>
                       </Card>
                     </View>
@@ -5765,67 +6927,157 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              (this.state.ind1PhonemicAwarenessStatus ===
-                                "Yes" ||
-                                this.state.ind1PhonemicAwarenessStatus ===
-                                  "N/A") &&
-                              (this.state.ind2LetterIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind4FluencyIdentificationStatus ===
-                                "Yes" ||
-                                this.state.ind4FluencyIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind6WritingActivitiesStatus ===
-                                "Yes" ||
-                                this.state.ind6WritingActivitiesStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes" &&
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
+                                "Yes" &&
+                              this.state.ind15InstructedToUseWorkbookStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
+                                "Yes" &&
+                              this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind23DemonstratesFluentReadingStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes" &&
+                              this.state
+                                .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes" &&
+                              (this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 3",
                               });
                             } else if (
-                              this.state.ind1PhonemicAwarenessStatus ===
+                              this.state
+                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
                                 "Yes" &&
-                              this.state.ind2LetterIdentificationStatus ===
+                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
                                 "Yes" &&
-                              this.state.ind3VocabularyIdentificationStatus ===
+                              this.state
+                                .ind13FollowedContinuityOfLessonStatus ===
                                 "Yes" &&
-                              this.state.ind4FluencyIdentificationStatus ===
+                              this.state.ind14ImplementedAllTaskInTimeStatus ===
                                 "Yes" &&
-                              this.state.ind5ComprehensionStatus === "Yes" &&
-                              this.state.ind6WritingActivitiesStatus ===
+                              this.state.ind15InstructedToUseWorkbookStatus ===
                                 "Yes" &&
-                              this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                              this.state.ind8GroupWorkStatus === "Yes" &&
-                              this.state.ind9TimeOnTaskStatus === "Yes" &&
-                              this.state.ind10UseTeachingAidStatus === "Yes" &&
-                              this.state.ind11ContinuityOfLessonsStatus ===
+                              this.state
+                                .ind16IndependentReadingOpportunityStatus ===
                                 "Yes" &&
-                              this.state.ind12AssessmentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              (this.state.ind2LetterIdentificationStatus ===
+                              (this.state.ind21CorrectlyPronouncedStatus ===
                                 "Yes" ||
-                                this.state.ind2LetterIdentificationStatus ===
-                                  "N/A") &&
-                              (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                                this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                              (this.state.ind8GroupWorkStatus === "Yes" ||
-                                this.state.ind8GroupWorkStatus === "N/A") &&
-                              this.state.ind12AssessmentStatus === "Yes"
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Yes" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Yes" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial")
                             ) {
                               this.setState({
                                 teacherStatus: "Priority 2",
@@ -5880,8 +7132,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          না: শিক্ষক পাঠ চলাকালীন রুম টু রিড প্রদত্ত নির্দেশনা
-                          অনুযায়ী কোন সহায়ক উপকরণ ব্যবহার করেন নি।
+                          শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে
+                          শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি
+                          না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা
+                          প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন।
                         </Text>
                       </Card>
                     </View>
@@ -5897,10 +7151,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                         }}
                       >
                         <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          আংশিক: শিক্ষক পাঠ নির্দেশনা অনুযায়ী রুম টু রিড প্রদত্ত
-                          যে যে সহায়ক উপকরণ ব্যবহারের কথা ছিল তার এক বা একাধিক
-                          উপকরণ ব্যবহার করেন নি। অথবা সকল সহায়ক উপকরণ ব্যবহার
-                          করেছেন তবে সঠিক সময়ে ব্যবহার করেন নি।
+                          শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে
+                          শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি
+                          না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা
+                          প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন।
                         </Text>
                       </Card>
                     </View>
@@ -5945,121 +7199,144 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                         // Set teacher status
                         if (
-                          (this.state.ind1PhonemicAwarenessStatus === "Yes" ||
-                            this.state.ind1PhonemicAwarenessStatus === "N/A") &&
-                          (this.state.ind2LetterIdentificationStatus ===
+                          this.state
+                            .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                            "Yes" &&
+                          this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                            "Yes" &&
+                          this.state.ind13FollowedContinuityOfLessonStatus ===
+                            "Yes" &&
+                          this.state.ind14ImplementedAllTaskInTimeStatus ===
+                            "Yes" &&
+                          this.state.ind15InstructedToUseWorkbookStatus ===
+                            "Yes" &&
+                          this.state
+                            .ind16IndependentReadingOpportunityStatus ===
+                            "Yes" &&
+                          this.state.ind21CorrectlyPronouncedStatus === "Yes" &&
+                          this.state.ind22TaughtCorrectlyAllowPracticeStatus ===
+                            "Yes" &&
+                          this.state.ind23DemonstratesFluentReadingStatus ===
+                            "Yes" &&
+                          this.state
+                            .ind24AllowReadIndividuallyPairGroupsStatus ===
+                            "Yes" &&
+                          this.state.ind25FollowsInstructionsInWritingStatus ===
+                            "Yes" &&
+                          (this.state.ind31AskedHelpfulQuestionsStatus ===
                             "Yes" ||
-                            this.state.ind2LetterIdentificationStatus ===
-                              "N/A") &&
-                          (this.state.ind4FluencyIdentificationStatus ===
-                            "Yes" ||
-                            this.state.ind4FluencyIdentificationStatus ===
-                              "N/A") &&
-                          (this.state.ind6WritingActivitiesStatus === "Yes" ||
-                            this.state.ind6WritingActivitiesStatus === "N/A") &&
-                          (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                            this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                          (this.state.ind8GroupWorkStatus === "Yes" ||
-                            this.state.ind8GroupWorkStatus === "N/A") &&
-                          this.state.ind10UseTeachingAidStatus === "Yes" &&
-                          this.state.ind11ContinuityOfLessonsStatus === "Yes" &&
-                          this.state.ind12AssessmentStatus === "Yes"
+                            this.state.ind31AskedHelpfulQuestionsStatus ===
+                              "No" ||
+                            this.state.ind31AskedHelpfulQuestionsStatus ===
+                              "Partial" ||
+                            this.state
+                              .ind32TaughtVocabularyNewSentenceStatus ===
+                              "Yes" ||
+                            this.state
+                              .ind32TaughtVocabularyNewSentenceStatus ===
+                              "No" ||
+                            this.state
+                              .ind32TaughtVocabularyNewSentenceStatus ===
+                              "Partial" ||
+                            this.state
+                              .ind33CheckWritingSpellingPunctuationStatus ===
+                              "Yes" ||
+                            this.state
+                              .ind33CheckWritingSpellingPunctuationStatus ===
+                              "No" ||
+                            this.state
+                              .ind33CheckWritingSpellingPunctuationStatus ===
+                              "Partial" ||
+                            this.state.ind34CheckedWeDoYouDoStatus === "Yes" ||
+                            this.state.ind34CheckedWeDoYouDoStatus === "No" ||
+                            this.state.ind34CheckedWeDoYouDoStatus ===
+                              "Partial")
                         ) {
                           this.setState({
                             teacherStatus: "Priority 3",
                           });
                         } else if (
-                          this.state.ind1PhonemicAwarenessStatus === "Yes" &&
-                          this.state.ind2LetterIdentificationStatus === "Yes" &&
-                          this.state.ind3VocabularyIdentificationStatus ===
+                          this.state
+                            .ind11TeacherFollowedTeacherGuideInClassStatus ===
                             "Yes" &&
-                          this.state.ind4FluencyIdentificationStatus ===
+                          this.state.ind12FollowedIDoWeDoYouDoStatus ===
                             "Yes" &&
-                          this.state.ind5ComprehensionStatus === "Yes" &&
-                          this.state.ind6WritingActivitiesStatus === "Yes" &&
-                          this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                          this.state.ind8GroupWorkStatus === "Yes" &&
-                          this.state.ind9TimeOnTaskStatus === "Yes" &&
-                          this.state.ind10UseTeachingAidStatus === "Yes" &&
-                          this.state.ind11ContinuityOfLessonsStatus === "Yes" &&
-                          this.state.ind12AssessmentStatus === "Yes"
-                        ) {
-                          this.setState({
-                            teacherStatus: "Priority 3",
-                          });
-                        } else if (
-                          (this.state.ind2LetterIdentificationStatus ===
-                            "Yes" ||
-                            this.state.ind2LetterIdentificationStatus ===
-                              "N/A") &&
-                          (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                            this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                          (this.state.ind8GroupWorkStatus === "Yes" ||
-                            this.state.ind8GroupWorkStatus === "N/A") &&
-                          this.state.ind12AssessmentStatus === "Yes"
-                        ) {
-                          this.setState({
-                            teacherStatus: "Priority 2",
-                          });
-                        } else {
-                          this.setState({
-                            teacherStatus: "Priority 1",
-                          });
-                        }
-                        // Set teacher status// Set teacher status
-                        if (
-                          (this.state.ind1PhonemicAwarenessStatus === "Yes" ||
-                            this.state.ind1PhonemicAwarenessStatus === "N/A") &&
-                          (this.state.ind2LetterIdentificationStatus ===
-                            "Yes" ||
-                            this.state.ind2LetterIdentificationStatus ===
-                              "N/A") &&
-                          (this.state.ind4FluencyIdentificationStatus ===
-                            "Yes" ||
-                            this.state.ind4FluencyIdentificationStatus ===
-                              "N/A") &&
-                          (this.state.ind6WritingActivitiesStatus === "Yes" ||
-                            this.state.ind6WritingActivitiesStatus === "N/A") &&
-                          (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                            this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                          (this.state.ind8GroupWorkStatus === "Yes" ||
-                            this.state.ind8GroupWorkStatus === "N/A") &&
-                          this.state.ind10UseTeachingAidStatus === "Yes" &&
-                          this.state.ind11ContinuityOfLessonsStatus === "Yes" &&
-                          this.state.ind12AssessmentStatus === "Yes"
-                        ) {
-                          this.setState({
-                            teacherStatus: "Priority 3",
-                          });
-                        } else if (
-                          this.state.ind1PhonemicAwarenessStatus === "Yes" &&
-                          this.state.ind2LetterIdentificationStatus === "Yes" &&
-                          this.state.ind3VocabularyIdentificationStatus ===
+                          this.state.ind13FollowedContinuityOfLessonStatus ===
                             "Yes" &&
-                          this.state.ind4FluencyIdentificationStatus ===
+                          this.state.ind14ImplementedAllTaskInTimeStatus ===
                             "Yes" &&
-                          this.state.ind5ComprehensionStatus === "Yes" &&
-                          this.state.ind6WritingActivitiesStatus === "Yes" &&
-                          this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                          this.state.ind8GroupWorkStatus === "Yes" &&
-                          this.state.ind9TimeOnTaskStatus === "Yes" &&
-                          this.state.ind10UseTeachingAidStatus === "Yes" &&
-                          this.state.ind11ContinuityOfLessonsStatus === "Yes" &&
-                          this.state.ind12AssessmentStatus === "Yes"
-                        ) {
-                          this.setState({
-                            teacherStatus: "Priority 3",
-                          });
-                        } else if (
-                          (this.state.ind2LetterIdentificationStatus ===
+                          this.state.ind15InstructedToUseWorkbookStatus ===
+                            "Yes" &&
+                          this.state
+                            .ind16IndependentReadingOppertunityStatus ===
+                            "Yes" &&
+                          (this.state.ind21CorrectlyPronouncedStatus ===
                             "Yes" ||
-                            this.state.ind2LetterIdentificationStatus ===
-                              "N/A") &&
-                          (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                            this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                          (this.state.ind8GroupWorkStatus === "Yes" ||
-                            this.state.ind8GroupWorkStatus === "N/A") &&
-                          this.state.ind12AssessmentStatus === "Yes"
+                            this.state.ind21CorrectlyPronouncedStatus ===
+                              "No" ||
+                            this.state.ind21CorrectlyPronouncedStatus ===
+                              "Partial" ||
+                            this.state
+                              .ind22TaughtCorrectlyAllowPracticeStatus ===
+                              "Yes" ||
+                            this.state
+                              .ind22TaughtCorrectlyAllowPracticeStatus ===
+                              "No" ||
+                            this.state
+                              .ind22TaughtCorrectlyAllowPracticeStatus ===
+                              "Partial" ||
+                            this.state.ind23DemonstratesFluentReadingStatus ===
+                              "Yes" ||
+                            this.state.ind23DemonstratesFluentReadingStatus ===
+                              "No" ||
+                            this.state.ind23DemonstratesFluentReadingStatus ===
+                              "Partial" ||
+                            this.state
+                              .ind24AllowReadIndividuallyPairGroupsStatus ===
+                              "Yes" ||
+                            this.state
+                              .ind24AllowReadIndividuallyPairGroupsStatus ===
+                              "No" ||
+                            this.state
+                              .ind24AllowReadIndividuallyPairGroupsStatus ===
+                              "Partial" ||
+                            this.state
+                              .ind25FollowsInstructionsInWritingStatus ===
+                              "Yes" ||
+                            this.state
+                              .ind25FollowsInstructionsInWritingStatus ===
+                              "No" ||
+                            this.state
+                              .ind25FollowsInstructionsInWritingStatus ===
+                              "Partial" ||
+                            this.state.ind31AskedHelpfulQuestionsStatus ===
+                              "Yes" ||
+                            this.state.ind31AskedHelpfulQuestionsStatus ===
+                              "No" ||
+                            this.state.ind31AskedHelpfulQuestionsStatus ===
+                              "Partial" ||
+                            this.state
+                              .ind32TaughtVocabularyNewSentenceStatus ===
+                              "Yes" ||
+                            this.state
+                              .ind32TaughtVocabularyNewSentenceStatus ===
+                              "No" ||
+                            this.state
+                              .ind32TaughtVocabularyNewSentenceStatus ===
+                              "Partial" ||
+                            this.state
+                              .ind33CheckWritingSpellingPunctuationStatus ===
+                              "Yes" ||
+                            this.state
+                              .ind33CheckWritingSpellingPunctuationStatus ===
+                              "No" ||
+                            this.state
+                              .ind33CheckWritingSpellingPunctuationStatus ===
+                              "Partial" ||
+                            this.state.ind34CheckedWeDoYouDoStatus === "Yes" ||
+                            this.state.ind34CheckedWeDoYouDoStatus === "No" ||
+                            this.state.ind34CheckedWeDoYouDoStatus ===
+                              "Partial")
                         ) {
                           this.setState({
                             teacherStatus: "Priority 2",
@@ -6108,58 +7385,144 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                         // Set teacher status
                         if (
-                          (this.state.ind1PhonemicAwarenessStatus === "Yes" ||
-                            this.state.ind1PhonemicAwarenessStatus === "N/A") &&
-                          (this.state.ind2LetterIdentificationStatus ===
+                          this.state
+                            .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                            "Yes" &&
+                          this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                            "Yes" &&
+                          this.state.ind13FollowedContinuityOfLessonStatus ===
+                            "Yes" &&
+                          this.state.ind14ImplementedAllTaskInTimeStatus ===
+                            "Yes" &&
+                          this.state.ind15InstructedToUseWorkbookStatus ===
+                            "Yes" &&
+                          this.state
+                            .ind16IndependentReadingOpportunityStatus ===
+                            "Yes" &&
+                          this.state.ind21CorrectlyPronouncedStatus === "Yes" &&
+                          this.state.ind22TaughtCorrectlyAllowPracticeStatus ===
+                            "Yes" &&
+                          this.state.ind23DemonstratesFluentReadingStatus ===
+                            "Yes" &&
+                          this.state
+                            .ind24AllowReadIndividuallyPairGroupsStatus ===
+                            "Yes" &&
+                          this.state.ind25FollowsInstructionsInWritingStatus ===
+                            "Yes" &&
+                          (this.state.ind31AskedHelpfulQuestionsStatus ===
                             "Yes" ||
-                            this.state.ind2LetterIdentificationStatus ===
-                              "N/A") &&
-                          (this.state.ind4FluencyIdentificationStatus ===
-                            "Yes" ||
-                            this.state.ind4FluencyIdentificationStatus ===
-                              "N/A") &&
-                          (this.state.ind6WritingActivitiesStatus === "Yes" ||
-                            this.state.ind6WritingActivitiesStatus === "N/A") &&
-                          (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                            this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                          (this.state.ind8GroupWorkStatus === "Yes" ||
-                            this.state.ind8GroupWorkStatus === "N/A") &&
-                          this.state.ind10UseTeachingAidStatus === "Yes" &&
-                          this.state.ind11ContinuityOfLessonsStatus === "Yes" &&
-                          this.state.ind12AssessmentStatus === "Yes"
+                            this.state.ind31AskedHelpfulQuestionsStatus ===
+                              "No" ||
+                            this.state.ind31AskedHelpfulQuestionsStatus ===
+                              "Partial" ||
+                            this.state
+                              .ind32TaughtVocabularyNewSentenceStatus ===
+                              "Yes" ||
+                            this.state
+                              .ind32TaughtVocabularyNewSentenceStatus ===
+                              "No" ||
+                            this.state
+                              .ind32TaughtVocabularyNewSentenceStatus ===
+                              "Partial" ||
+                            this.state
+                              .ind33CheckWritingSpellingPunctuationStatus ===
+                              "Yes" ||
+                            this.state
+                              .ind33CheckWritingSpellingPunctuationStatus ===
+                              "No" ||
+                            this.state
+                              .ind33CheckWritingSpellingPunctuationStatus ===
+                              "Partial" ||
+                            this.state.ind34CheckedWeDoYouDoStatus === "Yes" ||
+                            this.state.ind34CheckedWeDoYouDoStatus === "No" ||
+                            this.state.ind34CheckedWeDoYouDoStatus ===
+                              "Partial")
                         ) {
                           this.setState({
                             teacherStatus: "Priority 3",
                           });
                         } else if (
-                          this.state.ind1PhonemicAwarenessStatus === "Yes" &&
-                          this.state.ind2LetterIdentificationStatus === "Yes" &&
-                          this.state.ind3VocabularyIdentificationStatus ===
+                          this.state
+                            .ind11TeacherFollowedTeacherGuideInClassStatus ===
                             "Yes" &&
-                          this.state.ind4FluencyIdentificationStatus ===
+                          this.state.ind12FollowedIDoWeDoYouDoStatus ===
                             "Yes" &&
-                          this.state.ind5ComprehensionStatus === "Yes" &&
-                          this.state.ind6WritingActivitiesStatus === "Yes" &&
-                          this.state.ind7IDoWeDoYouDoStatus === "Yes" &&
-                          this.state.ind8GroupWorkStatus === "Yes" &&
-                          this.state.ind9TimeOnTaskStatus === "Yes" &&
-                          this.state.ind10UseTeachingAidStatus === "Yes" &&
-                          this.state.ind11ContinuityOfLessonsStatus === "Yes" &&
-                          this.state.ind12AssessmentStatus === "Yes"
-                        ) {
-                          this.setState({
-                            teacherStatus: "Priority 3",
-                          });
-                        } else if (
-                          (this.state.ind2LetterIdentificationStatus ===
+                          this.state.ind13FollowedContinuityOfLessonStatus ===
+                            "Yes" &&
+                          this.state.ind14ImplementedAllTaskInTimeStatus ===
+                            "Yes" &&
+                          this.state.ind15InstructedToUseWorkbookStatus ===
+                            "Yes" &&
+                          this.state
+                            .ind16IndependentReadingOppertunityStatus ===
+                            "Yes" &&
+                          (this.state.ind21CorrectlyPronouncedStatus ===
                             "Yes" ||
-                            this.state.ind2LetterIdentificationStatus ===
-                              "N/A") &&
-                          (this.state.ind7IDoWeDoYouDoStatus === "Yes" ||
-                            this.state.ind7IDoWeDoYouDoStatus === "N/A") &&
-                          (this.state.ind8GroupWorkStatus === "Yes" ||
-                            this.state.ind8GroupWorkStatus === "N/A") &&
-                          this.state.ind12AssessmentStatus === "Yes"
+                            this.state.ind21CorrectlyPronouncedStatus ===
+                              "No" ||
+                            this.state.ind21CorrectlyPronouncedStatus ===
+                              "Partial" ||
+                            this.state
+                              .ind22TaughtCorrectlyAllowPracticeStatus ===
+                              "Yes" ||
+                            this.state
+                              .ind22TaughtCorrectlyAllowPracticeStatus ===
+                              "No" ||
+                            this.state
+                              .ind22TaughtCorrectlyAllowPracticeStatus ===
+                              "Partial" ||
+                            this.state.ind23DemonstratesFluentReadingStatus ===
+                              "Yes" ||
+                            this.state.ind23DemonstratesFluentReadingStatus ===
+                              "No" ||
+                            this.state.ind23DemonstratesFluentReadingStatus ===
+                              "Partial" ||
+                            this.state
+                              .ind24AllowReadIndividuallyPairGroupsStatus ===
+                              "Yes" ||
+                            this.state
+                              .ind24AllowReadIndividuallyPairGroupsStatus ===
+                              "No" ||
+                            this.state
+                              .ind24AllowReadIndividuallyPairGroupsStatus ===
+                              "Partial" ||
+                            this.state
+                              .ind25FollowsInstructionsInWritingStatus ===
+                              "Yes" ||
+                            this.state
+                              .ind25FollowsInstructionsInWritingStatus ===
+                              "No" ||
+                            this.state
+                              .ind25FollowsInstructionsInWritingStatus ===
+                              "Partial" ||
+                            this.state.ind31AskedHelpfulQuestionsStatus ===
+                              "Yes" ||
+                            this.state.ind31AskedHelpfulQuestionsStatus ===
+                              "No" ||
+                            this.state.ind31AskedHelpfulQuestionsStatus ===
+                              "Partial" ||
+                            this.state
+                              .ind32TaughtVocabularyNewSentenceStatus ===
+                              "Yes" ||
+                            this.state
+                              .ind32TaughtVocabularyNewSentenceStatus ===
+                              "No" ||
+                            this.state
+                              .ind32TaughtVocabularyNewSentenceStatus ===
+                              "Partial" ||
+                            this.state
+                              .ind33CheckWritingSpellingPunctuationStatus ===
+                              "Yes" ||
+                            this.state
+                              .ind33CheckWritingSpellingPunctuationStatus ===
+                              "No" ||
+                            this.state
+                              .ind33CheckWritingSpellingPunctuationStatus ===
+                              "Partial" ||
+                            this.state.ind34CheckedWeDoYouDoStatus === "Yes" ||
+                            this.state.ind34CheckedWeDoYouDoStatus === "No" ||
+                            this.state.ind34CheckedWeDoYouDoStatus ===
+                              "Partial")
                         ) {
                           this.setState({
                             teacherStatus: "Priority 2",
@@ -6334,14 +7697,14 @@ export default class BanglaClassObservationScreen extends React.Component {
                       editable={true}
                       onChangeText={(text) =>
                         this.setState({
-                          coachingSupportDetailsInd1: text,
+                          coachingSupportTeacher: text,
                         })
                       }
-                      value={this.state.coachingSupportDetailsInd1 + ""}
+                      value={this.state.coachingSupportTeacher + ""}
                     ></TextInput>
                   </View>
                 </View>
-                <View style={{ flexDirection: "row" }}>
+                {/* <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1, padding: 2 }}>
                     <TextInput
                       style={{ height: 80, padding: 5, borderWidth: 1 }}
@@ -6356,7 +7719,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       value={this.state.coachingSupportDetailsInd2 + ""}
                     ></TextInput>
                   </View>
-                </View>
+                </View> */}
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1, padding: 2 }}>
                     <Text>এলএফ-এর করনীয়:</Text>
@@ -6372,14 +7735,14 @@ export default class BanglaClassObservationScreen extends React.Component {
                       editable={true}
                       onChangeText={(text) =>
                         this.setState({
-                          agreedStatement1: text,
+                          coachingSupportLF: text,
                         })
                       }
-                      value={this.state.agreedStatement1 + ""}
+                      value={this.state.coachingSupportLF + ""}
                     ></TextInput>
                   </View>
                 </View>
-                <View style={{ flexDirection: "row" }}>
+                {/* <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1, padding: 2 }}>
                     <TextInput
                       style={{ height: 80, padding: 5, borderWidth: 1 }}
@@ -6394,7 +7757,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                       value={this.state.agreedStatement2 + ""}
                     ></TextInput>
                   </View>
-                </View>
+                </View> */}
               </View>
             </Card>
           </View>

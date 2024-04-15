@@ -49,8 +49,7 @@ export default class LoginScreen extends React.Component {
               marginRight: 100,
             }}
           >
-            McGovern-Dole International Food for Education and Child Nutrition
-            Program
+            Room to Read BD
           </Text>
         </View>
 
@@ -99,18 +98,18 @@ export default class LoginScreen extends React.Component {
             onChangeText={(text) => this.setState({ password: text })}
           />
         </View>
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <Text style={styles.forgot}>Forgot Password?</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity
           style={styles.loginBtn}
           onPress={() => this.props.navigation.navigate("Home2")}
         >
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{ marginBottom: 200 }}>
+        {/* <TouchableOpacity style={{ marginBottom: 200 }}>
           <Text style={styles.forgot}>Signup</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <View>
           <Text>&copy; All Rights Reserved, RoomtoRead Bangladesh</Text>

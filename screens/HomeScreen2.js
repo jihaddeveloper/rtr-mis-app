@@ -92,8 +92,8 @@ function HomeScreen({ navigation }) {
             <View style={{ flex: 1, padding: 2 }}>
               <View>
                 <Button
-                  title="বই চেক আউট/ইন তথ্য ফরম"
-                  // onPress={() => navigation.navigate("BookCheckoutSchool")}
+                  title="শ্রেণীকক্ষ পাঠাগার পর্যবেক্ষণ ফরম"
+                  // onPress={() => navigation.navigate("LibraryManagement")}
                 ></Button>
               </View>
             </View>
@@ -113,11 +113,12 @@ function HomeScreen({ navigation }) {
             <View style={{ flex: 1, padding: 2 }}>
               <View>
                 <Button
-                  title="শ্রেণীকক্ষ পাঠাগার পর্যবেক্ষণ ফরম"
-                  // onPress={() => navigation.navigate("LibraryManagement")}
+                  title="বই চেক আউট/ইন তথ্য ফরম"
+                  // onPress={() => navigation.navigate("BookCheckoutSchool")}
                 ></Button>
               </View>
             </View>
+
             <View style={{ flex: 1, padding: 2 }}>
               <View>
                 <Button

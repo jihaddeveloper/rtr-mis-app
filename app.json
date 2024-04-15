@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "RtR_MIS_APP",
+    "name": "WFP_MIS_APP",
     "description": "your app desc",
-    "slug": "RtR_MIS_APP",
+    "slug": "WFP_MIS_APP",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
@@ -36,6 +36,9 @@
       "eas": {
         "projectId": "23b4b2d6-1452-403c-a4b8-082430caac0e"
       }
-    }
+    },
+    "plugins": [
+      "expo-build-properties"
+    ]
   }
 }

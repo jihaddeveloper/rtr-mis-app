@@ -50,8 +50,7 @@ export default class RegistrationScreen extends React.Component {
               marginRight: 100,
             }}
           >
-            McGovern-Dole International Food for Education and Child Nutrition
-            Program
+            Room to Read BD
           </Text>
         </View>
 
