@@ -22,8 +22,8 @@ import { Card } from "react-native-shadow-cards";
 const screenDimensions = Dimensions.get("screen");
 const windowDimensions = Dimensions.get("window");
 
-const { height } = screenDimensions.height / 2.5;
-const { width } = screenDimensions.width / 2.5;
+const { height } = screenDimensions.height / 2;
+const { width } = screenDimensions.width / 2;
 
 function HomeScreen({ navigation }) {
   React.useEffect(() => {
@@ -93,7 +93,7 @@ function HomeScreen({ navigation }) {
               <View>
                 <Button
                   title="শ্রেণীকক্ষ পাঠাগার পর্যবেক্ষণ ফরম"
-                  // onPress={() => navigation.navigate("LibraryManagement")}
+                  //onPress={() => navigation.navigate("LibraryManagement")}
                 ></Button>
               </View>
             </View>
@@ -114,7 +114,7 @@ function HomeScreen({ navigation }) {
               <View>
                 <Button
                   title="বই চেক আউট/ইন তথ্য ফরম"
-                  // onPress={() => navigation.navigate("BookCheckoutSchool")}
+                  onPress={() => navigation.navigate("BookCheckoutSchool")}
                 ></Button>
               </View>
             </View>

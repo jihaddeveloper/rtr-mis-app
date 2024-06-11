@@ -28,8 +28,10 @@ import { Card } from "react-native-shadow-cards";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-const { height } = Dimensions.get("window").height / 2.5;
-const { width } = Dimensions.get("window").width / 2.5;
+import Collapsible from "react-native-collapsible";
+
+const { height } = Dimensions.get("window").height / 2;
+const { width } = Dimensions.get("window").width / 2;
 
 export default class MonthlyBookCheckoutScreen extends React.Component {
   constructor(props) {
@@ -52,6 +54,14 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
       duplicateBookCheckoutSchool: [],
       // Duplicate data check
 
+      isCollapsedGeneral: false,
+      isCollapsedPP: true,
+      isCollapsedOne: false,
+      isCollapsedTwo: false,
+      isCollapsedThree: false,
+      isCollapsedFour: false,
+      isCollapsedFive: false,
+
       isLoading: true,
 
       // checked: false,
@@ -66,6 +76,9 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
       // Date picker property
 
       // General data
+
+      rtrSchoolId: "",
+      yearOfSupport: "",
       visitNo: 0,
       pickerOffice: "",
       pickerProject: "",
@@ -395,9 +408,9 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
     this.getAllSchool();
     this.getAllEmployee();
     this.getAllDesignation();
-    // this.getAllProject();
-    // this.getAllOffice();
-    // this.getAllTeacher();
+    this.getAllProject();
+    this.getAllOffice();
+    this.getAllTeacher();
     this.getAllBookCheckoutSchool();
     console.log("Component mounted");
     console.log(
@@ -413,6 +426,9 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
   updateState = () => {
     this.setState({
       // General data
+
+      rtrSchoolId: "",
+      yearOfSupport: "",
       visitNo: 0,
       pickerOffice: "",
       pickerProject: "",
@@ -787,14 +803,17 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
   // Get All School
   getAllSchool = async () => {
     try {
-      const response = await axios("http://118.179.80.51:8080/api/v1/schools", {
-        method: "GET",
-        mode: "no-cors",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios(
+        "http://118.179.80.51:8080/api/v1/di-school",
+        {
+          method: "GET",
+          mode: "no-cors",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       this.setState({ allSchool: response.data, isLoading: false });
     } catch (error) {
@@ -807,7 +826,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
   getAllTeacher = async () => {
     try {
       const response = await fetch(
-        "http://118.179.80.51:8080/api/v1/teachers",
+        "http://118.179.80.51:8080/api/v1/di-teacher",
         {
           method: "GET",
           mode: "no-cors",
@@ -829,7 +848,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
   getAllEmployee = async () => {
     try {
       const response = await axios(
-        "http://118.179.80.51:8080/api/v1/employees",
+        "http://118.179.80.51:8080/api/v1/di-employee",
         {
           method: "GET",
           mode: "no-cors",
@@ -873,7 +892,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
   getAllBookCheckoutSchool = async () => {
     try {
       const response = await axios(
-        "http://118.179.80.51:8080/api/v1/book-checkouts",
+        "http://118.179.80.51:8080/api/v1/di-book-checkouts",
         {
           method: "GET",
           mode: "no-cors",
@@ -912,13 +931,16 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
       visitorOffice: this.state.pickerVisitorOffice,
       lpo: this.state.pickerLPO.employeeRegId,
       lf: this.state.pickerLF.employeeRegId,
-      lpoName: this.state.pickerLPO.name,
-      lfName: this.state.pickerLF.name,
+      lpoName: this.state.pickerLPOName.name,
+      lfName: this.state.pickerLFName.name,
       school: this.state.pickerSchool,
       headTeacher: this.state.pickerHeadTeacher,
       gender: this.state.pickerGender,
       month: this.state.pickerMonth,
       year: this.state.pickerYear,
+
+      rtrSchoolId: this.state.rtrSchoolId,
+      yearOfSupport: this.state.yearOfSupport,
 
       priPrimaryBoy: this.state.priPrimaryBoy,
       priPrimaryGirl: this.state.priPrimaryGirl,
@@ -1169,19 +1191,9 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
       this.setState({ upazillaError: "Upazilla can not be empty" });
       Alert.alert("Alert", "Upazilla can not be empty");
       return;
-    } else if (this.state.visitNo === 0) {
-      this.setState({ visitNoError: "Visit no can not be empty" });
-      Alert.alert("Alert", "Visit no can not be empty");
-      return;
     } else if (this.state.pickerVisitor === "") {
       this.setState({ visitorNameError: "Visitor can not be empty" });
       Alert.alert("Alert", "Visitor can not be empty");
-      return;
-    } else if (this.state.pickerDesignation === "") {
-      this.setState({
-        visitorDesignationError: "Designation can not be empty",
-      });
-      Alert.alert("Alert", "Designation can not be empty");
       return;
     } else if (this.state.pickerVisitorOffice === "") {
       this.setState({ visitorOfficeError: "Visitor office can not be empty" });
@@ -1202,10 +1214,6 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
     } else if (this.state.pickerHeadTeacher === "") {
       this.setState({ headTeacherError: "Head teacher can not be empty" });
       Alert.alert("Alert", "Head teacher can not be empty");
-      return;
-    } else if (this.state.pickerGender === "") {
-      this.setState({ genderError: "Gender can not be empty" });
-      Alert.alert("Alert", "Gender can not be empty");
       return;
     } else if (this.state.pickerMonth === "") {
       this.setState({ monthError: "Month can not be empty" });
@@ -1242,7 +1250,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
       // Send data to API
       try {
         let response = await fetch(
-          "http://118.179.80.51:8080/api/v1/book-checkouts",
+          "http://118.179.80.51:8080/api/v1/di-book-checkouts",
           {
             method: "POST",
             mode: "no-cors",
@@ -1293,7 +1301,18 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
     const { checked } = this.state;
 
     // For Datepicker
-    const { show, date, mode } = this.state;
+    const {
+      show,
+      date,
+      mode,
+      isCollapsedGeneral,
+      isCollapsedPP,
+      isCollapsedOne,
+      isCollapsedTwo,
+      isCollapsedThree,
+      isCollapsedFour,
+      isCollapsedFive,
+    } = this.state;
     // For Datepicker
 
     // navigation
@@ -1301,30 +1320,35 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <View>
-          <Text
-            style={{
-              fontSize: 28,
-              fontWeight: "bold",
-              marginTop: 50,
-              marginBottom: 50,
-              alignContent: "center",
-              textAlign: "center",
-              alignSelf: "center",
-              marginLeft: 100,
-              marginRight: 100,
-            }}
-          >
-            বিদ্যালয়ের মাসিক বই চেক-আউট ও চেক-ইন পর্যবেক্ষণ ফরম
-          </Text>
-        </View>
-
         <ScrollView>
           <View style={{ padding: 10 }}>
-            <Text style={styles.bigRedText}>সাধারণ তথ্য:</Text>
+            <View>
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontWeight: "bold",
+                  marginTop: 10,
+                  marginBottom: 2,
+                  alignContent: "center",
+                  textAlign: "center",
+                  alignSelf: "center",
+                  marginLeft: 100,
+                  marginRight: 100,
+                }}
+              >
+                বিদ্যালয়ের মাসিক বই চেক-আউট ও চেক-ইন পর্যবেক্ষণ ফরম (Monthly
+                Book Checkout Checkin Form)
+              </Text>
+            </View>
+          </View>
+          <View style={{ padding: 10 }}>
+            <Text style={styles.bigRedText}>
+              সাধারণ তথ্য: (General Information:)
+            </Text>
 
             <Card style={{ padding: 10, margin: 10, flex: 1 }}>
               <View style={{ flexDirection: "row", padding: 10 }}>
+                <View style={{ flex: 1 }}></View>
                 <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
                     <Text
@@ -1333,7 +1357,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         fontWeight: "bold",
                       }}
                     >
-                      তারিখ:
+                      তারিখ: (Date:)
                     </Text>
                     <Text
                       style={{ textAlign: "right", color: "red", fontSize: 16 }}
@@ -1344,7 +1368,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                   <Text style={{ fontSize: 14 }}>
                     {String(this.state.date.toISOString().slice(0, 10))}
                   </Text>
-                  <Button onPress={this.datepicker} title="Select Date" />
+                  <Button onPress={this.datepicker} title="Select" />
                   {show && (
                     <DateTimePicker
                       value={date}
@@ -1355,92 +1379,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                     />
                   )}
                 </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      ফিল্ড অফিস:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state && this.state.pickerOffice}
-                    onValueChange={(value) => {
-                      this.setState({ pickerOffice: value });
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    <Picker.Item label={"DFO"} value={"DFO"} />
-                    <Picker.Item label={"CFO"} value={"CFO"} />
-                    <Picker.Item label={"NFO"} value={"NFO"} />
-                    <Picker.Item label={"MFO"} value={"MFO"} />
-                  </Picker>
-                  {/* <Text style={{ color: "red" }}>
-                    {this.state.fieldOfficeError}
-                  </Text> */}
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      প্রোজেক্ট:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state && this.state.pickerProject}
-                    onValueChange={(value) => {
-                      this.setState({ pickerProject: value });
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    <Picker.Item
-                      label={"WFP funded project"}
-                      value={"WFP funded project"}
-                    />
-                    <Picker.Item
-                      label={"Natore LP Program"}
-                      value={"Natore LP Program"}
-                    />
-                    <Picker.Item
-                      label={"Dhaka LP Program"}
-                      value={"Dhaka LP Program"}
-                    />
-                    <Picker.Item
-                      label={"Moulvibazar LP Program"}
-                      value={"Moulvibazar LP Program"}
-                    />
-                  </Picker>
-                  {/* <Text style={{ color: "red" }}>
-                    {this.state.projectError}
-                  </Text> */}
-                </View>
+                <View style={{ flex: 1 }}></View>
               </View>
               <View style={{ flexDirection: "row", padding: 10 }}>
                 <View style={{ flex: 1 }}>
@@ -1451,7 +1390,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         fontWeight: "bold",
                       }}
                     >
-                      জেলা:
+                      মাস: (Month:)
                     </Text>
                     <Text
                       style={{ textAlign: "right", color: "red", fontSize: 16 }}
@@ -1462,106 +1401,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state && this.state.pickerDistrict}
-                    onValueChange={(item, key) => {
-                      // console.log(item, key);
-                      this.setState({
-                        pickerDistrict: item,
-                        pickerDistrictKey: item.id,
-                      });
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item key={""} label={"নির্বাচন করুন"} value={""} />
-                    {districts.map((item) => {
-                      //console.log(item);
-                      return (
-                        <Picker.Item
-                          key={item.id}
-                          label={item.name}
-                          value={item}
-                        />
-                      );
-                    })}
-                  </Picker>
-                  {/* <Text style={{ color: "red" }}>
-                    {this.state.districtError}
-                  </Text> */}
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      উপজেলা:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state && this.state.pickerUpazilla}
-                    onValueChange={(item, key) => {
-                      this.setState({
-                        pickerUpazilla: item,
-                        pickerUpazillaKey: item.id,
-                      });
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item key={""} label={"নির্বাচন করুন"} value={""} />
-                    {upazillas
-                      .filter(
-                        (item) =>
-                          item.district_id == this.state.pickerDistrictKey
-                      )
-                      .map((item) => {
-                        return (
-                          <Picker.Item
-                            key={item.id}
-                            label={item.name}
-                            value={item}
-                          />
-                        );
-                      })}
-                  </Picker>
-                  {/* <Text style={{ color: "red" }}>
-                    {this.state.upazillaError}
-                  </Text> */}
-                </View>
-              </View>
-              <View style={{ flexDirection: "row", padding: 10 }}>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      মাস:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
+                      width: 140,
                     }}
                     selectedValue={this.state && this.state.pickerMonth}
                     onValueChange={(value) => {
@@ -1569,7 +1409,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     <Picker.Item label={"January"} value={"January"} />
                     <Picker.Item label={"February"} value={"February"} />
                     <Picker.Item label={"March"} value={"March"} />
@@ -1595,7 +1435,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         fontWeight: "bold",
                       }}
                     >
-                      বছর:
+                      বছর: (Year:)
                     </Text>
                     <Text
                       style={{ textAlign: "right", color: "red", fontSize: 16 }}
@@ -1606,7 +1446,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 140,
                     }}
                     selectedValue={this.state && this.state.pickerYear}
                     onValueChange={(value) => {
@@ -1614,7 +1454,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     <Picker.Item label={"2018"} value={"2018"} />
                     <Picker.Item label={"2019"} value={"2019"} />
                     <Picker.Item label={"2020"} value={"2020"} />
@@ -1622,9 +1462,63 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                     <Picker.Item label={"2022"} value={"2022"} />
                     <Picker.Item label={"2023"} value={"2023"} />
                     <Picker.Item label={"2024"} value={"2024"} />
+                    <Picker.Item label={"2025"} value={"2025"} />
+                    <Picker.Item label={"2026"} value={"2026"} />
+                    <Picker.Item label={"2027"} value={"2027"} />
+                    <Picker.Item label={"2028"} value={"2028"} />
                   </Picker>
                   {/* <Text style={{ color: "red" }}>
                     {this.state.projectError}
+                  </Text> */}
+                </View>
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      জেলা: (District:)
+                    </Text>
+                    <Text
+                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                    >
+                      *
+                    </Text>
+                  </View>
+                  <Picker
+                    style={{
+                      height: 40,
+                      width: 160,
+                    }}
+                    selectedValue={this.state && this.state.pickerDistrict}
+                    onValueChange={(item, key) => {
+                      // console.log(item, key);
+                      this.setState({
+                        pickerDistrict: item,
+                        pickerDistrictKey: item.id,
+                      });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    <Picker.Item key={""} label={"Select"} value={""} />
+                    {districts.map((item) => {
+                      //console.log(item);
+                      return (
+                        <Picker.Item
+                          key={item.id}
+                          label={item.name}
+                          value={item}
+                        />
+                      );
+                    })}
+                  </Picker>
+                  {/* <Text style={{ color: "red" }}>
+                    {this.state.districtError}
                   </Text> */}
                 </View>
                 <View style={{ flex: 1 }}>
@@ -1635,42 +1529,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         fontWeight: "bold",
                       }}
                     >
-                      ভিজিট নম্বর:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <TextInput
-                    style={{
-                      height: 30,
-                      width: 80,
-                      padding: 5,
-                      borderWidth: 1,
-                    }}
-                    keyboardType="numeric"
-                    placeholder=""
-                    editable={true}
-                    onChangeText={(text) =>
-                      this.setState({ visitNo: Number(text) })
-                    }
-                    value={this.state.visitNo + ""}
-                  />
-                </View>
-              </View>
-
-              <View style={{ flexDirection: "row", padding: 10 }}>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      দায়িত্ব প্রাপ্ত এলপিও এর নামঃ
+                      উপজেলা: (Upazilla:)
                     </Text>
                     <Text
                       style={{ textAlign: "right", color: "red", fontSize: 16 }}
@@ -1681,18 +1540,173 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                   <Picker
                     style={{
                       height: 40,
-                      width: 200,
+                      width: 160,
                     }}
-                    selectedValue={this.state.pickerLPO}
-                    onValueChange={(value) => {
-                      this.setState({ pickerLPO: value });
+                    selectedValue={this.state && this.state.pickerUpazilla}
+                    onValueChange={(item, key) => {
+                      this.setState({
+                        pickerUpazilla: item,
+                        pickerUpazillaKey: item.id,
+                      });
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item key={""} label={"Select"} value={""} />
+                    {upazillas
+                      .filter(
+                        (item) =>
+                          item.district_id == this.state.pickerDistrictKey
+                      )
+                      .map((item) => {
+                        return (
+                          <Picker.Item
+                            key={item.id}
+                            label={item.name}
+                            value={item}
+                          />
+                        );
+                      })}
+                  </Picker>
+                  {/* <Text style={{ color: "red" }}>
+                    {this.state.upazillaError}
+                  </Text> */}
+                </View>
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      ফিল্ড অফিস: (Field Office:)
+                    </Text>
+                    <Text
+                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                    >
+                      *
+                    </Text>
+                  </View>
+                  <Picker
+                    style={{
+                      height: 40,
+                      width: 120,
+                    }}
+                    selectedValue={this.state.pickerOffice}
+                    onValueChange={(value) => {
+                      this.setState({ pickerOffice: value });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    <Picker.Item label={"Select"} value={""} />
+                    {this.state.allOffice
+                      .filter((item) => {
+                        return item.address.includes(
+                          this.state.pickerDistrict.name
+                        );
+                      })
+                      .map((item) => {
+                        return (
+                          <Picker.Item
+                            key={item.id}
+                            label={item.name}
+                            value={item.name}
+                          />
+                        );
+                      })}
+                  </Picker>
+                  {/* <Text style={{ color: "red" }}>
+                    {this.state.fieldOfficeError}
+                  </Text> */}
+                </View>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      প্রোজেক্ট: (Project/Program:)
+                    </Text>
+                    <Text
+                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                    >
+                      *
+                    </Text>
+                  </View>
+                  <Picker
+                    style={{
+                      height: 40,
+                      width: 240,
+                    }}
+                    selectedValue={this.state && this.state.pickerProject}
+                    onValueChange={(value) => {
+                      this.setState({ pickerProject: value });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    <Picker.Item label={"Select"} value={""} />
+                    {this.state.allProject
+                      .filter((item) => {
+                        return item.projectDetail.includes(
+                          this.state.pickerOffice
+                        );
+                      })
+                      .map((item) => {
+                        return (
+                          <Picker.Item
+                            key={item.id}
+                            label={item.name}
+                            value={item.name}
+                          />
+                        );
+                      })}
+                  </Picker>
+                  {/* <Text style={{ color: "red" }}>
+                    {this.state.projectError}
+                  </Text> */}
+                </View>
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      দায়িত্ব প্রাপ্ত এলপিও : (LPO:)
+                    </Text>
+                    <Text
+                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                    >
+                      *
+                    </Text>
+                  </View>
+                  <Picker
+                    style={{
+                      height: 40,
+                      width: 180,
+                    }}
+                    selectedValue={this.state.pickerLPO}
+                    onValueChange={(value) => {
+                      this.setState({ pickerLPO: value, pickerLPOName: value });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    <Picker.Item label={"Select"} value={""} />
                     {this.state.allEmployee
                       .filter((item) => {
-                        return item.designation.includes("LPO");
+                        return (
+                          item.designation.includes("PO") &&
+                          item.project === this.state.pickerProject
+                        );
                       })
                       .map((item) => {
                         return (
@@ -1713,7 +1727,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         fontWeight: "bold",
                       }}
                     >
-                      দায়িত্ব প্রাপ্ত এলএফ এর নামঃ
+                      দায়িত্ব প্রাপ্ত এলএফ : (LF:)
                     </Text>
                     <Text
                       style={{ textAlign: "right", color: "red", fontSize: 16 }}
@@ -1724,15 +1738,18 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                   <Picker
                     style={{
                       height: 40,
-                      width: 200,
+                      width: 180,
                     }}
                     selectedValue={this.state && this.state.pickerLF}
                     onValueChange={(value) => {
-                      this.setState({ pickerLF: value });
+                      this.setState({
+                        pickerLF: value,
+                        pickerLFName: value,
+                      });
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     {this.state.allEmployee
                       .filter((item) => {
                         return (
@@ -1752,8 +1769,9 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                   </Picker>
                 </View>
               </View>
-              <View style={{ flexDirection: "row", padding: 10 }}>
-                <View style={{ flex: 1 }}>
+
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
+                <View style={{ flex: 2 }}>
                   <View style={{ flexDirection: "row" }}>
                     <Text
                       style={{
@@ -1761,7 +1779,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         fontWeight: "bold",
                       }}
                     >
-                      বিদ্যালয়ের নাম:
+                      বিদ্যালয়ের নাম: (School:)
                     </Text>
                     <Text
                       style={{ textAlign: "right", color: "red", fontSize: 16 }}
@@ -1772,7 +1790,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 220,
                     }}
                     selectedValue={this.state.pickerSchool}
                     onValueChange={(value) => {
@@ -1780,7 +1798,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     {this.state.allSchool
                       .filter((item) => {
                         return item.lf == this.state.pickerLF.employeeRegId;
@@ -1797,7 +1815,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                   </Picker>
                   {/* <Text style={{ color: "red" }}>{this.state.schoolError}</Text> */}
                 </View>
-                <View style={{ flex: 1 }}>
+                {/* <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
                     <Text
                       style={{
@@ -1805,7 +1823,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         fontWeight: "bold",
                       }}
                     >
-                      প্রধান শিক্ষকের নাম:
+                      ভিজিট নম্বর:
                     </Text>
                     <Text
                       style={{ textAlign: "right", color: "red", fontSize: 16 }}
@@ -1816,7 +1834,215 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                   <TextInput
                     style={{
                       height: 30,
-                      width: 150,
+                      width: 60,
+                      padding: 5,
+                      borderWidth: 1,
+                    }}
+                    keyboardType="numeric"
+                    placeholder=""
+                    editable={true}
+                    onChangeText={(text) =>
+                      this.setState({ visitNo: Number(text) })
+                    }
+                    value={this.state.visitNo + ""}
+                  />
+                </View> */}
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      স্কুল আইডি
+                    </Text>
+                    <Text
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
+                    >
+                      *
+                    </Text>
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (School ID:)
+                  </Text>
+                  <Picker
+                    style={{
+                      height: 40,
+                      width: 180,
+                    }}
+                    selectedValue={this.state.rtrSchoolId}
+                    onValueChange={(value) => {
+                      this.setState({
+                        rtrSchoolId: value,
+                      });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    {/* <Picker.Item label={"Select"} value={""} /> */}
+                    {this.state.allSchool
+                      .filter((item) => {
+                        return item.name === this.state.pickerSchool;
+                      })
+                      .map((item) => {
+                        return (
+                          <Picker.Item
+                            key={item.id}
+                            label={item.gsdId}
+                            value={item.gsdId}
+                          />
+                        );
+                      })}
+                  </Picker>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      সাপোর্ট ইয়ার
+                    </Text>
+                    <Text
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
+                    >
+                      *
+                    </Text>
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Year of Support:)
+                  </Text>
+                  <Picker
+                    style={{
+                      height: 40,
+                      width: 160,
+                    }}
+                    selectedValue={this.state.yearOfSupport}
+                    onValueChange={(value) => {
+                      this.setState({
+                        yearOfSupport: value,
+                      });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    {/* <Picker.Item label={"Select"} value={""} />
+                    <Picker.Item label={"1"} value={"1"} />
+                    <Picker.Item label={"2"} value={"2"} />
+                    <Picker.Item label={"3"} value={"3"} />
+                    <Picker.Item label={"4"} value={"4"} />
+                    <Picker.Item label={"5"} value={"5"} />
+                    <Picker.Item label={"6"} value={"6"} />
+                    <Picker.Item label={"7"} value={"7"} />
+                    <Picker.Item label={"8"} value={"8"} /> */}
+                    {this.state.allSchool
+                      .filter((item) => {
+                        return item.name === this.state.pickerSchool;
+                      })
+                      .map((item) => {
+                        return (
+                          <Picker.Item
+                            key={item.id}
+                            label={item.supportYear.toString()}
+                            value={item.supportYear.toString()}
+                          />
+                        );
+                      })}
+                  </Picker>
+                </View>
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      প্রধান শিক্ষকের নাম: (Head Teacher:)
+                    </Text>
+                    <Text
+                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                    >
+                      *
+                    </Text>
+                  </View>
+                  <Picker
+                    style={{
+                      height: 40,
+                      width: 180,
+                    }}
+                    enabled={true}
+                    selectedValue={this.state.pickerHeadTeacher}
+                    onValueChange={(value) => {
+                      this.setState({
+                        pickerHeadTeacher: value,
+                      });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    <Picker.Item label={"Select"} value={""} />
+                    {/* {this.state.allTeacher
+                      .filter((item) => {
+                        return (
+                          item.school === this.state.pickerSchool
+                          // &&
+                          // (item.instructionG1 === "Yes" ||
+                          //   item.instructionG2 === "Yes")
+                        );
+                      })
+                      .map((item) => {
+                        return (
+                          <Picker.Item
+                            key={item.id}
+                            label={item.name}
+                            value={item.name}
+                          />
+                        );
+                      })} */}
+
+                    {this.state.allSchool
+                      .filter((item) => {
+                        return item.name === this.state.pickerSchool;
+                      })
+                      .map((item) => {
+                        return (
+                          <Picker.Item
+                            key={item.id}
+                            label={item.headTeacher}
+                            value={item.headTeacher}
+                          />
+                        );
+                      })}
+                  </Picker>
+                  <TextInput
+                    style={{
+                      height: 40,
+                      width: 160,
                       padding: 5,
                       borderWidth: 1,
                     }}
@@ -1824,13 +2050,10 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                     onChangeText={(text) =>
                       this.setState({ pickerHeadTeacher: text })
                     }
-                    value={this.state.pickerHeadTeacher}
+                    value={this.state.pickerHeadTeacher + ""}
                   />
-                  {/* <Text style={{ color: "red" }}>
-                    {this.state.headTeacherError}
-                  </Text> */}
                 </View>
-                <View style={{ flex: 1 }}>
+                {/* <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
                     <Text
                       style={{
@@ -1838,7 +2061,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         fontWeight: "bold",
                       }}
                     >
-                      লিঙ্গ:
+                      লিঙ্গ: (Gender:)
                     </Text>
                     <Text
                       style={{ textAlign: "right", color: "red", fontSize: 16 }}
@@ -1849,7 +2072,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 120,
                     }}
                     selectedValue={this.state && this.state.pickerGender}
                     onValueChange={(value) => {
@@ -1857,15 +2080,19 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     <Picker.Item label={"Female"} value={"Female"} />
                     <Picker.Item label={"Male"} value={"Male"} />
                     <Picker.Item label={"Other"} value={"Other"} />
                   </Picker>
-                  {/* <Text style={{ color: "red" }}>{this.state.genderError}</Text> */}
-                </View>
+                </View> */}
               </View>
-              <View style={{ flexDirection: "row", padding: 10 }}>
+
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
+                <View style={{ flex: 1 }}></View>
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
                     <Text
@@ -1874,10 +2101,14 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         fontWeight: "bold",
                       }}
                     >
-                      পরিদর্শক এর নাম:
+                      পরিদর্শক এর অফিস: (Visitor Office:)
                     </Text>
                     <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
                     >
                       *
                     </Text>
@@ -1886,106 +2117,85 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 130,
                     }}
-                    selectedValue={this.state && this.state.pickerVisitor}
+                    selectedValue={this.state.pickerVisitorOffice}
+                    onValueChange={(value) => {
+                      this.setState({ pickerVisitorOffice: value });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    <Picker.Item label={"Select"} value={""} />
+                    <Picker.Item label={"CO"} value={"CO"} />
+                    {this.state.allOffice
+                      .filter((item) => {
+                        return item.name === this.state.pickerOffice;
+                      })
+                      .map((item) => {
+                        return (
+                          <Picker.Item
+                            key={item.id}
+                            label={item.name}
+                            value={item.name}
+                          />
+                        );
+                      })}
+                  </Picker>
+                </View>
+
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      পরিদর্শক এর নাম: (Visitor:)
+                    </Text>
+                    <Text
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
+                    >
+                      *
+                    </Text>
+                  </View>
+
+                  <Picker
+                    style={{
+                      height: 40,
+                      width: 180,
+                    }}
+                    selectedValue={this.state.pickerVisitor}
                     onValueChange={(value) => {
                       this.setState({ pickerVisitor: value });
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    {this.state.allEmployee.map((item) => {
-                      return (
-                        <Picker.Item
-                          key={item.id}
-                          label={item.name}
-                          value={item.name}
-                        />
-                      );
-                    })}
-                  </Picker>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      পদবী:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state && this.state.pickerDesignation}
-                    onValueChange={(value) => {
-                      this.setState({ pickerDesignation: value });
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    {this.state.allDesignation.map((item) => {
-                      return (
-                        <Picker.Item
-                          key={item.id}
-                          label={item.name}
-                          value={item.name}
-                        />
-                      );
-                    })}
-                  </Picker>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      পরিদর্শক এর অফিস:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <Picker
-                    selectedValue={this.state && this.state.pickerVisitorOffice}
-                    onValueChange={(value) => {
-                      this.setState({ pickerVisitorOffice: value });
-                    }}
-                    itemStyle={{ color: "white" }}
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                  >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    <Picker.Item label={"CO"} value={"CO"} />
-                    <Picker.Item label={"DFO"} value={"DFO"} />
-                    <Picker.Item label={"CFO"} value={"CFO"} />
-                    <Picker.Item label={"NFO"} value={"NFO"} />
-                    <Picker.Item label={"MFO"} value={"MFO"} />
+                    <Picker.Item label={"Select"} value={""} />
+                    {this.state.allEmployee
+                      .filter((item) => {
+                        return item.office === this.state.pickerVisitorOffice;
+                      })
+                      .map((item) => {
+                        return (
+                          <Picker.Item
+                            key={item.id}
+                            label={item.name}
+                            value={item.name}
+                          />
+                        );
+                      })}
                   </Picker>
                 </View>
               </View>
             </Card>
           </View>
 
-          <View style={{ padding: 10 }}>
+          {/* <View style={{ padding: 10 }}>
             <Text style={styles.bigRedText}>নির্দেশনা </Text>
             <Card style={{ padding: 10, margin: 10 }}>
               <Text style={{ padding: 5, fontWeight: "bold", fontSize: 18 }}>
@@ -1994,13 +2204,18 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                 ১৫ তারিখের মধ্যে সিস্টেমে ইনপুট করুন) ।
               </Text>
             </Card>
-          </View>
+          </View> */}
 
           <View style={{ padding: 10 }}>
             <Text style={styles.bigRedText}>
               শ্রেণি অনুযায়ী সকল শিক্ষার্থীর বই চেক-আউট ও চেক-ইন তথ্য
             </Text>
 
+            {/* <Button
+              title="Press me"
+              onPress={() => this.setState({ isCollapsedPP: false })}
+            ></Button>
+            <Collapsible collapsed={isCollapsedPP}></Collapsible> */}
             <Card style={{ padding: 10, margin: 10, flex: 1 }}>
               <View style={{ padding: 5 }}>
                 <Card
@@ -2049,7 +2264,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2088,7 +2303,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2126,7 +2341,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2142,7 +2357,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2179,7 +2394,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2216,7 +2431,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2237,7 +2452,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2267,7 +2482,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2297,7 +2512,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2341,7 +2556,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2373,7 +2588,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2405,7 +2620,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2421,7 +2636,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2451,7 +2666,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2481,7 +2696,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2519,7 +2734,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2549,7 +2764,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2579,7 +2794,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2595,7 +2810,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2625,7 +2840,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2655,7 +2870,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2671,7 +2886,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2701,7 +2916,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2731,7 +2946,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2776,7 +2991,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2808,7 +3023,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2840,7 +3055,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2856,7 +3071,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2886,7 +3101,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2916,7 +3131,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -2977,7 +3192,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3013,7 +3228,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3049,7 +3264,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3070,7 +3285,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3107,7 +3322,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3144,7 +3359,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3165,7 +3380,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3195,7 +3410,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3225,7 +3440,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3269,7 +3484,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3301,7 +3516,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3333,7 +3548,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3349,7 +3564,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3379,7 +3594,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3409,7 +3624,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3447,7 +3662,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3477,7 +3692,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3506,7 +3721,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3522,7 +3737,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3552,7 +3767,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3582,7 +3797,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3598,7 +3813,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3628,7 +3843,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3658,7 +3873,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3698,7 +3913,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3730,7 +3945,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3762,7 +3977,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3778,7 +3993,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3808,7 +4023,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3838,7 +4053,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3900,7 +4115,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3936,7 +4151,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3972,7 +4187,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -3993,7 +4208,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4030,7 +4245,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4067,7 +4282,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4088,7 +4303,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4118,7 +4333,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4148,7 +4363,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4192,7 +4407,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4224,7 +4439,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4256,7 +4471,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4272,7 +4487,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4302,7 +4517,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4332,7 +4547,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4370,7 +4585,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4400,7 +4615,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4429,7 +4644,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4445,7 +4660,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4475,7 +4690,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4505,7 +4720,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4521,7 +4736,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4551,7 +4766,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4581,7 +4796,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4621,7 +4836,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4653,7 +4868,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4685,7 +4900,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4701,7 +4916,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4731,7 +4946,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4761,7 +4976,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4823,7 +5038,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4860,7 +5075,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4896,7 +5111,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4917,7 +5132,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4954,7 +5169,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -4991,7 +5206,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5012,7 +5227,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5042,7 +5257,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5072,7 +5287,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5116,7 +5331,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5148,7 +5363,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5180,7 +5395,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5196,7 +5411,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5226,7 +5441,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5256,7 +5471,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5294,7 +5509,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5324,7 +5539,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5354,7 +5569,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5370,7 +5585,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5400,7 +5615,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5430,7 +5645,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5446,7 +5661,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5476,7 +5691,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5506,7 +5721,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5546,7 +5761,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5578,7 +5793,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5610,7 +5825,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5626,7 +5841,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5656,7 +5871,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5686,7 +5901,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5748,7 +5963,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5784,7 +5999,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5820,7 +6035,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5841,7 +6056,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5878,7 +6093,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5915,7 +6130,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5936,7 +6151,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5966,7 +6181,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -5996,7 +6211,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6040,7 +6255,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6072,7 +6287,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6104,7 +6319,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6120,7 +6335,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6150,7 +6365,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6180,7 +6395,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6218,7 +6433,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6248,7 +6463,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6278,7 +6493,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6294,7 +6509,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6324,7 +6539,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6354,7 +6569,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6370,7 +6585,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6400,7 +6615,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6430,7 +6645,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6470,7 +6685,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6502,7 +6717,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6534,7 +6749,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6550,7 +6765,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6580,7 +6795,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6610,7 +6825,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6672,7 +6887,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6708,7 +6923,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6744,7 +6959,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6765,7 +6980,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6802,7 +7017,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6839,7 +7054,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6860,7 +7075,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6890,7 +7105,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6920,7 +7135,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6964,7 +7179,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -6996,7 +7211,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -7028,7 +7243,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -7044,7 +7259,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -7074,7 +7289,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -7104,7 +7319,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -7142,7 +7357,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -7172,7 +7387,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -7202,7 +7417,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -7218,7 +7433,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -7248,7 +7463,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -7278,7 +7493,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -7294,7 +7509,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -7324,7 +7539,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -7354,7 +7569,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -7394,7 +7609,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -7426,7 +7641,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -7458,7 +7673,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -7474,7 +7689,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -7504,7 +7719,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -7534,7 +7749,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                         <TextInput
                           style={{
                             height: 30,
-                            width: 150,
+                            width: 100,
                             padding: 5,
                             borderWidth: 1,
                           }}
@@ -7979,7 +8194,7 @@ const styles = StyleSheet.create({
   bigRedText: {
     color: "red",
     fontWeight: "bold",
-    fontSize: 24,
+    fontSize: 12,
     alignSelf: "center",
     alignContent: "center",
   },

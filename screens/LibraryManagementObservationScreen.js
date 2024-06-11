@@ -26,7 +26,8 @@ import { Card } from "react-native-shadow-cards";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-const { width, height } = Dimensions.get("window");
+const { height } = Dimensions.get("window").height / 2;
+const { width } = Dimensions.get("window").width / 2;
 
 export default class LibraryManagementObservationScreen extends React.Component {
   constructor(props) {
@@ -65,6 +66,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
       // Date picker property
 
       // General data
+
       visitNo: 0,
       pickerOffice: "",
       pickerProject: "",
@@ -82,6 +84,10 @@ export default class LibraryManagementObservationScreen extends React.Component 
       pickerLPOName: "",
       pickerMonth: "",
       pickerYear: "",
+
+      rtrSchoolId: "",
+      yearOfSupport: "",
+      yearOfEstablish: "",
 
       note: "",
       // General data
@@ -268,6 +274,10 @@ export default class LibraryManagementObservationScreen extends React.Component 
       pickerMonth: "",
       pickerYear: "",
 
+      rtrSchoolId: "",
+      yearOfSupport: "",
+      yearOfEstablish: "",
+
       note: "",
       // General data
 
@@ -416,14 +426,17 @@ export default class LibraryManagementObservationScreen extends React.Component 
   // Get All School
   getAllSchool = async () => {
     try {
-      const response = await axios("http://118.179.80.51:8080/api/v1/schools", {
-        method: "GET",
-        mode: "no-cors",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios(
+        "http://118.179.80.51:8080/api/v1/di-school",
+        {
+          method: "GET",
+          mode: "no-cors",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       this.setState({ allSchool: response.data, isLoading: false });
     } catch (error) {
@@ -435,7 +448,9 @@ export default class LibraryManagementObservationScreen extends React.Component 
   // Get All Teacher
   getAllTeacher = async () => {
     try {
-      const response = await fetch("http://118.179.80.51:8080/api/v1/teachers");
+      const response = await fetch(
+        "http://118.179.80.51:8080/api/v1/di-teacher"
+      );
       const json = await response.json();
       this.setState({ allTeacher: json });
     } catch (error) {
@@ -450,7 +465,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
   getAllEmployee = async () => {
     try {
       const response = await axios(
-        "http://118.179.80.51:8080/api/v1/employees",
+        "http://118.179.80.51:8080/api/v1/di-employee",
         {
           method: "GET",
           mode: "no-cors",
@@ -791,9 +806,9 @@ export default class LibraryManagementObservationScreen extends React.Component 
         <View>
           <Text
             style={{
-              fontSize: 24,
+              fontSize: 14,
               fontWeight: "bold",
-              marginTop: 50,
+              marginTop: 10,
               alignContent: "center",
               textAlign: "center",
               alignSelf: "center",
@@ -801,13 +816,13 @@ export default class LibraryManagementObservationScreen extends React.Component 
               marginRight: 100,
             }}
           >
-            শ্রেণিকক্ষ পাঠাগার পর্যবেক্ষণ ফরম
+            শ্রেণিকক্ষ পাঠাগার পর্যবেক্ষণ ফরম (Library Observation Form)
           </Text>
         </View>
         <Text
           style={{
-            fontSize: 20,
-            marginBottom: 50,
+            fontSize: 12,
+            marginBottom: 10,
             marginLeft: 100,
             marginRight: 100,
           }}
@@ -816,10 +831,12 @@ export default class LibraryManagementObservationScreen extends React.Component 
         </Text>
         <ScrollView>
           <View style={{ padding: 10 }}>
-            <Text style={styles.bigRedText}>সাধারণ তথ্য:</Text>
-
+            <Text style={styles.bigRedText}>
+              সাধারণ তথ্য: (General Information:)
+            </Text>
             <Card style={{ padding: 10, margin: 10, flex: 1 }}>
               <View style={{ flexDirection: "row", padding: 10 }}>
+                <View style={{ flex: 1 }}></View>
                 <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
                     <Text
@@ -850,6 +867,10 @@ export default class LibraryManagementObservationScreen extends React.Component 
                     />
                   )}
                 </View>
+                <View style={{ flex: 1 }}></View>
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 10 }}>
                 <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
                     <Text
@@ -877,7 +898,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     <Picker.Item label={"January"} value={"January"} />
                     <Picker.Item label={"February"} value={"February"} />
                     <Picker.Item label={"March"} value={"March"} />
@@ -922,7 +943,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     <Picker.Item label={"2018"} value={"2018"} />
                     <Picker.Item label={"2019"} value={"2019"} />
                     <Picker.Item label={"2020"} value={"2020"} />
@@ -930,127 +951,13 @@ export default class LibraryManagementObservationScreen extends React.Component 
                     <Picker.Item label={"2022"} value={"2022"} />
                     <Picker.Item label={"2023"} value={"2023"} />
                     <Picker.Item label={"2024"} value={"2024"} />
+                    <Picker.Item label={"2025"} value={"2025"} />
+                    <Picker.Item label={"2026"} value={"2026"} />
+                    <Picker.Item label={"2027"} value={"2027"} />
+                    <Picker.Item label={"2028"} value={"2028"} />
                   </Picker>
                   {/* <Text style={{ color: "red" }}>
                     {this.state.projectError}
-                  </Text> */}
-                </View>
-              </View>
-
-              <View style={{ flexDirection: "row", padding: 10 }}>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      ফিল্ড অফিস:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state.pickerOffice}
-                    onValueChange={(value) => {
-                      this.setState({ pickerOffice: value });
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    <Picker.Item label={"DFO"} value={"DFO"} />
-                    <Picker.Item label={"CFO"} value={"CFO"} />
-                    <Picker.Item label={"NFO"} value={"NFO"} />
-                    <Picker.Item label={"MFO"} value={"MFO"} />
-                  </Picker>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      প্রোজেক্ট:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state.pickerProject}
-                    onValueChange={(value) => {
-                      this.setState({ pickerProject: value });
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    <Picker.Item
-                      label={"WFP funded project"}
-                      value={"WFP funded project"}
-                    />
-                    <Picker.Item
-                      label={"Natore LP Program"}
-                      value={"Natore LP Program"}
-                    />
-                    <Picker.Item
-                      label={"Dhaka LP Program"}
-                      value={"Dhaka LP Program"}
-                    />
-                    <Picker.Item
-                      label={"Moulvibazar LP Program"}
-                      value={"Moulvibazar LP Program"}
-                    />
-                  </Picker>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      ভিজিট নম্বর:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <TextInput
-                    style={{
-                      height: 30,
-                      width: 100,
-                      padding: 5,
-                      borderWidth: 1,
-                    }}
-                    keyboardType="numeric"
-                    placeholder=""
-                    editable={true}
-                    onChangeText={(text) =>
-                      this.setState({ visitNo: Number(text) })
-                    }
-                    value={this.state.visitNo + ""}
-                  />
-                  {/* <Text style={{ color: "red" }}>
-                    {this.state.headTeacherError}
                   </Text> */}
                 </View>
               </View>
@@ -1075,7 +982,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 160,
                     }}
                     selectedValue={this.state && this.state.pickerDistrict}
                     onValueChange={(item, key) => {
@@ -1087,7 +994,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item key={""} label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item key={""} label={"Select"} value={""} />
                     {districts.map((item) => {
                       //console.log(item);
                       return (
@@ -1119,7 +1026,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 160,
                     }}
                     selectedValue={this.state && this.state.pickerUpazilla}
                     onValueChange={(item, key) => {
@@ -1130,7 +1037,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item key={""} label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item key={""} label={"Select"} value={""} />
                     {upazillas
                       .filter(
                         (item) =>
@@ -1158,7 +1065,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                         fontWeight: "bold",
                       }}
                     >
-                      দায়িত্ব প্রাপ্ত এলপিও এর নামঃ
+                      ফিল্ড অফিস:
                     </Text>
                     <Text
                       style={{ textAlign: "right", color: "red", fontSize: 16 }}
@@ -1169,7 +1076,95 @@ export default class LibraryManagementObservationScreen extends React.Component 
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 120,
+                    }}
+                    selectedValue={this.state.pickerOffice}
+                    onValueChange={(value) => {
+                      this.setState({ pickerOffice: value });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    <Picker.Item label={"Select"} value={""} />
+                    <Picker.Item label={"DFO"} value={"DFO"} />
+                    <Picker.Item label={"CFO"} value={"CFO"} />
+                    <Picker.Item label={"NFO"} value={"NFO"} />
+                    <Picker.Item label={"MFO"} value={"MFO"} />
+                    <Picker.Item label={"NrFO"} value={"NrFO"} />
+                  </Picker>
+                </View>
+                <View style={{ flex: 2 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      প্রোজেক্ট:
+                    </Text>
+                    <Text
+                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                    >
+                      *
+                    </Text>
+                  </View>
+                  <Picker
+                    style={{
+                      height: 40,
+                      width: 240,
+                    }}
+                    selectedValue={this.state.pickerProject}
+                    onValueChange={(value) => {
+                      this.setState({ pickerProject: value });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    <Picker.Item label={"Select"} value={""} />
+                    <Picker.Item
+                      label={"WFP funded project"}
+                      value={"WFP funded project"}
+                    />
+                    <Picker.Item
+                      label={"Literacy Program Natore"}
+                      value={"Literacy Program Natore"}
+                    />
+                    <Picker.Item
+                      label={"Literacy Program Dhaka"}
+                      value={"Literacy Program Dhaka"}
+                    />
+                    <Picker.Item
+                      label={"Literacy Program Moulvibazar"}
+                      value={"Literacy Program Moulvibazar"}
+                    />
+                    <Picker.Item
+                      label={"Literacy Program Narail"}
+                      value={"Literacy Program Narail"}
+                    />
+                  </Picker>
+                </View>
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 10 }}>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      দায়িত্ব প্রাপ্ত এলপিও:
+                    </Text>
+                    <Text
+                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                    >
+                      *
+                    </Text>
+                  </View>
+                  <Picker
+                    style={{
+                      height: 40,
+                      width: 180,
                     }}
                     selectedValue={this.state.pickerLPO}
                     onValueChange={(value) => {
@@ -1177,10 +1172,14 @@ export default class LibraryManagementObservationScreen extends React.Component 
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     {this.state.allEmployee
                       .filter((item) => {
-                        return item.designation.includes("LPO");
+                        return (
+                          item.designation.includes("LPO") &&
+                          item.office === this.state.pickerOffice &&
+                          item.project === this.state.pickerProject
+                        );
                       })
                       .map((item) => {
                         return (
@@ -1201,7 +1200,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                         fontWeight: "bold",
                       }}
                     >
-                      দায়িত্ব প্রাপ্ত এলএফ এর নামঃ
+                      দায়িত্ব প্রাপ্ত এলএফ:
                     </Text>
                     <Text
                       style={{ textAlign: "right", color: "red", fontSize: 16 }}
@@ -1212,7 +1211,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 180,
                     }}
                     selectedValue={this.state && this.state.pickerLF}
                     onValueChange={(value) => {
@@ -1220,7 +1219,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     {this.state.allEmployee
                       .filter((item) => {
                         return (
@@ -1239,7 +1238,10 @@ export default class LibraryManagementObservationScreen extends React.Component 
                       })}
                   </Picker>
                 </View>
-                <View style={{ flex: 1 }}>
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 10 }}>
+                <View style={{ flex: 2 }}>
                   <View style={{ flexDirection: "row" }}>
                     <Text
                       style={{
@@ -1258,7 +1260,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                   <Picker
                     style={{
                       height: 40,
-                      width: 150,
+                      width: 220,
                     }}
                     selectedValue={this.state && this.state.pickerSchool}
                     onValueChange={(value) => {
@@ -1266,7 +1268,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"Select"} value={""} />
                     {this.state.allSchool
                       .filter((item) => {
                         return item.lf == this.state.pickerLF.employeeRegId;
@@ -1282,6 +1284,153 @@ export default class LibraryManagementObservationScreen extends React.Component 
                       })}
                   </Picker>
                 </View>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      ভিজিট নম্বর:
+                    </Text>
+                    <Text
+                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                    >
+                      *
+                    </Text>
+                  </View>
+                  <TextInput
+                    style={{
+                      height: 30,
+                      width: 80,
+                      padding: 5,
+                      borderWidth: 1,
+                    }}
+                    keyboardType="numeric"
+                    placeholder=""
+                    editable={true}
+                    onChangeText={(text) =>
+                      this.setState({ visitNo: Number(text) })
+                    }
+                    value={this.state.visitNo + ""}
+                  />
+                  {/* <Text style={{ color: "red" }}>
+                    {this.state.headTeacherError}
+                  </Text> */}
+                </View>
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      স্কুল আইডি
+                    </Text>
+                    <Text
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
+                    >
+                      *
+                    </Text>
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (School ID:)
+                  </Text>
+                  <Picker
+                    style={{
+                      height: 40,
+                      width: 180,
+                    }}
+                    selectedValue={this.state.rtrSchoolId}
+                    onValueChange={(value) => {
+                      this.setState({
+                        rtrSchoolId: value,
+                      });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    <Picker.Item label={"Select"} value={""} />
+                    {this.state.allSchool
+                      .filter((item) => {
+                        return item.lf === this.state.pickerLF.employeeRegId;
+                      })
+                      .map((item) => {
+                        return (
+                          <Picker.Item
+                            key={item.id}
+                            label={item.gsdId}
+                            value={item.gsdId}
+                          />
+                        );
+                      })}
+                  </Picker>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      সাপোর্ট ইয়ার
+                    </Text>
+                    <Text
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        fontSize: 16,
+                      }}
+                    >
+                      *
+                    </Text>
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    (Year of Support:)
+                  </Text>
+                  <Picker
+                    style={{
+                      height: 40,
+                      width: 160,
+                    }}
+                    selectedValue={this.state.yearOfSupport}
+                    onValueChange={(value) => {
+                      this.setState({
+                        yearOfSupport: value,
+                      });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    <Picker.Item label={"Select"} value={""} />
+                    <Picker.Item label={"1"} value={"1"} />
+                    <Picker.Item label={"2"} value={"2"} />
+                    <Picker.Item label={"3"} value={"3"} />
+                    <Picker.Item label={"4"} value={"4"} />
+                    <Picker.Item label={"5"} value={"5"} />
+                    <Picker.Item label={"6"} value={"6"} />
+                    <Picker.Item label={"7"} value={"7"} />
+                    <Picker.Item label={"8"} value={"8"} />
+                  </Picker>
+                </View>
               </View>
 
               <View style={{ flexDirection: "row", padding: 10 }}>
@@ -1293,7 +1442,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                         fontWeight: "bold",
                       }}
                     >
-                      পরিদর্শক এর নাম:
+                      পরিদর্শক এর অফিস:
                     </Text>
                     <Text
                       style={{ textAlign: "right", color: "red", fontSize: 16 }}
@@ -1301,56 +1450,12 @@ export default class LibraryManagementObservationScreen extends React.Component 
                       *
                     </Text>
                   </View>
-
                   <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state.pickerVisitor}
+                    selectedValue={this.state && this.state.pickerVisitorOffice}
                     onValueChange={(value) => {
-                      this.setState({ pickerVisitor: value });
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    {this.state.allEmployee.map((item) => {
-                      return (
-                        <Picker.Item
-                          key={item.id}
-                          label={item.name}
-                          value={item.name}
-                        />
-                      );
-                    })}
-                  </Picker>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      পদবী:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
+                      this.setState({ pickerVisitorOffice: value });
 
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state.pickerDesignation}
-                    onValueChange={(value) => {
-                      this.setState({ pickerDesignation: value });
-
+                      // Find perivious visit data
                       this.setState({
                         preMonthData:
                           this.state.allLibraryObservationData.filter(
@@ -1365,6 +1470,96 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             }
                           ),
                       });
+                      console.log("preMonthData: " + this.state.preMonthData);
+                      // console.log(
+                      //   "this.state.pickerSchool : " + this.state.pickerSchool
+                      // );
+
+                      // console.log(
+                      //   "this.state.pickerProject : " + this.state.pickerProject
+                      // );
+
+                      // console.log(
+                      //   "this.state.pickerYear : " + this.state.pickerYear
+                      // );
+
+                      // console.log(
+                      //   "this.state.pickerMonth : " + this.state.pickerMonth
+                      // );
+
+                      // console.log("this.state.grade : " + this.state.grade);
+
+                      // console.log(
+                      //   "this.state.classTeacher : " + this.state.classTeacher
+                      // );
+
+                      // console.log(
+                      //   "parseInt(this.state.visitNo) : " +
+                      //     parseInt(parseInt(this.state.visitNo) - 1)
+                      // );
+                      // Find perivious visit data
+                    }}
+                    itemStyle={{ color: "white" }}
+                    style={{
+                      height: 40,
+                      width: 150,
+                    }}
+                  >
+                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
+                    <Picker.Item label={"CO"} value={"CO"} />
+                    <Picker.Item label={"DFO"} value={"DFO"} />
+                    <Picker.Item label={"CFO"} value={"CFO"} />
+                    <Picker.Item label={"NFO"} value={"NFO"} />
+                    <Picker.Item label={"MFO"} value={"MFO"} />
+                    <Picker.Item label={"NrFO"} value={"NrFO"} />
+                  </Picker>
+                </View>
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 10 }}>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      পরিদর্শক এর নাম: (Visitor:)
+                    </Text>
+                    <Text
+                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
+                    >
+                      *
+                    </Text>
+                  </View>
+
+                  <Picker
+                    style={{
+                      height: 40,
+                      width: 180,
+                    }}
+                    selectedValue={this.state.pickerVisitor}
+                    onValueChange={(value) => {
+                      this.setState({ pickerVisitor: value });
+
+                      // Set perivious visit data
+                      if (this.state.preMonthData.length > 0) {
+                        const followup1 = this.state.preMonthData
+                          .map((item) => {
+                            return item.coachingSupportIndicator1;
+                          })
+                          .toString();
+
+                        const followup2 = this.state.preMonthData
+                          .map((item) => {
+                            return item.coachingSupportIndicator2;
+                          })
+                          .toString();
+                        console.log("followup1 :" + followup1);
+                        this.setState({ pickerFollowup1: followup1 });
+                        this.setState({ pickerFollowup2: followup2 });
+                      }
 
                       // console.log(
                       //   "this.state.pickerSchool : " + this.state.pickerSchool
@@ -1389,19 +1584,25 @@ export default class LibraryManagementObservationScreen extends React.Component 
                       // );
 
                       //console.log("preMonthData: " + this.state.preMonthData);
+
+                      // Set perivious visit data
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    {this.state.allDesignation.map((item) => {
-                      return (
-                        <Picker.Item
-                          key={item.id}
-                          label={item.name}
-                          value={item.name}
-                        />
-                      );
-                    })}
+                    <Picker.Item label={"Select"} value={""} />
+                    {this.state.allEmployee
+                      .filter((item) => {
+                        return item.office === this.state.pickerVisitorOffice;
+                      })
+                      .map((item) => {
+                        return (
+                          <Picker.Item
+                            key={item.id}
+                            label={item.name}
+                            value={item.name}
+                          />
+                        );
+                      })}
                   </Picker>
                 </View>
                 <View style={{ flex: 1 }}>
@@ -1412,7 +1613,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                         fontWeight: "bold",
                       }}
                     >
-                      পরিদর্শক এর অফিস:
+                      পরিদর্শক এর পদবী: (Visitor Designation:)
                     </Text>
                     <Text
                       style={{ textAlign: "right", color: "red", fontSize: 16 }}
@@ -1420,40 +1621,28 @@ export default class LibraryManagementObservationScreen extends React.Component 
                       *
                     </Text>
                   </View>
-                  <Picker
-                    selectedValue={this.state && this.state.pickerVisitorOffice}
-                    onValueChange={(value) => {
-                      this.setState({ pickerVisitorOffice: value });
-                      console.log("preMonthData: " + this.state.preMonthData);
-                      if (this.state.preMonthData.length > 0) {
-                        const followup1 = this.state.preMonthData
-                          .map((item) => {
-                            return item.coachingSupportIndicator1;
-                          })
-                          .toString();
 
-                        const followup2 = this.state.preMonthData
-                          .map((item) => {
-                            return item.coachingSupportIndicator2;
-                          })
-                          .toString();
-                        console.log("followup1 :" + followup1);
-                        this.setState({ pickerFollowup1: followup1 });
-                        this.setState({ pickerFollowup2: followup2 });
-                      }
-                    }}
-                    itemStyle={{ color: "white" }}
+                  <Picker
                     style={{
                       height: 40,
                       width: 150,
                     }}
+                    selectedValue={this.state.pickerDesignation}
+                    onValueChange={(value) => {
+                      this.setState({ pickerDesignation: value });
+                    }}
+                    itemStyle={{ color: "white" }}
                   >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    <Picker.Item label={"CO"} value={"CO"} />
-                    <Picker.Item label={"DFO"} value={"DFO"} />
-                    <Picker.Item label={"CFO"} value={"CFO"} />
-                    <Picker.Item label={"NFO"} value={"NFO"} />
-                    <Picker.Item label={"MFO"} value={"MFO"} />
+                    <Picker.Item label={"Select"} value={""} />
+                    {this.state.allDesignation.map((item) => {
+                      return (
+                        <Picker.Item
+                          key={item.id}
+                          label={item.name}
+                          value={item.name}
+                        />
+                      );
+                    })}
                   </Picker>
                 </View>
               </View>
@@ -1466,12 +1655,12 @@ export default class LibraryManagementObservationScreen extends React.Component 
                       fontWeight: "bold",
                     }}
                   >
-                    মন্তব্য :
+                    মন্তব্য :(Comment:)
                   </Text>
                   <TextInput
                     style={{
                       height: 80,
-                      width: 520,
+                      width: 340,
                       padding: 5,
                       borderWidth: 1,
                     }}
@@ -1491,7 +1680,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
           </View>
 
           <View style={{ padding: 10 }}>
-            <Text style={styles.bigRedText}>নির্দেশনা </Text>
+            <Text style={styles.bigRedText}>নির্দেশনা (Instructions)</Text>
             <Card style={{ padding: 10, margin: 10 }}>
               <Text style={{ padding: 5 }}>
                 ১ প্রধান ইনডিকেটরের অধীন সকল সাব-ইনডিকেটর "Yes" হলে প্রধান
@@ -1607,7 +1796,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
           </View>
 
           <View style={{ padding: 10 }}>
-            <Text style={styles.bigRedText}>ইনডিকেটর</Text>
+            <Text style={styles.bigRedText}>ইনডিকেটর (Indicator)</Text>
             <View style={{ padding: 5, flexDirection: "row" }}>
               <Text
                 style={{
@@ -4811,7 +5000,7 @@ const styles = StyleSheet.create({
   bigRedText: {
     color: "red",
     fontWeight: "bold",
-    fontSize: 15,
+    fontSize: 12,
     alignSelf: "center",
     alignContent: "center",
   },

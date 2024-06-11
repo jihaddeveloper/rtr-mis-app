@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "WFP_MIS_APP",
+    "name": "rtr-mis-app",
     "description": "your app desc",
-    "slug": "WFP_MIS_APP",
+    "slug": "rtr-mis-app",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
@@ -34,11 +34,12 @@
     },
     "extra": {
       "eas": {
-        "projectId": "23b4b2d6-1452-403c-a4b8-082430caac0e"
+        "projectId": "d00c0ebe-ba5d-441f-8839-dc34f8fd87bb"
       }
     },
     "plugins": [
       "expo-build-properties"
-    ]
+    ],
+    "owner": "jihaddeveloper"
   }
 }
