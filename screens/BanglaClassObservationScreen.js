@@ -811,10 +811,6 @@ export default class BanglaClassObservationScreen extends React.Component {
       this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Visitor can not be empty");
       return;
-    } else if (this.state.pickerDesignation === "") {
-      this.setState({ dateError: "Date can not be empty" });
-      Alert.alert("Alert", "Designation can not be empty");
-      return;
     } else if (this.state.pickerVisitorOffice === "") {
       this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Visitor Office can not be empty");
@@ -822,10 +818,6 @@ export default class BanglaClassObservationScreen extends React.Component {
     } else if (this.state.classTeacher === "") {
       this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Class Teacher can not be empty");
-      return;
-    } else if (this.state.classTeacherGender === "") {
-      this.setState({ dateError: "Date can not be empty" });
-      Alert.alert("Alert", "Gender can not be empty");
       return;
     } else if (this.state.teacherTrained === "") {
       this.setState({ dateError: "Date can not be empty" });
