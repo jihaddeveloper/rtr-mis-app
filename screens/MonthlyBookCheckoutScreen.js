@@ -1327,7 +1327,7 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                 style={{
                   fontSize: 14,
                   fontWeight: "bold",
-                  marginTop: 10,
+                  marginTop: 2,
                   marginBottom: 2,
                   alignContent: "center",
                   textAlign: "center",
@@ -1336,8 +1336,8 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                   marginRight: 100,
                 }}
               >
-                বিদ্যালয়ের মাসিক বই চেক-আউট ও চেক-ইন পর্যবেক্ষণ ফরম (Monthly
-                Book Checkout Checkin Form)
+                মাসিক বই চেক-আউট ও চেক-ইন পর্যবেক্ষণ ফরম (Monthly Book Checkout
+                Checkin Form)
               </Text>
             </View>
           </View>

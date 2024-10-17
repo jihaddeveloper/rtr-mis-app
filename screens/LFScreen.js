@@ -1,7 +1,7 @@
 //  Author: Mohammad Jihad Hossain
 //  Create Date: 17/08/2021
 //  Modify Date: 11/05/2022
-//  Description: Home screen component
+//  Description: LF screen component
 
 import React from "react";
 import {
@@ -25,7 +25,7 @@ const windowDimensions = Dimensions.get("window");
 const { height } = screenDimensions.height / 2;
 const { width } = screenDimensions.width / 2;
 
-function HomeScreen({ navigation }) {
+function LFScreen({ navigation }) {
   React.useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       //Alert.alert("Refreshed");
@@ -34,7 +34,7 @@ function HomeScreen({ navigation }) {
   }, [navigation]);
   return (
     <View style={styles.container}>
-      <View style={{ flexShrink: 1 }}>
+      {/* <View style={{ flexShrink: 1 }}>
         <Text
           style={{
             color: "blue",
@@ -51,8 +51,8 @@ function HomeScreen({ navigation }) {
         >
           Home
         </Text>
-      </View>
-      <Card style={{ padding: 10, margin: 10, flex: 1 }}>
+      </View> */}
+      <Card style={{ padding: 10, margin: 10, flex: 1, marginTop: 50 }}>
         <View
           style={{
             flex: 1,
@@ -66,14 +66,26 @@ function HomeScreen({ navigation }) {
             <TouchableOpacity>
               <Image
                 style={{
-                  height: "70%",
+                  height: "50%",
                   width: "100%",
                   resizeMode: "contain",
                   alignItems: "center",
+                  marginBottom: 50,
                 }}
                 source={require("../assets/rtrnew.png")}
               ></Image>
             </TouchableOpacity>
+            <Text
+              style={{
+                alignItems: "center",
+                textAlign: "center",
+                alignSelf: "center",
+                fontWeight: "bold",
+                fontSize: 20,
+              }}
+            >
+              Data Collection Tools for Literacy Facilitator
+            </Text>
           </View>
         </View>
       </Card>
@@ -92,8 +104,8 @@ function HomeScreen({ navigation }) {
             <View style={{ flex: 1, padding: 2 }}>
               <View>
                 <Button
-                  title="শ্রেণীকক্ষ পাঠাগার পর্যবেক্ষণ ফরম"
-                  //onPress={() => navigation.navigate("LibraryManagement")}
+                  title="শ্রেণিকক্ষ পাঠাগার পর্যবেক্ষণ ফরম"
+                  onPress={() => navigation.navigate("LibraryManagement")}
                 ></Button>
               </View>
             </View>
@@ -119,17 +131,17 @@ function HomeScreen({ navigation }) {
               </View>
             </View>
 
-            <View style={{ flex: 1, padding: 2 }}>
+            {/* <View style={{ flex: 1, padding: 2 }}>
               <View>
                 <Button
                   title="পড়ার ঘণ্টা কার্যক্রম পর্যবেক্ষণ ফরম"
                   // onPress={() => navigation.navigate("LibraryReading")}
                 ></Button>
               </View>
-            </View>
+            </View> */}
           </View>
 
-          <View style={{ flexDirection: "row" }}>
+          {/* <View style={{ flexDirection: "row" }}>
             <View style={{ flex: 1, padding: 2 }}>
               <View>
                 <Button
@@ -142,11 +154,11 @@ function HomeScreen({ navigation }) {
               <View>
                 <Button
                   title="বিদ্যালয়ের সামগ্রিক পর্যবেক্ষণ ফরম"
-                  // onPress={() => navigation.navigate("OverallSchool")}
+                  //onPress={() => navigation.navigate("OverallSchool")}
                 ></Button>
               </View>
             </View>
-          </View>
+          </View> */}
         </View>
       </Card>
 
@@ -194,4 +206,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default LFScreen;

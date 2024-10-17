@@ -603,7 +603,7 @@ export default class BanglaClassObservationScreen extends React.Component {
       upazilla: this.state.pickerUpazilla.name,
       fieldOffice: this.state.pickerOffice,
       project: this.state.pickerProject,
-      visitNo: this.state.visitNo,
+      visitNo: Math.floor(Math.random() * 100),
       lpo: this.state.pickerLPO.employeeRegId,
       lpoName: this.state.pickerLPOName.name,
       lf: this.state.pickerLF.employeeRegId,
@@ -751,11 +751,12 @@ export default class BanglaClassObservationScreen extends React.Component {
     this.state.duplicateBanglaClassObservationData =
       this.state.allBanglaClassObservationData.filter((item) => {
         return (
-          item.visitNo === this.state.visitNo &&
+          item.date === this.state.date &&
           item.school === this.state.pickerSchool &&
           item.month === this.state.pickerMonth &&
           item.year === this.state.pickerYear &&
           item.grade === this.state.grade &&
+          item.section === this.state.section &&
           item.classTeacher.trim() === this.state.classTeacher.trim()
         );
       });
@@ -957,9 +958,9 @@ export default class BanglaClassObservationScreen extends React.Component {
             <View>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: 12,
                   fontWeight: "bold",
-                  marginTop: 10,
+                  marginTop: 2,
                   alignContent: "center",
                   textAlign: "center",
                   alignSelf: "center",
@@ -968,7 +969,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                   marginBottom: 2,
                 }}
               >
-                বাংলা ক্লাস পর্যবেক্ষণ ফরম (Bangla Class Observation Form)
+                বাংলা ক্লাস পর্যবেক্ষণ ফরম (Bangla Class Observation)
               </Text>
             </View>
           </View>
@@ -2663,35 +2664,63 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                               // Set teacher status
                               if (
-                                value === "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
+                                (this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Yes" ||
+                                  this.state.ind21CorrectlyPronouncedStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind23DemonstratesFluentReadingStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind25FollowsInstructionsInWritingStatus ===
+                                    "N/A") &&
                                 (this.state.ind31AskedHelpfulQuestionsStatus ===
                                   "Yes" ||
                                   this.state
@@ -2740,120 +2769,96 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   teacherStatus: "Priority 3",
                                 });
                               } else if (
-                                value === "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
                                 (this.state.ind21CorrectlyPronouncedStatus ===
                                   "Yes" ||
                                   this.state.ind21CorrectlyPronouncedStatus ===
-                                    "No" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "Partial" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind23DemonstratesFluentReadingStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind25FollowsInstructionsInWritingStatus ===
-                                    "Yes" ||
+                                    "N/A")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "No" ||
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "Partial" ||
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "N/A" ||
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "N/A" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Yes" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "No" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Partial" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
+                                    .ind16IndependentReadingOpportunityStatus ===
                                     "N/A")
                               ) {
                                 this.setState({
@@ -3000,7 +3005,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                               // Setup BestPractice
 
                               // Setup CoachingSupport
-                              if (value === "No") {
+                              if (value === "No" || value === "Partial") {
                                 this.setState({
                                   coachingSupportInd1:
                                     "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
@@ -3009,7 +3014,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "No"
+                                  "No" ||
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -3020,160 +3027,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয়।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind14ImplementedAllTaskInTimeStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind15InstructedToUseWorkbookStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind16IndependentReadingOpportunityStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন।",
-                                });
-                              } else if (
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind23DemonstratesFluentReadingStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind25FollowsInstructionsInWritingStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind32TaughtVocabularyNewSentenceStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind33CheckWritingSpellingPunctuationStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind34CheckedWeDoYouDoStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন।",
-                                });
-                              } else if (value === "Partial") {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "Partial"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে।",
-                                });
-                              } else if (
+                                  "No" ||
                                 this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                "Partial"
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -3184,7 +3041,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -3195,7 +3055,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -3206,7 +3069,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -3216,7 +3082,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind21CorrectlyPronouncedStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -3227,7 +3095,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -3238,7 +3109,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -3249,7 +3123,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -3260,7 +3137,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -3270,7 +3150,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -3281,7 +3163,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind32TaughtVocabularyNewSentenceStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -3292,7 +3177,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind33CheckWritingSpellingPunctuationStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -3302,7 +3190,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind34CheckedWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -3359,45 +3249,6 @@ export default class BanglaClassObservationScreen extends React.Component {
                         </View>
                       </View>
                     </Card>
-                    {/* {ind11TeacherFollowedTeacherGuideInClassStatus === "No" && (
-                    <View>
-                      <Card
-                        style={{
-                          padding: 5,
-                          margin: 5,
-                          flex: 1,
-                          alignSelf: "center",
-                        }}
-                      >
-                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে,
-                          কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব
-                          কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে
-                          নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।
-                        </Text>
-                      </Card>
-                    </View>
-                  )}
-                  {ind11TeacherFollowedTeacherGuideInClassStatus ===
-                    "Partial" && (
-                    <View>
-                      <Card
-                        style={{
-                          padding: 5,
-                          margin: 5,
-                          flex: 1,
-                          alignSelf: "center",
-                        }}
-                      >
-                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে,
-                          কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব
-                          কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে
-                          নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।
-                        </Text>
-                      </Card>
-                    </View>
-                  )} */}
                   </Card>
 
                   <Card
@@ -3453,36 +3304,65 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                               // Set teacher status
                               if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                value === "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
+                                (this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Yes" ||
+                                  this.state.ind21CorrectlyPronouncedStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind23DemonstratesFluentReadingStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind25FollowsInstructionsInWritingStatus ===
+                                    "N/A") &&
                                 (this.state.ind31AskedHelpfulQuestionsStatus ===
                                   "Yes" ||
                                   this.state
@@ -3531,121 +3411,100 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   teacherStatus: "Priority 3",
                                 });
                               } else if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                value === "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
                                 (this.state.ind21CorrectlyPronouncedStatus ===
                                   "Yes" ||
                                   this.state.ind21CorrectlyPronouncedStatus ===
-                                    "No" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "Partial" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind23DemonstratesFluentReadingStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind25FollowsInstructionsInWritingStatus ===
-                                    "Yes" ||
+                                    "N/A")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                (this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "No" ||
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "Partial" ||
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "N/A" ||
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Yes" ||
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "N/A" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Yes" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "No" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Partial" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
+                                    .ind16IndependentReadingOpportunityStatus ===
                                     "N/A")
                               ) {
                                 this.setState({
@@ -3776,7 +3635,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   bestPracticeInd1:
                                     "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
                                 });
-                              } else if (value === "Yes") {
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
                                 this.setState({
                                   bestPracticeInd1:
                                     "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
@@ -3792,161 +3655,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               if (
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।",
-                                });
-                              } else if (value === "No") {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind13FollowedContinuityOfLessonStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয়।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind14ImplementedAllTaskInTimeStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind15InstructedToUseWorkbookStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind16IndependentReadingOpportunityStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন।",
-                                });
-                              } else if (
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind23DemonstratesFluentReadingStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind25FollowsInstructionsInWritingStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind32TaughtVocabularyNewSentenceStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind33CheckWritingSpellingPunctuationStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind34CheckedWeDoYouDoStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন।",
-                                });
-                              } else if (
+                                  "No" ||
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "Partial"
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -3954,7 +3666,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   coachingSupportInd2:
                                     "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।",
                                 });
-                              } else if (value === "Partial") {
+                              } else if (
+                                value === "No" ||
+                                value === "Partial"
+                              ) {
                                 this.setState({
                                   coachingSupportInd1:
                                     "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
@@ -3964,7 +3679,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -3975,7 +3693,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -3986,7 +3707,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -3997,7 +3721,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4007,7 +3734,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind21CorrectlyPronouncedStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4018,7 +3747,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4029,7 +3761,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4040,7 +3775,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4051,7 +3789,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4061,7 +3802,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4072,7 +3815,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind32TaughtVocabularyNewSentenceStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4083,7 +3829,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind33CheckWritingSpellingPunctuationStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4093,7 +3842,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind34CheckedWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4246,35 +3997,63 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                               // Set teacher status
                               if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                value === "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
+                                (this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Yes" ||
+                                  this.state.ind21CorrectlyPronouncedStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind23DemonstratesFluentReadingStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind25FollowsInstructionsInWritingStatus ===
+                                    "N/A") &&
                                 (this.state.ind31AskedHelpfulQuestionsStatus ===
                                   "Yes" ||
                                   this.state
@@ -4323,120 +4102,96 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   teacherStatus: "Priority 3",
                                 });
                               } else if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                value === "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
                                 (this.state.ind21CorrectlyPronouncedStatus ===
                                   "Yes" ||
                                   this.state.ind21CorrectlyPronouncedStatus ===
-                                    "No" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "Partial" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind23DemonstratesFluentReadingStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind25FollowsInstructionsInWritingStatus ===
-                                    "Yes" ||
+                                    "N/A")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                (this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "No" ||
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "Partial" ||
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "N/A" ||
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "N/A" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Yes" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "No" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Partial" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
+                                    .ind16IndependentReadingOpportunityStatus ===
                                     "N/A")
                               ) {
                                 this.setState({
@@ -4566,7 +4321,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   bestPracticeInd1:
                                     "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
                                 });
-                              } else if (value === "Yes") {
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
                                 this.setState({
                                   bestPracticeInd1:
                                     "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
@@ -4582,160 +4341,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               if (
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে।",
-                                });
-                              } else if (value === "No") {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয়।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind14ImplementedAllTaskInTimeStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind15InstructedToUseWorkbookStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind16IndependentReadingOpportunityStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন।",
-                                });
-                              } else if (
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind23DemonstratesFluentReadingStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind25FollowsInstructionsInWritingStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind32TaughtVocabularyNewSentenceStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind33CheckWritingSpellingPunctuationStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind34CheckedWeDoYouDoStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন।",
-                                });
-                              } else if (
+                                  "No" ||
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "Partial"
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4745,7 +4354,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4753,7 +4364,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   coachingSupportInd2:
                                     "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে।",
                                 });
-                              } else if (value === "Partial") {
+                              } else if (
+                                value === "No" ||
+                                value === "Partial"
+                              ) {
                                 this.setState({
                                   coachingSupportInd1:
                                     "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
@@ -4763,7 +4377,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4774,7 +4391,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4785,7 +4405,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4795,7 +4418,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind21CorrectlyPronouncedStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4806,7 +4431,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4817,7 +4445,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4828,7 +4459,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4839,7 +4473,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4849,7 +4486,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4860,7 +4499,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind32TaughtVocabularyNewSentenceStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4871,7 +4513,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind33CheckWritingSpellingPunctuationStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4881,7 +4526,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind34CheckedWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -4895,7 +4542,6 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   coachingSupportInd2: "N/A",
                                 });
                               }
-
                               // Setup CoachingSupport
                             }}
                             itemStyle={{ color: "white" }}
@@ -5030,35 +4676,63 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                               // Set teacher status
                               if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                value === "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
+                                (this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Yes" ||
+                                  this.state.ind21CorrectlyPronouncedStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind23DemonstratesFluentReadingStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind25FollowsInstructionsInWritingStatus ===
+                                    "N/A") &&
                                 (this.state.ind31AskedHelpfulQuestionsStatus ===
                                   "Yes" ||
                                   this.state
@@ -5107,120 +4781,96 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   teacherStatus: "Priority 3",
                                 });
                               } else if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                value === "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
                                 (this.state.ind21CorrectlyPronouncedStatus ===
                                   "Yes" ||
                                   this.state.ind21CorrectlyPronouncedStatus ===
-                                    "No" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "Partial" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind23DemonstratesFluentReadingStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind25FollowsInstructionsInWritingStatus ===
-                                    "Yes" ||
+                                    "N/A")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                (this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "No" ||
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "Partial" ||
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "N/A" ||
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "N/A" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Yes" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "No" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Partial" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
+                                    .ind16IndependentReadingOpportunityStatus ===
                                     "N/A")
                               ) {
                                 this.setState({
@@ -5351,7 +5001,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   bestPracticeInd1:
                                     "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
                                 });
-                              } else if (value === "Yes") {
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
                                 this.setState({
                                   bestPracticeInd1:
                                     "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
@@ -5367,161 +5021,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               if (
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind13FollowedContinuityOfLessonStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয়।",
-                                });
-                              } else if (value === "No") {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind15InstructedToUseWorkbookStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind16IndependentReadingOpportunityStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন।",
-                                });
-                              } else if (
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind23DemonstratesFluentReadingStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind25FollowsInstructionsInWritingStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind32TaughtVocabularyNewSentenceStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind33CheckWritingSpellingPunctuationStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind34CheckedWeDoYouDoStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন।",
-                                });
-                              } else if (
+                                  "No" ||
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "Partial"
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -5531,7 +5034,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -5542,7 +5047,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -5550,7 +5058,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   coachingSupportInd2:
                                     "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয়।",
                                 });
-                              } else if (value === "Partial") {
+                              } else if (
+                                value === "No" ||
+                                value === "Partial"
+                              ) {
                                 this.setState({
                                   coachingSupportInd1:
                                     "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
@@ -5560,7 +5071,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -5571,7 +5085,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -5581,7 +5098,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind21CorrectlyPronouncedStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -5592,7 +5111,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -5603,7 +5125,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -5614,7 +5139,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -5625,7 +5153,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -5635,7 +5166,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -5646,7 +5179,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind32TaughtVocabularyNewSentenceStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -5657,7 +5193,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind33CheckWritingSpellingPunctuationStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -5667,7 +5206,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind34CheckedWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -5810,35 +5351,63 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                               // Set teacher status
                               if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                value === "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
+                                (this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Yes" ||
+                                  this.state.ind21CorrectlyPronouncedStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind23DemonstratesFluentReadingStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind25FollowsInstructionsInWritingStatus ===
+                                    "N/A") &&
                                 (this.state.ind31AskedHelpfulQuestionsStatus ===
                                   "Yes" ||
                                   this.state
@@ -5887,120 +5456,96 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   teacherStatus: "Priority 3",
                                 });
                               } else if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                value === "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
                                 (this.state.ind21CorrectlyPronouncedStatus ===
                                   "Yes" ||
                                   this.state.ind21CorrectlyPronouncedStatus ===
-                                    "No" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "Partial" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind23DemonstratesFluentReadingStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind25FollowsInstructionsInWritingStatus ===
-                                    "Yes" ||
+                                    "N/A")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                (this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "No" ||
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "Partial" ||
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "N/A" ||
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "N/A" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Yes" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "No" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Partial" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
+                                    .ind16IndependentReadingOpportunityStatus ===
                                     "N/A")
                               ) {
                                 this.setState({
@@ -6131,7 +5676,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   bestPracticeInd1:
                                     "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
                                 });
-                              } else if (value === "Yes") {
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
                                 this.setState({
                                   bestPracticeInd1:
                                     "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
@@ -6147,161 +5696,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               if (
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind13FollowedContinuityOfLessonStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয়।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind14ImplementedAllTaskInTimeStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে।",
-                                });
-                              } else if (value === "No") {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind16IndependentReadingOpportunityStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন।",
-                                });
-                              } else if (
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind23DemonstratesFluentReadingStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind25FollowsInstructionsInWritingStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind32TaughtVocabularyNewSentenceStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind33CheckWritingSpellingPunctuationStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind34CheckedWeDoYouDoStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন।",
-                                });
-                              } else if (
+                                  "No" ||
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "Partial"
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -6311,7 +5709,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -6322,7 +5722,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -6333,7 +5736,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -6341,7 +5747,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   coachingSupportInd2:
                                     "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে।",
                                 });
-                              } else if (value === "Partial") {
+                              } else if (
+                                value === "No" ||
+                                value === "Partial"
+                              ) {
                                 this.setState({
                                   coachingSupportInd1:
                                     "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
@@ -6351,7 +5760,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -6361,7 +5773,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind21CorrectlyPronouncedStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -6372,7 +5786,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -6383,7 +5800,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -6394,7 +5814,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -6405,7 +5828,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -6415,7 +5841,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -6426,7 +5854,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind32TaughtVocabularyNewSentenceStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -6437,7 +5868,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind33CheckWritingSpellingPunctuationStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -6447,7 +5881,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind34CheckedWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -6591,35 +6027,63 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                               // Set teacher status
                               if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                value === "Yes" &&
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Yes" ||
+                                  this.state.ind21CorrectlyPronouncedStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind23DemonstratesFluentReadingStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind25FollowsInstructionsInWritingStatus ===
+                                    "N/A") &&
                                 (this.state.ind31AskedHelpfulQuestionsStatus ===
                                   "Yes" ||
                                   this.state
@@ -6668,121 +6132,97 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   teacherStatus: "Priority 3",
                                 });
                               } else if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                value === "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
                                 (this.state.ind21CorrectlyPronouncedStatus ===
                                   "Yes" ||
                                   this.state.ind21CorrectlyPronouncedStatus ===
-                                    "No" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "Partial" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind23DemonstratesFluentReadingStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind25FollowsInstructionsInWritingStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "N/A" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Yes" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "No" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Partial" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
                                     "N/A")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                (this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A")
                               ) {
                                 this.setState({
                                   teacherStatus: "Priority 2",
@@ -6911,7 +6351,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   bestPracticeInd1:
                                     "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
                                 });
-                              } else if (value === "Yes") {
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
                                 this.setState({
                                   bestPracticeInd1:
                                     "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
@@ -6927,160 +6371,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               if (
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind13FollowedContinuityOfLessonStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয়।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind14ImplementedAllTaskInTimeStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind15InstructedToUseWorkbookStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে।",
-                                });
-                              } else if (value === "No") {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন।",
-                                });
-                              } else if (
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind23DemonstratesFluentReadingStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind25FollowsInstructionsInWritingStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind32TaughtVocabularyNewSentenceStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind33CheckWritingSpellingPunctuationStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind34CheckedWeDoYouDoStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন।",
-                                });
-                              } else if (
+                                  "No" ||
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "Partial"
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7090,7 +6384,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7101,7 +6397,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7112,7 +6411,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7123,7 +6425,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7131,7 +6436,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   coachingSupportInd2:
                                     "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে।",
                                 });
-                              } else if (value === "Partial") {
+                              } else if (
+                                value === "No" ||
+                                value === "Partial"
+                              ) {
                                 this.setState({
                                   coachingSupportInd1:
                                     "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
@@ -7140,7 +6448,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind21CorrectlyPronouncedStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7151,7 +6461,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7162,7 +6475,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7173,7 +6489,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7184,7 +6503,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7194,7 +6516,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7205,7 +6529,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind32TaughtVocabularyNewSentenceStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7216,7 +6543,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind33CheckWritingSpellingPunctuationStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7226,7 +6556,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind34CheckedWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7240,7 +6572,6 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   coachingSupportInd2: "N/A",
                                 });
                               }
-
                               // Setup CoachingSupport
                             }}
                             itemStyle={{ color: "white" }}
@@ -7388,36 +6719,65 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                               // Set teacher status
                               if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
-                                value === "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind23DemonstratesFluentReadingStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind25FollowsInstructionsInWritingStatus ===
+                                    "N/A") &&
                                 (this.state.ind31AskedHelpfulQuestionsStatus ===
                                   "Yes" ||
                                   this.state
@@ -7466,118 +6826,103 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   teacherStatus: "Priority 3",
                                 });
                               } else if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
-                                (value === "Yes" ||
-                                  value === "No" ||
-                                  value === "Partial" ||
-                                  value === "N/A" ||
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind23DemonstratesFluentReadingStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind25FollowsInstructionsInWritingStatus ===
-                                    "Yes" ||
+                                    "N/A")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                (this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "No" ||
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "Partial" ||
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "N/A" ||
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Yes" ||
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "N/A" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Yes" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "No" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Partial" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
+                                    .ind16IndependentReadingOpportunityStatus ===
                                     "N/A")
                               ) {
                                 this.setState({
@@ -7708,7 +7053,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   bestPracticeInd1:
                                     "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
                                 });
-                              } else if (value === "Yes") {
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
                                 this.setState({
                                   bestPracticeInd1:
                                     "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
@@ -7724,161 +7073,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               if (
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind13FollowedContinuityOfLessonStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয়।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind14ImplementedAllTaskInTimeStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind15InstructedToUseWorkbookStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind16IndependentReadingOpportunityStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন।",
-                                });
-                              } else if (value === "No") {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind23DemonstratesFluentReadingStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind25FollowsInstructionsInWritingStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind32TaughtVocabularyNewSentenceStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind33CheckWritingSpellingPunctuationStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind34CheckedWeDoYouDoStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন।",
-                                });
-                              } else if (
+                                  "No" ||
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "Partial"
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7888,7 +7086,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7899,7 +7099,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7910,7 +7113,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7921,7 +7127,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7932,7 +7141,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7940,7 +7152,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   coachingSupportInd2:
                                     "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন।",
                                 });
-                              } else if (value === "Partial") {
+                              } else if (
+                                value === "No" ||
+                                value === "Partial"
+                              ) {
                                 this.setState({
                                   coachingSupportInd1:
                                     "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
@@ -7950,7 +7165,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7961,7 +7179,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7972,7 +7193,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7983,7 +7207,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -7993,7 +7220,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -8004,7 +7233,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind32TaughtVocabularyNewSentenceStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -8015,7 +7247,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind33CheckWritingSpellingPunctuationStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -8025,7 +7260,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind34CheckedWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -8039,7 +7276,6 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   coachingSupportInd2: "N/A",
                                 });
                               }
-
                               // Setup CoachingSupport
                             }}
                             itemStyle={{ color: "white" }}
@@ -8169,35 +7405,63 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                               // Set teacher status
                               if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                  "Yes" &&
-                                value === "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
+                                (this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Yes" ||
+                                  this.state.ind21CorrectlyPronouncedStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind23DemonstratesFluentReadingStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind25FollowsInstructionsInWritingStatus ===
+                                    "N/A") &&
                                 (this.state.ind31AskedHelpfulQuestionsStatus ===
                                   "Yes" ||
                                   this.state
@@ -8246,114 +7510,101 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   teacherStatus: "Priority 3",
                                 });
                               } else if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
                                 (this.state.ind21CorrectlyPronouncedStatus ===
                                   "Yes" ||
                                   this.state.ind21CorrectlyPronouncedStatus ===
-                                    "No" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "Partial" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "N/A" ||
-                                  value === "Yes" ||
-                                  value === "No" ||
-                                  value === "Partial" ||
-                                  value === "N/A" ||
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind23DemonstratesFluentReadingStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind25FollowsInstructionsInWritingStatus ===
-                                    "Yes" ||
+                                    "N/A")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                (this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "No" ||
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "Partial" ||
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "N/A" ||
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Yes" ||
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "N/A" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Yes" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "No" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Partial" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
+                                    .ind16IndependentReadingOpportunityStatus ===
                                     "N/A")
                               ) {
                                 this.setState({
@@ -8483,7 +7734,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   bestPracticeInd1:
                                     "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
                                 });
-                              } else if (value === "Yes") {
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
                                 this.setState({
                                   bestPracticeInd1:
                                     "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
@@ -8499,160 +7754,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               if (
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind13FollowedContinuityOfLessonStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয়।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind14ImplementedAllTaskInTimeStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind15InstructedToUseWorkbookStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind16IndependentReadingOpportunityStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন।",
-                                });
-                              } else if (
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (value === "No") {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind23DemonstratesFluentReadingStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind25FollowsInstructionsInWritingStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind32TaughtVocabularyNewSentenceStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind33CheckWritingSpellingPunctuationStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind34CheckedWeDoYouDoStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন।",
-                                });
-                              } else if (
+                                  "No" ||
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "Partial"
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -8662,7 +7767,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -8673,7 +7780,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -8684,7 +7794,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -8695,7 +7808,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -8706,7 +7822,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -8716,7 +7835,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind21CorrectlyPronouncedStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -8724,7 +7845,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   coachingSupportInd2:
                                     "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।",
                                 });
-                              } else if (value === "Partial") {
+                              } else if (
+                                value === "No" ||
+                                value === "Partial"
+                              ) {
                                 this.setState({
                                   coachingSupportInd1:
                                     "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
@@ -8734,7 +7858,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -8745,7 +7872,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -8756,7 +7886,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -8766,7 +7899,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -8777,7 +7912,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind32TaughtVocabularyNewSentenceStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -8788,7 +7926,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind33CheckWritingSpellingPunctuationStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -8798,7 +7939,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind34CheckedWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -8812,7 +7955,6 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   coachingSupportInd2: "N/A",
                                 });
                               }
-
                               // Setup CoachingSupport
                             }}
                             itemStyle={{ color: "white" }}
@@ -8946,35 +8088,63 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                               // Set teacher status
                               if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
+                                (this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Yes" ||
+                                  this.state.ind21CorrectlyPronouncedStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                  "Yes" &&
-                                value === "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind25FollowsInstructionsInWritingStatus ===
+                                    "N/A") &&
                                 (this.state.ind31AskedHelpfulQuestionsStatus ===
                                   "Yes" ||
                                   this.state
@@ -9023,114 +8193,101 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   teacherStatus: "Priority 3",
                                 });
                               } else if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
                                 (this.state.ind21CorrectlyPronouncedStatus ===
                                   "Yes" ||
                                   this.state.ind21CorrectlyPronouncedStatus ===
-                                    "No" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "Partial" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "N/A" ||
-                                  value === "Yes" ||
-                                  value === "No" ||
-                                  value === "Partial" ||
-                                  value === "N/A" ||
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind25FollowsInstructionsInWritingStatus ===
-                                    "Yes" ||
+                                    "N/A")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                (this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "No" ||
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "Partial" ||
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "N/A" ||
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Yes" ||
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "N/A" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Yes" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "No" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Partial" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
+                                    .ind16IndependentReadingOpportunityStatus ===
                                     "N/A")
                               ) {
                                 this.setState({
@@ -9260,7 +8417,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   bestPracticeInd1:
                                     "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
                                 });
-                              } else if (value === "Yes") {
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
                                 this.setState({
                                   bestPracticeInd1:
                                     "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
@@ -9276,161 +8437,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               if (
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind13FollowedContinuityOfLessonStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয়।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind14ImplementedAllTaskInTimeStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind15InstructedToUseWorkbookStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind16IndependentReadingOpportunityStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন।",
-                                });
-                              } else if (
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।",
-                                });
-                              } else if (value === "No") {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind25FollowsInstructionsInWritingStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind32TaughtVocabularyNewSentenceStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind33CheckWritingSpellingPunctuationStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind34CheckedWeDoYouDoStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন।",
-                                });
-                              } else if (
+                                  "No" ||
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "Partial"
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -9440,7 +8450,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -9451,7 +8463,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -9462,7 +8477,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -9473,7 +8491,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -9484,7 +8505,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -9494,7 +8518,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind21CorrectlyPronouncedStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -9505,7 +8531,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -9513,7 +8542,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   coachingSupportInd2:
                                     "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।",
                                 });
-                              } else if (value === "Partial") {
+                              } else if (
+                                value === "No" ||
+                                value === "Partial"
+                              ) {
                                 this.setState({
                                   coachingSupportInd1:
                                     "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
@@ -9523,7 +8555,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -9534,7 +8569,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -9544,7 +8582,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -9555,7 +8595,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind32TaughtVocabularyNewSentenceStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -9566,7 +8609,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind33CheckWritingSpellingPunctuationStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -9576,7 +8622,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind34CheckedWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -9590,7 +8638,6 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   coachingSupportInd2: "N/A",
                                 });
                               }
-
                               // Setup CoachingSupport
                             }}
                             itemStyle={{ color: "white" }}
@@ -9726,35 +8773,63 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                               // Set teacher status
                               if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
+                                (this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Yes" ||
+                                  this.state.ind21CorrectlyPronouncedStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                  "Yes" &&
-                                value === "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind23DemonstratesFluentReadingStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind25FollowsInstructionsInWritingStatus ===
+                                    "N/A") &&
                                 (this.state.ind31AskedHelpfulQuestionsStatus ===
                                   "Yes" ||
                                   this.state
@@ -9803,114 +8878,101 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   teacherStatus: "Priority 3",
                                 });
                               } else if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
                                 (this.state.ind21CorrectlyPronouncedStatus ===
                                   "Yes" ||
                                   this.state.ind21CorrectlyPronouncedStatus ===
-                                    "No" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "Partial" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind23DemonstratesFluentReadingStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "N/A" ||
-                                  value === "Yes" ||
-                                  value === "No" ||
-                                  value === "Partial" ||
-                                  value === "N/A" ||
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
+                                (this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind25FollowsInstructionsInWritingStatus ===
-                                    "Yes" ||
+                                    "N/A")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                (this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "No" ||
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "Partial" ||
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "N/A" ||
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Yes" ||
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "N/A" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Yes" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "No" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Partial" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
+                                    .ind16IndependentReadingOpportunityStatus ===
                                     "N/A")
                               ) {
                                 this.setState({
@@ -10040,7 +9102,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   bestPracticeInd1:
                                     "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
                                 });
-                              } else if (value === "Yes") {
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
                                 this.setState({
                                   bestPracticeInd1:
                                     "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
@@ -10056,160 +9122,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               if (
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind13FollowedContinuityOfLessonStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয়।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind14ImplementedAllTaskInTimeStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind15InstructedToUseWorkbookStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind16IndependentReadingOpportunityStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন।",
-                                });
-                              } else if (
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind23DemonstratesFluentReadingStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে।",
-                                });
-                              } else if (value === "No") {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind25FollowsInstructionsInWritingStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind32TaughtVocabularyNewSentenceStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind33CheckWritingSpellingPunctuationStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind34CheckedWeDoYouDoStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন।",
-                                });
-                              } else if (
+                                  "No" ||
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "Partial"
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -10219,7 +9135,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -10230,7 +9148,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -10241,7 +9162,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -10252,7 +9176,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -10263,7 +9190,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -10273,7 +9203,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind21CorrectlyPronouncedStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -10284,7 +9216,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -10295,7 +9230,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -10303,7 +9241,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   coachingSupportInd2:
                                     "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে।",
                                 });
-                              } else if (value === "Partial") {
+                              } else if (
+                                value === "No" ||
+                                value === "Partial"
+                              ) {
                                 this.setState({
                                   coachingSupportInd1:
                                     "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
@@ -10313,7 +9254,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -10323,7 +9267,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -10334,7 +9280,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind32TaughtVocabularyNewSentenceStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -10345,7 +9294,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind33CheckWritingSpellingPunctuationStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -10355,7 +9307,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind34CheckedWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -10499,35 +9453,63 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                               // Set teacher status
                               if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
+                                (this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Yes" ||
+                                  this.state.ind21CorrectlyPronouncedStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind23DemonstratesFluentReadingStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                  "Yes" &&
-                                value === "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A") &&
                                 (this.state.ind31AskedHelpfulQuestionsStatus ===
                                   "Yes" ||
                                   this.state
@@ -10576,114 +9558,101 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   teacherStatus: "Priority 3",
                                 });
                               } else if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
                                 (this.state.ind21CorrectlyPronouncedStatus ===
                                   "Yes" ||
                                   this.state.ind21CorrectlyPronouncedStatus ===
-                                    "No" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "Partial" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind23DemonstratesFluentReadingStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Yes" ||
+                                    "N/A") &&
+                                (value === "Yes" || value === "N/A")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                (this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "No" ||
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Partial" ||
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "N/A" ||
-                                  value === "Yes" ||
-                                  value === "No" ||
-                                  value === "Partial" ||
-                                  value === "N/A" ||
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Yes" ||
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "N/A" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Yes" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "No" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Partial" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
+                                    .ind16IndependentReadingOpportunityStatus ===
                                     "N/A")
                               ) {
                                 this.setState({
@@ -10813,7 +9782,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   bestPracticeInd1:
                                     "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
                                 });
-                              } else if (value === "Yes") {
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
                                 this.setState({
                                   bestPracticeInd1:
                                     "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
@@ -10829,160 +9802,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               if (
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind13FollowedContinuityOfLessonStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয়।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind14ImplementedAllTaskInTimeStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind15InstructedToUseWorkbookStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind16IndependentReadingOpportunityStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন।",
-                                });
-                              } else if (
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind23DemonstratesFluentReadingStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।",
-                                });
-                              } else if (value === "No") {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind32TaughtVocabularyNewSentenceStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind33CheckWritingSpellingPunctuationStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind34CheckedWeDoYouDoStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন।",
-                                });
-                              } else if (
+                                  "No" ||
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "Partial"
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -10992,7 +9815,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11003,7 +9828,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11014,7 +9842,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11025,7 +9856,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11036,7 +9870,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11046,7 +9883,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind21CorrectlyPronouncedStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11057,7 +9896,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11068,7 +9910,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11079,7 +9924,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11087,7 +9935,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   coachingSupportInd2:
                                     "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।",
                                 });
-                              } else if (value === "Partial") {
+                              } else if (
+                                value === "No" ||
+                                value === "Partial"
+                              ) {
                                 this.setState({
                                   coachingSupportInd1:
                                     "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
@@ -11096,7 +9947,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11107,7 +9960,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind32TaughtVocabularyNewSentenceStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11118,7 +9974,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind33CheckWritingSpellingPunctuationStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11128,7 +9987,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind34CheckedWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11283,39 +10144,71 @@ export default class BanglaClassObservationScreen extends React.Component {
                               this.setState({
                                 ind31AskedHelpfulQuestionsStatus: value,
                               });
+
                               // Set teacher status
                               if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
+                                (this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Yes" ||
+                                  this.state.ind21CorrectlyPronouncedStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind23DemonstratesFluentReadingStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind25FollowsInstructionsInWritingStatus ===
+                                    "N/A") &&
                                 (value === "Yes" ||
                                   value === "No" ||
                                   value === "Partial" ||
@@ -11357,114 +10250,106 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   teacherStatus: "Priority 3",
                                 });
                               } else if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
                                 (this.state.ind21CorrectlyPronouncedStatus ===
                                   "Yes" ||
                                   this.state.ind21CorrectlyPronouncedStatus ===
-                                    "No" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "Partial" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind23DemonstratesFluentReadingStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind25FollowsInstructionsInWritingStatus ===
-                                    "Yes" ||
+                                    "N/A")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                (this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "No" ||
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "Partial" ||
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "N/A" ||
-                                  value === "Yes" ||
-                                  value === "No" ||
-                                  value === "Partial" ||
-                                  value === "N/A" ||
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Yes" ||
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "N/A" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Yes" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "No" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Partial" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
+                                    .ind16IndependentReadingOpportunityStatus ===
                                     "N/A")
                               ) {
                                 this.setState({
@@ -11595,7 +10480,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   bestPracticeInd1:
                                     "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
                                 });
-                              } else if (value === "Yes") {
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
                                 this.setState({
                                   bestPracticeInd1:
                                     "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
@@ -11611,161 +10500,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               if (
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind13FollowedContinuityOfLessonStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয়।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind14ImplementedAllTaskInTimeStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind15InstructedToUseWorkbookStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind16IndependentReadingOpportunityStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন।",
-                                });
-                              } else if (
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind23DemonstratesFluentReadingStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind25FollowsInstructionsInWritingStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (value === "No") {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind32TaughtVocabularyNewSentenceStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind33CheckWritingSpellingPunctuationStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind34CheckedWeDoYouDoStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন।",
-                                });
-                              } else if (
+                                  "No" ||
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "Partial"
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11775,7 +10513,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11786,7 +10526,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11797,7 +10540,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11808,7 +10554,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11819,7 +10568,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11829,7 +10581,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind21CorrectlyPronouncedStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11840,7 +10594,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11851,7 +10608,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11862,7 +10622,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11873,7 +10636,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11881,7 +10647,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   coachingSupportInd2:
                                     "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।",
                                 });
-                              } else if (value === "Partial") {
+                              } else if (
+                                value === "No" ||
+                                value === "Partial"
+                              ) {
                                 this.setState({
                                   coachingSupportInd1:
                                     "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
@@ -11891,7 +10660,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind32TaughtVocabularyNewSentenceStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11902,7 +10674,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind33CheckWritingSpellingPunctuationStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -11912,7 +10687,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind34CheckedWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -12055,37 +10832,68 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                               // Set teacher status
                               if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
+                                (this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Yes" ||
+                                  this.state.ind21CorrectlyPronouncedStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind23DemonstratesFluentReadingStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind25FollowsInstructionsInWritingStatus ===
+                                    "N/A") &&
                                 (this.state.ind31AskedHelpfulQuestionsStatus ===
                                   "Yes" ||
                                   this.state
@@ -12126,114 +10934,106 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   teacherStatus: "Priority 3",
                                 });
                               } else if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
                                 (this.state.ind21CorrectlyPronouncedStatus ===
                                   "Yes" ||
                                   this.state.ind21CorrectlyPronouncedStatus ===
-                                    "No" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "Partial" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind23DemonstratesFluentReadingStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind25FollowsInstructionsInWritingStatus ===
-                                    "Yes" ||
+                                    "N/A")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                (this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "No" ||
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "Partial" ||
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "N/A" ||
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Yes" ||
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "N/A" ||
-                                  value === "Yes" ||
-                                  value === "No" ||
-                                  value === "Partial" ||
-                                  value === "N/A" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "N/A" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Yes" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "No" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Partial" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
+                                    .ind16IndependentReadingOpportunityStatus ===
                                     "N/A")
                               ) {
                                 this.setState({
@@ -12363,7 +11163,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   bestPracticeInd1:
                                     "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
                                 });
-                              } else if (value === "Yes") {
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
                                 this.setState({
                                   bestPracticeInd1:
                                     "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
@@ -12379,160 +11183,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               if (
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind13FollowedContinuityOfLessonStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয়।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind14ImplementedAllTaskInTimeStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind15InstructedToUseWorkbookStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind16IndependentReadingOpportunityStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন।",
-                                });
-                              } else if (
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind23DemonstratesFluentReadingStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind25FollowsInstructionsInWritingStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।",
-                                });
-                              } else if (value === "No") {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind33CheckWritingSpellingPunctuationStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind34CheckedWeDoYouDoStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন।",
-                                });
-                              } else if (
+                                  "No" ||
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "Partial"
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -12542,7 +11196,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -12553,7 +11209,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -12564,7 +11223,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -12575,7 +11237,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -12586,7 +11251,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -12596,7 +11264,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind21CorrectlyPronouncedStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -12607,7 +11277,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -12618,7 +11291,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -12629,7 +11305,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -12640,7 +11319,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -12650,7 +11332,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -12658,7 +11342,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   coachingSupportInd2:
                                     "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।",
                                 });
-                              } else if (value === "Partial") {
+                              } else if (
+                                value === "No" ||
+                                value === "Partial"
+                              ) {
                                 this.setState({
                                   coachingSupportInd1:
                                     "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
@@ -12668,7 +11355,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind33CheckWritingSpellingPunctuationStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -12678,7 +11368,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind34CheckedWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -12826,37 +11518,68 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                               // Set teacher status
                               if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
+                                (this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Yes" ||
+                                  this.state.ind21CorrectlyPronouncedStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind23DemonstratesFluentReadingStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind25FollowsInstructionsInWritingStatus ===
+                                    "N/A") &&
                                 (this.state.ind31AskedHelpfulQuestionsStatus ===
                                   "Yes" ||
                                   this.state
@@ -12897,114 +11620,106 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   teacherStatus: "Priority 3",
                                 });
                               } else if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
                                 (this.state.ind21CorrectlyPronouncedStatus ===
                                   "Yes" ||
                                   this.state.ind21CorrectlyPronouncedStatus ===
-                                    "No" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "Partial" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind23DemonstratesFluentReadingStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind25FollowsInstructionsInWritingStatus ===
-                                    "Yes" ||
+                                    "N/A")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                (this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "No" ||
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "Partial" ||
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "N/A" ||
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Yes" ||
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "N/a" ||
-                                  value === "Yes" ||
-                                  value === "No" ||
-                                  value === "Partial" ||
-                                  value === "N/A" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Yes" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "No" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
-                                    "Partial" ||
-                                  this.state.ind34CheckedWeDoYouDoStatus ===
+                                    .ind16IndependentReadingOpportunityStatus ===
                                     "N/A")
                               ) {
                                 this.setState({
@@ -13134,7 +11849,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   bestPracticeInd1:
                                     "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
                                 });
-                              } else if (value === "Yes") {
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
                                 this.setState({
                                   bestPracticeInd1:
                                     "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
@@ -13150,160 +11869,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               if (
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind13FollowedContinuityOfLessonStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয়।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind14ImplementedAllTaskInTimeStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind15InstructedToUseWorkbookStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind16IndependentReadingOpportunityStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন।",
-                                });
-                              } else if (
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind23DemonstratesFluentReadingStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind25FollowsInstructionsInWritingStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind32TaughtVocabularyNewSentenceStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে।",
-                                });
-                              } else if (value === "No") {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind34CheckedWeDoYouDoStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন।",
-                                });
-                              } else if (
+                                  "No" ||
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "Partial"
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -13313,7 +11882,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -13324,7 +11895,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -13335,7 +11909,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -13346,7 +11923,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -13357,7 +11937,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -13367,7 +11950,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind21CorrectlyPronouncedStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -13378,7 +11963,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -13389,7 +11977,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -13400,7 +11991,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -13411,7 +12005,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -13421,7 +12018,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -13432,7 +12031,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind32TaughtVocabularyNewSentenceStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -13440,7 +12042,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   coachingSupportInd2:
                                     "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে।",
                                 });
-                              } else if (value === "Partial") {
+                              } else if (
+                                value === "No" ||
+                                value === "Partial"
+                              ) {
                                 this.setState({
                                   coachingSupportInd1:
                                     "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
@@ -13449,7 +12054,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind34CheckedWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind34CheckedWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -13596,37 +12203,68 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                               // Set teacher status
                               if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
+                                (this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Yes" ||
+                                  this.state.ind21CorrectlyPronouncedStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind23DemonstratesFluentReadingStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind25FollowsInstructionsInWritingStatus ===
+                                    "N/A") &&
                                 (this.state.ind31AskedHelpfulQuestionsStatus ===
                                   "Yes" ||
                                   this.state
@@ -13659,8 +12297,8 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   this.state
                                     .ind33CheckWritingSpellingPunctuationStatus ===
                                     "Partial" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
+                                  valthis.state
+                                    .ind33CheckWritingSpellingPunctuationStatusue ===
                                     "N/A" ||
                                   value === "Yes" ||
                                   value === "No" ||
@@ -13671,119 +12309,107 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   teacherStatus: "Priority 3",
                                 });
                               } else if (
-                                this.state
+                                (this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                  "Yes" &&
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                  "Yes" &&
-                                this.state
+                                  "Yes" ||
+                                  this.state
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                  "Yes" &&
+                                  "Yes" ||
+                                  this.state
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A") &&
                                 (this.state.ind21CorrectlyPronouncedStatus ===
                                   "Yes" ||
                                   this.state.ind21CorrectlyPronouncedStatus ===
-                                    "No" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "Partial" ||
-                                  this.state.ind21CorrectlyPronouncedStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind23DemonstratesFluentReadingStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind23DemonstratesFluentReadingStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                    "N/A" ||
+                                    "N/A") &&
+                                (this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Yes" ||
                                   this.state
                                     .ind25FollowsInstructionsInWritingStatus ===
-                                    "Yes" ||
+                                    "N/A")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                (this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "No" ||
+                                    .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                    "N/A") &&
+                                (this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Yes" ||
+                                  this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "Partial" ||
+                                    .ind13FollowedContinuityOfLessonStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind25FollowsInstructionsInWritingStatus ===
-                                    "N/A" ||
+                                    .ind14ImplementedAllTaskInTimeStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Yes" ||
+                                    .ind15InstructedToUseWorkbookStatus ===
+                                    "N/A") &&
+                                (this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Yes" ||
                                   this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind31AskedHelpfulQuestionsStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind32TaughtVocabularyNewSentenceStatus ===
-                                    "N/A" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Yes" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "No" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "Partial" ||
-                                  this.state
-                                    .ind33CheckWritingSpellingPunctuationStatus ===
-                                    "N/A" ||
-                                  value === "Yes" ||
-                                  value === "No" ||
-                                  value === "Partial" ||
-                                  value === "N/A")
+                                    .ind16IndependentReadingOpportunityStatus ===
+                                    "N/A")
                               ) {
                                 this.setState({
                                   teacherStatus: "Priority 2",
@@ -13794,7 +12420,6 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               }
                               // Set teacher status
-
                               // Setup BestPractice
                               if (value === "Yes") {
                                 this.setState({
@@ -13914,7 +12539,11 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   bestPracticeInd1:
                                     "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
                                 });
-                              } else if (value === "Yes") {
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
                                 this.setState({
                                   bestPracticeInd1:
                                     "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
@@ -13930,162 +12559,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               if (
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।",
-                                });
-                              } else if (
-                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind13FollowedContinuityOfLessonStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয়।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind14ImplementedAllTaskInTimeStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind15InstructedToUseWorkbookStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind16IndependentReadingOpportunityStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন।",
-                                });
-                              } else if (
-                                this.state.ind21CorrectlyPronouncedStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind23DemonstratesFluentReadingStatus === "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind25FollowsInstructionsInWritingStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।",
-                                });
-                              } else if (
-                                this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                                  coachingSupportInd2:
-                                    "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind32TaughtVocabularyNewSentenceStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                  coachingSupportInd2:
-                                    "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে।",
-                                });
-                              } else if (
-                                this.state
-                                  .ind33CheckWritingSpellingPunctuationStatus ===
-                                "No"
-                              ) {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                                  coachingSupportInd2:
-                                    "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ।",
-                                });
-                              } else if (value === "No") {
-                                this.setState({
-                                  coachingSupportInd1:
-                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                                  coachingSupportInd2:
-                                    "শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন।",
-                                });
-                              } else if (
+                                  "No" ||
                                 this.state
                                   .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                                "Partial"
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -14095,7 +12572,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -14106,7 +12585,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind13FollowedContinuityOfLessonStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -14117,7 +12599,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind14ImplementedAllTaskInTimeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -14128,7 +12613,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind15InstructedToUseWorkbookStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -14139,7 +12627,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind16IndependentReadingOpportunityStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -14149,7 +12640,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind21CorrectlyPronouncedStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -14160,7 +12653,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -14171,7 +12667,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind23DemonstratesFluentReadingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -14182,7 +12681,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -14193,7 +12695,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -14203,7 +12708,9 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 });
                               } else if (
                                 this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -14214,7 +12721,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind32TaughtVocabularyNewSentenceStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -14225,7 +12735,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                               } else if (
                                 this.state
                                   .ind33CheckWritingSpellingPunctuationStatus ===
-                                "Partial"
+                                  "No" ||
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                  "Partial"
                               ) {
                                 this.setState({
                                   coachingSupportInd1:
@@ -14233,7 +12746,10 @@ export default class BanglaClassObservationScreen extends React.Component {
                                   coachingSupportInd2:
                                     "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ।",
                                 });
-                              } else if (value === "Partial") {
+                              } else if (
+                                value === "No" ||
+                                value === "Partial"
+                              ) {
                                 this.setState({
                                   coachingSupportInd1:
                                     "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",

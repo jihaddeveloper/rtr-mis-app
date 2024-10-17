@@ -23,27 +23,53 @@ import MonthlyBookCheckoutScreen from "./screens/MonthlyBookCheckoutScreen";
 import MonthlyBookCheckoutCommScreen from "./screens/MonthlyBookCheckoutCommunityScreen";
 import OverallSchoolObservationScreen from "./screens/OverallSchoolObservationScreen";
 import PrePrimaryClassScreen from "./screens/PrePrimaryClassScreen";
-import HomeScreen2 from "./screens/HomeScreen2";
+
 import LoginScreen2 from "./screens/LoginScreen2";
+import MainScreen from "./screens/MainScreen";
+import LPOScreen from "./screens/LPOScreen";
+import LFScreen from "./screens/LFScreen";
+import SchoolMonitoringTool from "./screens/SchoolMonitoringTool";
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home2">
+      <Stack.Navigator initialRouteName="MainScreen">
         <Stack.Screen
-          name="Home2"
-          component={HomeScreen2}
+          name="MainScreen"
+          component={MainScreen}
           options={{
-            title: "Room to Read Data-collection Application", //Set Header Title
-            headerStyle: {
-              backgroundColor: "#f4511e", //Set Header color
-            },
-            headerTintColor: "#fff", //Set Header text color
-            headerTitleStyle: {
-              fontWeight: "bold", //Set Header text style
-            },
+            title: "", //Set Header Title
           }}
         />
+        <Stack.Screen
+          name="LPOScreen"
+          component={LPOScreen}
+          options={{
+            title: "LPO Screen", //Set Header Title
+          }}
+        />
+        <Stack.Screen
+          name="SchoolMonitoringTool"
+          component={SchoolMonitoringTool}
+          options={{
+            title: "School Monitoring Tool", //Set Header Title
+          }}
+        />
+        <Stack.Screen
+          name="LFScreen"
+          component={LFScreen}
+          options={{
+            title: "LF Screen", //Set Header Title
+            // headerStyle: {
+            //   backgroundColor: "#f4511e", //Set Header color
+            // },
+            // headerTintColor: "#fff", //Set Header text color
+            // headerTitleStyle: {
+            //   fontWeight: "bold", //Set Header text style
+            // },
+          }}
+        />
+
         <Stack.Screen
           name="BanglaClass"
           component={BanglaClassObservationScreen}
