@@ -40,13 +40,13 @@ function MainScreen({ navigation }) {
             color: "blue",
             fontWeight: "bold",
             fontSize: 20,
-            padding: 25,
+            padding: 10,
             alignContent: "center",
             textAlign: "center",
             alignSelf: "center",
-            marginTop: 50,
-            marginLeft: 100,
-            marginRight: 100,
+            marginTop: 20,
+            marginLeft: 10,
+            marginRight: 10,
           }}
         >
           RoomtoRead Online Data Collection Application
@@ -57,15 +57,15 @@ function MainScreen({ navigation }) {
           padding: 10,
           margin: 10,
           flex: 1,
-          marginBottom: 10,
-          marginTop: 20,
+          marginTop: 30,
+          marginBottom: 30,
         }}
       >
         <View
           style={{
             flex: 1,
             flexDirection: "row",
-            marginTop: 30,
+            marginTop: 10,
             alignContent: "center",
             alignItems: "center",
           }}
@@ -74,11 +74,12 @@ function MainScreen({ navigation }) {
             <TouchableOpacity>
               <Image
                 style={{
-                  height: "50%",
+                  height: "60%",
                   width: "100%",
                   resizeMode: "contain",
                   alignItems: "center",
-                  marginBottom: 50,
+                  marginTop: 5,
+                  marginBottom: 5,
                 }}
                 source={require("../assets/rtrnew.png")}
               ></Image>
@@ -89,43 +90,52 @@ function MainScreen({ navigation }) {
                 textAlign: "center",
                 alignSelf: "center",
                 fontWeight: "bold",
-                fontSize: 20,
-                marginTop: 5,
-                marginBottom: 30,
+                fontSize: 24,
+                marginTop: 1,
+                marginBottom: 1,
               }}
             >
-              Data Collection Tools for LF & LPO
+              Data Collection Tools
             </Text>
           </View>
         </View>
-      </Card>
-
-      <Card
-        style={{
-          padding: 10,
-          margin: 10,
-          flex: 1,
-          marginTop: 30,
-          marginBottom: 100,
-        }}
-      >
-        <View style={{ marginTop: 50, marginBottom: 10 }}>
-          <View style={{ flexDirection: "row" }}>
-            <View style={{ flex: 1, padding: 2 }}>
-              <View>
-                <Button
-                  title="LPO Tools"
-                  onPress={() => navigation.navigate("LPOScreen")}
-                ></Button>
-              </View>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            marginTop: 1,
+            alignContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              padding: 1,
+              alignContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <View>
+              <Button
+                title="LPO Tools"
+                onPress={() => navigation.navigate("LPOScreen")}
+              ></Button>
             </View>
-            <View style={{ flex: 1, padding: 2 }}>
-              <View>
-                <Button
-                  title="LF Tools"
-                  onPress={() => navigation.navigate("LFScreen")}
-                ></Button>
-              </View>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              padding: 2,
+              alignContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <View>
+              <Button
+                title="LF Tools"
+                onPress={() => navigation.navigate("LFScreen")}
+              ></Button>
             </View>
           </View>
         </View>

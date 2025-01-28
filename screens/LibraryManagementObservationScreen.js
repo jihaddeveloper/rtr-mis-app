@@ -1491,8 +1491,8 @@ export default class LibraryManagementObservationScreen extends React.Component 
                     itemStyle={{ color: "white" }}
                   >
                     <Picker.Item label={"Select"} value={""} />
-                    <Picker.Item label={"P 1"} value={"1"} />
-                    <Picker.Item label={"P 2,3"} value={"2"} />
+                    <Picker.Item label={"Phase 1"} value={"Phase 1"} />
+                    <Picker.Item label={"Phase 2,3"} value={"Phase 2"} />
                   </Picker>
                 </View>
               </View>
@@ -2015,6 +2015,9 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             //ind1IsTrainedOneTeacher: value,
                           });
 
+                          console.log(
+                            "pickerPhase:::::" + this.state.pickerPhase
+                          );
                           // Set main indicator
                           if (
                             value === "Yes" &&
@@ -2741,7 +2744,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             value === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -2822,7 +2825,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             value === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -2891,7 +2894,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             value === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -2947,7 +2950,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             value === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -3793,7 +3796,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             value === "Yes" &&
                             this.state
@@ -3872,7 +3875,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             value === "Yes" &&
                             this.state
@@ -3939,7 +3942,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             value === "Yes" &&
                             this.state
@@ -3993,7 +3996,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             value === "Yes" &&
                             this.state
@@ -4835,7 +4838,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -4914,7 +4917,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -4981,7 +4984,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -5035,7 +5038,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -5937,7 +5940,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -6018,7 +6021,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -6087,7 +6090,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -6143,7 +6146,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -6996,7 +6999,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -7077,7 +7080,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -7146,7 +7149,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -7202,7 +7205,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -8053,7 +8056,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -8133,7 +8136,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -8201,7 +8204,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -8256,7 +8259,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -8377,9 +8380,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                           height: 40,
                           width: 120,
                         }}
-                        selectedValue={
-                          this.state && this.state.ind34ClassroomSafeClean
-                        }
+                        selectedValue={this.state.ind34ClassroomSafeClean}
                         onValueChange={(value) => {
                           this.setState({
                             ind34ClassroomSafeClean: value,
@@ -9109,7 +9110,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -9190,7 +9191,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -9259,7 +9260,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -9315,7 +9316,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -9496,7 +9497,6 @@ export default class LibraryManagementObservationScreen extends React.Component 
                         onValueChange={(value) => {
                           this.setState({
                             ind41BookshelfUsable: value,
-                            //ind4LibraryFurnitureOkay: value,
                           });
 
                           // Set main indicator
@@ -10229,7 +10229,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -10310,7 +10310,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -10379,7 +10379,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -10435,7 +10435,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -11292,7 +11292,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -11372,7 +11372,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -11440,7 +11440,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -11495,7 +11495,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -12349,7 +12349,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -12429,7 +12429,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -12497,7 +12497,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -12552,7 +12552,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -13407,7 +13407,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -13488,7 +13488,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -13557,7 +13557,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -13613,7 +13613,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -14468,7 +14468,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -14548,7 +14548,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -14616,7 +14616,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -14671,7 +14671,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -15515,7 +15515,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -15596,7 +15596,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -15665,7 +15665,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -15721,7 +15721,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -16624,7 +16624,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -16704,7 +16704,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -16772,7 +16772,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -16827,7 +16827,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -17681,7 +17681,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -17761,7 +17761,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -17829,7 +17829,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -17884,7 +17884,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -18738,7 +18738,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -18818,7 +18818,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -18886,7 +18886,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -18941,7 +18941,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -19797,7 +19797,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -19878,7 +19878,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -19947,7 +19947,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -20003,7 +20003,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -20863,7 +20863,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -20944,7 +20944,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -21013,7 +21013,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -21069,7 +21069,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -21925,7 +21925,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -22006,7 +22006,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -22075,7 +22075,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -22131,7 +22131,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -23031,7 +23031,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -23112,7 +23112,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -23181,7 +23181,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -23237,7 +23237,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -24085,7 +24085,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -24166,7 +24166,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === 1 &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -24235,7 +24235,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -24291,7 +24291,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -25204,7 +25204,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -25284,7 +25284,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -25352,7 +25352,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -25407,7 +25407,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -26267,7 +26267,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -26347,7 +26347,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -26415,7 +26415,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -26470,7 +26470,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -27330,7 +27330,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -27410,7 +27410,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -27478,7 +27478,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -27533,7 +27533,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -28393,7 +28393,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -28473,7 +28473,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -28541,7 +28541,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -28596,7 +28596,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -29457,7 +29457,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -29537,7 +29537,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -29605,7 +29605,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -29660,7 +29660,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -30520,7 +30520,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -30600,7 +30600,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -30668,7 +30668,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -30723,7 +30723,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -31629,7 +31629,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -31709,7 +31709,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -31777,7 +31777,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -31832,7 +31832,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -32682,7 +32682,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -32762,7 +32762,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -32830,7 +32830,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -32885,7 +32885,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -33736,7 +33736,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -33817,7 +33817,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -33886,7 +33886,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -33942,7 +33942,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -34794,7 +34794,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -34874,7 +34874,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -34942,7 +34942,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -34998,7 +34998,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -35854,7 +35854,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -35933,7 +35933,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -36000,7 +36000,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -36056,7 +36056,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -36958,7 +36958,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -37038,7 +37038,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -37106,7 +37106,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -37162,7 +37162,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -38009,7 +38009,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -38089,7 +38089,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -38157,7 +38157,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -38213,7 +38213,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -39115,7 +39115,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -39195,7 +39195,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -39263,7 +39263,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -39319,7 +39319,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -40166,7 +40166,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -40245,7 +40245,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -40312,7 +40312,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -40368,7 +40368,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -41226,7 +41226,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -41306,7 +41306,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -41375,7 +41375,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -41431,7 +41431,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -42330,7 +42330,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -42410,7 +42410,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -42479,7 +42479,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -42535,7 +42535,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -43384,7 +43384,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -43464,7 +43464,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -43533,7 +43533,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -43589,7 +43589,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -44487,7 +44487,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -44566,7 +44566,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -44635,7 +44635,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -44691,7 +44691,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -45542,7 +45542,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
 
                           // Set library status
                           if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -45622,7 +45622,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                             });
                           }
                           if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -45691,7 +45691,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Highly Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "1" &&
+                            this.state.pickerPhase === "Phase 1" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===
@@ -45747,7 +45747,7 @@ export default class LibraryManagementObservationScreen extends React.Component 
                               libraryStatus: "Functioning",
                             });
                           } else if (
-                            this.state.pickerPhase === "2" &&
+                            this.state.pickerPhase === "Phase 2" &&
                             this.state.ind11IsPointTeacherIncharge === "Yes" &&
                             this.state
                               .ind12IsTrainedLibraryManagementReadingHour ===

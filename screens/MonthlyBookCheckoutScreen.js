@@ -1336,8 +1336,8 @@ export default class MonthlyBookCheckoutScreen extends React.Component {
                   marginRight: 100,
                 }}
               >
-                মাসিক বই চেক-আউট ও চেক-ইন পর্যবেক্ষণ ফরম (Monthly Book Checkout
-                Checkin Form)
+                মাসিক বই চেক-আউট ও চেক-ইন ফরম (Monthly Book Checkout Checkin
+                Form)
               </Text>
             </View>
           </View>
