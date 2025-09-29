@@ -3,7 +3,7 @@
 //  Modify Date: 28/08/2024
 //  Description: Main screen component
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ImageBackground,
   SafeAreaView,
@@ -32,6 +32,7 @@ function MainScreen({ navigation }) {
     });
     return unsubscribe;
   }, [navigation]);
+
   return (
     <View style={styles.container}>
       <View style={{ flexShrink: 1 }}>
@@ -49,7 +50,7 @@ function MainScreen({ navigation }) {
             marginRight: 10,
           }}
         >
-          RoomtoRead Online Data Collection Application
+          RoomtoRead Online Observation & Data-Collection Application
         </Text>
       </View>
       <Card
@@ -95,10 +96,11 @@ function MainScreen({ navigation }) {
                 marginBottom: 1,
               }}
             >
-              Data Collection Tools
+              Observation & Data-Collection Tools
             </Text>
           </View>
         </View>
+
         <View
           style={{
             flex: 1,
@@ -119,6 +121,7 @@ function MainScreen({ navigation }) {
             <View>
               <Button
                 title="LPO Tools"
+                color="#006B4D"
                 onPress={() => navigation.navigate("LPOScreen")}
               ></Button>
             </View>
@@ -134,6 +137,7 @@ function MainScreen({ navigation }) {
             <View>
               <Button
                 title="LF Tools"
+                color="#006B4D"
                 onPress={() => navigation.navigate("LFScreen")}
               ></Button>
             </View>

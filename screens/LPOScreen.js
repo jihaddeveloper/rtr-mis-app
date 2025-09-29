@@ -81,10 +81,10 @@ function LPOScreen({ navigation }) {
                 textAlign: "center",
                 alignSelf: "center",
                 fontWeight: "bold",
-                fontSize: 20,
+                fontSize: 28,
               }}
             >
-              Data Collection Tools for LPO
+              Observation & Data-Collection Tools for LPO
             </Text>
           </View>
         </View>
@@ -96,10 +96,17 @@ function LPOScreen({ navigation }) {
             <View style={{ flex: 1, padding: 2, marginTop: 100 }}>
               <View>
                 <Button
+                  title="LF Observation Tool"
+                  color="#006B4D"
+                  onPress={() => navigation.navigate("PLFObservationTool")}
+                ></Button>
+              </View>
+              {/* <View>
+                <Button
                   title="School Monitoring Tool"
                   onPress={() => navigation.navigate("SchoolMonitoringTool")}
                 ></Button>
-              </View>
+              </View> */}
             </View>
             {/* <View style={{ flex: 1, padding: 2 }}>
               <View>

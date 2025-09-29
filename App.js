@@ -23,6 +23,10 @@ import MonthlyBookCheckoutScreen from "./screens/MonthlyBookCheckoutScreen";
 import MonthlyBookCheckoutCommScreen from "./screens/MonthlyBookCheckoutCommunityScreen";
 import OverallSchoolObservationScreen from "./screens/OverallSchoolObservationScreen";
 import PrePrimaryClassScreen from "./screens/PrePrimaryClassScreen";
+import PLFObservationScreen from "./screens/PLFObservationScreen";
+import PBanglaClassObservationScreen from "./screens/PBanglaClassObservationScreen";
+import PLibraryObservationScreen from "./screens/PLibraryObservationScreen";
+import PBookCheckoutScreen from "./screens/PBookCheckoutScreen";
 
 import LoginScreen2 from "./screens/LoginScreen2";
 import MainScreen from "./screens/MainScreen";
@@ -67,6 +71,38 @@ export default function App() {
             // headerTitleStyle: {
             //   fontWeight: "bold", //Set Header text style
             // },
+          }}
+        />
+
+        <Stack.Screen
+          name="PLFObservationTool"
+          component={PLFObservationScreen}
+          options={{
+            title: "PREVAIL LF Observation Tool", //Set Header Title
+          }}
+        />
+
+        <Stack.Screen
+          name="PBanglaTool"
+          component={PBanglaClassObservationScreen}
+          options={{
+            title: "PREVAIL Bangla Observation Tool", //Set Header Title
+          }}
+        />
+
+        <Stack.Screen
+          name="PLibraryTool"
+          component={PLibraryObservationScreen}
+          options={{
+            title: "PREVAIL Library Observation Tool", //Set Header Title
+          }}
+        />
+
+        <Stack.Screen
+          name="PBookCheckoutTool"
+          component={PBookCheckoutScreen}
+          options={{
+            title: "PREVAIL Book Checkout Tool", //Set Header Title
           }}
         />
 
