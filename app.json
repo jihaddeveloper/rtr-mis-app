@@ -14,11 +14,10 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.jihaddeveloper.rtr-mis-app"
     },
     "android": {
       "package": "com.rtr.rtr_mis_app",
@@ -37,9 +36,7 @@
         "projectId": "d00c0ebe-ba5d-441f-8839-dc34f8fd87bb"
       }
     },
-    "plugins": [
-      "expo-build-properties"
-    ],
+    "plugins": ["expo-build-properties"],
     "owner": "jihaddeveloper"
   }
 }

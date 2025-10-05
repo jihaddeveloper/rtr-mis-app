@@ -1428,7 +1428,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   </View>
                   <Picker
                     style={{
-                      height: 40,
+                      height: 60,
                       width: 170,
                     }}
                     selectedValue={this.state.pickerMonth}
@@ -1474,7 +1474,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   </View>
                   <Picker
                     style={{
-                      height: 40,
+                      height: 60,
                       width: 170,
                     }}
                     selectedValue={this.state.pickerYear}
@@ -1525,7 +1525,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   </View>
                   <Picker
                     style={{
-                      height: 40,
+                      height: 60,
                       width: 170,
                     }}
                     selectedValue={this.state.pickerDistrict}
@@ -1573,7 +1573,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   </View>
                   <Picker
                     style={{
-                      height: 40,
+                      height: 60,
                       width: 170,
                     }}
                     selectedValue={this.state.pickerUpazilla}
@@ -1628,8 +1628,8 @@ export default class PBanglaClassObservationScreen extends React.Component {
 
                   <Picker
                     style={{
-                      height: 40,
-                      width: 120,
+                      height: 60,
+                      width: 140,
                     }}
                     selectedValue={this.state.pickerOffice}
                     onValueChange={(value) => {
@@ -1678,7 +1678,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   </View>
                   <Picker
                     style={{
-                      height: 40,
+                      height: 60,
                       width: 280,
                     }}
                     selectedValue={this.state.pickerProject}
@@ -1738,7 +1738,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   </View>
                   <Picker
                     style={{
-                      height: 40,
+                      height: 60,
                       width: 170,
                     }}
                     selectedValue={this.state.pickerLPO}
@@ -1792,7 +1792,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
 
                   <Picker
                     style={{
-                      height: 40,
+                      height: 60,
                       width: 170,
                     }}
                     selectedValue={this.state.pickerLF}
@@ -1849,7 +1849,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
 
                   <Picker
                     style={{
-                      height: 40,
+                      height: 60,
                       width: 340,
                     }}
                     selectedValue={this.state.pickerSchool}
@@ -1909,7 +1909,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   </Text>
                   <Picker
                     style={{
-                      height: 40,
+                      height: 60,
                       width: 170,
                     }}
                     selectedValue={this.state.rtrSchoolId}
@@ -1966,7 +1966,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   </Text>
                   <Picker
                     style={{
-                      height: 40,
+                      height: 60,
                       width: 170,
                     }}
                     selectedValue={this.state.yearOfSupport}
@@ -2012,7 +2012,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   </Text>
                   <Picker
                     style={{
-                      height: 40,
+                      height: 60,
                       width: 170,
                     }}
                     enabled={true}
@@ -2077,7 +2077,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   </Text>
                   <Picker
                     style={{
-                      height: 40,
+                      height: 60,
                       width: 170,
                     }}
                     enabled={true}
@@ -2116,7 +2116,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   </Text>
                   <Picker
                     style={{
-                      height: 40,
+                      height: 60,
                       width: 340,
                     }}
                     enabled={true}
