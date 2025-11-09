@@ -4,6 +4,7 @@
     "description": "your app desc",
     "slug": "rtr-mis-app",
     "version": "1.0.0",
+    "newArchEnabled": true,
     "orientation": "default",
     "icon": "./assets/icon.png",
     "splash": {
@@ -17,7 +18,8 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.jihaddeveloper.rtr-mis-app"
+      "bundleIdentifier": "com.jihaddeveloper.rtr-mis-app",
+      "newArchEnabled": true
     },
     "android": {
       "package": "com.rtr.rtr_mis_app",
@@ -26,7 +28,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "newArchEnabled": true
     },
     "web": {
       "favicon": "./assets/favicon.png"

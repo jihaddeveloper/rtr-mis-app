@@ -1,9 +1,9 @@
 //  Author: Mohammad Jihad Hossain
-//  Create Date: 28/08/2024
-//  Modify Date: 28/05/2024
+//  Create Date: 28/08/2025
+//  Modify Date: 14/10/2025
 //  Description: LPO screen component
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ImageBackground,
   SafeAreaView,
@@ -19,6 +19,9 @@ import {
 } from "react-native";
 import { Card } from "react-native-shadow-cards";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import NetInfo from "@react-native-community/netinfo";
+
 const screenDimensions = Dimensions.get("screen");
 const windowDimensions = Dimensions.get("window");
 
@@ -26,7 +29,312 @@ const { height } = screenDimensions.height / 2;
 const { width } = screenDimensions.width / 2;
 
 function LPOScreen({ navigation }) {
+  const [isConnected, setIsConnected] = useState(null);
+
+  const [school, setSchool] = useState(null);
+  const [employee, setEmployee] = useState(null);
+  const [teacher, setTeacher] = useState(null);
+  const [project, setProject] = useState(null);
+  const [office, setOffice] = useState(null);
+
+  const internet = NetInfo.fetch();
+
+  const fetchDataAndSaveSchool = async () => {
+    try {
+      const response = await fetch(
+        "http://118.179.80.51:8080/api/v1/p-school",
+        {
+          method: "GET",
+          mode: "no-cors",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      ); // Replace with your API endpoint
+      const schoolData = await response.json();
+
+      // Convert the data to a string before storing
+      const stringValue = JSON.stringify(schoolData);
+
+      removeItem("schoolData");
+      await AsyncStorage.setItem("schoolData", stringValue); // Choose a unique key
+
+      console.log("SchoolData saved successfully!");
+    } catch (error) {
+      console.error("Error fetching or saving data:", error);
+    }
+  };
+
+  const fetchDataAndSaveTeacher = async () => {
+    try {
+      const response = await fetch(
+        "http://118.179.80.51:8080/api/v1/p-teacher",
+        {
+          method: "GET",
+          mode: "no-cors",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      ); // Replace with your API endpoint
+      const teacherData = await response.json();
+
+      // Convert the data to a string before storing
+      const stringValue = JSON.stringify(teacherData);
+      removeItem("teacherData");
+      await AsyncStorage.setItem("teacherData", stringValue); // Choose a unique key
+
+      console.log("TeacherData saved successfully!");
+    } catch (error) {
+      console.error("Error fetching or saving data:", error);
+    }
+  };
+
+  const fetchDataAndSaveEmployee = async () => {
+    try {
+      const response = await fetch(
+        "http://118.179.80.51:8080/api/v1/p-employee",
+        {
+          method: "GET",
+          mode: "no-cors",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      ); // Replace with your API endpoint
+      const employeeData = await response.json();
+
+      // Convert the data to a string before storing
+      const stringValue = JSON.stringify(employeeData);
+      removeItem("employeeData");
+      await AsyncStorage.setItem("employeeData", stringValue); // Choose a unique key
+
+      console.log("EmployeeData saved successfully!");
+    } catch (error) {
+      console.error("Error fetching or saving data:", error);
+    }
+  };
+
+  const fetchDataAndSaveProject = async () => {
+    try {
+      const response = await fetch(
+        "http://118.179.80.51:8080/api/v1/projects",
+        {
+          method: "GET",
+          mode: "no-cors",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      ); // Replace with your API endpoint
+      const projectData = await response.json();
+
+      // Convert the data to a string before storing
+      const stringValue = JSON.stringify(projectData);
+      removeItem("projectData");
+      await AsyncStorage.setItem("projectData", stringValue); // Choose a unique key
+
+      console.log("ProjectData saved successfully!");
+    } catch (error) {
+      console.error("Error fetching or saving data:", error);
+    }
+  };
+
+  const fetchDataAndSaveOffice = async () => {
+    try {
+      const response = await fetch("http://118.179.80.51:8080/api/v1/offices", {
+        method: "GET",
+        mode: "no-cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }); // Replace with your API endpoint
+      const officeData = await response.json();
+
+      // Convert the data to a string before storing
+      const stringValue = JSON.stringify(officeData);
+      // Remove old data
+      removeItem("officeData");
+      // Add new data
+      await AsyncStorage.setItem("officeData", stringValue); // Choose a unique key
+
+      console.log("OfficeData saved successfully!");
+    } catch (error) {
+      console.error("Error fetching or saving data:", error);
+    }
+  };
+
+  const retrieveDataSchool = async () => {
+    try {
+      const stringValue = await AsyncStorage.getItem("schoolData");
+      if (stringValue != null) {
+        const schoolData = JSON.parse(stringValue); // Parse the string back to an object
+        console.log("Retrieved SchoolData:", schoolData.length);
+        return schoolData;
+      }
+      return null;
+    } catch (error) {
+      console.error("Error retrieving schoolData:", error);
+      return null;
+    }
+  };
+
+  const retrieveDataTeacher = async () => {
+    try {
+      const stringValue = await AsyncStorage.getItem("teacherData");
+      if (stringValue != null) {
+        const teacherData = JSON.parse(stringValue); // Parse the string back to an object
+        console.log("Retrieved TeacherData:", teacherData.length);
+        return teacherData;
+      }
+      return null;
+    } catch (error) {
+      console.error("Error retrieving  teacherData:", error);
+      return null;
+    }
+  };
+
+  const retrieveDataEmployee = async () => {
+    try {
+      const stringValue = await AsyncStorage.getItem("employeeData");
+      if (stringValue != null) {
+        const employeeData = JSON.parse(stringValue); // Parse the string back to an object
+        console.log("Retrieved EmployeeData:", employeeData.length);
+        return employeeData;
+      }
+      return null;
+    } catch (error) {
+      console.error("Error retrieving employeeData:", error);
+      return null;
+    }
+  };
+
+  const retrieveDataProject = async () => {
+    try {
+      const stringValue = await AsyncStorage.getItem("projectData");
+      if (stringValue != null) {
+        const projectData = JSON.parse(stringValue); // Parse the string back to an object
+        console.log("Retrieved ProjectData:", projectData.length);
+        return projectData;
+      }
+      return null;
+    } catch (error) {
+      console.error("Error retrieving employeeData:", error);
+      return null;
+    }
+  };
+
+  const retrieveDataOffice = async () => {
+    try {
+      const stringValue = await AsyncStorage.getItem("officeData");
+      if (stringValue != null) {
+        const officeData = JSON.parse(stringValue); // Parse the string back to an object
+        console.log("Retrieved OfficeData:", officeData.length);
+        return officeData;
+      }
+      return null;
+    } catch (error) {
+      console.error("Error retrieving employeeData:", error);
+      return null;
+    }
+  };
+
+  const removeItem = async (key) => {
+    try {
+      await AsyncStorage.removeItem(key);
+    } catch (e) {
+      // remove error
+      console.error("Error removing data:", e);
+    }
+  };
+
   React.useEffect(() => {
+    // Subscribe to network state changes
+    const setNetInfo = NetInfo.addEventListener((state) => {
+      setIsConnected(state.isConnected);
+
+      if (state.isConnected) {
+        fetchDataAndSaveOffice();
+        fetchDataAndSaveProject();
+        fetchDataAndSaveTeacher();
+        fetchDataAndSaveSchool();
+        fetchDataAndSaveEmployee();
+      } else {
+        // Load data from AsyncStorage
+        const loadData = async () => {
+          const storedDataSchool = await retrieveDataSchool();
+          const storedDataTeacher = await retrieveDataTeacher();
+          const storedDataEmployee = await retrieveDataEmployee();
+          const storedDataProject = await retrieveDataProject();
+          const storedDataOffice = await retrieveDataOffice();
+
+          // School Data
+          if (storedDataSchool) {
+            setSchool(storedDataSchool);
+          } else {
+            await fetchDataAndSaveSchool(); // Fetch and save if not already stored
+            const freshDataSchool = await retrieveDataSchool(); // Retrieve the newly saved data
+
+            setSchool(freshDataSchool);
+          }
+          // School Data
+
+          // Teacher Data
+          if (storedDataTeacher) {
+            setTeacher(storedDataTeacher);
+          } else {
+            await fetchDataAndSaveTeacher(); // Fetch and save if not already stored
+            const freshDataTeacher = await retrieveDataTeacher(); // Retrieve the newly saved data
+
+            setTeacher(freshDataTeacher);
+          }
+          // Teacher Data
+
+          // Employee Data
+          if (storedDataEmployee) {
+            setEmployee(storedDataEmployee);
+          } else {
+            await fetchDataAndSaveEmployee(); // Fetch and save if not already stored
+            const freshDataEmployee = await retrieveDataEmployee(); // Retrieve the newly saved data
+
+            setEmployee(freshDataEmployee);
+          }
+          // Employee Data
+
+          // Project Data
+          if (storedDataProject) {
+            setProject(storedDataProject);
+          } else {
+            await fetchDataAndSaveProject(); // Fetch and save if not already stored
+            const freshDataProject = await retrieveDataProject(); // Retrieve the newly saved data
+
+            setProject(freshDataProject);
+          }
+          // Project Data
+
+          // Office Data
+          if (storedDataOffice) {
+            setOffice(storedDataOffice);
+          } else {
+            await fetchDataAndSaveOffice(); // Fetch and save if not already stored
+            const freshDataOffice = await retrieveDataOffice(); // Retrieve the newly saved data
+
+            setEmployee(freshDataOffice);
+          }
+          // Office Data
+        };
+        loadData();
+        // Load data from AsyncStorage
+      }
+    });
+    setNetInfo();
+    // Subscribe to network state changes
+
     const unsubscribe = navigation.addListener("focus", () => {
       //Alert.alert("Refreshed");
     });
@@ -118,6 +426,37 @@ function LPOScreen({ navigation }) {
             </View> */}
           </View>
         </View>
+        {/* <View>
+          {school ? (
+            <Text>School Data: {school.length}</Text>
+          ) : (
+            <Text>Loading data...</Text>
+          )}
+
+          {teacher ? (
+            <Text>Teacher Data: {teacher.length}</Text>
+          ) : (
+            <Text>Loading data...</Text>
+          )}
+
+          {employee ? (
+            <Text>Employee Data: {employee.length}</Text>
+          ) : (
+            <Text>Loading data...</Text>
+          )}
+
+          {office ? (
+            <Text>Office Data: {office.length}</Text>
+          ) : (
+            <Text>Loading data...</Text>
+          )}
+
+          {project ? (
+            <Text>Project Data: {project.length}</Text>
+          ) : (
+            <Text>Loading data...</Text>
+          )}
+        </View> */}
       </Card>
 
       <View>

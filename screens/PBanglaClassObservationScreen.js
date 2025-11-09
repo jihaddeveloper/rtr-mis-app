@@ -1,6 +1,6 @@
 //  Author: Mohammad Jihad Hossain
 //  Create Date: 22/09/2025
-//  Modify Date: 22/09/2025
+//  Modify Date: 06/10/2025
 //  Description: PBanglaClassObservationScreen component
 
 import React, { useRef, useEffect, useState } from "react";
@@ -21,6 +21,7 @@ import {
   TouchableOpacity,
   Animated,
   Dimensions,
+  BackHandler,
 } from "react-native";
 
 import { Picker } from "@react-native-picker/picker";
@@ -143,6 +144,9 @@ export default class PBanglaClassObservationScreen extends React.Component {
       presentBoy: 0,
       presentGirl: 0,
       presentTotal: 0,
+
+      visitor: "",
+      visitorDesignation: "",
 
       note: "",
 
@@ -281,9 +285,42 @@ export default class PBanglaClassObservationScreen extends React.Component {
     this.getAllBanglaIndicator();
     this.getAllBanglaClassObservation();
 
+    // Alert in back-button press of device
+    this.backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      this.handleBackPress
+    );
+    // Alert in back-button press of device
+
     console.log("Component mounted");
   }
   //Load data from server
+
+  componentWillUnmount() {
+    this.backHandler.remove();
+  }
+
+  // Alert in back-button press of device function
+  handleBackPress = () => {
+    Alert.alert(
+      "Hold on!",
+      "Are you sure you want to exit the app?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => null, // Do nothing on cancel
+          style: "cancel",
+        },
+        {
+          text: "YES",
+          onPress: () => BackHandler.exitApp(), // Exit the app on YES
+        },
+      ],
+      { cancelable: false } // Prevent dismissing the alert by tapping outside
+    );
+    return true; // Return true to prevent default back button behavior
+  };
+  // Alert in back-button press of device function
 
   // For Datepicker
   setDate = (event, date) => {
@@ -409,6 +446,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
       return null;
     }
   };
+  // Get All General Data
 
   // fetchDataAndSave = async () => {
   //   try {
@@ -478,6 +516,9 @@ export default class PBanglaClassObservationScreen extends React.Component {
       studentTotal: 0,
 
       presentTotal: 0,
+
+      visitor: "",
+      visitorDesignation: "",
 
       note: "",
 
@@ -752,7 +793,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
       lpoName: this.state.pickerLPOName.name,
       lf: this.state.pickerLF.employeeRegId,
       lfName: this.state.pickerLFName.name,
-      school: this.state.pickerSchool,
+      school: this.state.pickerSchool.name,
       rtrSchoolId: this.state.rtrSchoolId,
       yearOfSupport: this.state.yearOfSupport,
       classTeacher: this.state.classTeacher,
@@ -764,6 +805,9 @@ export default class PBanglaClassObservationScreen extends React.Component {
       periodDay: this.state.teachingDay,
       totalAdmittedStudent: this.state.studentTotal,
       totalPresentStudent: this.state.presentTotal,
+
+      visitor: this.state.visitor,
+      visitorDesignation: this.state.visitorDesignation,
 
       note: this.state.note,
 
@@ -877,86 +921,140 @@ export default class PBanglaClassObservationScreen extends React.Component {
     // Validation
 
     //Check duplicate data
-    this.state.duplicateBanglaClassObservationData =
-      this.state.allBanglaClassObservationData.filter((item) => {
-        return (
-          item.date === this.state.date &&
-          item.school === this.state.pickerSchool &&
-          item.month === this.state.pickerMonth &&
-          item.year === this.state.pickerYear &&
-          item.grade === this.state.grade &&
-          item.section === this.state.section &&
-          item.classTeacher.trim() === this.state.classTeacher.trim()
-        );
-      });
+    // this.state.duplicateBanglaClassObservationData =
+    //   this.state.allBanglaClassObservationData.filter((item) => {
+    //     return (
+    //       item.date === this.state.date &&
+    //       item.school === this.state.pickerSchool &&
+    //       item.month === this.state.pickerMonth &&
+    //       item.year === this.state.pickerYear &&
+    //       item.grade === this.state.grade &&
+    //       item.section === this.state.section &&
+    //       item.classTeacher.trim() === this.state.classTeacher.trim()
+    //     );
+    //   });
 
-    console.log(
-      "Duplicate Bangla Class Data: ",
-      this.state.duplicateBanglaClassObservationData.length
-    );
+    // console.log(
+    //   "Duplicate Bangla Class Data: ",
+    //   this.state.duplicateBanglaClassObservationData.length
+    // );
     //Check duplicate data
 
     // Validation
     if (this.state.date === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Date can not be empty");
       return;
     } else if (this.state.pickerMonth === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Month can not be empty");
       return;
     } else if (this.state.pickerYear === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Year can not be empty");
       return;
     } else if (this.state.pickerDistrict === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "District can not be empty");
       return;
     } else if (this.state.pickerUpazilla === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Upazilla can not be empty");
       return;
     } else if (this.state.pickerOffice === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Office can not be empty");
       return;
     } else if (this.state.pickerProject === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Project can not be empty");
       return;
     } else if (this.state.pickerLF === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "LF can not be empty");
       return;
     } else if (this.state.pickerLPO === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "LPO can not be empty");
       return;
     } else if (this.state.pickerSchool === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "School can not be empty");
       return;
     } else if (this.state.classTeacher === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Class Teacher can not be empty");
       return;
+    } else if (this.state.classStartTime === "") {
+      Alert.alert("Alert", "Class start time can not be empty");
+      return;
+    } else if (this.state.classEndTime === "") {
+      Alert.alert("Alert", "Class end time can not be empty");
+      return;
+    } else if (this.state.teachingTopic === "") {
+      Alert.alert("Alert", "Lesson can not be empty");
+      return;
+    } else if (this.state.teachingDay === "") {
+      Alert.alert("Alert", "Period can not be empty");
+      return;
     } else if (this.state.grade === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Grade can not be empty");
       return;
     } else if (this.state.section === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Section can not be empty");
       return;
+    } else if (this.state.studentTotal === "") {
+      Alert.alert("Alert", "Admitted student can not be empty");
+      return;
+    } else if (this.state.presentTotal === "") {
+      Alert.alert("Alert", "Pressent student can not be empty");
+      return;
+    } else if (
+      this.state.ind11TeacherFollowedTeacherGuideInClassStatus === ""
+    ) {
+      Alert.alert("Alert", "Indicator-1.1 can not be empty");
+      return;
+    } else if (this.state.ind12FollowedIDoWeDoYouDoStatus === "") {
+      Alert.alert("Alert", "Indicator-1.2 can not be empty");
+      return;
+    } else if (this.state.ind13FollowedContinuityOfLessonStatus === "") {
+      Alert.alert("Alert", "Indicator-1.3 can not be empty");
+      return;
+    } else if (this.state.ind14ImplementedAllTaskInTimeStatus === "") {
+      Alert.alert("Alert", "Indicator-1.4 can not be empty");
+      return;
+    } else if (this.state.ind15InstructedToUseWorkbookStatus === "") {
+      Alert.alert("Alert", "Indicator-1.5 can not be empty");
+      return;
+    } else if (this.state.ind16IndependentReadingOpportunityStatus === "") {
+      Alert.alert("Alert", "Indicator-1.6 can not be empty");
+      return;
+    } else if (this.state.ind21CorrectlyPronouncedStatus === "") {
+      Alert.alert("Alert", "Indicator-2.1 can not be empty");
+      return;
+    } else if (this.state.ind22TaughtCorrectlyAllowPracticeStatus === "") {
+      Alert.alert("Alert", "Indicator-2.2 can not be empty");
+      return;
+    } else if (this.state.ind23DemonstratesFluentReadingStatus === "") {
+      Alert.alert("Alert", "Indicator-2.3 can not be empty");
+      return;
+    } else if (this.state.ind24AllowReadIndividuallyPairGroupsStatus === "") {
+      Alert.alert("Alert", "Indicator-2.4 can not be empty");
+      return;
+    } else if (this.state.ind25FollowsInstructionsInWritingStatus === "") {
+      Alert.alert("Alert", "Indicator-2.5 can not be empty");
+      return;
+    } else if (this.state.ind31AskedHelpfulQuestionsStatus === "") {
+      Alert.alert("Alert", "Indicator-3.1 can not be empty");
+      return;
+    } else if (this.state.ind32TaughtVocabularyNewSentenceStatus === "") {
+      Alert.alert("Alert", "Indicator-3.2 can not be empty");
+      return;
+    } else if (this.state.ind33CheckWritingSpellingPunctuationStatus === "") {
+      Alert.alert("Alert", "Indicator-3.2 can not be empty");
+      return;
+    } else if (this.state.ind34CheckedWeDoYouDoStatus === "") {
+      Alert.alert("Alert", "Indicator-3.2 can not be empty");
+      return;
+    } else if (this.state.coachingSupportTeacher === "") {
+      Alert.alert("Alert", "Teacher to-do can not be empty");
+      return;
+    } else if (this.state.coachingSupportLF === "") {
+      Alert.alert("Alert", "LF to-do can not be empty");
+      return;
     } else if (this.state.duplicateBanglaClassObservationData.length > 0) {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Duplicate Bangla Class data !!");
       return;
     } else {
-      // Set error message empty
-      this.setState({ dateError: "" });
-
       // Send data to API
       if (this.state.isConnected) {
         try {
@@ -977,19 +1075,19 @@ export default class PBanglaClassObservationScreen extends React.Component {
               "Alert",
               "Bangla class obsvervatio data saved successfully!!!"
             );
-            this.getAllBanglaClassObservation();
+            //this.getAllBanglaClassObservation();
             this.updateToInitialState();
           } else {
-            Alert.alert("Alert", "Error there !!! Connection Problem");
+            Alert.alert("Alert", "Error to save data online !!!");
           }
         } catch (errors) {
           alert(errors);
           // Offline: Store data locally
-          this.storeLocally(newBanglaClass);
+          this.storeLocally();
         }
       } else {
         // Offline: Store data locally
-        this.storeLocally(newBanglaClass);
+        this.storeLocally();
       }
 
       // Send data to API
@@ -1007,7 +1105,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
       // The "Yes" button
       {
         text: "Yes",
-        onPress: this.saveBanglaClassObservation(),
+        onPress: this.saveBanglaClassObservation,
       },
       // The "No" button
       // Does nothing but dismiss the dialog when tapped
@@ -1028,7 +1126,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
       // The "Yes" button
       {
         text: "Yes",
-        onPress: this.storeLocally(),
+        onPress: this.storeLocally,
       },
       // The "No" button
       // Does nothing but dismiss the dialog when tapped
@@ -1040,28 +1138,28 @@ export default class PBanglaClassObservationScreen extends React.Component {
   // Alert before submit
 
   // Save form data
-  handleSubmit = async (formData) => {
-    const state = await NetInfo.fetch();
+  // handleSubmit = async (formData) => {
+  //   const state = await NetInfo.fetch();
 
-    if (state.isConnected) {
-      // Online: Send data to server
-      try {
-        await fetch("YOUR_API_ENDPOINT", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        });
-        console.log("Data synced successfully!");
-      } catch (error) {
-        console.error("Error syncing data:", error);
-        // If sync fails, store locally for later retry
-        await storeLocally(formData);
-      }
-    } else {
-      // Offline: Store data locally
-      await storeLocally(formData);
-    }
-  };
+  //   if (state.isConnected) {
+  //     // Online: Send data to server
+  //     try {
+  //       await fetch("YOUR_API_ENDPOINT", {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify(formData),
+  //       });
+  //       console.log("Data synced successfully!");
+  //     } catch (error) {
+  //       console.error("Error syncing data:", error);
+  //       // If sync fails, store locally for later retry
+  //       await storeLocally(formData);
+  //     }
+  //   } else {
+  //     // Offline: Store data locally
+  //     await storeLocally(formData);
+  //   }
+  // };
   // Save form data
 
   // Save form data locally
@@ -1079,7 +1177,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
       lpoName: this.state.pickerLPOName.name,
       lf: this.state.pickerLF.employeeRegId,
       lfName: this.state.pickerLFName.name,
-      school: this.state.pickerSchool,
+      school: this.state.pickerSchool.name,
       rtrSchoolId: this.state.rtrSchoolId,
       yearOfSupport: this.state.yearOfSupport,
       classTeacher: this.state.classTeacher,
@@ -1091,6 +1189,9 @@ export default class PBanglaClassObservationScreen extends React.Component {
       periodDay: this.state.teachingDay,
       totalAdmittedStudent: this.state.studentTotal,
       totalPresentStudent: this.state.presentTotal,
+
+      visitor: this.state.visitor,
+      visitorDesignation: this.state.visitorDesignation,
 
       note: this.state.note,
 
@@ -1201,48 +1302,164 @@ export default class PBanglaClassObservationScreen extends React.Component {
       teacherStatus: this.state.teacherStatus,
     };
 
-    try {
-      const existingData = await AsyncStorage.getItem("offlineFormsPBangla");
-      const forms = existingData ? JSON.parse(existingData) : [];
-      forms.push(formData);
-      await AsyncStorage.setItem("offlineFormsPBangla", JSON.stringify(forms));
-      console.log("Data stored locally: " + JSON.stringify(forms));
-      console.log("Data stored locally.");
-      Alert.alert("Data stored locally.");
-      this.updateToInitialState();
-    } catch (error) {
-      console.error("Error storing data locally:", error);
-      Alert.alert("Error storing data locally:", error);
+    // Validation
+    if (this.state.date === "") {
+      Alert.alert("Alert", "Date can not be empty");
+      return;
+    } else if (this.state.pickerMonth === "") {
+      Alert.alert("Alert", "Month can not be empty");
+      return;
+    } else if (this.state.pickerYear === "") {
+      Alert.alert("Alert", "Year can not be empty");
+      return;
+    } else if (this.state.pickerDistrict === "") {
+      Alert.alert("Alert", "District can not be empty");
+      return;
+    } else if (this.state.pickerUpazilla === "") {
+      Alert.alert("Alert", "Upazilla can not be empty");
+      return;
+    } else if (this.state.pickerOffice === "") {
+      Alert.alert("Alert", "Office can not be empty");
+      return;
+    } else if (this.state.pickerProject === "") {
+      Alert.alert("Alert", "Project can not be empty");
+      return;
+    } else if (this.state.pickerLF === "") {
+      Alert.alert("Alert", "LF can not be empty");
+      return;
+    } else if (this.state.pickerLPO === "") {
+      Alert.alert("Alert", "LPO can not be empty");
+      return;
+    } else if (this.state.pickerSchool === "") {
+      Alert.alert("Alert", "School can not be empty");
+      return;
+    } else if (this.state.classTeacher === "") {
+      Alert.alert("Alert", "Class Teacher can not be empty");
+      return;
+    } else if (this.state.classStartTime === "") {
+      Alert.alert("Alert", "Class start time can not be empty");
+      return;
+    } else if (this.state.classEndTime === "") {
+      Alert.alert("Alert", "Class end time can not be empty");
+      return;
+    } else if (this.state.teachingTopic === "") {
+      Alert.alert("Alert", "Lesson can not be empty");
+      return;
+    } else if (this.state.teachingDay === "") {
+      Alert.alert("Alert", "Period can not be empty");
+      return;
+    } else if (this.state.grade === "") {
+      Alert.alert("Alert", "Grade can not be empty");
+      return;
+    } else if (this.state.section === "") {
+      Alert.alert("Alert", "Section can not be empty");
+      return;
+    } else if (this.state.studentTotal === "") {
+      Alert.alert("Alert", "Admitted student can not be empty");
+      return;
+    } else if (this.state.presentTotal === "") {
+      Alert.alert("Alert", "Pressent student can not be empty");
+      return;
+    } else if (
+      this.state.ind11TeacherFollowedTeacherGuideInClassStatus === ""
+    ) {
+      Alert.alert("Alert", "Indicator-1.1 can not be empty");
+      return;
+    } else if (this.state.ind12FollowedIDoWeDoYouDoStatus === "") {
+      Alert.alert("Alert", "Indicator-1.2 can not be empty");
+      return;
+    } else if (this.state.ind13FollowedContinuityOfLessonStatus === "") {
+      Alert.alert("Alert", "Indicator-1.3 can not be empty");
+      return;
+    } else if (this.state.ind14ImplementedAllTaskInTimeStatus === "") {
+      Alert.alert("Alert", "Indicator-1.4 can not be empty");
+      return;
+    } else if (this.state.ind15InstructedToUseWorkbookStatus === "") {
+      Alert.alert("Alert", "Indicator-1.5 can not be empty");
+      return;
+    } else if (this.state.ind16IndependentReadingOpportunityStatus === "") {
+      Alert.alert("Alert", "Indicator-1.6 can not be empty");
+      return;
+    } else if (this.state.ind21CorrectlyPronouncedStatus === "") {
+      Alert.alert("Alert", "Indicator-2.1 can not be empty");
+      return;
+    } else if (this.state.ind22TaughtCorrectlyAllowPracticeStatus === "") {
+      Alert.alert("Alert", "Indicator-2.2 can not be empty");
+      return;
+    } else if (this.state.ind23DemonstratesFluentReadingStatus === "") {
+      Alert.alert("Alert", "Indicator-2.3 can not be empty");
+      return;
+    } else if (this.state.ind24AllowReadIndividuallyPairGroupsStatus === "") {
+      Alert.alert("Alert", "Indicator-2.4 can not be empty");
+      return;
+    } else if (this.state.ind25FollowsInstructionsInWritingStatus === "") {
+      Alert.alert("Alert", "Indicator-2.5 can not be empty");
+      return;
+    } else if (this.state.ind31AskedHelpfulQuestionsStatus === "") {
+      Alert.alert("Alert", "Indicator-3.1 can not be empty");
+      return;
+    } else if (this.state.ind32TaughtVocabularyNewSentenceStatus === "") {
+      Alert.alert("Alert", "Indicator-3.2 can not be empty");
+      return;
+    } else if (this.state.ind33CheckWritingSpellingPunctuationStatus === "") {
+      Alert.alert("Alert", "Indicator-3.2 can not be empty");
+      return;
+    } else if (this.state.ind34CheckedWeDoYouDoStatus === "") {
+      Alert.alert("Alert", "Indicator-3.2 can not be empty");
+      return;
+    } else if (this.state.coachingSupportTeacher === "") {
+      Alert.alert("Alert", "Teacher to-do can not be empty");
+      return;
+    } else if (this.state.coachingSupportLF === "") {
+      Alert.alert("Alert", "LF to-do can not be empty");
+      return;
+    } else if (this.state.duplicateBanglaClassObservationData.length > 0) {
+      Alert.alert("Alert", "Duplicate Bangla Class data !!");
+      return;
+    } else {
+      try {
+        const existingData = await AsyncStorage.getItem("offlineFormsPBangla");
+        const forms = existingData ? JSON.parse(existingData) : [];
+        forms.push(formData);
+        await AsyncStorage.setItem(
+          "offlineFormsPBangla",
+          JSON.stringify(forms)
+        );
+        console.log("Data stored locally: " + JSON.stringify(forms));
+        console.log("Data stored locally.");
+        Alert.alert("Data stored locally.");
+        this.updateToInitialState();
+      } catch (error) {
+        console.error("Error storing data locally:", error);
+        Alert.alert("Error storing data locally:", error);
+      }
     }
   };
   // Save form data locally
 
   // Sync stored data
   syncPendingData = async () => {
-    const state = await NetInfo.fetch();
-    if (this.state.isConnected) {
-      try {
-        const existingData = await AsyncStorage.getItem("offlineFormsPBangla");
-        if (existingData) {
-          const formsToSync = JSON.parse(existingData);
-          for (const formData of formsToSync) {
-            await fetch("http://118.179.80.51:8080/api/v1/p-bangla-class", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(formData),
-            });
-          }
-          await AsyncStorage.removeItem("offlineFormsPBangla"); // Clear synced data
-          console.log(
-            "Pending data synced successfully: " + JSON.parse(existingData)
-          );
-          console.log("Pending data synced successfully!");
-          Alert.alert("Pending data synced successfully!");
+    try {
+      const existingData = await AsyncStorage.getItem("offlineFormsPBangla");
+      if (existingData) {
+        const formsToSync = JSON.parse(existingData);
+        for (const formData of formsToSync) {
+          await fetch("http://118.179.80.51:8080/api/v1/p-bangla-class", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          });
         }
-      } catch (error) {
-        console.error("Error syncing pending data:", error);
-        Alert.alert("Error syncing pending data:", error);
+        await AsyncStorage.removeItem("offlineFormsPBangla"); // Clear synced data
+        console.log(
+          "Pending data synced successfully: " + JSON.parse(existingData)
+        );
+        console.log("Pending data synced successfully!");
+        Alert.alert("Pending data synced successfully!");
       }
+    } catch (error) {
+      console.error("Error syncing pending data:", error);
+      Alert.alert("Error syncing pending data:", error);
     }
   };
   // Sync stored data
@@ -1266,6 +1483,8 @@ export default class PBanglaClassObservationScreen extends React.Component {
       employee,
       school,
       teacher,
+      office,
+      project,
 
       ind11TeacherFollowedTeacherGuideInClassStatus,
       ind11TeacherFollowedTeacherGuideInClassNote,
@@ -1348,6 +1567,37 @@ export default class PBanglaClassObservationScreen extends React.Component {
             </ExpandableView> */}
             <Card style={{ padding: 10, margin: 10, flex: 1 }}>
               <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
+                {/* <View>
+                  {school ? (
+                    <Text>School Data: {school.length}</Text>
+                  ) : (
+                    <Text>Loading data...</Text>
+                  )}
+
+                  {teacher ? (
+                    <Text>Teacher Data: {teacher.length}</Text>
+                  ) : (
+                    <Text>Loading data...</Text>
+                  )}
+
+                  {employee ? (
+                    <Text>Employee Data: {employee.length}</Text>
+                  ) : (
+                    <Text>Loading data...</Text>
+                  )}
+
+                  {office ? (
+                    <Text>Office Data: {office.length}</Text>
+                  ) : (
+                    <Text>Loading data...</Text>
+                  )}
+
+                  {project ? (
+                    <Text>Project Data: {project.length}</Text>
+                  ) : (
+                    <Text>Loading data...</Text>
+                  )}
+                </View> */}
                 <View style={{ flex: 1 }}></View>
                 <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
@@ -1539,16 +1789,29 @@ export default class PBanglaClassObservationScreen extends React.Component {
                     itemStyle={{ color: "white" }}
                   >
                     <Picker.Item key={""} label={"Select"} value={""} />
-                    {districts.map((item) => {
-                      //console.log(item);
-                      return (
-                        <Picker.Item
-                          key={item.id}
-                          label={item.name}
-                          value={item}
-                        />
-                      );
-                    })}
+                    {districts
+                      .filter(
+                        (item) =>
+                          item.name == "Narail" ||
+                          item.name == "Brahmanbaria" ||
+                          item.name == "Coxsbazar" ||
+                          item.name == "Dhaka" ||
+                          item.name == "Natore" ||
+                          item.name == "Moulvibazar" ||
+                          item.name == "Jhalakathi" ||
+                          item.name == "Habiganj" ||
+                          item.name == "Sirajganj"
+                      )
+                      .map((item) => {
+                        //console.log(item);
+                        return (
+                          <Picker.Item
+                            key={item.id}
+                            label={item.name}
+                            value={item}
+                          />
+                        );
+                      })}
                   </Picker>
                 </View>
                 <View style={{ flex: 1 }}>
@@ -1739,7 +2002,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   <Picker
                     style={{
                       height: 60,
-                      width: 170,
+                      width: 230,
                     }}
                     selectedValue={this.state.pickerLPO}
                     onValueChange={(value) => {
@@ -1793,7 +2056,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   <Picker
                     style={{
                       height: 60,
-                      width: 170,
+                      width: 230,
                     }}
                     selectedValue={this.state.pickerLF}
                     onValueChange={(value) => {
@@ -1856,6 +2119,8 @@ export default class PBanglaClassObservationScreen extends React.Component {
                     onValueChange={(value) => {
                       this.setState({
                         pickerSchool: value,
+                        rtrSchoolId: value.gsdId,
+                        yearOfSupport: value.supportYear.toString(),
                       });
                     }}
                     itemStyle={{ color: "white" }}
@@ -1870,7 +2135,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                           <Picker.Item
                             key={item.id}
                             label={item.name}
-                            value={item.name}
+                            value={item}
                           />
                         );
                       })}
@@ -1887,7 +2152,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                         fontWeight: "bold",
                       }}
                     >
-                      স্কুল আইডি
+                      স্কুল আইডি (School ID:)
                     </Text>
                     <Text
                       style={{
@@ -1899,28 +2164,23 @@ export default class PBanglaClassObservationScreen extends React.Component {
                       *
                     </Text>
                   </View>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    (School ID:)
-                  </Text>
-                  <Picker
+
+                  <Text></Text>
+                  <Text>{this.state.rtrSchoolId}</Text>
+                  {/* <Picker
                     style={{
                       height: 60,
-                      width: 170,
+                      width: 220,
                     }}
+                    itemStyle={{ color: "white" }}
                     selectedValue={this.state.rtrSchoolId}
                     onValueChange={(value) => {
                       this.setState({
                         rtrSchoolId: value,
                       });
                     }}
-                    itemStyle={{ color: "white" }}
                   >
-                    {/* <Picker.Item label={"Select"} value={""} /> */}
+                    <Picker.Item label={"Select"} value={""} />
                     {this.state.school
                       .filter((item) => {
                         return item.name === this.state.pickerSchool;
@@ -1934,8 +2194,9 @@ export default class PBanglaClassObservationScreen extends React.Component {
                           />
                         );
                       })}
-                  </Picker>
+                  </Picker> */}
                 </View>
+
                 <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
                     <Text
@@ -1944,7 +2205,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                         fontWeight: "bold",
                       }}
                     >
-                      সাপোর্ট ইয়ার
+                      সাপোর্ট ইয়ার (Year of Support:)
                     </Text>
                     <Text
                       style={{
@@ -1956,15 +2217,9 @@ export default class PBanglaClassObservationScreen extends React.Component {
                       *
                     </Text>
                   </View>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    (Year of Support:)
-                  </Text>
-                  <Picker
+                  <Text></Text>
+                  <Text>{this.state.yearOfSupport}</Text>
+                  {/* <Picker
                     style={{
                       height: 60,
                       width: 170,
@@ -1977,11 +2232,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                     }}
                     itemStyle={{ color: "white" }}
                   >
-                    {/* <Picker.Item label={"Select"} value={""} />
-                    <Picker.Item label={"1"} value={"1"} />
-                    <Picker.Item label={"2"} value={"2"} />
-                    <Picker.Item label={"3"} value={"3"} />
-                    <Picker.Item label={"4"} value={"4"} /> */}
+                    <Picker.Item label={"Select"} value={""} />
 
                     {this.state.school
                       .filter((item) => {
@@ -1996,20 +2247,31 @@ export default class PBanglaClassObservationScreen extends React.Component {
                           />
                         );
                       })}
-                  </Picker>
+                  </Picker> */}
                 </View>
               </View>
 
               <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 1 }}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    শ্রেণী: (Grade:)
-                  </Text>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      শ্রেণী: (Grade:)
+                    </Text>
+                    <Text
+                      style={{
+                        color: "red",
+                        fontSize: 16,
+                        textAlign: "auto",
+                      }}
+                    >
+                      *
+                    </Text>
+                  </View>
                   <Picker
                     style={{
                       height: 60,
@@ -2067,14 +2329,24 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   </Picker>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    শাখা: (Section:)
-                  </Text>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      শাখা: (Section:)
+                    </Text>
+                    <Text
+                      style={{
+                        color: "red",
+                        fontSize: 16,
+                      }}
+                    >
+                      *
+                    </Text>
+                  </View>
                   <Picker
                     style={{
                       height: 60,
@@ -2098,22 +2370,24 @@ export default class PBanglaClassObservationScreen extends React.Component {
 
               <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 1 }}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    শিক্ষকের নাম: ( Teacher Name:)
-                  </Text>
-                  <Text
-                    style={{
-                      color: "red",
-                      fontSize: 16,
-                    }}
-                  >
-                    *
-                  </Text>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      শিক্ষকের নাম: ( Teacher Name:)
+                    </Text>
+                    <Text
+                      style={{
+                        color: "red",
+                        fontSize: 16,
+                      }}
+                    >
+                      *
+                    </Text>
+                  </View>
                   <Picker
                     style={{
                       height: 60,
@@ -2175,241 +2449,33 @@ export default class PBanglaClassObservationScreen extends React.Component {
                 <View style={{ flex: 1 }}></View>
               </View>
 
-              {/* <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
-                <View style={{ flex: 1 }}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    সংশ্লিষ্ট বিষয়ে প্রশিক্ষণপ্রাপ্ত শিক্ষক পাঠ পরিচালনা করছেন
-                    (Teacher Training)
-                  </Text>
-                  <Text
-                    style={{
-                      color: "red",
-                      fontSize: 16,
-                    }}
-                  >
-                    *
-                  </Text>
-                  <View style={{ flexDirection: "row" }}>
-                    <Picker
-                      style={{
-                        height: 40,
-                        width: 150,
-                      }}
-                      selectedValue={this.state.teacherTrained}
-                      onValueChange={(value) => {
-                        this.setState({ teacherTrained: value });
-
-                        if (value === "No") {
-                          this.setState({
-                            inputEnabled: false,
-                            isCollapsed: true,
-                          });
-                        } else {
-                          this.setState({
-                            inputEnabled: true,
-                            isCollapsed: false,
-                          });
-                        }
-                      }}
-                      itemStyle={{ color: "white" }}
-                    >
-                      <Picker.Item label={"Select"} value={""} />
-                      <Picker.Item label={"Yes"} value={"Yes"} />
-                      <Picker.Item label={"No"} value={"No"} />
-                    </Picker>
-                  </View>
-                </View>
-              </View> */}
-
-              {/* <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      পরিদর্শক এর অফিস: (Visitor Office:)
-                    </Text>
-                    <Text
-                      style={{
-                        textAlign: "right",
-                        color: "red",
-                        fontSize: 16,
-                      }}
-                    >
-                      *
-                    </Text>
-                  </View>
-
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 130,
-                    }}
-                    selectedValue={this.state.pickerVisitorOffice}
-                    onValueChange={(value) => {
-                      this.setState({ pickerVisitorOffice: value });
-
-                      
-                      // console.log("preMonthData: " + this.state.preMonthData);
-                      // console.log(
-                      //   "this.state.pickerSchool : " + this.state.pickerSchool
-                      // );
-
-                      // console.log(
-                      //   "this.state.pickerProject : " + this.state.pickerProject
-                      // );
-
-                      // console.log(
-                      //   "this.state.pickerYear : " + this.state.pickerYear
-                      // );
-
-                      // console.log(
-                      //   "this.state.pickerMonth : " + this.state.pickerMonth
-                      // );
-
-                      // console.log("this.state.grade : " + this.state.grade);
-
-                      // console.log(
-                      //   "this.state.classTeacher : " + this.state.classTeacher
-                      // );
-
-                      // console.log(
-                      //   "parseInt(this.state.visitNo) : " +
-                      //     parseInt(parseInt(this.state.visitNo) - 1)
-                      // );
-
-                      //console.log("preMonthData: " + this.state.preMonthData);
-                      // Find perivious visit data
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item label={"Select"} value={""} />
-                    <Picker.Item label={"CO"} value={"CO"} />
-                    {this.state.allOffice
-                      .filter((item) => {
-                        return item.name === this.state.pickerOffice;
-                      })
-                      .map((item) => {
-                        return (
-                          <Picker.Item
-                            key={item.id}
-                            label={item.name}
-                            value={item.name}
-                          />
-                        );
-                      })}
-                  </Picker>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      পরিদর্শক এর নাম: (Visitor:)
-                    </Text>
-                    <Text
-                      style={{
-                        textAlign: "right",
-                        color: "red",
-                        fontSize: 16,
-                      }}
-                    >
-                      *
-                    </Text>
-                  </View>
-
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 180,
-                    }}
-                    selectedValue={this.state.pickerVisitor}
-                    onValueChange={(value) => {
-                      this.setState({ pickerVisitor: value });
-
-                      // Set perivious visit data
-                      console.log(
-                        "preMonthData Length: " + this.state.preMonthData.length
-                      );
-
-                      console.log(
-                        "preMonthData: " +
-                          JSON.stringify(this.state.preMonthData)
-                      );
-
-                      if (this.state.preMonthData.length > 0) {
-                        const followup1 = this.state.preMonthData
-                          .sort((a, b) => a.id - b.id)
-                          .slice(-1)
-                          .map((item) => {
-                            return item.coachingSupportInd1;
-                          })
-                          .toString();
-
-                        const followup2 = this.state.preMonthData
-                          .sort((a, b) => a.id - b.id)
-                          .slice(-1)
-                          .map((item) => {
-                            return item.coachingSupportInd2;
-                          })
-                          .toString();
-                        console.log("followup1 :" + followup1);
-                        this.setState({
-                          lastFollowupTopic1: followup1,
-                        });
-                        this.setState({
-                          lastFollowupTopic2: followup2,
-                        });
-                      }
-                      // Set perivious visit data
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item label={"Select"} value={""} />
-                    {this.state.allEmployee
-                      .filter((item) => {
-                        return item.office === this.state.pickerVisitorOffice;
-                      })
-                      .map((item) => {
-                        return (
-                          <Picker.Item
-                            key={item.id}
-                            label={item.name}
-                            value={item.name}
-                          />
-                        );
-                      })}
-                  </Picker>
-                </View>
-              </View> */}
-
               <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
                     <View style={{ flex: 1 }}>
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontWeight: "bold",
-                        }}
-                      >
-                        ক্লাস শুরুর সময়: (Start Time:)
-                      </Text>
+                      <View style={{ flexDirection: "row" }}>
+                        <Text
+                          style={{
+                            fontSize: 16,
+                            fontWeight: "bold",
+                          }}
+                        >
+                          ক্লাস শুরুর সময়: (Start Time:)
+                        </Text>
+                        <Text
+                          style={{
+                            textAlign: "right",
+                            color: "red",
+                            fontSize: 16,
+                          }}
+                        >
+                          *
+                        </Text>
+                      </View>
                       <TextInput
                         style={{
                           height: 50,
-                          width: 150,
+                          width: 220,
                           padding: 5,
                           borderWidth: 1,
                         }}
@@ -2421,18 +2487,29 @@ export default class PBanglaClassObservationScreen extends React.Component {
                         }
                         value={this.state.classStartTime + ""}
                       />
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontWeight: "bold",
-                        }}
-                      >
-                        ক্লাস শেষের সময়: (End Time:)
-                      </Text>
+                      <View style={{ flexDirection: "row" }}>
+                        <Text
+                          style={{
+                            fontSize: 16,
+                            fontWeight: "bold",
+                          }}
+                        >
+                          ক্লাস শেষের সময়: (End Time:)
+                        </Text>
+                        <Text
+                          style={{
+                            textAlign: "right",
+                            color: "red",
+                            fontSize: 16,
+                          }}
+                        >
+                          *
+                        </Text>
+                      </View>
                       <TextInput
                         style={{
                           height: 50,
-                          width: 150,
+                          width: 220,
                           padding: 5,
                           borderWidth: 1,
                         }}
@@ -2448,14 +2525,24 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   </View>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    পাঠ নং/ পাঠের নাম: (Lesson:)
-                  </Text>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      পাঠ নং: (Lesson:)
+                    </Text>
+                    <Text
+                      style={{
+                        color: "red",
+                        fontSize: 16,
+                      }}
+                    >
+                      *
+                    </Text>
+                  </View>
                   <TextInput
                     style={{
                       height: 50,
@@ -2472,14 +2559,24 @@ export default class PBanglaClassObservationScreen extends React.Component {
                     }
                     value={this.state.teachingTopic + ""}
                   />
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    পিরিয়ড:(Period:)
-                  </Text>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      পিরিয়ড:(Period:)
+                    </Text>
+                    <Text
+                      style={{
+                        color: "red",
+                        fontSize: 16,
+                      }}
+                    >
+                      *
+                    </Text>
+                  </View>
                   <TextInput
                     style={{
                       height: 50,
@@ -2501,14 +2598,24 @@ export default class PBanglaClassObservationScreen extends React.Component {
 
               <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 1 }}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    ভর্তিকৃত শিশুর সংখ্যা: (Admitted Student:)
-                  </Text>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      ভর্তিকৃত শিশুর সংখ্যা: (Admitted Student:)
+                    </Text>
+                    <Text
+                      style={{
+                        color: "red",
+                        fontSize: 16,
+                      }}
+                    >
+                      *
+                    </Text>
+                  </View>
                   <Text></Text>
                   <TextInput
                     style={{
@@ -2529,14 +2636,24 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    উপস্থিত শিশুর সংখ্যা: (Present Student:)
-                  </Text>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      উপস্থিত শিশুর সংখ্যা: (Present Student:)
+                    </Text>
+                    <Text
+                      style={{
+                        color: "red",
+                        fontSize: 16,
+                      }}
+                    >
+                      *
+                    </Text>
+                  </View>
                   <Text></Text>
                   <TextInput
                     style={{
@@ -2554,6 +2671,61 @@ export default class PBanglaClassObservationScreen extends React.Component {
                         presentTotal: Number(text),
                       })
                     }
+                  />
+                </View>
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      পরিদর্শক এর নাম: (Visitor:)
+                    </Text>
+                  </View>
+                  <TextInput
+                    style={{
+                      height: 50,
+                      width: 250,
+                      padding: 5,
+                      borderWidth: 1,
+                    }}
+                    keyboardType="default"
+                    placeholder=""
+                    editable={true}
+                    onChangeText={(text) => this.setState({ visitor: text })}
+                    value={this.state.visitor + ""}
+                  />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      পদবী: (Designation:)
+                    </Text>
+                  </View>
+                  <TextInput
+                    style={{
+                      height: 50,
+                      width: 250,
+                      padding: 5,
+                      borderWidth: 1,
+                    }}
+                    keyboardType="default"
+                    placeholder=""
+                    editable={true}
+                    onChangeText={(text) =>
+                      this.setState({ visitorDesignation: text })
+                    }
+                    value={this.state.visitorDesignation + ""}
                   />
                 </View>
               </View>
@@ -2671,15 +2843,27 @@ export default class PBanglaClassObservationScreen extends React.Component {
                       margin: 5,
                       flex: 1,
                       alignSelf: "center",
+                      //backgroundColor: "#6ab8b0ff",
                     }}
                   >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
-                        <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                          <Text
+                            style={{
+                              textAlign: "right",
+                              color: "red",
+                              fontSize: 16,
+                            }}
+                          >
+                            *
+                          </Text>
+                        </View>
 
                         <Picker
                           style={{
-                            height: 40,
+                            height: 50,
                             width: 150,
                           }}
                           enabled={this.state.inputEnabled}
@@ -3416,10 +3600,21 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
-                        <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                          <Text
+                            style={{
+                              textAlign: "right",
+                              color: "red",
+                              fontSize: 16,
+                            }}
+                          >
+                            *
+                          </Text>
+                        </View>
                         <Picker
                           style={{
-                            height: 40,
+                            height: 50,
                             width: 150,
                           }}
                           enabled={this.state.inputEnabled}
@@ -4163,7 +4358,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
-                        <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                          <Text
+                            style={{
+                              textAlign: "right",
+                              color: "red",
+                              fontSize: 16,
+                            }}
+                          >
+                            *
+                          </Text>
+                        </View>
 
                         <Picker
                           style={{
@@ -4903,7 +5109,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
-                        <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                          <Text
+                            style={{
+                              textAlign: "right",
+                              color: "red",
+                              fontSize: 16,
+                            }}
+                          >
+                            *
+                          </Text>
+                        </View>
 
                         <Picker
                           style={{
@@ -5644,7 +5861,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
-                        <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                          <Text
+                            style={{
+                              textAlign: "right",
+                              color: "red",
+                              fontSize: 16,
+                            }}
+                          >
+                            *
+                          </Text>
+                        </View>
                         <Picker
                           style={{
                             height: 50,
@@ -6387,7 +6615,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
-                        <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                          <Text
+                            style={{
+                              textAlign: "right",
+                              color: "red",
+                              fontSize: 16,
+                            }}
+                          >
+                            *
+                          </Text>
+                        </View>
                         <Picker
                           style={{
                             height: 50,
@@ -7139,7 +7378,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
-                        <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                          <Text
+                            style={{
+                              textAlign: "right",
+                              color: "red",
+                              fontSize: 16,
+                            }}
+                          >
+                            *
+                          </Text>
+                        </View>
 
                         <Picker
                           style={{
@@ -7886,7 +8136,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
-                        <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                          <Text
+                            style={{
+                              textAlign: "right",
+                              color: "red",
+                              fontSize: 16,
+                            }}
+                          >
+                            *
+                          </Text>
+                        </View>
 
                         <Picker
                           style={{
@@ -8624,7 +8885,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
-                        <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                          <Text
+                            style={{
+                              textAlign: "right",
+                              color: "red",
+                              fontSize: 16,
+                            }}
+                          >
+                            *
+                          </Text>
+                        </View>
 
                         <Picker
                           style={{
@@ -9359,7 +9631,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
-                        <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                          <Text
+                            style={{
+                              textAlign: "right",
+                              color: "red",
+                              fontSize: 16,
+                            }}
+                          >
+                            *
+                          </Text>
+                        </View>
 
                         <Picker
                           style={{
@@ -10097,7 +10380,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
-                        <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                          <Text
+                            style={{
+                              textAlign: "right",
+                              color: "red",
+                              fontSize: 16,
+                            }}
+                          >
+                            *
+                          </Text>
+                        </View>
 
                         <Picker
                           style={{
@@ -10845,7 +11139,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
-                        <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                          <Text
+                            style={{
+                              textAlign: "right",
+                              color: "red",
+                              fontSize: 16,
+                            }}
+                          >
+                            *
+                          </Text>
+                        </View>
 
                         <Picker
                           style={{
@@ -11576,7 +11881,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
-                        <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                          <Text
+                            style={{
+                              textAlign: "right",
+                              color: "red",
+                              fontSize: 16,
+                            }}
+                          >
+                            *
+                          </Text>
+                        </View>
 
                         <Picker
                           style={{
@@ -12305,7 +12621,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
-                        <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                          <Text
+                            style={{
+                              textAlign: "right",
+                              color: "red",
+                              fontSize: 16,
+                            }}
+                          >
+                            *
+                          </Text>
+                        </View>
 
                         <Picker
                           style={{
@@ -13040,7 +13367,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   >
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
-                        <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                          <Text
+                            style={{
+                              textAlign: "right",
+                              color: "red",
+                              fontSize: 16,
+                            }}
+                          >
+                            *
+                          </Text>
+                        </View>
 
                         <Picker
                           style={{
@@ -13886,15 +14224,26 @@ export default class PBanglaClassObservationScreen extends React.Component {
                 </View>
 
                 <View style={{ flexDirection: "row", marginTop: 20 }}>
-                  <View style={{ flex: 1, padding: 2 }}>
-                    <Text>শিক্ষকের করনীয়: ( Teacher to do:)</Text>
+                  <View style={{ flex: 1, padding: 2, flexDirection: "row" }}>
+                    <View style={{ flexDirection: "row" }}>
+                      <Text>শিক্ষকের করনীয়: ( Teacher to do:)</Text>
+                      <Text
+                        style={{
+                          textAlign: "right",
+                          color: "red",
+                          fontSize: 16,
+                        }}
+                      >
+                        *
+                      </Text>
+                    </View>
                   </View>
                 </View>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1, padding: 2 }}>
                     <TextInput
                       style={{ height: 80, padding: 5, borderWidth: 1 }}
-                      placeholder="লিখুন"
+                      placeholder="লিখুন(Word limit 50)"
                       keyboardType="default"
                       editable={this.state.inputEnabled}
                       multiline={true}
@@ -13909,15 +14258,23 @@ export default class PBanglaClassObservationScreen extends React.Component {
                 </View>
 
                 <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 1, padding: 2 }}>
+                  <View style={{ flex: 1, padding: 2, flexDirection: "row" }}>
                     <Text>এলএফ-এর করনীয়: (LF to do:)</Text>
+                    <Text
+                      style={{
+                        color: "red",
+                        fontSize: 16,
+                      }}
+                    >
+                      *
+                    </Text>
                   </View>
                 </View>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1, padding: 2 }}>
                     <TextInput
                       style={{ height: 80, padding: 5, borderWidth: 1 }}
-                      placeholder="লিখুন"
+                      placeholder="লিখুন(Word limit 50)"
                       keyboardType="default"
                       editable={this.state.inputEnabled}
                       multiline={true}
@@ -13966,7 +14323,16 @@ export default class PBanglaClassObservationScreen extends React.Component {
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1, padding: 2 }}>
                     <TextInput
-                      style={{ height: 80, padding: 5, borderWidth: 1 }}
+                      style={{
+                        height: 150,
+                        padding: 5,
+                        borderWidth: 1,
+                        fontSize: 36,
+                        color: "red",
+                        fontWeight: "bold",
+                        textAlign: "center",
+                        backgroundColor: "#a9ddc7ff",
+                      }}
                       multiline={true}
                       numberOfLines={20}
                       placeholder=""
@@ -13983,7 +14349,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                 </View>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1, padding: 2 }}>
-                    <Text>শিক্ষার্থীর নাম: (Student Name:)</Text>
+                    <Text>শিক্ষার্থীর নাম/রোল: (Student Name/Roll:)</Text>
                   </View>
                   <View style={{ flex: 1, padding: 2 }}>
                     <TextInput
@@ -14287,7 +14653,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   marginLeft: 100,
                   marginBottom: 20,
                 }}
-                onPress={this.showConfirmDialog.bind(this)}
+                onPress={this.showConfirmDialog}
               >
                 <Text>Submit Online</Text>
               </TouchableOpacity>
@@ -14306,7 +14672,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   marginLeft: 100,
                   marginBottom: 20,
                 }}
-                onPress={this.showConfirmDialogOffline.bind(this)}
+                onPress={this.showConfirmDialogOffline}
               >
                 <Text>Submit Offline</Text>
               </TouchableOpacity>

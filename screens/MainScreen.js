@@ -1,6 +1,6 @@
 //  Author: Mohammad Jihad Hossain
-//  Create Date: 28/08/2024
-//  Modify Date: 28/08/2024
+//  Create Date: 28/08/2025
+//  Modify Date: 14/10/2025
 //  Description: Main screen component
 
 import React, { useEffect, useState } from "react";
@@ -16,6 +16,7 @@ import {
   TouchableOpacity,
   Alert,
   Dimensions,
+  BackHandler,
 } from "react-native";
 import { Card } from "react-native-shadow-cards";
 
@@ -30,7 +31,25 @@ function MainScreen({ navigation }) {
     const unsubscribe = navigation.addListener("focus", () => {
       //Alert.alert("Refreshed");
     });
-    return unsubscribe;
+
+    const backAction = () => {
+      Alert.alert("Hold on!", "Are you sure you want to go back?", [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel",
+        },
+        { text: "YES", onPress: () => BackHandler.exitApp() },
+      ]);
+      return true; // return true means we handled it
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return unsubscribe(), backHandler.remove();
   }, [navigation]);
 
   return (
