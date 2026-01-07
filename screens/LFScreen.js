@@ -475,6 +475,16 @@ function LFScreen({ navigation }) {
               </View>
             </View>
 
+            <View style={{ flex: 1, padding: 2 }}>
+              <View>
+                <Button
+                  title="শ্রেণিকক্ষ কার্যক্রম প্রাক-প্রাথমিক"
+                  color="#006B4D"
+                  onPress={() => navigation.navigate("PPrePrimaryClass")}
+                ></Button>
+              </View>
+            </View>
+
             {/* <View style={{ flex: 1, padding: 2 }}>
               <View>
                 <Button

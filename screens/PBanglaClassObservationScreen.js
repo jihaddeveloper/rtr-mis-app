@@ -244,7 +244,26 @@ export default class PBanglaClassObservationScreen extends React.Component {
 
       teacherStatus: "",
 
+      // error message
       dateError: "",
+      errorInd11: "",
+      errorInd12: "",
+      errorInd13: "",
+      errorInd14: "",
+      errorInd15: "",
+      errorInd16: "",
+
+      errorInd21: "",
+      errorInd22: "",
+      errorInd23: "",
+      errorInd24: "",
+      errorInd25: "",
+
+      errorInd31: "",
+      errorInd32: "",
+      errorInd33: "",
+      errorInd34: "",
+      // error message
     };
   }
 
@@ -268,6 +287,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
         this.syncPendingData();
       }
     });
+    // Fetch initial network state
 
     // this.getAllSchool();
     // this.getAllTeacher();
@@ -613,6 +633,27 @@ export default class PBanglaClassObservationScreen extends React.Component {
       totalFor5: 0,
 
       teacherStatus: "",
+
+      // error message
+      dateError: "",
+      errorInd11: "",
+      errorInd12: "",
+      errorInd13: "",
+      errorInd14: "",
+      errorInd15: "",
+      errorInd16: "",
+
+      errorInd21: "",
+      errorInd22: "",
+      errorInd23: "",
+      errorInd24: "",
+      errorInd25: "",
+
+      errorInd31: "",
+      errorInd32: "",
+      errorInd33: "",
+      errorInd34: "",
+      // error message
     });
   };
   // Update state
@@ -1116,7 +1157,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
   };
   // Alert before submit
 
-  // Alert before submit
+  // Alert before offline submit
   showConfirmDialogOffline = () => {
     return Alert.alert("Alert !!", "Are you sure you want to save data ?", [
       // The "Cancel" button
@@ -1135,7 +1176,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
       },
     ]);
   };
-  // Alert before submit
+  // Alert before offline submit
 
   // Save form data
   // handleSubmit = async (formData) => {
@@ -1464,6 +1505,642 @@ export default class PBanglaClassObservationScreen extends React.Component {
   };
   // Sync stored data
 
+  // Save for later
+  saveForLater = async () => {
+    const formData = {
+      date: this.state.date,
+      month: this.state.pickerMonth,
+      year: this.state.pickerYear,
+      district: this.state.pickerDistrict.name,
+      upazilla: this.state.pickerUpazilla.name,
+      fieldOffice: this.state.pickerOffice,
+      project: this.state.pickerProject,
+      visitNo: Math.floor(Math.random() * 100),
+      lpo: this.state.pickerLPO.employeeRegId,
+      lpoName: this.state.pickerLPOName.name,
+      lf: this.state.pickerLF.employeeRegId,
+      lfName: this.state.pickerLFName.name,
+      school: this.state.pickerSchool.name,
+      rtrSchoolId: this.state.rtrSchoolId,
+      yearOfSupport: this.state.yearOfSupport,
+      classTeacher: this.state.classTeacher,
+      grade: this.state.grade,
+      section: this.state.section,
+      classStartTime: this.state.classStartTime,
+      classEndTime: this.state.classEndTime,
+      contentName: this.state.teachingTopic,
+      periodDay: this.state.teachingDay,
+      totalAdmittedStudent: this.state.studentTotal,
+      totalPresentStudent: this.state.presentTotal,
+
+      visitor: this.state.visitor,
+      visitorDesignation: this.state.visitorDesignation,
+
+      note: this.state.note,
+
+      lastFollowupTopic1: this.state.lastFollowupTopic1,
+      lastFollowupTopic2: this.state.lastFollowupTopic2,
+      lastFollowupTopic3: this.state.lastFollowupTopic3,
+
+      ind11TeacherFollowedTeacherGuideInClassStatus:
+        this.state.ind11TeacherFollowedTeacherGuideInClassStatus,
+      ind11TeacherFollowedTeacherGuideInClassNote:
+        this.state.ind11TeacherFollowedTeacherGuideInClassNote,
+
+      ind12FollowedIDoWeDoYouDoStatus:
+        this.state.ind12FollowedIDoWeDoYouDoStatus,
+      ind12FollowedIDoWeDoYouDoNote: this.state.ind12FollowedIDoWeDoYouDoNote,
+
+      ind13FollowedContinuityOfLessonStatus:
+        this.state.ind13FollowedContinuityOfLessonStatus,
+      ind13FollowedContinuityOfLessonNote:
+        this.state.ind13FollowedContinuityOfLessonNote,
+
+      ind14ImplementedAllTaskInTimeStatus:
+        this.state.ind14ImplementedAllTaskInTimeStatus,
+      ind14ImplementedAllTaskInTimeNote:
+        this.state.ind14ImplementedAllTaskInTimeNote,
+
+      ind15InstructedToUseWorkbookStatus:
+        this.state.ind15InstructedToUseWorkbookStatus,
+      ind15InstructedToUseWorkbookNote:
+        this.state.ind15InstructedToUseWorkbookNote,
+
+      ind16IndependentReadingOpportunityStatus:
+        this.state.ind16IndependentReadingOpportunityStatus,
+      ind16IndependentReadingOpportunityNote:
+        this.state.ind16IndependentReadingOpportunityNote,
+
+      ind21CorrectlyPronouncedStatus: this.state.ind21CorrectlyPronouncedStatus,
+      ind21CorrectlyPronouncedNote: this.state.ind21CorrectlyPronouncedNote,
+
+      ind22TaughtCorrectlyAllowPracticeStatus:
+        this.state.ind22TaughtCorrectlyAllowPracticeStatus,
+      ind22TaughtCorrectlyAllowPracticeNote:
+        this.state.ind22TaughtCorrectlyAllowPracticeNote,
+
+      ind23DemonstratesFluentReadingStatus:
+        this.state.ind23DemonstratesFluentReadingStatus,
+      ind23DemonstratesFluentReadingNote:
+        this.state.ind23DemonstratesFluentReadingNote,
+
+      ind24AllowReadIndividuallyPairGroupsStatus:
+        this.state.ind24AllowReadIndividuallyPairGroupsStatus,
+      ind24AllowReadIndividuallyPairGroupsNote:
+        this.state.ind24AllowReadIndividuallyPairGroupsNote,
+
+      ind25FollowsInstructionsInWritingStatus:
+        this.state.ind25FollowsInstructionsInWritingStatus,
+      ind25FollowsInstructionsInWritingNote:
+        this.state.ind25FollowsInstructionsInWritingNote,
+
+      ind31AskedHelpfulQuestionsStatus:
+        this.state.ind31AskedHelpfulQuestionsStatus,
+      ind31AskedHelpfulQuestionsNote: this.state.ind31AskedHelpfulQuestionsNote,
+
+      ind32TaughtVocabularyNewSentenceStatus:
+        this.state.ind32TaughtVocabularyNewSentenceStatus,
+      ind32TaughtVocabularyNewSentenceNote:
+        this.state.ind32TaughtVocabularyNewSentenceNote,
+
+      ind33CheckWritingSpellingPunctuationStatus:
+        this.state.ind33CheckWritingSpellingPunctuationStatus,
+      ind33CheckWritingSpellingPunctuationNote:
+        this.state.ind33CheckWritingSpellingPunctuationNote,
+
+      ind34CheckedWeDoYouDoStatus: this.state.ind34CheckedWeDoYouDoStatus,
+      ind34CheckedWeDoYouDoNote: this.state.ind34CheckedWeDoYouDoNote,
+
+      bestPracticeInd1: this.state.bestPracticeInd1,
+      bestPracticeInd2: this.state.bestPracticeInd2,
+      bestPracticeInd3: this.state.bestPracticeInd3,
+
+      coachingSupportInd1: this.state.coachingSupportInd1,
+      coachingSupportInd2: this.state.coachingSupportInd2,
+      coachingSupportDetailsInd1: this.state.coachingSupportDetailsInd1,
+      coachingSupportDetailsInd2: this.state.coachingSupportDetailsInd2,
+
+      coachingSupportTeacher: this.state.coachingSupportTeacher,
+      coachingSupportLF: this.state.coachingSupportLF,
+
+      agreedStatement1: this.state.agreedStatement1,
+      agreedStatement2: this.state.agreedStatement2,
+
+      question1: this.state.question1,
+
+      student1: this.state.student1,
+      student2: this.state.student2,
+      student3: this.state.student3,
+
+      noRightFor1: this.state.noRightFor1,
+      noWrongFor1: this.state.noWrongFor1,
+      totalFor1: this.state.totalFor1,
+      noRightFor2: this.state.noRightFor2,
+      noWrongFor2: this.state.noWrongFor2,
+      totalFor2: this.state.totalFor2,
+      noRightFor3: this.state.noRightFor3,
+      noWrongFor3: this.state.noWrongFor3,
+      totalFor3: this.state.totalFor3,
+
+      teacherStatus: this.state.teacherStatus,
+    };
+
+    // Validation
+    if (this.state.date === "") {
+      Alert.alert("Alert", "Date can not be empty");
+      return;
+    } else if (this.state.pickerMonth === "") {
+      Alert.alert("Alert", "Month can not be empty");
+      return;
+    } else if (this.state.pickerYear === "") {
+      Alert.alert("Alert", "Year can not be empty");
+      return;
+    } else if (this.state.pickerDistrict === "") {
+      Alert.alert("Alert", "District can not be empty");
+      return;
+    } else if (this.state.pickerUpazilla === "") {
+      Alert.alert("Alert", "Upazilla can not be empty");
+      return;
+    } else if (this.state.pickerOffice === "") {
+      Alert.alert("Alert", "Office can not be empty");
+      return;
+    } else if (this.state.pickerProject === "") {
+      Alert.alert("Alert", "Project can not be empty");
+      return;
+    } else if (this.state.pickerLF === "") {
+      Alert.alert("Alert", "LF can not be empty");
+      return;
+    } else if (this.state.pickerLPO === "") {
+      Alert.alert("Alert", "LPO can not be empty");
+      return;
+    } else if (this.state.pickerSchool === "") {
+      Alert.alert("Alert", "School can not be empty");
+      return;
+    } else if (this.state.classTeacher === "") {
+      Alert.alert("Alert", "Class Teacher can not be empty");
+      return;
+    } else if (this.state.classStartTime === "") {
+      Alert.alert("Alert", "Class start time can not be empty");
+      return;
+    } else if (this.state.classEndTime === "") {
+      Alert.alert("Alert", "Class end time can not be empty");
+      return;
+    } else if (this.state.teachingTopic === "") {
+      Alert.alert("Alert", "Lesson can not be empty");
+      return;
+    } else if (this.state.teachingDay === "") {
+      Alert.alert("Alert", "Period can not be empty");
+      return;
+    } else if (this.state.grade === "") {
+      Alert.alert("Alert", "Grade can not be empty");
+      return;
+    } else if (this.state.section === "") {
+      Alert.alert("Alert", "Section can not be empty");
+      return;
+    } else if (this.state.studentTotal === "") {
+      Alert.alert("Alert", "Admitted student can not be empty");
+      return;
+    } else if (this.state.presentTotal === "") {
+      Alert.alert("Alert", "Pressent student can not be empty");
+      return;
+    } else {
+      try {
+        const existingData = await AsyncStorage.getItem("saveForLaterPBangla");
+        const forms = existingData ? JSON.parse(existingData) : [];
+        forms.push(formData);
+        await AsyncStorage.setItem(
+          "saveForLaterPBangla",
+          JSON.stringify(forms)
+        );
+        console.log("Data saved for later: " + JSON.stringify(forms));
+        console.log("Data saved for later");
+        Alert.alert("Data saved for later.");
+        this.updateToInitialState();
+      } catch (error) {
+        console.error("Error Data saved for later:", error);
+        Alert.alert("Error Data saved for later:", error);
+      }
+    }
+  };
+  // Save for later
+
+  // Load saved data
+  loadSavedData = async () => {
+    try {
+      const existingData = await AsyncStorage.getItem("saveForLaterPBangla");
+      if (existingData) {
+        const formsToSync = JSON.parse(existingData);
+        for (const formData of formsToSync) {
+          this.setState({
+            //date: formData.date,
+            // pickerMonth: formData.month,
+            // pickerYear: formData.year,
+            // pickerDistrict: formData.district,
+            // pickerUpazilla: formData.upazilla,
+            // pickerOffice: formData.fieldOffice,
+            // pickerProject: formData.project,
+            // visitNo: formData.visitNo,
+            // lpo: formData.lpo,
+            // pickerLPO: formData.lpoName,
+            // lf: formData.lf,
+            // pickerLF: formData.lfName,
+            // pickerSchool: formData.school,
+            // rtrSchoolId: formData.rtrSchoolId,
+            // yearOfSupport: formData.yearOfSupport,
+            // classTeacher: formData.classTeacher,
+            // grade: formData.grade,
+            // section: formData.section,
+
+            classStartTime: formData.classStartTime,
+            classEndTime: formData.classEndTime,
+            teachingTopic: formData.contentName,
+            teachingDay: formData.periodDay,
+            studentTotal: formData.totalAdmittedStudent,
+            presentTotal: formData.totalPresentStudent,
+
+            visitor: formData.visitor,
+            visitorDesignation: formData.visitorDesignation,
+
+            note: formData.note,
+
+            lastFollowupTopic1: formData.lastFollowupTopic1,
+            lastFollowupTopic2: formData.lastFollowupTopic2,
+            lastFollowupTopic3: formData.lastFollowupTopic3,
+
+            ind11TeacherFollowedTeacherGuideInClassStatus:
+              formData.ind11TeacherFollowedTeacherGuideInClassStatus,
+            ind11TeacherFollowedTeacherGuideInClassNote:
+              formData.ind11TeacherFollowedTeacherGuideInClassNote,
+
+            ind12FollowedIDoWeDoYouDoStatus:
+              formData.ind12FollowedIDoWeDoYouDoStatus,
+            ind12FollowedIDoWeDoYouDoNote:
+              formData.ind12FollowedIDoWeDoYouDoNote,
+
+            ind13FollowedContinuityOfLessonStatus:
+              formData.ind13FollowedContinuityOfLessonStatus,
+            ind13FollowedContinuityOfLessonNote:
+              formData.ind13FollowedContinuityOfLessonNote,
+
+            ind14ImplementedAllTaskInTimeStatus:
+              formData.ind14ImplementedAllTaskInTimeStatus,
+            ind14ImplementedAllTaskInTimeNote:
+              formData.ind14ImplementedAllTaskInTimeNote,
+
+            ind15InstructedToUseWorkbookStatus:
+              formData.ind15InstructedToUseWorkbookStatus,
+            ind15InstructedToUseWorkbookNote:
+              formData.ind15InstructedToUseWorkbookNote,
+
+            ind16IndependentReadingOpportunityStatus:
+              formData.ind16IndependentReadingOpportunityStatus,
+            ind16IndependentReadingOpportunityNote:
+              formData.ind16IndependentReadingOpportunityNote,
+
+            ind21CorrectlyPronouncedStatus:
+              formData.ind21CorrectlyPronouncedStatus,
+            ind21CorrectlyPronouncedNote: formData.ind21CorrectlyPronouncedNote,
+
+            ind22TaughtCorrectlyAllowPracticeStatus:
+              formData.ind22TaughtCorrectlyAllowPracticeStatus,
+            ind22TaughtCorrectlyAllowPracticeNote:
+              formData.ind22TaughtCorrectlyAllowPracticeNote,
+
+            ind23DemonstratesFluentReadingStatus:
+              formData.ind23DemonstratesFluentReadingStatus,
+            ind23DemonstratesFluentReadingNote:
+              formData.ind23DemonstratesFluentReadingNote,
+
+            ind24AllowReadIndividuallyPairGroupsStatus:
+              formData.ind24AllowReadIndividuallyPairGroupsStatus,
+            ind24AllowReadIndividuallyPairGroupsNote:
+              formData.ind24AllowReadIndividuallyPairGroupsNote,
+
+            ind25FollowsInstructionsInWritingStatus:
+              formData.ind25FollowsInstructionsInWritingStatus,
+            ind25FollowsInstructionsInWritingNote:
+              formData.ind25FollowsInstructionsInWritingNote,
+
+            ind31AskedHelpfulQuestionsStatus:
+              formData.ind31AskedHelpfulQuestionsStatus,
+            ind31AskedHelpfulQuestionsNote:
+              formData.ind31AskedHelpfulQuestionsNote,
+
+            ind32TaughtVocabularyNewSentenceStatus:
+              formData.ind32TaughtVocabularyNewSentenceStatus,
+            ind32TaughtVocabularyNewSentenceNote:
+              formData.ind32TaughtVocabularyNewSentenceNote,
+
+            ind33CheckWritingSpellingPunctuationStatus:
+              formData.ind33CheckWritingSpellingPunctuationStatus,
+            ind33CheckWritingSpellingPunctuationNote:
+              formData.ind33CheckWritingSpellingPunctuationNote,
+
+            ind34CheckedWeDoYouDoStatus: formData.ind34CheckedWeDoYouDoStatus,
+            ind34CheckedWeDoYouDoNote: formData.ind34CheckedWeDoYouDoNote,
+
+            bestPracticeInd1: formData.bestPracticeInd1,
+            bestPracticeInd2: formData.bestPracticeInd2,
+            bestPracticeInd3: formData.bestPracticeInd3,
+
+            coachingSupportInd1: formData.coachingSupportInd1,
+            coachingSupportInd2: formData.coachingSupportInd2,
+            coachingSupportDetailsInd1: formData.coachingSupportDetailsInd1,
+            coachingSupportDetailsInd2: formData.coachingSupportDetailsInd2,
+
+            coachingSupportTeacher: formData.coachingSupportTeacher,
+            coachingSupportLF: formData.coachingSupportLF,
+
+            agreedStatement1: formData.agreedStatement1,
+            agreedStatement2: formData.agreedStatement2,
+
+            question1: formData.question1,
+
+            student1: formData.student1,
+            student2: formData.student2,
+            student3: formData.student3,
+
+            noRightFor1: formData.noRightFor1,
+            noWrongFor1: formData.noWrongFor1,
+            totalFor1: formData.totalFor1,
+            noRightFor2: formData.noRightFor2,
+            noWrongFor2: formData.noWrongFor2,
+            totalFor2: formData.totalFor2,
+            noRightFor3: formData.noRightFor3,
+            noWrongFor3: formData.noWrongFor3,
+            totalFor3: formData.totalFor3,
+
+            teacherStatus: formData.teacherStatus,
+          });
+        }
+        await AsyncStorage.removeItem("saveForLaterPBangla"); // Clear synced data
+        console.log("Saved data set successful: " + JSON.parse(existingData));
+        console.log("Saved data set successful!");
+        Alert.alert("Saved data set successful!");
+      }
+    } catch (error) {
+      console.error("Error Saved data set successful", error);
+      Alert.alert("Error Saved data set successful", error);
+    }
+  };
+  // Load saved data
+
+  // Alert before save for later
+  showConfirmDialogSaveForLater = () => {
+    return Alert.alert(
+      "Alert !!",
+      "Are you sure you want to save data for later ?",
+      [
+        // The "Cancel" button
+        {
+          text: "Cancel",
+        },
+        // The "Yes" button
+        {
+          text: "Yes",
+          onPress: this.saveForLater,
+        },
+        // The "No" button
+        // Does nothing but dismiss the dialog when tapped
+        {
+          text: "No",
+        },
+      ]
+    );
+  };
+  // Alert before save for later
+
+  // Calculate bestPractice  && coachingSupport
+  bestPracticeIndcoachingSupportInd = () => {
+    this.setState({
+      coachingSupportInd1: "N/A",
+      coachingSupportDetailsInd1: "N/A",
+      coachingSupportInd2: "N/A",
+      coachingSupportDetailsInd2: "N/A",
+    });
+
+    this.setState({
+      bestPracticeInd1: "N/A",
+      bestPracticeInd2: "N/A",
+    });
+
+    // Setup CoachingSupport
+    const variablesInd = [
+      this.state.ind11TeacherFollowedTeacherGuideInClassStatus,
+      this.state.ind12FollowedIDoWeDoYouDoStatus,
+      this.state.ind13FollowedContinuityOfLessonStatus,
+      this.state.ind14ImplementedAllTaskInTimeStatus,
+      this.state.ind15InstructedToUseWorkbookStatus,
+      this.state.ind16IndependentReadingOpportunityStatus,
+      this.state.ind21CorrectlyPronouncedStatus,
+      this.state.ind22TaughtCorrectlyAllowPracticeStatus,
+      this.state.ind23DemonstratesFluentReadingStatus,
+      this.state.ind24AllowReadIndividuallyPairGroupsStatus,
+      this.state.ind25FollowsInstructionsInWritingStatus,
+      this.state.ind31AskedHelpfulQuestionsStatus,
+      this.state.ind32TaughtVocabularyNewSentenceStatus,
+      this.state.ind33CheckWritingSpellingPunctuationStatus,
+      this.state.ind34CheckedWeDoYouDoStatus,
+    ];
+
+    const variablesIndValue = [
+      "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+      "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+      "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+      "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+      "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+      "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+      "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+      "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+      "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+      "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+      "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+      "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+      "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন ।",
+      "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+      "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+    ];
+
+    const variables3 = [
+      "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ ।",
+      "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে ।",
+      "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয় ।",
+      "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে ।",
+      "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে ।",
+      "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন ।",
+      "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে ।",
+      "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে ।",
+      "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে ।",
+      "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে ।",
+      "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে ।",
+      "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা ।",
+      "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে ।",
+      "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ ।",
+      "শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন ।",
+    ];
+
+    let noCount = 0;
+
+    for (let i = 0; i < variablesInd.length; i++) {
+      if (variablesInd[i] === "No") {
+        if (noCount === 0) {
+          // Assign the first 'No' found to coachingSupport1
+          this.setState({
+            coachingSupportInd1: variablesIndValue[i],
+            coachingSupportDetailsInd1: variables3[i],
+          });
+          noCount++;
+        } else if (noCount === 1) {
+          this.setState({
+            coachingSupportInd2: variablesIndValue[i],
+            coachingSupportDetailsInd2: variables3[i],
+          }); // Assign the second 'No' found to coachingSupport2
+          noCount++;
+          // We found both, so we can stop the loop if needed (optional optimization)
+          break;
+        }
+      } else if (variablesInd[i] === "Partial") {
+        if (noCount === 0) {
+          // Assign the first 'No' found to coachingSupport1
+          this.setState({
+            coachingSupportInd1: variablesIndValue[i],
+            coachingSupportDetailsInd1: variables3[i],
+          });
+          noCount++;
+        } else if (noCount === 1) {
+          this.setState({
+            coachingSupportInd2: variablesIndValue[i],
+            coachingSupportDetailsInd2: variables3[i],
+          }); // Assign the second 'No' found to coachingSupport2
+          noCount++;
+          // We found both, so we can stop the loop if needed (optional optimization)
+          break;
+        }
+      }
+    }
+
+    // Setup CoachingSupport
+
+    // Setup BestPractice test2
+    if (
+      this.state.teacherStatus === "Priority 3" ||
+      this.state.teacherStatus === "Priority 2"
+    ) {
+      const variables = [
+        this.state.ind34CheckedWeDoYouDoStatus,
+        this.state.ind33CheckWritingSpellingPunctuationStatus,
+        this.state.ind32TaughtVocabularyNewSentenceStatus,
+        this.state.ind31AskedHelpfulQuestionsStatus,
+      ];
+
+      const variables2 = [
+        "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+        "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+        "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন ।",
+        "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+      ];
+      let yesCount = 0;
+
+      for (let i = 0; i < variables.length; i++) {
+        if (variables[i] === "Yes") {
+          if (yesCount === 0) {
+            // Assign the first 'yes' found to bestPracticeInd1
+            this.setState({
+              bestPracticeInd1: variables2[i],
+            });
+            yesCount++;
+          } else if (yesCount === 1) {
+            this.setState({
+              bestPracticeInd2: variables2[i],
+            }); // Assign the second 'yes' found to y
+            yesCount++;
+            // We found both, so we can stop the loop if needed (optional optimization)
+            break;
+          }
+        }
+      }
+    } else if (this.state.teacherStatus === "Priority 1") {
+      const variables = [
+        this.state.ind25FollowsInstructionsInWritingStatus,
+        this.state.ind24AllowReadIndividuallyPairGroupsStatus,
+        this.state.ind23DemonstratesFluentReadingStatus,
+        this.state.ind22TaughtCorrectlyAllowPracticeStatus,
+        this.state.ind21CorrectlyPronouncedStatus,
+      ];
+
+      const variables2 = [
+        "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+        "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+        "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+        "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+        "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+      ];
+
+      let yesCount = 0;
+
+      for (let i = 0; i < variables.length; i++) {
+        if (variables[i] === "Yes") {
+          if (yesCount === 0) {
+            // Assign the first 'yes' found to bestPracticeInd1
+            this.setState({
+              bestPracticeInd1: variables2[i],
+            });
+
+            yesCount++;
+          } else if (yesCount === 1) {
+            this.setState({
+              bestPracticeInd2: variables2[i],
+            }); // Assign the second 'yes' found to y
+            yesCount++;
+            // We found both, so we can stop the loop if needed (optional optimization)
+            break;
+          }
+        }
+      }
+    } else if (this.state.teacherStatus === "Priority 0") {
+      const variables = [
+        this.state.ind16IndependentReadingOpportunityStatus,
+        this.state.ind15InstructedToUseWorkbookStatus,
+        this.state.ind14ImplementedAllTaskInTimeStatus,
+        this.state.ind13FollowedContinuityOfLessonStatus,
+        this.state.ind12FollowedIDoWeDoYouDoStatus,
+        this.state.ind11TeacherFollowedTeacherGuideInClassStatus,
+      ];
+
+      const variables2 = [
+        "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+        "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+        "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+        "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+        "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+        "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+      ];
+      let yesCount = 0;
+
+      for (let i = 0; i < variables.length; i++) {
+        if (variables[i] === "Yes") {
+          if (yesCount === 0) {
+            // Assign the first 'yes' found to bestPracticeInd1
+            this.setState({
+              bestPracticeInd1: variables2[i],
+            });
+
+            yesCount++;
+          } else if (yesCount === 1) {
+            this.setState({
+              bestPracticeInd2: variables2[i],
+            }); // Assign the second 'yes' found to y
+            yesCount++;
+            // We found both, so we can stop the loop if needed (optional optimization)
+            break;
+          }
+        }
+      }
+    }
+    // Setup BestPractice test2
+  };
+  // Calculate bestPractice  && coachingSupport
+
   render() {
     // For Datepicker
     const {
@@ -1474,6 +2151,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
 
       isCollapsed,
       inputEnabled,
+
       show,
       date,
       mode,
@@ -1533,6 +2211,26 @@ export default class PBanglaClassObservationScreen extends React.Component {
     } = this.state;
     // For Datepicker
 
+    const indicator = [
+      ind11TeacherFollowedTeacherGuideInClassStatus,
+      ind12FollowedIDoWeDoYouDoStatus,
+      ind13FollowedContinuityOfLessonStatus,
+      ind14ImplementedAllTaskInTimeStatus,
+      ind15InstructedToUseWorkbookStatus,
+      ind16IndependentReadingOpportunityStatus,
+      ind21CorrectlyPronouncedStatus,
+      ind22TaughtCorrectlyAllowPracticeStatus,
+      ind23DemonstratesFluentReadingStatus,
+      ind24AllowReadIndividuallyPairGroupsStatus,
+      ind25FollowsInstructionsInWritingStatus,
+      ind31AskedHelpfulQuestionsStatus,
+      ind32TaughtVocabularyNewSentenceStatus,
+      ind33CheckWritingSpellingPunctuationStatus,
+      ind34CheckedWeDoYouDoStatus,
+    ];
+
+    let yesCount = 0;
+
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -1540,7 +2238,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
             <View>
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: 15,
                   fontWeight: "bold",
                   marginTop: 2,
                   alignContent: "center",
@@ -1548,14 +2246,14 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   alignSelf: "center",
                   marginLeft: 100,
                   marginRight: 100,
-                  marginBottom: 2,
+                  marginBottom: 0,
                 }}
               >
                 PREVAIL বাংলা ক্লাস পর্যবেক্ষণ ফরম (Bangla Class Observation)
               </Text>
             </View>
           </View>
-          <View style={{ padding: 10 }}>
+          <View style={{ padding: 10, justifyContent: "center" }}>
             <Text style={styles.bigRedText}>
               সাধারণ তথ্য: (General Information:)
             </Text>
@@ -1792,6 +2490,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                     {districts
                       .filter(
                         (item) =>
+                          item.name == "Jamalpur" ||
                           item.name == "Narail" ||
                           item.name == "Brahmanbaria" ||
                           item.name == "Coxsbazar" ||
@@ -1966,6 +2665,62 @@ export default class PBanglaClassObservationScreen extends React.Component {
                           />
                         );
                       })}
+                  </Picker>
+                </View>
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      পরিদর্শক এর নাম: (Visitor:)
+                    </Text>
+                  </View>
+                  <TextInput
+                    style={{
+                      height: 50,
+                      width: 250,
+                      padding: 5,
+                      borderWidth: 1,
+                    }}
+                    keyboardType="default"
+                    placeholder=""
+                    editable={true}
+                    onChangeText={(text) => this.setState({ visitor: text })}
+                    value={this.state.visitor + ""}
+                  />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      পদবী: (Designation:)
+                    </Text>
+                  </View>
+                  <Picker
+                    style={{
+                      height: 60,
+                      width: 170,
+                    }}
+                    selectedValue={this.state.visitorDesignation}
+                    onValueChange={(value) => {
+                      this.setState({ visitorDesignation: value });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    <Picker.Item label={"Select"} value={""} />
+                    <Picker.Item label={"LF"} value={"LF"} />
+                    <Picker.Item label={"LPO"} value={"LPO"} />
+                    <Picker.Item label={"Other"} value={"Other"} />
                   </Picker>
                 </View>
               </View>
@@ -2326,6 +3081,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                     <Picker.Item label={"Select"} value={""} />
                     <Picker.Item label={"G1"} value={"G1"} />
                     <Picker.Item label={"G2"} value={"G2"} />
+                    <Picker.Item label={"G3"} value={"G3"} />
                   </Picker>
                 </View>
                 <View style={{ flex: 1 }}>
@@ -2448,6 +3204,24 @@ export default class PBanglaClassObservationScreen extends React.Component {
               <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 1 }}></View>
               </View>
+
+              <TouchableOpacity
+                style={{
+                  alignItems: "center",
+                  width: "40%",
+                  backgroundColor: "#CC8285",
+                  borderRadius: 25,
+                  height: 50,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 0,
+                  marginLeft: 170,
+                  marginBottom: 2,
+                }}
+                onPress={this.loadSavedData}
+              >
+                <Text>Load Saved Data</Text>
+              </TouchableOpacity>
 
               <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 1 }}>
@@ -2677,61 +3451,6 @@ export default class PBanglaClassObservationScreen extends React.Component {
 
               <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      পরিদর্শক এর নাম: (Visitor:)
-                    </Text>
-                  </View>
-                  <TextInput
-                    style={{
-                      height: 50,
-                      width: 250,
-                      padding: 5,
-                      borderWidth: 1,
-                    }}
-                    keyboardType="default"
-                    placeholder=""
-                    editable={true}
-                    onChangeText={(text) => this.setState({ visitor: text })}
-                    value={this.state.visitor + ""}
-                  />
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      পদবী: (Designation:)
-                    </Text>
-                  </View>
-                  <TextInput
-                    style={{
-                      height: 50,
-                      width: 250,
-                      padding: 5,
-                      borderWidth: 1,
-                    }}
-                    keyboardType="default"
-                    placeholder=""
-                    editable={true}
-                    onChangeText={(text) =>
-                      this.setState({ visitorDesignation: text })
-                    }
-                    value={this.state.visitorDesignation + ""}
-                  />
-                </View>
-              </View>
-
-              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
-                <View style={{ flex: 1 }}>
                   <Text
                     style={{
                       fontSize: 16,
@@ -2873,6 +3592,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                                 value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd11: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd11: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set teacher status
                             if (
                               (value === "Yes" || value === "N/A") &&
@@ -3192,335 +3923,608 @@ export default class PBanglaClassObservationScreen extends React.Component {
                             }
                             // Set teacher status
 
-                            // Setup BestPractice
-                            if (
-                              this.state.ind34CheckedWeDoYouDoStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33CheckWritingSpellingPunctuationStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32TaughtVocabularyNewSentenceStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state.ind31AskedHelpfulQuestionsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind25FollowsInstructionsInWritingStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24AllowReadIndividuallyPairGroupsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23DemonstratesFluentReadingStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22TaughtCorrectlyAllowPracticeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind21CorrectlyPronouncedStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind16IndependentReadingOpportunityStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind15InstructedToUseWorkbookStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind14ImplementedAllTaskInTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind13FollowedContinuityOfLessonStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                              });
-                            } else {
-                              this.setState({
-                                bestPracticeInd1: "N/A",
-                              });
-                            }
-                            // Setup BestPractice
+                            // Setup BestPractice test2
+                            // if (
+                            //   this.state.teacherStatus === "Priority 3" ||
+                            //   this.state.teacherStatus === "Priority 2"
+                            // ) {
+                            //   const variables = [
+                            //     ind34CheckedWeDoYouDoStatus,
+                            //     ind33CheckWritingSpellingPunctuationStatus,
+                            //     ind32TaughtVocabularyNewSentenceStatus,
+                            //     ind31AskedHelpfulQuestionsStatus,
+                            //   ];
 
-                            // Setup CoachingSupport
-                            if (value === "No" || value === "Partial") {
-                              this.setState({
-                                coachingSupportInd1:
-                                  "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                                coachingSupportInd2:
-                                  "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।",
-                              });
-                            } else if (
-                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "No" ||
-                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                                "Partial"
-                            ) {
-                              this.setState({
-                                coachingSupportInd1:
-                                  "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                                coachingSupportInd2:
-                                  "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে।",
-                              });
-                            } else if (
-                              this.state
-                                .ind13FollowedContinuityOfLessonStatus ===
-                                "No" ||
-                              this.state
-                                .ind13FollowedContinuityOfLessonStatus ===
-                                "Partial"
-                            ) {
-                              this.setState({
-                                coachingSupportInd1:
-                                  "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                                coachingSupportInd2:
-                                  "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয়।",
-                              });
-                            } else if (
-                              this.state.ind14ImplementedAllTaskInTimeStatus ===
-                                "No" ||
-                              this.state.ind14ImplementedAllTaskInTimeStatus ===
-                                "Partial"
-                            ) {
-                              this.setState({
-                                coachingSupportInd1:
-                                  "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                                coachingSupportInd2:
-                                  "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে।",
-                              });
-                            } else if (
-                              this.state.ind15InstructedToUseWorkbookStatus ===
-                                "No" ||
-                              this.state.ind15InstructedToUseWorkbookStatus ===
-                                "Partial"
-                            ) {
-                              this.setState({
-                                coachingSupportInd1:
-                                  "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                                coachingSupportInd2:
-                                  "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে।",
-                              });
-                            } else if (
-                              this.state
-                                .ind16IndependentReadingOpportunityStatus ===
-                                "No" ||
-                              this.state
-                                .ind16IndependentReadingOpportunityStatus ===
-                                "Partial"
-                            ) {
-                              this.setState({
-                                coachingSupportInd1:
-                                  "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                                coachingSupportInd2:
-                                  "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন।",
-                              });
-                            } else if (
-                              this.state.ind21CorrectlyPronouncedStatus ===
-                                "No" ||
-                              this.state.ind21CorrectlyPronouncedStatus ===
-                                "Partial"
-                            ) {
-                              this.setState({
-                                coachingSupportInd1:
-                                  "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                                coachingSupportInd2:
-                                  "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "No" ||
-                              this.state
-                                .ind22TaughtCorrectlyAllowPracticeStatus ===
-                                "Partial"
-                            ) {
-                              this.setState({
-                                coachingSupportInd1:
-                                  "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                                coachingSupportInd2:
-                                  "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23DemonstratesFluentReadingStatus ===
-                                "No" ||
-                              this.state
-                                .ind23DemonstratesFluentReadingStatus ===
-                                "Partial"
-                            ) {
-                              this.setState({
-                                coachingSupportInd1:
-                                  "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                                coachingSupportInd2:
-                                  "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "No" ||
-                              this.state
-                                .ind24AllowReadIndividuallyPairGroupsStatus ===
-                                "Partial"
-                            ) {
-                              this.setState({
-                                coachingSupportInd1:
-                                  "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                                coachingSupportInd2:
-                                  "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।",
-                              });
-                            } else if (
-                              this.state
-                                .ind25FollowsInstructionsInWritingStatus ===
-                                "No" ||
-                              this.state
-                                .ind25FollowsInstructionsInWritingStatus ===
-                                "Partial"
-                            ) {
-                              this.setState({
-                                coachingSupportInd1:
-                                  "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                                coachingSupportInd2:
-                                  "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।",
-                              });
-                            } else if (
-                              this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "No" ||
-                              this.state.ind31AskedHelpfulQuestionsStatus ===
-                                "Partial"
-                            ) {
-                              this.setState({
-                                coachingSupportInd1:
-                                  "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                                coachingSupportInd2:
-                                  "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32TaughtVocabularyNewSentenceStatus ===
-                                "No" ||
-                              this.state
-                                .ind32TaughtVocabularyNewSentenceStatus ===
-                                "Partial"
-                            ) {
-                              this.setState({
-                                coachingSupportInd1:
-                                  "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                coachingSupportInd2:
-                                  "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33CheckWritingSpellingPunctuationStatus ===
-                                "No" ||
-                              this.state
-                                .ind33CheckWritingSpellingPunctuationStatus ===
-                                "Partial"
-                            ) {
-                              this.setState({
-                                coachingSupportInd1:
-                                  "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                                coachingSupportInd2:
-                                  "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ।",
-                              });
-                            } else if (
-                              this.state.ind34CheckedWeDoYouDoStatus === "No" ||
-                              this.state.ind34CheckedWeDoYouDoStatus ===
-                                "Partial"
-                            ) {
-                              this.setState({
-                                coachingSupportInd1:
-                                  "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                                coachingSupportInd2:
-                                  "শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন।",
-                              });
-                            } else {
-                              this.setState({
-                                coachingSupportInd1: "N/A",
-                                coachingSupportInd2: "N/A",
-                              });
-                            }
-                            // Setup CoachingSupport
+                            //   const variables2 = [
+                            //     "ind34",
+                            //     "ind33",
+                            //     "ind32",
+                            //     "ind31",
+                            //   ];
+                            //   let yesCount = 0;
+
+                            //   for (const value of variables) {
+                            //     if (value === "Yes") {
+                            //       if (yesCount === 0) {
+                            //         // Assign the first 'yes' found to bestPracticeInd1
+                            //         this.setState({
+                            //           bestPracticeInd1: variables2[yesCount],
+                            //         });
+                            //         yesCount++;
+                            //       } else if (yesCount === 1) {
+                            //         this.setState({
+                            //           bestPracticeInd2: variables2[yesCount],
+                            //         }); // Assign the second 'yes' found to y
+                            //         yesCount++;
+                            //         // We found both, so we can stop the loop if needed (optional optimization)
+                            //         break;
+                            //       }
+                            //     }
+                            //   }
+                            // } else if (
+                            //   this.state.teacherStatus === "Priority 1"
+                            // ) {
+                            //   const variables = [
+                            //     ind25FollowsInstructionsInWritingStatus,
+                            //     ind24AllowReadIndividuallyPairGroupsStatus,
+                            //     ind23DemonstratesFluentReadingStatus,
+                            //     ind22TaughtCorrectlyAllowPracticeStatus,
+                            //     ind21CorrectlyPronouncedStatus,
+                            //   ];
+
+                            //   const variables2 = [
+                            //     "ind25",
+                            //     "ind24",
+                            //     "ind23",
+                            //     "ind22",
+                            //     "ind21",
+                            //   ];
+
+                            //   let yesCount = 0;
+
+                            //   for (const value of variables) {
+                            //     if (value === "Yes") {
+                            //       if (yesCount === 0) {
+                            //         // Assign the first 'yes' found to bestPracticeInd1
+                            //         this.setState({
+                            //           bestPracticeInd1: variables2[yesCount],
+                            //         });
+
+                            //         yesCount++;
+                            //       } else if (yesCount === 1) {
+                            //         this.setState({
+                            //           bestPracticeInd2: variables2[yesCount],
+                            //         }); // Assign the second 'yes' found to y
+                            //         yesCount++;
+                            //         // We found both, so we can stop the loop if needed (optional optimization)
+                            //         break;
+                            //       }
+                            //     }
+                            //   }
+                            // } else if (
+                            //   this.state.teacherStatus === "Priority 0"
+                            // ) {
+                            //   const variables = [
+                            //     ind16IndependentReadingOpportunityStatus,
+                            //     ind15InstructedToUseWorkbookStatus,
+                            //     ind14ImplementedAllTaskInTimeStatus,
+                            //     ind13FollowedContinuityOfLessonStatus,
+                            //     ind12FollowedIDoWeDoYouDoStatus,
+                            //     value,
+                            //   ];
+
+                            //   const variables2 = [
+                            //     "ind16",
+                            //     "ind15",
+                            //     "ind14",
+                            //     "ind13",
+                            //     "ind12",
+                            //     "ind11",
+                            //   ];
+                            //   let yesCount = 0;
+
+                            //   for (const value of variables) {
+                            //     if (value === "Yes") {
+                            //       if (yesCount === 0) {
+                            //         // Assign the first 'yes' found to bestPracticeInd1
+                            //         this.setState({
+                            //           bestPracticeInd1: variables2[yesCount],
+                            //         });
+
+                            //         yesCount++;
+                            //       } else if (yesCount === 1) {
+                            //         this.setState({
+                            //           bestPracticeInd2: variables2[yesCount],
+                            //         }); // Assign the second 'yes' found to y
+                            //         yesCount++;
+                            //         // We found both, so we can stop the loop if needed (optional optimization)
+                            //         break;
+                            //       }
+                            //     }
+                            //   }
+                            // } else {
+                            //   this.setState({
+                            //     bestPracticeInd1: "N/A",
+                            //     bestPracticeInd2: "N/A",
+                            //   });
+                            // }
+                            // Setup BestPractice test2
+
+                            // // Setup BestPractice test
+                            // if (
+                            //   this.state.teacherStatus === "Priority 3" ||
+                            //   this.state.teacherStatus === "Priority 2"
+                            // ) {
+                            //   if (
+                            //     this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                            //   ) {
+                            //     this.setState({
+                            //       bestPracticeInd1:
+                            //         "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                            //     });
+                            //   } else if (
+                            //     this.state
+                            //       .ind33CheckWritingSpellingPunctuationStatus ===
+                            //     "Yes"
+                            //   ) {
+                            //     this.setState({
+                            //       bestPracticeInd1:
+                            //         "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                            //     });
+                            //   } else if (
+                            //     this.state
+                            //       .ind32TaughtVocabularyNewSentenceStatus ===
+                            //     "Yes"
+                            //   ) {
+                            //     this.setState({
+                            //       bestPracticeInd1:
+                            //         "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                            //       bestPracticeInd2: "",
+                            //     });
+                            //   } else if (
+                            //     this.state.ind31AskedHelpfulQuestionsStatus ===
+                            //     "Yes"
+                            //   ) {
+                            //     this.setState({
+                            //       bestPracticeInd1:
+                            //         "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                            //     });
+                            //   }
+                            // } else if (
+                            //   this.state.teacherStatus === "Priority 1"
+                            // ) {
+                            //   if (
+                            //     this.state
+                            //       .ind25FollowsInstructionsInWritingStatus ===
+                            //     "Yes"
+                            //   ) {
+                            //     this.setState({
+                            //       bestPracticeInd1:
+                            //         "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                            //     });
+                            //   } else if (
+                            //     this.state
+                            //       .ind24AllowReadIndividuallyPairGroupsStatus ===
+                            //     "Yes"
+                            //   ) {
+                            //     this.setState({
+                            //       bestPracticeInd1:
+                            //         "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                            //     });
+                            //   } else if (
+                            //     this.state
+                            //       .ind23DemonstratesFluentReadingStatus ===
+                            //     "Yes"
+                            //   ) {
+                            //     this.setState({
+                            //       bestPracticeInd1:
+                            //         "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                            //     });
+                            //   } else if (
+                            //     this.state
+                            //       .ind22TaughtCorrectlyAllowPracticeStatus ===
+                            //     "Yes"
+                            //   ) {
+                            //     this.setState({
+                            //       bestPracticeInd1:
+                            //         "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                            //     });
+                            //   } else if (
+                            //     this.state.ind21CorrectlyPronouncedStatus ===
+                            //     "Yes"
+                            //   ) {
+                            //     this.setState({
+                            //       bestPracticeInd1:
+                            //         "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                            //     });
+                            //   }
+                            // } else if (
+                            //   this.state.teacherStatus === "Priority 0"
+                            // ) {
+                            //   if (
+                            //     this.state
+                            //       .ind16IndependentReadingOpportunityStatus ===
+                            //     "Yes"
+                            //   ) {
+                            //     this.setState({
+                            //       bestPracticeInd1:
+                            //         "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                            //     });
+                            //   } else if (
+                            //     this.state
+                            //       .ind15InstructedToUseWorkbookStatus === "Yes"
+                            //   ) {
+                            //     this.setState({
+                            //       bestPracticeInd1:
+                            //         "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                            //     });
+                            //   } else if (
+                            //     this.state
+                            //       .ind14ImplementedAllTaskInTimeStatus === "Yes"
+                            //   ) {
+                            //     this.setState({
+                            //       bestPracticeInd1:
+                            //         "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                            //     });
+                            //   } else if (
+                            //     this.state
+                            //       .ind13FollowedContinuityOfLessonStatus ===
+                            //     "Yes"
+                            //   ) {
+                            //     this.setState({
+                            //       bestPracticeInd1:
+                            //         "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                            //     });
+                            //   } else if (
+                            //     this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                            //     "Yes"
+                            //   ) {
+                            //     this.setState({
+                            //       bestPracticeInd1:
+                            //         "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                            //     });
+                            //   } else if (value === "Yes") {
+                            //     this.setState({
+                            //       bestPracticeInd1:
+                            //         "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                            //     });
+                            //   }
+                            // } else {
+                            //   this.setState({
+                            //     bestPracticeInd1: "N/A",
+                            //   });
+                            // }
+                            // // Setup BestPractice test
+
+                            // // Setup BestPractice
+                            // if (
+                            //   this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind33CheckWritingSpellingPunctuationStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind32TaughtVocabularyNewSentenceStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                            //     bestPracticeInd2: "",
+                            //   });
+                            // } else if (
+                            //   this.state.ind31AskedHelpfulQuestionsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind25FollowsInstructionsInWritingStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind24AllowReadIndividuallyPairGroupsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind23DemonstratesFluentReadingStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind22TaughtCorrectlyAllowPracticeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind21CorrectlyPronouncedStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind16IndependentReadingOpportunityStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind15InstructedToUseWorkbookStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind14ImplementedAllTaskInTimeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind13FollowedContinuityOfLessonStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (value === "Yes") {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                            //   });
+                            // } else {
+                            //   this.setState({
+                            //     bestPracticeInd1: "N/A",
+                            //   });
+                            // }
+                            // // Setup BestPractice
+
+                            // // Setup CoachingSupport
+                            // if (value === "No" || value === "Partial") {
+                            //   this.setState({
+                            //     coachingSupportInd1:
+                            //       "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                            //     coachingSupportInd2:
+                            //       "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                            //     "No" ||
+                            //   this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                            //     "Partial"
+                            // ) {
+                            //   this.setState({
+                            //     coachingSupportInd1:
+                            //       "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                            //     coachingSupportInd2:
+                            //       "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind13FollowedContinuityOfLessonStatus ===
+                            //     "No" ||
+                            //   this.state
+                            //     .ind13FollowedContinuityOfLessonStatus ===
+                            //     "Partial"
+                            // ) {
+                            //   this.setState({
+                            //     coachingSupportInd1:
+                            //       "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                            //     coachingSupportInd2:
+                            //       "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয়।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind14ImplementedAllTaskInTimeStatus ===
+                            //     "No" ||
+                            //   this.state.ind14ImplementedAllTaskInTimeStatus ===
+                            //     "Partial"
+                            // ) {
+                            //   this.setState({
+                            //     coachingSupportInd1:
+                            //       "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                            //     coachingSupportInd2:
+                            //       "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind15InstructedToUseWorkbookStatus ===
+                            //     "No" ||
+                            //   this.state.ind15InstructedToUseWorkbookStatus ===
+                            //     "Partial"
+                            // ) {
+                            //   this.setState({
+                            //     coachingSupportInd1:
+                            //       "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                            //     coachingSupportInd2:
+                            //       "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind16IndependentReadingOpportunityStatus ===
+                            //     "No" ||
+                            //   this.state
+                            //     .ind16IndependentReadingOpportunityStatus ===
+                            //     "Partial"
+                            // ) {
+                            //   this.setState({
+                            //     coachingSupportInd1:
+                            //       "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                            //     coachingSupportInd2:
+                            //       "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind21CorrectlyPronouncedStatus ===
+                            //     "No" ||
+                            //   this.state.ind21CorrectlyPronouncedStatus ===
+                            //     "Partial"
+                            // ) {
+                            //   this.setState({
+                            //     coachingSupportInd1:
+                            //       "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                            //     coachingSupportInd2:
+                            //       "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind22TaughtCorrectlyAllowPracticeStatus ===
+                            //     "No" ||
+                            //   this.state
+                            //     .ind22TaughtCorrectlyAllowPracticeStatus ===
+                            //     "Partial"
+                            // ) {
+                            //   this.setState({
+                            //     coachingSupportInd1:
+                            //       "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                            //     coachingSupportInd2:
+                            //       "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind23DemonstratesFluentReadingStatus ===
+                            //     "No" ||
+                            //   this.state
+                            //     .ind23DemonstratesFluentReadingStatus ===
+                            //     "Partial"
+                            // ) {
+                            //   this.setState({
+                            //     coachingSupportInd1:
+                            //       "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                            //     coachingSupportInd2:
+                            //       "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind24AllowReadIndividuallyPairGroupsStatus ===
+                            //     "No" ||
+                            //   this.state
+                            //     .ind24AllowReadIndividuallyPairGroupsStatus ===
+                            //     "Partial"
+                            // ) {
+                            //   this.setState({
+                            //     coachingSupportInd1:
+                            //       "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                            //     coachingSupportInd2:
+                            //       "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind25FollowsInstructionsInWritingStatus ===
+                            //     "No" ||
+                            //   this.state
+                            //     .ind25FollowsInstructionsInWritingStatus ===
+                            //     "Partial"
+                            // ) {
+                            //   this.setState({
+                            //     coachingSupportInd1:
+                            //       "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                            //     coachingSupportInd2:
+                            //       "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind31AskedHelpfulQuestionsStatus ===
+                            //     "No" ||
+                            //   this.state.ind31AskedHelpfulQuestionsStatus ===
+                            //     "Partial"
+                            // ) {
+                            //   this.setState({
+                            //     coachingSupportInd1:
+                            //       "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                            //     coachingSupportInd2:
+                            //       "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind32TaughtVocabularyNewSentenceStatus ===
+                            //     "No" ||
+                            //   this.state
+                            //     .ind32TaughtVocabularyNewSentenceStatus ===
+                            //     "Partial"
+                            // ) {
+                            //   this.setState({
+                            //     coachingSupportInd1:
+                            //       "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                            //     coachingSupportInd2:
+                            //       "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind33CheckWritingSpellingPunctuationStatus ===
+                            //     "No" ||
+                            //   this.state
+                            //     .ind33CheckWritingSpellingPunctuationStatus ===
+                            //     "Partial"
+                            // ) {
+                            //   this.setState({
+                            //     coachingSupportInd1:
+                            //       "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                            //     coachingSupportInd2:
+                            //       "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind34CheckedWeDoYouDoStatus === "No" ||
+                            //   this.state.ind34CheckedWeDoYouDoStatus ===
+                            //     "Partial"
+                            // ) {
+                            //   this.setState({
+                            //     coachingSupportInd1:
+                            //       "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                            //     coachingSupportInd2:
+                            //       "শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন।",
+                            //   });
+                            // } else {
+                            //   this.setState({
+                            //     coachingSupportInd1: "N/A",
+                            //     coachingSupportInd2: "N/A",
+                            //   });
+                            // }
+                            // // Setup CoachingSupport
                           }}
                           selectedValue={
                             this.state
@@ -3537,7 +4541,11 @@ export default class PBanglaClassObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-                        <Text></Text>
+                        {!!this.state.errorInd11 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd11}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -3626,6 +4634,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                               ind12FollowedIDoWeDoYouDoStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd12: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd12: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set teacher status
                             if (
                               (this.state
@@ -3951,137 +4971,284 @@ export default class PBanglaClassObservationScreen extends React.Component {
                             }
                             // Set teacher status
 
-                            // Setup BestPractice
+                            // Setup BestPractice test
                             if (
-                              this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              this.state.teacherStatus === "Priority 3" ||
+                              this.state.teacherStatus === "Priority 2"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                              });
+                              if (
+                                this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind33CheckWritingSpellingPunctuationStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 1"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind32TaughtVocabularyNewSentenceStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 0"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state.ind31AskedHelpfulQuestionsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind25FollowsInstructionsInWritingStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24AllowReadIndividuallyPairGroupsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23DemonstratesFluentReadingStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22TaughtCorrectlyAllowPracticeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind21CorrectlyPronouncedStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind16IndependentReadingOpportunityStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind15InstructedToUseWorkbookStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind14ImplementedAllTaskInTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind13FollowedContinuityOfLessonStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeInd1: "N/A",
                               });
                             }
-                            // Setup BestPractice
+                            // Setup BestPractice test
+
+                            // // Setup BestPractice
+                            // if (
+                            //   this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind33CheckWritingSpellingPunctuationStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind32TaughtVocabularyNewSentenceStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                            //     bestPracticeInd2: "",
+                            //   });
+                            // } else if (
+                            //   this.state.ind31AskedHelpfulQuestionsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind25FollowsInstructionsInWritingStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind24AllowReadIndividuallyPairGroupsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind23DemonstratesFluentReadingStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind22TaughtCorrectlyAllowPracticeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind21CorrectlyPronouncedStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind16IndependentReadingOpportunityStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind15InstructedToUseWorkbookStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind14ImplementedAllTaskInTimeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind13FollowedContinuityOfLessonStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (value === "Yes") {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                            //   });
+                            // } else {
+                            //   this.setState({
+                            //     bestPracticeInd1: "N/A",
+                            //   });
+                            // }
+                            // // Setup BestPractice
 
                             // Setup CoachingSupport
                             if (
@@ -4295,7 +5462,11 @@ export default class PBanglaClassObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd12 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd12}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -4385,6 +5556,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                               ind13FollowedContinuityOfLessonStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd13: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd13: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set teacher status
                             if (
                               (this.state
@@ -4704,137 +5887,283 @@ export default class PBanglaClassObservationScreen extends React.Component {
                             }
                             // Set teacher status
 
-                            // Setup BestPractice
+                            // Setup BestPractice test
                             if (
-                              this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              this.state.teacherStatus === "Priority 3" ||
+                              this.state.teacherStatus === "Priority 2"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                              });
+                              if (
+                                this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind33CheckWritingSpellingPunctuationStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 1"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind32TaughtVocabularyNewSentenceStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 0"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state.ind31AskedHelpfulQuestionsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind25FollowsInstructionsInWritingStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24AllowReadIndividuallyPairGroupsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23DemonstratesFluentReadingStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22TaughtCorrectlyAllowPracticeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind21CorrectlyPronouncedStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind16IndependentReadingOpportunityStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind15InstructedToUseWorkbookStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind14ImplementedAllTaskInTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeInd1: "N/A",
                               });
                             }
-                            // Setup BestPractice
+                            // Setup BestPractice test
+
+                            // // Setup BestPractice
+                            // if (
+                            //   this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind33CheckWritingSpellingPunctuationStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind32TaughtVocabularyNewSentenceStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                            //     bestPracticeInd2: "",
+                            //   });
+                            // } else if (
+                            //   this.state.ind31AskedHelpfulQuestionsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind25FollowsInstructionsInWritingStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind24AllowReadIndividuallyPairGroupsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind23DemonstratesFluentReadingStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind22TaughtCorrectlyAllowPracticeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind21CorrectlyPronouncedStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind16IndependentReadingOpportunityStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind15InstructedToUseWorkbookStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind14ImplementedAllTaskInTimeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                            //   });
+                            // } else if (value === "Yes") {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                            //   });
+                            // } else {
+                            //   this.setState({
+                            //     bestPracticeInd1: "N/A",
+                            //   });
+                            // }
+                            // // Setup BestPractice
 
                             // Setup CoachingSupport
                             if (
@@ -4918,7 +6247,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                                 coachingSupportInd1:
                                   "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
                                 coachingSupportInd2:
-                                  "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে।",
+                                  "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে ।",
                               });
                             } else if (
                               this.state
@@ -4932,7 +6261,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                                 coachingSupportInd1:
                                   "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
                                 coachingSupportInd2:
-                                  "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে।",
+                                  "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে ।",
                               });
                             } else if (
                               this.state
@@ -4946,7 +6275,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                                 coachingSupportInd1:
                                   "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
                                 coachingSupportInd2:
-                                  "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে।",
+                                  "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে ।",
                               });
                             } else if (
                               this.state
@@ -4960,7 +6289,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                                 coachingSupportInd1:
                                   "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
                                 coachingSupportInd2:
-                                  "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে।",
+                                  "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে ।",
                               });
                             } else if (
                               this.state
@@ -4974,7 +6303,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                                 coachingSupportInd1:
                                   "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
                                 coachingSupportInd2:
-                                  "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।",
+                                  "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে ।",
                               });
                             } else if (
                               this.state.ind31AskedHelpfulQuestionsStatus ===
@@ -4986,7 +6315,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                                 coachingSupportInd1:
                                   "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
                                 coachingSupportInd2:
-                                  "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা।",
+                                  "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা ।",
                               });
                             } else if (
                               this.state
@@ -4998,9 +6327,9 @@ export default class PBanglaClassObservationScreen extends React.Component {
                             ) {
                               this.setState({
                                 coachingSupportInd1:
-                                  "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                                  "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন ।",
                                 coachingSupportInd2:
-                                  "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে।",
+                                  "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে ।",
                               });
                             } else if (
                               this.state
@@ -5046,7 +6375,11 @@ export default class PBanglaClassObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd13 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd13}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -5136,6 +6469,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                               ind14ImplementedAllTaskInTimeStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd14: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd14: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set teacher status
                             if (
                               (this.state
@@ -5455,137 +6800,284 @@ export default class PBanglaClassObservationScreen extends React.Component {
                             }
                             // Set teacher status
 
-                            // Setup BestPractice
+                            // Setup BestPractice test
                             if (
-                              this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              this.state.teacherStatus === "Priority 3" ||
+                              this.state.teacherStatus === "Priority 2"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                              });
+                              if (
+                                this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind33CheckWritingSpellingPunctuationStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 1"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind32TaughtVocabularyNewSentenceStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 0"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state.ind31AskedHelpfulQuestionsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind25FollowsInstructionsInWritingStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24AllowReadIndividuallyPairGroupsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23DemonstratesFluentReadingStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22TaughtCorrectlyAllowPracticeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind21CorrectlyPronouncedStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind16IndependentReadingOpportunityStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind15InstructedToUseWorkbookStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind13FollowedContinuityOfLessonStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeInd1: "N/A",
                               });
                             }
-                            // Setup BestPractice
+                            // Setup BestPractice test
+
+                            // // Setup BestPractice
+                            // if (
+                            //   this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind33CheckWritingSpellingPunctuationStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind32TaughtVocabularyNewSentenceStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                            //     bestPracticeInd2: "",
+                            //   });
+                            // } else if (
+                            //   this.state.ind31AskedHelpfulQuestionsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind25FollowsInstructionsInWritingStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind24AllowReadIndividuallyPairGroupsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind23DemonstratesFluentReadingStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind22TaughtCorrectlyAllowPracticeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind21CorrectlyPronouncedStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind16IndependentReadingOpportunityStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind15InstructedToUseWorkbookStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                            //   });
+                            // } else if (value === "Yes") {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind13FollowedContinuityOfLessonStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                            //   });
+                            // } else {
+                            //   this.setState({
+                            //     bestPracticeInd1: "N/A",
+                            //   });
+                            // }
+                            // // Setup BestPractice
 
                             // Setup CoachingSupport
                             if (
@@ -5799,7 +7291,11 @@ export default class PBanglaClassObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd14 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd14}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -5887,6 +7383,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                               ind15InstructedToUseWorkbookStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd15: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd15: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set teacher status
                             if (
                               (this.state
@@ -6209,137 +7717,284 @@ export default class PBanglaClassObservationScreen extends React.Component {
                             }
                             // Set teacher status
 
-                            // Setup BestPractice
+                            // Setup BestPractice test
                             if (
-                              this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              this.state.teacherStatus === "Priority 3" ||
+                              this.state.teacherStatus === "Priority 2"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                              });
+                              if (
+                                this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind33CheckWritingSpellingPunctuationStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 1"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind32TaughtVocabularyNewSentenceStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 0"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state.ind31AskedHelpfulQuestionsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind25FollowsInstructionsInWritingStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24AllowReadIndividuallyPairGroupsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23DemonstratesFluentReadingStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22TaughtCorrectlyAllowPracticeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind21CorrectlyPronouncedStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind16IndependentReadingOpportunityStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind14ImplementedAllTaskInTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind13FollowedContinuityOfLessonStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeInd1: "N/A",
                               });
                             }
-                            // Setup BestPractice
+                            // Setup BestPractice test
+
+                            // // Setup BestPractice
+                            // if (
+                            //   this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind33CheckWritingSpellingPunctuationStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind32TaughtVocabularyNewSentenceStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                            //     bestPracticeInd2: "",
+                            //   });
+                            // } else if (
+                            //   this.state.ind31AskedHelpfulQuestionsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind25FollowsInstructionsInWritingStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind24AllowReadIndividuallyPairGroupsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind23DemonstratesFluentReadingStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind22TaughtCorrectlyAllowPracticeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind21CorrectlyPronouncedStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind16IndependentReadingOpportunityStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (value === "Yes") {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind14ImplementedAllTaskInTimeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind13FollowedContinuityOfLessonStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                            //   });
+                            // } else {
+                            //   this.setState({
+                            //     bestPracticeInd1: "N/A",
+                            //   });
+                            // }
+                            // // Setup BestPractice
 
                             // Setup CoachingSupport
                             if (
@@ -6553,7 +8208,11 @@ export default class PBanglaClassObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd15 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd15}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -6641,6 +8300,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                               ind16IndependentReadingOpportunityStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd16: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd16: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set teacher status
                             if (
                               (this.state
@@ -6960,136 +8631,282 @@ export default class PBanglaClassObservationScreen extends React.Component {
                             }
                             // Set teacher status
 
-                            // Setup BestPractice
+                            // Setup BestPractice test
                             if (
-                              this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              this.state.teacherStatus === "Priority 3" ||
+                              this.state.teacherStatus === "Priority 2"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                              });
+                              if (
+                                this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind33CheckWritingSpellingPunctuationStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 1"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind32TaughtVocabularyNewSentenceStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 0"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state.ind31AskedHelpfulQuestionsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind25FollowsInstructionsInWritingStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24AllowReadIndividuallyPairGroupsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23DemonstratesFluentReadingStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22TaughtCorrectlyAllowPracticeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind21CorrectlyPronouncedStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind15InstructedToUseWorkbookStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind14ImplementedAllTaskInTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind13FollowedContinuityOfLessonStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                              });
+                              if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeInd1: "N/A",
                               });
                             }
-                            // Setup BestPractice
+                            // Setup BestPractice test
+
+                            // // Setup BestPractice
+                            // if (
+                            //   this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind33CheckWritingSpellingPunctuationStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind32TaughtVocabularyNewSentenceStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                            //     bestPracticeInd2: "",
+                            //   });
+                            // } else if (
+                            //   this.state.ind31AskedHelpfulQuestionsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind25FollowsInstructionsInWritingStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind24AllowReadIndividuallyPairGroupsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind23DemonstratesFluentReadingStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind22TaughtCorrectlyAllowPracticeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind21CorrectlyPronouncedStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                            //   });
+                            // } else if (value === "Yes") {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind15InstructedToUseWorkbookStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind14ImplementedAllTaskInTimeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind13FollowedContinuityOfLessonStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                            //   });
+                            // } else {
+                            //   this.setState({
+                            //     bestPracticeInd1: "N/A",
+                            //   });
+                            // }
+                            // // Setup BestPractice
 
                             // Setup CoachingSupport
                             if (
@@ -7301,7 +9118,11 @@ export default class PBanglaClassObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-                        <Text></Text>
+                        {!!this.state.errorInd16 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd16}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -7405,6 +9226,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                               ind21CorrectlyPronouncedStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd21: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd21: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set teacher status
                             if (
                               (this.state
@@ -7729,137 +9562,284 @@ export default class PBanglaClassObservationScreen extends React.Component {
                             }
                             // Set teacher status
 
-                            // Setup BestPractice
+                            // Setup BestPractice test
                             if (
-                              this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              this.state.teacherStatus === "Priority 3" ||
+                              this.state.teacherStatus === "Priority 2"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                              });
+                              if (
+                                this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind33CheckWritingSpellingPunctuationStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 1"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind32TaughtVocabularyNewSentenceStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 0"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state.ind31AskedHelpfulQuestionsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind25FollowsInstructionsInWritingStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24AllowReadIndividuallyPairGroupsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23DemonstratesFluentReadingStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22TaughtCorrectlyAllowPracticeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind16IndependentReadingOpportunityStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind15InstructedToUseWorkbookStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind14ImplementedAllTaskInTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind13FollowedContinuityOfLessonStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeInd1: "N/A",
                               });
                             }
-                            // Setup BestPractice
+                            // Setup BestPractice test
+
+                            // // Setup BestPractice
+                            // if (
+                            //   this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind33CheckWritingSpellingPunctuationStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind32TaughtVocabularyNewSentenceStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                            //     bestPracticeInd2: "",
+                            //   });
+                            // } else if (
+                            //   this.state.ind31AskedHelpfulQuestionsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind25FollowsInstructionsInWritingStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind24AllowReadIndividuallyPairGroupsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind23DemonstratesFluentReadingStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind22TaughtCorrectlyAllowPracticeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (value === "Yes") {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind16IndependentReadingOpportunityStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind15InstructedToUseWorkbookStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind14ImplementedAllTaskInTimeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind13FollowedContinuityOfLessonStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                            //   });
+                            // } else {
+                            //   this.setState({
+                            //     bestPracticeInd1: "N/A",
+                            //   });
+                            // }
+                            // // Setup BestPractice
 
                             // Setup CoachingSupport
                             if (
@@ -8073,7 +10053,11 @@ export default class PBanglaClassObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd21 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd21}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -8162,6 +10146,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                             this.setState({
                               ind22TaughtCorrectlyAllowPracticeStatus: value,
                             });
+
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd22: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd22: "",
+                              });
+                            }
+                            // Set error message
 
                             // Set teacher status
                             if (
@@ -8479,136 +10475,282 @@ export default class PBanglaClassObservationScreen extends React.Component {
                             }
                             // Set teacher status
 
-                            // Setup BestPractice
+                            // Setup BestPractice test
                             if (
-                              this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              this.state.teacherStatus === "Priority 3" ||
+                              this.state.teacherStatus === "Priority 2"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                              });
+                              if (
+                                this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind33CheckWritingSpellingPunctuationStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 1"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind32TaughtVocabularyNewSentenceStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 0"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state.ind31AskedHelpfulQuestionsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind25FollowsInstructionsInWritingStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24AllowReadIndividuallyPairGroupsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23DemonstratesFluentReadingStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind21CorrectlyPronouncedStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind16IndependentReadingOpportunityStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind15InstructedToUseWorkbookStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind14ImplementedAllTaskInTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind13FollowedContinuityOfLessonStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeInd1: "N/A",
                               });
                             }
-                            // Setup BestPractice
+                            // Setup BestPractice test
+
+                            // // Setup BestPractice
+                            // if (
+                            //   this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind33CheckWritingSpellingPunctuationStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind32TaughtVocabularyNewSentenceStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                            //     bestPracticeInd2: "",
+                            //   });
+                            // } else if (
+                            //   this.state.ind31AskedHelpfulQuestionsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind25FollowsInstructionsInWritingStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind24AllowReadIndividuallyPairGroupsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind23DemonstratesFluentReadingStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                            //   });
+                            // } else if (value === "Yes") {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind21CorrectlyPronouncedStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind16IndependentReadingOpportunityStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind15InstructedToUseWorkbookStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind14ImplementedAllTaskInTimeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind13FollowedContinuityOfLessonStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                            //   });
+                            // } else {
+                            //   this.setState({
+                            //     bestPracticeInd1: "N/A",
+                            //   });
+                            // }
+                            // // Setup BestPractice
 
                             // Setup CoachingSupport
                             if (
@@ -8820,7 +10962,11 @@ export default class PBanglaClassObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd22 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd22}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -8912,6 +11058,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                               ind23DemonstratesFluentReadingStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd23: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd23: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set teacher status
                             if (
                               (this.state
@@ -9226,137 +11384,282 @@ export default class PBanglaClassObservationScreen extends React.Component {
                             }
                             // Set teacher status
 
-                            // Setup BestPractice
+                            // Setup BestPractice test
                             if (
-                              this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              this.state.teacherStatus === "Priority 3" ||
+                              this.state.teacherStatus === "Priority 2"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                              });
+                              if (
+                                this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind33CheckWritingSpellingPunctuationStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 1"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.ind21CorrectlyPronouncedStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind32TaughtVocabularyNewSentenceStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 0"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state.ind31AskedHelpfulQuestionsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind25FollowsInstructionsInWritingStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24AllowReadIndividuallyPairGroupsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22TaughtCorrectlyAllowPracticeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind21CorrectlyPronouncedStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind16IndependentReadingOpportunityStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind15InstructedToUseWorkbookStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind14ImplementedAllTaskInTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind13FollowedContinuityOfLessonStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeInd1: "N/A",
                               });
                             }
-                            // Setup BestPractice
+                            // Setup BestPractice test
+
+                            // // Setup BestPractice
+                            // if (
+                            //   this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind33CheckWritingSpellingPunctuationStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind32TaughtVocabularyNewSentenceStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                            //     bestPracticeInd2: "",
+                            //   });
+                            // } else if (
+                            //   this.state.ind31AskedHelpfulQuestionsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind25FollowsInstructionsInWritingStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind24AllowReadIndividuallyPairGroupsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (value === "Yes") {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind22TaughtCorrectlyAllowPracticeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind21CorrectlyPronouncedStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind16IndependentReadingOpportunityStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind15InstructedToUseWorkbookStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind14ImplementedAllTaskInTimeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind13FollowedContinuityOfLessonStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                            //   });
+                            // } else {
+                            //   this.setState({
+                            //     bestPracticeInd1: "N/A",
+                            //   });
+                            // }
+                            // // Setup BestPractice
 
                             // Setup CoachingSupport
                             if (
@@ -9568,7 +11871,11 @@ export default class PBanglaClassObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd23 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd23}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -9659,6 +11966,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                               ind24AllowReadIndividuallyPairGroupsStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd24: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd24: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set teacher status
                             if (
                               (this.state
@@ -9975,136 +12294,282 @@ export default class PBanglaClassObservationScreen extends React.Component {
                             }
                             // Set teacher status
 
-                            // Setup BestPractice
+                            // Setup BestPractice test
                             if (
-                              this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              this.state.teacherStatus === "Priority 3" ||
+                              this.state.teacherStatus === "Priority 2"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                              });
+                              if (
+                                this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind33CheckWritingSpellingPunctuationStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 1"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind32TaughtVocabularyNewSentenceStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 0"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state.ind31AskedHelpfulQuestionsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind25FollowsInstructionsInWritingStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23DemonstratesFluentReadingStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22TaughtCorrectlyAllowPracticeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind21CorrectlyPronouncedStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind16IndependentReadingOpportunityStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind15InstructedToUseWorkbookStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind14ImplementedAllTaskInTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind13FollowedContinuityOfLessonStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeInd1: "N/A",
                               });
                             }
-                            // Setup BestPractice
+                            // Setup BestPractice test
+
+                            // // Setup BestPractice
+                            // if (
+                            //   this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind33CheckWritingSpellingPunctuationStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind32TaughtVocabularyNewSentenceStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                            //     bestPracticeInd2: "",
+                            //   });
+                            // } else if (
+                            //   this.state.ind31AskedHelpfulQuestionsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind25FollowsInstructionsInWritingStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                            //   });
+                            // } else if (value === "Yes") {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind23DemonstratesFluentReadingStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind22TaughtCorrectlyAllowPracticeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind21CorrectlyPronouncedStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind16IndependentReadingOpportunityStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind15InstructedToUseWorkbookStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind14ImplementedAllTaskInTimeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind13FollowedContinuityOfLessonStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                            //   });
+                            // } else {
+                            //   this.setState({
+                            //     bestPracticeInd1: "N/A",
+                            //   });
+                            // }
+                            // // Setup BestPractice
 
                             // Setup CoachingSupport
                             if (
@@ -10316,7 +12781,11 @@ export default class PBanglaClassObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd24 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd24}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -10406,6 +12875,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                             this.setState({
                               ind25FollowsInstructionsInWritingStatus: value,
                             });
+
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd25: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd25: "",
+                              });
+                            }
+                            // Set error message
 
                             // Set teacher status
                             if (
@@ -10721,136 +13202,282 @@ export default class PBanglaClassObservationScreen extends React.Component {
                             }
                             // Set teacher status
 
-                            // Setup BestPractice
+                            // Setup BestPractice test
                             if (
-                              this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              this.state.teacherStatus === "Priority 3" ||
+                              this.state.teacherStatus === "Priority 2"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                              });
+                              if (
+                                this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind33CheckWritingSpellingPunctuationStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 1"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                              });
+                              if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind32TaughtVocabularyNewSentenceStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 0"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state.ind31AskedHelpfulQuestionsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24AllowReadIndividuallyPairGroupsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23DemonstratesFluentReadingStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22TaughtCorrectlyAllowPracticeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind21CorrectlyPronouncedStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind16IndependentReadingOpportunityStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind15InstructedToUseWorkbookStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind14ImplementedAllTaskInTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind13FollowedContinuityOfLessonStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeInd1: "N/A",
                               });
                             }
-                            // Setup BestPractice
+                            // Setup BestPractice test
+
+                            // // Setup BestPractice
+                            // if (
+                            //   this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind33CheckWritingSpellingPunctuationStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind32TaughtVocabularyNewSentenceStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                            //     bestPracticeInd2: "",
+                            //   });
+                            // } else if (
+                            //   this.state.ind31AskedHelpfulQuestionsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                            //   });
+                            // } else if (value === "Yes") {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind24AllowReadIndividuallyPairGroupsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind23DemonstratesFluentReadingStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind22TaughtCorrectlyAllowPracticeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind21CorrectlyPronouncedStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind16IndependentReadingOpportunityStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind15InstructedToUseWorkbookStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind14ImplementedAllTaskInTimeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind13FollowedContinuityOfLessonStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                            //   });
+                            // } else {
+                            //   this.setState({
+                            //     bestPracticeInd1: "N/A",
+                            //   });
+                            // }
+                            // // Setup BestPractice
 
                             // Setup CoachingSupport
                             if (
@@ -11062,7 +13689,11 @@ export default class PBanglaClassObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd25 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd25}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -11166,6 +13797,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                               ind31AskedHelpfulQuestionsStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd31: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd31: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set teacher status
                             if (
                               (this.state
@@ -11485,133 +14128,280 @@ export default class PBanglaClassObservationScreen extends React.Component {
                             }
                             // Set teacher status
 
-                            // Setup BestPractice
+                            // Setup BestPractice test
                             if (
-                              this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              this.state.teacherStatus === "Priority 3" ||
+                              this.state.teacherStatus === "Priority 2"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                              });
+                              if (
+                                this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind33CheckWritingSpellingPunctuationStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 1"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind32TaughtVocabularyNewSentenceStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 0"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24AllowReadIndividuallyPairGroupsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23DemonstratesFluentReadingStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22TaughtCorrectlyAllowPracticeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind21CorrectlyPronouncedStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind16IndependentReadingOpportunityStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind15InstructedToUseWorkbookStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind14ImplementedAllTaskInTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind13FollowedContinuityOfLessonStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeInd1: "N/A",
                               });
                             }
-                            // Setup BestPractice
+                            // Setup BestPractice test
+
+                            // // Setup BestPractice
+                            // if (
+                            //   this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind33CheckWritingSpellingPunctuationStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind32TaughtVocabularyNewSentenceStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                            //     bestPracticeInd2: "",
+                            //   });
+                            // } else if (value === "Yes") {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                            //   });
+                            // } else if (value === "Yes") {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind24AllowReadIndividuallyPairGroupsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind23DemonstratesFluentReadingStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind22TaughtCorrectlyAllowPracticeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind21CorrectlyPronouncedStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind16IndependentReadingOpportunityStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind15InstructedToUseWorkbookStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind14ImplementedAllTaskInTimeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind13FollowedContinuityOfLessonStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                            //   });
+                            // } else {
+                            //   this.setState({
+                            //     bestPracticeInd1: "N/A",
+                            //   });
+                            // }
+                            // // Setup BestPractice
 
                             // Setup CoachingSupport
                             if (
@@ -11818,7 +14608,11 @@ export default class PBanglaClassObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd31 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd31}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -11908,6 +14702,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                               ind32TaughtVocabularyNewSentenceStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd32: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd32: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set teacher status
                             if (
                               (this.state
@@ -12221,132 +15027,278 @@ export default class PBanglaClassObservationScreen extends React.Component {
                             }
                             // Set teacher status
 
-                            // Setup BestPractice
+                            // Setup BestPractice test
                             if (
-                              this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              this.state.teacherStatus === "Priority 3" ||
+                              this.state.teacherStatus === "Priority 2"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                              });
+                              if (
+                                this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind33CheckWritingSpellingPunctuationStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 1"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                bestPracticeInd2: "",
-                              });
+                              if (
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state.ind31AskedHelpfulQuestionsStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 0"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24AllowReadIndividuallyPairGroupsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23DemonstratesFluentReadingStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22TaughtCorrectlyAllowPracticeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind21CorrectlyPronouncedStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind16IndependentReadingOpportunityStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind15InstructedToUseWorkbookStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind14ImplementedAllTaskInTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind13FollowedContinuityOfLessonStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeInd1: "N/A",
                               });
                             }
-                            // Setup BestPractice
+                            // Setup BestPractice test
+
+                            // // Setup BestPractice
+                            // if (
+                            //   this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind33CheckWritingSpellingPunctuationStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                            //   });
+                            // } else if (value === "Yes") {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                            //     bestPracticeInd2: "",
+                            //   });
+                            // } else if (
+                            //   this.state.ind31AskedHelpfulQuestionsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                            //   });
+                            // } else if (value === "Yes") {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind24AllowReadIndividuallyPairGroupsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind23DemonstratesFluentReadingStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind22TaughtCorrectlyAllowPracticeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind21CorrectlyPronouncedStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind16IndependentReadingOpportunityStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind15InstructedToUseWorkbookStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind14ImplementedAllTaskInTimeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind13FollowedContinuityOfLessonStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                            //   });
+                            // } else {
+                            //   this.setState({
+                            //     bestPracticeInd1: "N/A",
+                            //   });
+                            // }
+                            // // Setup BestPractice
 
                             // Setup CoachingSupport
                             if (
@@ -12558,7 +15510,11 @@ export default class PBanglaClassObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd32 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd32}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -12649,6 +15605,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                               ind33CheckWritingSpellingPunctuationStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd33: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd33: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set teacher status
                             if (
                               (this.state
@@ -12962,136 +15930,282 @@ export default class PBanglaClassObservationScreen extends React.Component {
                             }
                             // Set teacher status
 
-                            // Setup BestPractice
+                            // Setup BestPractice test
                             if (
-                              this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              this.state.teacherStatus === "Priority 3" ||
+                              this.state.teacherStatus === "Priority 2"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                              });
+                              if (
+                                this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind32TaughtVocabularyNewSentenceStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 1"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                bestPracticeInd2: "",
-                              });
+                              if (
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state.ind31AskedHelpfulQuestionsStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 0"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind25FollowsInstructionsInWritingStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24AllowReadIndividuallyPairGroupsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23DemonstratesFluentReadingStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22TaughtCorrectlyAllowPracticeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind21CorrectlyPronouncedStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind16IndependentReadingOpportunityStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind15InstructedToUseWorkbookStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind14ImplementedAllTaskInTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind13FollowedContinuityOfLessonStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeInd1: "N/A",
                               });
                             }
-                            // Setup BestPractice
+                            // Setup BestPractice test
+
+                            // // Setup BestPractice
+                            // if (
+                            //   this.state.ind34CheckedWeDoYouDoStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                            //   });
+                            // } else if (value === "Yes") {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind32TaughtVocabularyNewSentenceStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                            //     bestPracticeInd2: "",
+                            //   });
+                            // } else if (
+                            //   this.state.ind31AskedHelpfulQuestionsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind25FollowsInstructionsInWritingStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind24AllowReadIndividuallyPairGroupsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind23DemonstratesFluentReadingStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind22TaughtCorrectlyAllowPracticeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind21CorrectlyPronouncedStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind16IndependentReadingOpportunityStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind15InstructedToUseWorkbookStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind14ImplementedAllTaskInTimeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind13FollowedContinuityOfLessonStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                            //   });
+                            // } else {
+                            //   this.setState({
+                            //     bestPracticeInd1: "N/A",
+                            //   });
+                            // }
+                            // // Setup BestPractice
 
                             // Setup CoachingSupport
                             if (
@@ -13303,7 +16417,11 @@ export default class PBanglaClassObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd33 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd33}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -13392,6 +16510,18 @@ export default class PBanglaClassObservationScreen extends React.Component {
                             this.setState({
                               ind34CheckedWeDoYouDoStatus: value,
                             });
+
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd34: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd34: "",
+                              });
+                            }
+                            // Set error message
 
                             // Set teacher status
                             if (
@@ -13716,138 +16846,286 @@ export default class PBanglaClassObservationScreen extends React.Component {
                             }
                             // Set teacher status
 
-                            // Setup BestPractice
-                            if (value === "Yes") {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33CheckWritingSpellingPunctuationStatus ===
-                              "Yes"
+                            // Setup BestPractice test
+                            if (
+                              this.state.teacherStatus === "Priority 3" ||
+                              this.state.teacherStatus === "Priority 2"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-                              });
+                              if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33CheckWritingSpellingPunctuationStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32TaughtVocabularyNewSentenceStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state.ind31AskedHelpfulQuestionsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state
-                                .ind32TaughtVocabularyNewSentenceStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 1"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
-                                bestPracticeInd2: "",
-                              });
+                              if (
+                                this.state
+                                  .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24AllowReadIndividuallyPairGroupsStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23DemonstratesFluentReadingStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22TaughtCorrectlyAllowPracticeStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state.ind21CorrectlyPronouncedStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                                });
+                              }
                             } else if (
-                              this.state.ind31AskedHelpfulQuestionsStatus ===
-                              "Yes"
+                              this.state.teacherStatus === "Priority 0"
                             ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind25FollowsInstructionsInWritingStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24AllowReadIndividuallyPairGroupsStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23DemonstratesFluentReadingStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22TaughtCorrectlyAllowPracticeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind21CorrectlyPronouncedStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind16IndependentReadingOpportunityStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind15InstructedToUseWorkbookStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-                              });
-                            } else if (
-                              this.state.ind14ImplementedAllTaskInTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind13FollowedContinuityOfLessonStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state.ind12FollowedIDoWeDoYouDoStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-                              });
-                            } else if (
-                              this.state
-                                .ind11TeacherFollowedTeacherGuideInClassStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeInd1:
-                                  "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-                              });
+                              if (
+                                this.state
+                                  .ind16IndependentReadingOpportunityStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind15InstructedToUseWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind14ImplementedAllTaskInTimeStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind13FollowedContinuityOfLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeInd1:
+                                    "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeInd1: "N/A",
                               });
                             }
-                            // Setup BestPractice
+                            // Setup BestPractice test
+
+                            // // Setup BestPractice
+                            // if (value === "Yes") {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind33CheckWritingSpellingPunctuationStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind32TaughtVocabularyNewSentenceStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন।",
+                            //     bestPracticeInd2: "",
+                            //   });
+                            // } else if (
+                            //   this.state.ind31AskedHelpfulQuestionsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind25FollowsInstructionsInWritingStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind24AllowReadIndividuallyPairGroupsStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind23DemonstratesFluentReadingStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind22TaughtCorrectlyAllowPracticeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind21CorrectlyPronouncedStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind16IndependentReadingOpportunityStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind15InstructedToUseWorkbookStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind14ImplementedAllTaskInTimeStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind13FollowedContinuityOfLessonStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind12FollowedIDoWeDoYouDoStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind11TeacherFollowedTeacherGuideInClassStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeInd1:
+                            //       "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+                            //   });
+                            // } else {
+                            //   this.setState({
+                            //     bestPracticeInd1: "N/A",
+                            //   });
+                            // }
+                            // // Setup BestPractice
 
                             // Setup CoachingSupport
                             if (
@@ -14062,6 +17340,11 @@ export default class PBanglaClassObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
+                        {!!this.state.errorInd34 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd34}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -14084,209 +17367,6 @@ export default class PBanglaClassObservationScreen extends React.Component {
                     </View>
                   </Card>
                 </Card>
-              </View>
-            </Card>
-          </View>
-
-          <View style={{ padding: 10 }}>
-            <Text style={styles.bigRedText}>
-              শিক্ষকের অবস্থা (Teacher Status)
-            </Text>
-
-            <Card style={{ padding: 10, margin: 10, flex: 1 }}>
-              <View style={{ padding: 5 }}>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 2, padding: 2 }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      ইনডিকেটর অনুযায়ী শিক্ষকের অবস্থা (Status of teachers
-                      according to indicators)
-                    </Text>
-                  </View>
-                  <View style={{ flex: 1, padding: 2 }}>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        fontWeight: "bold",
-                        color: "red",
-                      }}
-                    >
-                      {this.state.teacherStatus}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </Card>
-          </View>
-
-          <View style={{ padding: 10 }}>
-            <Card style={{ padding: 10, margin: 10, flex: 1 }}>
-              <Text
-                style={{
-                  backgroundColor: "white",
-                  fontSize: 18,
-                  fontWeight: "bold",
-                }}
-              >
-                শিক্ষককে পরামর্শ দেয়ার জন্য গুরুত্বপূর্ণ কিছু বিষয় : (Some
-                important points to suggest to the teacher:)
-              </Text>
-              <View style={{ padding: 5 }}>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 1, padding: 2 }}>
-                    <Text>
-                      ক্লাস চলাকালীন শিক্ষক ভালো করেছেন এমন ১/২ টি বিষয় উল্লেখ
-                      করুন । (Mention 1/2 things the teacher did well during the
-                      class.)
-                    </Text>
-                  </View>
-                </View>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 1, padding: 2 }}>
-                    <Text>ইনডিকেটর</Text>
-                    <Text></Text>
-                    <Text
-                      style={{
-                        backgroundColor: "white",
-                        fontSize: 18,
-                        fontWeight: "bold",
-                        color: "red",
-                      }}
-                    >
-                      {this.state.bestPracticeInd1}
-                    </Text>
-                    {/* <TextInput
-                      style={{ height: 150, padding: 5, borderWidth: 1 }}
-                      multiline={true}
-                      numberOfLines={20}
-                      placeholder=""
-                      editable={false}
-                      selectTextOnFocus={false}
-                      value={this.state.bestPracticeInd1}
-                    ></TextInput> */}
-                  </View>
-                </View>
-                <View style={{ flexDirection: "row", marginTop: 20 }}>
-                  <View style={{ flex: 1, padding: 2 }}>
-                    <Text>
-                      প্রায়োরিটি এরিয়ার আলোকে যে বিষয়গুলোতে শিক্ষকের আরো ভালো
-                      করার সুযোগ আছে তা উল্লেখ করুন । (Based on the priority
-                      areas, mention the areas where the teacher has room to
-                      improve.)
-                    </Text>
-                  </View>
-                </View>
-
-                <Text>প্রায়োরিটি এরিয়ার বিষয়: (Priority Area)</Text>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 1, padding: 2 }}>
-                    <Text>ইনডিকেটর</Text>
-                    <Text></Text>
-                    <Text
-                      style={{
-                        backgroundColor: "white",
-                        fontSize: 18,
-                        fontWeight: "bold",
-                        color: "red",
-                      }}
-                    >
-                      {this.state.coachingSupportInd1}
-                    </Text>
-                    {/* <TextInput
-                      style={{ height: 150, padding: 5, borderWidth: 1 }}
-                      multiline={true}
-                      numberOfLines={20}
-                      placeholder=""
-                      editable={false}
-                      value={this.state.coachingSupportInd1}
-                    ></TextInput> */}
-                  </View>
-                </View>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 1, padding: 2 }}>
-                    <Text>কেন এটি গুরুত্বপূর্ণ</Text>
-                    <Text></Text>
-                    <Text
-                      style={{
-                        backgroundColor: "white",
-                        fontSize: 18,
-                        fontWeight: "bold",
-                        color: "red",
-                      }}
-                    >
-                      {this.state.coachingSupportInd2}
-                    </Text>
-                  </View>
-                </View>
-
-                <View style={{ flexDirection: "row", marginTop: 20 }}>
-                  <View style={{ flex: 1, padding: 2, flexDirection: "row" }}>
-                    <View style={{ flexDirection: "row" }}>
-                      <Text>শিক্ষকের করনীয়: ( Teacher to do:)</Text>
-                      <Text
-                        style={{
-                          textAlign: "right",
-                          color: "red",
-                          fontSize: 16,
-                        }}
-                      >
-                        *
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 1, padding: 2 }}>
-                    <TextInput
-                      style={{ height: 80, padding: 5, borderWidth: 1 }}
-                      placeholder="লিখুন(Word limit 50)"
-                      keyboardType="default"
-                      editable={this.state.inputEnabled}
-                      multiline={true}
-                      onChangeText={(text) =>
-                        this.setState({
-                          coachingSupportTeacher: text,
-                        })
-                      }
-                      value={this.state.coachingSupportTeacher + ""}
-                    ></TextInput>
-                  </View>
-                </View>
-
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 1, padding: 2, flexDirection: "row" }}>
-                    <Text>এলএফ-এর করনীয়: (LF to do:)</Text>
-                    <Text
-                      style={{
-                        color: "red",
-                        fontSize: 16,
-                      }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                </View>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 1, padding: 2 }}>
-                    <TextInput
-                      style={{ height: 80, padding: 5, borderWidth: 1 }}
-                      placeholder="লিখুন(Word limit 50)"
-                      keyboardType="default"
-                      editable={this.state.inputEnabled}
-                      multiline={true}
-                      onChangeText={(text) =>
-                        this.setState({
-                          coachingSupportLF: text,
-                        })
-                      }
-                      value={this.state.coachingSupportLF + ""}
-                    ></TextInput>
-                  </View>
-                </View>
               </View>
             </Card>
           </View>
@@ -14638,6 +17718,27 @@ export default class PBanglaClassObservationScreen extends React.Component {
           </View>
 
           <View style={{ padding: 10 }}>
+            <TouchableOpacity
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                width: "60%",
+                backgroundColor: "#CC8285",
+                borderRadius: 25,
+                height: 50,
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: 20,
+                marginLeft: 100,
+                marginBottom: 10,
+              }}
+              onPress={this.showConfirmDialogSaveForLater}
+            >
+              <Text>Save for later</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={{ padding: 10 }}>
             {isConnected ? (
               <TouchableOpacity
                 style={{
@@ -14649,7 +17750,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   height: 50,
                   alignItems: "center",
                   justifyContent: "center",
-                  marginTop: 40,
+                  marginTop: 20,
                   marginLeft: 100,
                   marginBottom: 20,
                 }}
@@ -14668,7 +17769,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   height: 50,
                   alignItems: "center",
                   justifyContent: "center",
-                  marginTop: 40,
+                  marginTop: 20,
                   marginLeft: 100,
                   marginBottom: 20,
                 }}

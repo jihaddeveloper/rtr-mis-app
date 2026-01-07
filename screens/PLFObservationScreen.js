@@ -248,6 +248,30 @@ export default class PLFObservationScreen extends React.Component {
       isChecked: "",
       isActive: "",
       isDeleted: "",
+
+      // error message
+      errorInd11: "",
+      errorInd12: "",
+      errorInd13: "",
+      errorInd14: "",
+      errorInd15: "",
+      errorInd16: "",
+      errorInd17: "",
+      errorInd21: "",
+      errorInd22: "",
+      errorInd23: "",
+      errorInd24: "",
+      errorInd25: "",
+      errorInd26: "",
+      errorInd27: "",
+      errorInd28: "",
+      errorInd29: "",
+      errorInd31: "",
+      errorInd32: "",
+      errorInd33: "",
+      errorInd34: "",
+      errorInd35: "",
+      // error message
     };
   }
 
@@ -1460,6 +1484,185 @@ export default class PLFObservationScreen extends React.Component {
   };
   // Sync stored data
 
+  // Calculate bestPractice  && coachingSupport
+  bestPracticeIndcoachingSupportInd = () => {
+    // Setup CoachingSupport
+    const variablesInd = [
+      this.state.ind11IsCarriedAllMaterialStatus,
+      this.state.ind12IsCheckedInRightTimeStatus,
+      this.state.ind13IsObservedBanglaLibraryStatus,
+      this.state.ind14FeedbackSessionWithTeacherStatus,
+      this.state.ind15MeetingWithHeadTeacherStatus,
+      this.state.ind16FilledAllFormProperlyStatus,
+      this.state.ind17ObservedClassSilentlyStatus,
+      this.state.ind21LFTeacherMaintainGoodRelationshipStatus,
+      this.state.ind22LFDiscussGoodPracticeIndicatorStatus,
+      this.state.ind23LFDiscussCoachingSupportIndicatorStatus,
+      this.state.ind24LFDiscussLastFollowupIndicatorStatus,
+      this.state.ind25LFInstructIdealLessonStatus,
+      this.state.ind26LFObserveStudentOrGroupStatus,
+      this.state.ind27LFVerifyWorkbookStatus,
+      this.state.ind28LFTrack3StudentStatus,
+      this.state.ind29LFTeacherAgreedNextPlanStatus,
+      this.state.ind31LFIdentifyGoodImprovablePointStatus,
+      this.state.ind32LFInstructDevelopmentPlanStatus,
+      this.state.ind33LFDiscussAboutDevelopmentPlanNote,
+      this.state.ind34LFAllowToChangeTeachingPatternStatus,
+      this.state.ind35LFAllowTeacherForDiscussionStatus,
+    ];
+
+    const variablesIndValue = [
+      "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)।",
+      "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
+      "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
+      "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
+      "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
+      "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
+      "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
+      "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+      "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+      "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+      "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+      "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+      "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+      "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+      "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+      "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+      "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+      "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+      "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+      "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+      "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+    ];
+
+    let noCount = 0;
+
+    for (let i = 0; i < variablesInd.length; i++) {
+      if (variablesInd[i] === "No") {
+        if (noCount === 0) {
+          // Assign the first 'No' found to coachingSupport1
+          this.setState({
+            coachingSupportIndicator1: variablesIndValue[i],
+          });
+          noCount++;
+        } else if (noCount === 1) {
+          this.setState({
+            coachingSupportIndicator2: variablesIndValue[i],
+          }); // Assign the second 'No' found to coachingSupport2
+          noCount++;
+          // We found both, so we can stop the loop if needed (optional optimization)
+          break;
+        }
+      } else if (variablesInd[i] === "Partial") {
+        if (noCount === 0) {
+          // Assign the first 'No' found to coachingSupport1
+          this.setState({
+            coachingSupportIndicator1: variablesIndValue[i],
+          });
+          noCount++;
+        } else if (noCount === 1) {
+          this.setState({
+            coachingSupportIndicator2: variablesIndValue[i],
+          }); // Assign the second 'No' found to coachingSupport2
+          noCount++;
+          // We found both, so we can stop the loop if needed (optional optimization)
+          break;
+        }
+      }
+    }
+    // Setup CoachingSupport
+
+    // Setup BestPractice test2
+    if (
+      this.state.lfStatus === "Priority 3" ||
+      this.state.lfStatus === "Priority 2"
+    ) {
+      const variables = [
+        this.state.ind35LFAllowTeacherForDiscussionStatus,
+        this.state.ind34LFAllowToChangeTeachingPatternStatus,
+        this.state.ind33LFDiscussAboutDevelopmentPlanStatus,
+        this.state.ind32LFInstructDevelopmentPlanStatus,
+        this.state.ind31LFIdentifyGoodImprovablePointStatus,
+      ];
+
+      const variables2 = [
+        "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+        "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+        "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+        "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+        "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+      ];
+      let yesCount = 0;
+
+      for (let i = 0; i < variables.length; i++) {
+        if (variables[i] === "Yes") {
+          if (yesCount === 0) {
+            // Assign the first 'yes' found to bestPracticeInd1
+            this.setState({
+              bestPracticeIndicator1: variables2[i],
+            });
+            yesCount++;
+          } else if (yesCount === 1) {
+            this.setState({
+              bestPracticeIndicator2: variables2[i],
+            }); // Assign the second 'yes' found to y
+            yesCount++;
+            // We found both, so we can stop the loop if needed (optional optimization)
+            break;
+          }
+        }
+      }
+    } else if (this.state.lfStatus === "Priority 1") {
+      const variables = [
+        this.state.ind29LFTeacherAgreedNextPlanStatus,
+        this.state.ind28LFTrack3StudentStatus,
+        this.state.ind27LFVerifyWorkbookStatus,
+        this.state.ind26LFObserveStudentOrGroupStatus,
+        this.state.ind25LFInstructIdealLessonStatus,
+        this.state.ind24LFDiscussLastFollowupIndicatorStatus,
+        this.state.ind23LFDiscussCoachingSupportIndicatorStatus,
+        this.state.ind22LFDiscussGoodPracticeIndicatorStatus,
+        this.state.ind21LFTeacherMaintainGoodRelationshipStatus,
+      ];
+
+      const variables2 = [
+        "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+        "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+        "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+        "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+        "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+        "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+        "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+        "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+        "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+      ];
+
+      let yesCount = 0;
+
+      for (let i = 0; i < variables.length; i++) {
+        if (variables[i] === "Yes") {
+          if (yesCount === 0) {
+            // Assign the first 'yes' found to bestPracticeInd1
+            this.setState({
+              bestPracticeIndicator1: variables2[i],
+            });
+
+            yesCount++;
+          } else if (yesCount === 1) {
+            this.setState({
+              bestPracticeIndicator2: variables2[i],
+            }); // Assign the second 'yes' found to y
+            yesCount++;
+            // We found both, so we can stop the loop if needed (optional optimization)
+            break;
+          }
+        }
+      }
+    }
+    // Setup BestPractice test2
+  };
+  // Calculate bestPractice  && coachingSupport
+
   render() {
     // For Datepicker
     const {
@@ -1831,6 +2034,7 @@ export default class PLFObservationScreen extends React.Component {
                     {districts
                       .filter(
                         (item) =>
+                          item.name == "Jamalpur" ||
                           item.name == "Narail" ||
                           item.name == "Brahmanbaria" ||
                           item.name == "Coxsbazar" ||
@@ -1936,7 +2140,7 @@ export default class PLFObservationScreen extends React.Component {
                     selectedValue={this.state.pickerOffice}
                     onValueChange={(value) => {
                       this.setState({ pickerOffice: value });
-                      console.log(this.state.pickerDistrict.name);
+                      //console.log(this.state.pickerDistrict.name);
                     }}
                     itemStyle={{ color: "white" }}
                   >
@@ -2005,6 +2209,62 @@ export default class PLFObservationScreen extends React.Component {
                           />
                         );
                       })}
+                  </Picker>
+                </View>
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      পরিদর্শক এর নাম: (Visitor:)
+                    </Text>
+                  </View>
+                  <TextInput
+                    style={{
+                      height: 50,
+                      width: 250,
+                      padding: 5,
+                      borderWidth: 1,
+                    }}
+                    keyboardType="default"
+                    placeholder=""
+                    editable={true}
+                    onChangeText={(text) => this.setState({ visitor: text })}
+                    value={this.state.visitor + ""}
+                  />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      পদবী: (Designation:)
+                    </Text>
+                  </View>
+                  <Picker
+                    style={{
+                      height: 60,
+                      width: 170,
+                    }}
+                    selectedValue={this.state.visitorDesignation}
+                    onValueChange={(value) => {
+                      this.setState({ visitorDesignation: value });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    <Picker.Item label={"Select"} value={""} />
+                    <Picker.Item label={"LF"} value={"LF"} />
+                    <Picker.Item label={"LPO"} value={"LPO"} />
+                    <Picker.Item label={"Other"} value={"Other"} />
                   </Picker>
                 </View>
               </View>
@@ -2517,61 +2777,6 @@ export default class PLFObservationScreen extends React.Component {
               </View>
 
               <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      পরিদর্শক এর নাম: (Visitor:)
-                    </Text>
-                  </View>
-                  <TextInput
-                    style={{
-                      height: 50,
-                      width: 250,
-                      padding: 5,
-                      borderWidth: 1,
-                    }}
-                    keyboardType="default"
-                    placeholder=""
-                    editable={true}
-                    onChangeText={(text) => this.setState({ visitor: text })}
-                    value={this.state.visitor + ""}
-                  />
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      পদবী: (Designation:)
-                    </Text>
-                  </View>
-                  <TextInput
-                    style={{
-                      height: 50,
-                      width: 250,
-                      padding: 5,
-                      borderWidth: 1,
-                    }}
-                    keyboardType="default"
-                    placeholder=""
-                    editable={true}
-                    onChangeText={(text) =>
-                      this.setState({ visitorDesignation: text })
-                    }
-                    value={this.state.visitorDesignation + ""}
-                  />
-                </View>
-              </View>
-
-              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 2 }}>
                   <Text
                     style={{
@@ -2725,6 +2930,18 @@ export default class PLFObservationScreen extends React.Component {
                             this.setState({
                               ind11IsCarriedAllMaterialStatus: value,
                             });
+
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd11: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd11: "",
+                              });
+                            }
+                            // Set error message
 
                             // Set LF status
                             if (
@@ -3064,177 +3281,132 @@ export default class PLFObservationScreen extends React.Component {
 
                             // Setup BestPractice
                             if (
-                              this.state
-                                .ind35LFAllowTeacherForDiscussionStatus ===
-                              "Yes"
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind34LFAllowToChangeTeachingPatternStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33LFDiscussAboutDevelopmentPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32LFInstructDevelopmentPlanStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state
-                                .ind31LFIdentifyGoodImprovablePointStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind29LFTeacherAgreedNextPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind28LFTrack3StudentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind27LFVerifyWorkbookStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind26LFObserveStudentOrGroupStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (
-                              this.state.ind25LFInstructIdealLessonStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24LFDiscussLastFollowupIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (
-                              this.state.ind17ObservedClassSilentlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (
-                              this.state.ind16FilledAllFormProperlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind15MeetingWithHeadTeacherStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind14FeedbackSessionWithTeacherStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind13IsObservedBanglaLibraryStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind12IsCheckedInRightTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (
+                                this.state.ind28LFTrack3StudentStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (
+                                this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
@@ -3484,7 +3656,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-                        <Text></Text>
+                        {!!this.state.errorInd11 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd11}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -3567,6 +3743,18 @@ export default class PLFObservationScreen extends React.Component {
                             this.setState({
                               ind12IsCheckedInRightTimeStatus: value,
                             });
+
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd12: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd12: "",
+                              });
+                            }
+                            // Set error message
 
                             // Set LF status
                             if (
@@ -3906,183 +4094,318 @@ export default class PLFObservationScreen extends React.Component {
 
                             // Setup BestPractice
                             if (
-                              this.state
-                                .ind35LFAllowTeacherForDiscussionStatus ===
-                              "Yes"
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind34LFAllowToChangeTeachingPatternStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33LFDiscussAboutDevelopmentPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32LFInstructDevelopmentPlanStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state
-                                .ind31LFIdentifyGoodImprovablePointStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind29LFTeacherAgreedNextPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind28LFTrack3StudentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind27LFVerifyWorkbookStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind26LFObserveStudentOrGroupStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (
-                              this.state.ind25LFInstructIdealLessonStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24LFDiscussLastFollowupIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (
-                              this.state.ind17ObservedClassSilentlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (
-                              this.state.ind16FilledAllFormProperlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind15MeetingWithHeadTeacherStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind14FeedbackSessionWithTeacherStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind13IsObservedBanglaLibraryStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind11IsCarriedAllMaterialStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (
+                                this.state.ind28LFTrack3StudentStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (
+                                this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
                               });
                             }
                             // Setup BestPractice
+
+                            // Setup BestPractice
+                            // if (
+                            //   this.state
+                            //     .ind35LFAllowTeacherForDiscussionStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind34LFAllowToChangeTeachingPatternStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind32LFInstructDevelopmentPlanStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                            //     bestPracticeInd2: "",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind31LFIdentifyGoodImprovablePointStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind29LFTeacherAgreedNextPlanStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind28LFTrack3StudentStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind26LFObserveStudentOrGroupStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind25LFInstructIdealLessonStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind24LFDiscussLastFollowupIndicatorStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind17ObservedClassSilentlyStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind16FilledAllFormProperlyStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind15MeetingWithHeadTeacherStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
+                            //   });
+                            // } else if (
+                            //   this.state
+                            //     .ind14FeedbackSessionWithTeacherStatus === "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind13IsObservedBanglaLibraryStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
+                            //   });
+                            // } else if (value === "Yes") {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
+                            //   });
+                            // } else if (
+                            //   this.state.ind11IsCarriedAllMaterialStatus ===
+                            //   "Yes"
+                            // ) {
+                            //   this.setState({
+                            //     bestPracticeIndicator1:
+                            //       "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
+                            //   });
+                            // } else {
+                            //   this.setState({
+                            //     bestPracticeIndicator1: "N/A",
+                            //   });
+                            // }
+                            // // Setup BestPractice
 
                             // Setup CoachingSupport
                             if (
@@ -4326,7 +4649,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd12 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd12}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -4412,6 +4739,18 @@ export default class PLFObservationScreen extends React.Component {
                               ind13IsObservedBanglaLibraryStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd13: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd13: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set LF status
                             if (
                               (this.state.ind11IsCarriedAllMaterialStatus ===
@@ -4748,177 +5087,132 @@ export default class PLFObservationScreen extends React.Component {
 
                             // Setup BestPractice
                             if (
-                              this.state
-                                .ind35LFAllowTeacherForDiscussionStatus ===
-                              "Yes"
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind34LFAllowToChangeTeachingPatternStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33LFDiscussAboutDevelopmentPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32LFInstructDevelopmentPlanStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state
-                                .ind31LFIdentifyGoodImprovablePointStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind29LFTeacherAgreedNextPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind28LFTrack3StudentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind27LFVerifyWorkbookStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind26LFObserveStudentOrGroupStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (
-                              this.state.ind25LFInstructIdealLessonStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24LFDiscussLastFollowupIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (
-                              this.state.ind17ObservedClassSilentlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (
-                              this.state.ind16FilledAllFormProperlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind15MeetingWithHeadTeacherStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind14FeedbackSessionWithTeacherStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind12IsCheckedInRightTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind11IsCarriedAllMaterialStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (
+                                this.state.ind28LFTrack3StudentStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (
+                                this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
@@ -5168,7 +5462,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd13 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd13}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -5255,6 +5553,18 @@ export default class PLFObservationScreen extends React.Component {
                               ind14FeedbackSessionWithTeacherStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd14: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd14: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set LF status
                             if (
                               (this.state.ind11IsCarriedAllMaterialStatus ===
@@ -5589,177 +5899,132 @@ export default class PLFObservationScreen extends React.Component {
 
                             // Setup BestPractice
                             if (
-                              this.state
-                                .ind35LFAllowTeacherForDiscussionStatus ===
-                              "Yes"
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind34LFAllowToChangeTeachingPatternStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33LFDiscussAboutDevelopmentPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32LFInstructDevelopmentPlanStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state
-                                .ind31LFIdentifyGoodImprovablePointStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind29LFTeacherAgreedNextPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind28LFTrack3StudentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind27LFVerifyWorkbookStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind26LFObserveStudentOrGroupStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (
-                              this.state.ind25LFInstructIdealLessonStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24LFDiscussLastFollowupIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (
-                              this.state.ind17ObservedClassSilentlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (
-                              this.state.ind16FilledAllFormProperlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind15MeetingWithHeadTeacherStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind13IsObservedBanglaLibraryStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind12IsCheckedInRightTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind11IsCarriedAllMaterialStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (
+                                this.state.ind28LFTrack3StudentStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (
+                                this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
@@ -6007,7 +6272,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd14 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd14}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -6093,6 +6362,18 @@ export default class PLFObservationScreen extends React.Component {
                               ind15MeetingWithHeadTeacherStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd15: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd15: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set LF status
                             if (
                               (this.state.ind11IsCarriedAllMaterialStatus ===
@@ -6431,177 +6712,132 @@ export default class PLFObservationScreen extends React.Component {
 
                             // Setup BestPractice
                             if (
-                              this.state
-                                .ind35LFAllowTeacherForDiscussionStatus ===
-                              "Yes"
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind34LFAllowToChangeTeachingPatternStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33LFDiscussAboutDevelopmentPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32LFInstructDevelopmentPlanStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state
-                                .ind31LFIdentifyGoodImprovablePointStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind29LFTeacherAgreedNextPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind28LFTrack3StudentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind27LFVerifyWorkbookStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind26LFObserveStudentOrGroupStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (
-                              this.state.ind25LFInstructIdealLessonStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24LFDiscussLastFollowupIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (
-                              this.state.ind17ObservedClassSilentlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (
-                              this.state.ind16FilledAllFormProperlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind14FeedbackSessionWithTeacherStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind13IsObservedBanglaLibraryStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind12IsCheckedInRightTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind11IsCarriedAllMaterialStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (
+                                this.state.ind28LFTrack3StudentStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (
+                                this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
@@ -6851,7 +7087,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd15 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd15}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -6936,6 +7176,18 @@ export default class PLFObservationScreen extends React.Component {
                               ind16FilledAllFormProperlyStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd16: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd16: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set LF status
                             if (
                               (this.state.ind11IsCarriedAllMaterialStatus ===
@@ -7274,177 +7526,132 @@ export default class PLFObservationScreen extends React.Component {
 
                             // Setup BestPractice
                             if (
-                              this.state
-                                .ind35LFAllowTeacherForDiscussionStatus ===
-                              "Yes"
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind34LFAllowToChangeTeachingPatternStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33LFDiscussAboutDevelopmentPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32LFInstructDevelopmentPlanStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state
-                                .ind31LFIdentifyGoodImprovablePointStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind29LFTeacherAgreedNextPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind28LFTrack3StudentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind27LFVerifyWorkbookStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind26LFObserveStudentOrGroupStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (
-                              this.state.ind25LFInstructIdealLessonStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24LFDiscussLastFollowupIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (
-                              this.state.ind17ObservedClassSilentlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind15MeetingWithHeadTeacherStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind14FeedbackSessionWithTeacherStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind13IsObservedBanglaLibraryStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind12IsCheckedInRightTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind11IsCarriedAllMaterialStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (
+                                this.state.ind28LFTrack3StudentStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (
+                                this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
@@ -7694,7 +7901,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-                        <Text></Text>
+                        {!!this.state.errorInd16 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd16}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -7779,6 +7990,18 @@ export default class PLFObservationScreen extends React.Component {
                               ind17ObservedClassSilentlyStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd17: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd17: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set LF status
                             if (
                               (this.state.ind11IsCarriedAllMaterialStatus ===
@@ -8117,177 +8340,132 @@ export default class PLFObservationScreen extends React.Component {
 
                             // Setup BestPractice
                             if (
-                              this.state
-                                .ind35LFAllowTeacherForDiscussionStatus ===
-                              "Yes"
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind34LFAllowToChangeTeachingPatternStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33LFDiscussAboutDevelopmentPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32LFInstructDevelopmentPlanStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state
-                                .ind31LFIdentifyGoodImprovablePointStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind29LFTeacherAgreedNextPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind28LFTrack3StudentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind27LFVerifyWorkbookStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind26LFObserveStudentOrGroupStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (
-                              this.state.ind25LFInstructIdealLessonStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24LFDiscussLastFollowupIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (
-                              this.state.ind16FilledAllFormProperlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind15MeetingWithHeadTeacherStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind14FeedbackSessionWithTeacherStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind13IsObservedBanglaLibraryStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind12IsCheckedInRightTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind11IsCarriedAllMaterialStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (
+                                this.state.ind28LFTrack3StudentStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (
+                                this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
@@ -8537,7 +8715,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-                        <Text></Text>
+                        {!!this.state.errorInd17 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd17}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -8636,6 +8818,18 @@ export default class PLFObservationScreen extends React.Component {
                               ind21LFTeacherMaintainGoodRelationshipStatus:
                                 value,
                             });
+
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd21: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd21: "",
+                              });
+                            }
+                            // Set error message
 
                             // Set LF status
                             if (
@@ -8968,176 +9162,128 @@ export default class PLFObservationScreen extends React.Component {
 
                             // Setup BestPractice
                             if (
-                              this.state
-                                .ind35LFAllowTeacherForDiscussionStatus ===
-                              "Yes"
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind34LFAllowToChangeTeachingPatternStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33LFDiscussAboutDevelopmentPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32LFInstructDevelopmentPlanStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state
-                                .ind31LFIdentifyGoodImprovablePointStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind29LFTeacherAgreedNextPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind28LFTrack3StudentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind27LFVerifyWorkbookStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind26LFObserveStudentOrGroupStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (
-                              this.state.ind25LFInstructIdealLessonStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24LFDiscussLastFollowupIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (
-                              this.state.ind17ObservedClassSilentlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (
-                              this.state.ind16FilledAllFormProperlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind15MeetingWithHeadTeacherStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind14FeedbackSessionWithTeacherStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind13IsObservedBanglaLibraryStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind12IsCheckedInRightTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind11IsCarriedAllMaterialStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (
+                                this.state.ind28LFTrack3StudentStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (
+                                this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
@@ -9385,7 +9531,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd21 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd21}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -9472,6 +9622,18 @@ export default class PLFObservationScreen extends React.Component {
                             this.setState({
                               ind22LFDiscussGoodPracticeIndicatorStatus: value,
                             });
+
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd22: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd22: "",
+                              });
+                            }
+                            // Set error message
 
                             // Set LF status
                             if (
@@ -9804,176 +9966,128 @@ export default class PLFObservationScreen extends React.Component {
 
                             // Setup BestPractice
                             if (
-                              this.state
-                                .ind35LFAllowTeacherForDiscussionStatus ===
-                              "Yes"
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind34LFAllowToChangeTeachingPatternStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33LFDiscussAboutDevelopmentPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32LFInstructDevelopmentPlanStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state
-                                .ind31LFIdentifyGoodImprovablePointStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind29LFTeacherAgreedNextPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind28LFTrack3StudentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind27LFVerifyWorkbookStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind26LFObserveStudentOrGroupStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (
-                              this.state.ind25LFInstructIdealLessonStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24LFDiscussLastFollowupIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (
-                              this.state.ind17ObservedClassSilentlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (
-                              this.state.ind16FilledAllFormProperlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind15MeetingWithHeadTeacherStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind14FeedbackSessionWithTeacherStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind13IsObservedBanglaLibraryStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind12IsCheckedInRightTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind11IsCarriedAllMaterialStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (
+                                this.state.ind28LFTrack3StudentStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (
+                                this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
@@ -10221,7 +10335,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd22 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd22}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -10311,6 +10429,18 @@ export default class PLFObservationScreen extends React.Component {
                                 value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd23: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd23: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set LF status
                             if (
                               (this.state.ind11IsCarriedAllMaterialStatus ===
@@ -10642,176 +10772,128 @@ export default class PLFObservationScreen extends React.Component {
 
                             // Setup BestPractice
                             if (
-                              this.state
-                                .ind35LFAllowTeacherForDiscussionStatus ===
-                              "Yes"
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind34LFAllowToChangeTeachingPatternStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33LFDiscussAboutDevelopmentPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32LFInstructDevelopmentPlanStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state
-                                .ind31LFIdentifyGoodImprovablePointStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind29LFTeacherAgreedNextPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind28LFTrack3StudentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind27LFVerifyWorkbookStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind26LFObserveStudentOrGroupStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (
-                              this.state.ind25LFInstructIdealLessonStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24LFDiscussLastFollowupIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (
-                              this.state.ind17ObservedClassSilentlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (
-                              this.state.ind16FilledAllFormProperlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind15MeetingWithHeadTeacherStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind14FeedbackSessionWithTeacherStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind13IsObservedBanglaLibraryStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind12IsCheckedInRightTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind11IsCarriedAllMaterialStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (
+                                this.state.ind28LFTrack3StudentStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (
+                                this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
@@ -11059,7 +11141,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd23 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd23}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -11148,6 +11234,18 @@ export default class PLFObservationScreen extends React.Component {
                               ind24LFDiscussLastFollowupIndicatorStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd24: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd24: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set LF status
                             if (
                               (this.state.ind11IsCarriedAllMaterialStatus ===
@@ -11479,176 +11577,128 @@ export default class PLFObservationScreen extends React.Component {
 
                             // Setup BestPractice
                             if (
-                              this.state
-                                .ind35LFAllowTeacherForDiscussionStatus ===
-                              "Yes"
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind34LFAllowToChangeTeachingPatternStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33LFDiscussAboutDevelopmentPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32LFInstructDevelopmentPlanStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state
-                                .ind31LFIdentifyGoodImprovablePointStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind29LFTeacherAgreedNextPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind28LFTrack3StudentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind27LFVerifyWorkbookStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind26LFObserveStudentOrGroupStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (
-                              this.state.ind25LFInstructIdealLessonStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (
-                              this.state.ind17ObservedClassSilentlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (
-                              this.state.ind16FilledAllFormProperlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind15MeetingWithHeadTeacherStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind14FeedbackSessionWithTeacherStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind13IsObservedBanglaLibraryStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind12IsCheckedInRightTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind11IsCarriedAllMaterialStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (
+                                this.state.ind28LFTrack3StudentStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (
+                                this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
@@ -11896,7 +11946,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd24 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd24}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -11983,6 +12037,18 @@ export default class PLFObservationScreen extends React.Component {
                             this.setState({
                               ind25LFInstructIdealLessonStatus: value,
                             });
+
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd25: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd25: "",
+                              });
+                            }
+                            // Set error message
 
                             // Set LF status
                             if (
@@ -12321,177 +12387,129 @@ export default class PLFObservationScreen extends React.Component {
 
                             // Setup BestPractice
                             if (
-                              this.state
-                                .ind35LFAllowTeacherForDiscussionStatus ===
-                              "Yes"
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind34LFAllowToChangeTeachingPatternStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33LFDiscussAboutDevelopmentPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32LFInstructDevelopmentPlanStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state
-                                .ind31LFIdentifyGoodImprovablePointStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind29LFTeacherAgreedNextPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind28LFTrack3StudentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind27LFVerifyWorkbookStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind26LFObserveStudentOrGroupStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24LFDiscussLastFollowupIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (
-                              this.state.ind17ObservedClassSilentlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (
-                              this.state.ind16FilledAllFormProperlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind15MeetingWithHeadTeacherStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind14FeedbackSessionWithTeacherStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind13IsObservedBanglaLibraryStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind12IsCheckedInRightTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind11IsCarriedAllMaterialStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (
+                                this.state.ind28LFTrack3StudentStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (
+                                this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
@@ -12741,7 +12759,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd25 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd25}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -12862,6 +12884,18 @@ export default class PLFObservationScreen extends React.Component {
                               ind26LFObserveStudentOrGroupStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd26: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd26: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set LF status
                             if (
                               (this.state.ind11IsCarriedAllMaterialStatus ===
@@ -13194,177 +13228,129 @@ export default class PLFObservationScreen extends React.Component {
 
                             // Setup BestPractice
                             if (
-                              this.state
-                                .ind35LFAllowTeacherForDiscussionStatus ===
-                              "Yes"
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind34LFAllowToChangeTeachingPatternStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33LFDiscussAboutDevelopmentPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32LFInstructDevelopmentPlanStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state
-                                .ind31LFIdentifyGoodImprovablePointStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind29LFTeacherAgreedNextPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind28LFTrack3StudentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind27LFVerifyWorkbookStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (
-                              this.state.ind25LFInstructIdealLessonStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24LFDiscussLastFollowupIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (
-                              this.state.ind17ObservedClassSilentlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (
-                              this.state.ind16FilledAllFormProperlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind15MeetingWithHeadTeacherStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind14FeedbackSessionWithTeacherStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind13IsObservedBanglaLibraryStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind12IsCheckedInRightTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind11IsCarriedAllMaterialStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (
+                                this.state.ind28LFTrack3StudentStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (
+                                this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
@@ -13614,7 +13600,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd26 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd26}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -13637,42 +13627,6 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                     </View>
                   </Card>
-                  {/* {ind25FollowsInstructionsInWritingStatus === "No" && (
-                    <View>
-                      <Card
-                        style={{
-                          padding: 5,
-                          margin: 5,
-                          flex: 1,
-                          alignSelf: "center",
-                        }}
-                      >
-                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং
-                          গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা
-                          বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।
-                        </Text>
-                      </Card>
-                    </View>
-                  )}
-                  {ind25FollowsInstructionsInWritingStatus === "Partial" && (
-                    <View>
-                      <Card
-                        style={{
-                          padding: 5,
-                          margin: 5,
-                          flex: 1,
-                          alignSelf: "center",
-                        }}
-                      >
-                        <Text style={{ fontWeight: "bold", color: "#f44336" }}>
-                          বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং
-                          গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা
-                          বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে।
-                        </Text>
-                      </Card>
-                    </View>
-                  )} */}
                 </Card>
 
                 <Card
@@ -13735,6 +13689,18 @@ export default class PLFObservationScreen extends React.Component {
                             this.setState({
                               ind27LFVerifyWorkbookStatus: value,
                             });
+
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd27: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd27: "",
+                              });
+                            }
+                            // Set error message
 
                             // Set LF status
                             if (
@@ -14073,178 +14039,130 @@ export default class PLFObservationScreen extends React.Component {
 
                             // Setup BestPractice
                             if (
-                              this.state
-                                .ind35LFAllowTeacherForDiscussionStatus ===
-                              "Yes"
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind34LFAllowToChangeTeachingPatternStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33LFDiscussAboutDevelopmentPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32LFInstructDevelopmentPlanStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state
-                                .ind31LFIdentifyGoodImprovablePointStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind29LFTeacherAgreedNextPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind28LFTrack3StudentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind26LFObserveStudentOrGroupStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (
-                              this.state.ind25LFInstructIdealLessonStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24LFDiscussLastFollowupIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (
-                              this.state.ind17ObservedClassSilentlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (
-                              this.state.ind16FilledAllFormProperlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind15MeetingWithHeadTeacherStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind14FeedbackSessionWithTeacherStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind13IsObservedBanglaLibraryStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind12IsCheckedInRightTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind11IsCarriedAllMaterialStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (
+                                this.state.ind28LFTrack3StudentStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
@@ -14495,7 +14413,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd27 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd27}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -14578,6 +14500,18 @@ export default class PLFObservationScreen extends React.Component {
                               ind28LFTrack3StudentStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd28: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd28: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set LF status
                             if (
                               (this.state.ind11IsCarriedAllMaterialStatus ===
@@ -14915,178 +14849,130 @@ export default class PLFObservationScreen extends React.Component {
 
                             // Setup BestPractice
                             if (
-                              this.state
-                                .ind35LFAllowTeacherForDiscussionStatus ===
-                              "Yes"
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind34LFAllowToChangeTeachingPatternStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33LFDiscussAboutDevelopmentPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32LFInstructDevelopmentPlanStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state
-                                .ind31LFIdentifyGoodImprovablePointStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind29LFTeacherAgreedNextPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind27LFVerifyWorkbookStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind26LFObserveStudentOrGroupStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (
-                              this.state.ind25LFInstructIdealLessonStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24LFDiscussLastFollowupIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (
-                              this.state.ind17ObservedClassSilentlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (
-                              this.state.ind16FilledAllFormProperlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind15MeetingWithHeadTeacherStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind14FeedbackSessionWithTeacherStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind13IsObservedBanglaLibraryStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind12IsCheckedInRightTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind11IsCarriedAllMaterialStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (
+                                this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
@@ -15337,7 +15223,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd28 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd28}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -15422,6 +15312,18 @@ export default class PLFObservationScreen extends React.Component {
                               ind29LFTeacherAgreedNextPlanStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd29: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd29: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set LF status
                             if (
                               (this.state.ind11IsCarriedAllMaterialStatus ===
@@ -15754,177 +15656,129 @@ export default class PLFObservationScreen extends React.Component {
 
                             // Setup BestPractice
                             if (
-                              this.state
-                                .ind35LFAllowTeacherForDiscussionStatus ===
-                              "Yes"
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind34LFAllowToChangeTeachingPatternStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33LFDiscussAboutDevelopmentPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32LFInstructDevelopmentPlanStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state
-                                .ind31LFIdentifyGoodImprovablePointStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind28LFTrack3StudentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind27LFVerifyWorkbookStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind26LFObserveStudentOrGroupStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (
-                              this.state.ind25LFInstructIdealLessonStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24LFDiscussLastFollowupIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (
-                              this.state.ind17ObservedClassSilentlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (
-                              this.state.ind16FilledAllFormProperlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind15MeetingWithHeadTeacherStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind14FeedbackSessionWithTeacherStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind13IsObservedBanglaLibraryStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind12IsCheckedInRightTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind11IsCarriedAllMaterialStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (
+                                this.state.ind28LFTrack3StudentStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (
+                                this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
@@ -16174,7 +16028,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd29 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd29}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -16273,6 +16131,18 @@ export default class PLFObservationScreen extends React.Component {
                             this.setState({
                               ind31LFIdentifyGoodImprovablePointStatus: value,
                             });
+
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd31: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd31: "",
+                              });
+                            }
+                            // Set error message
 
                             // Set LF status
                             if (
@@ -16602,176 +16472,128 @@ export default class PLFObservationScreen extends React.Component {
 
                             // Setup BestPractice
                             if (
-                              this.state
-                                .ind35LFAllowTeacherForDiscussionStatus ===
-                              "Yes"
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind34LFAllowToChangeTeachingPatternStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33LFDiscussAboutDevelopmentPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32LFInstructDevelopmentPlanStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind29LFTeacherAgreedNextPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind28LFTrack3StudentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind27LFVerifyWorkbookStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind26LFObserveStudentOrGroupStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (
-                              this.state.ind25LFInstructIdealLessonStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24LFDiscussLastFollowupIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (
-                              this.state.ind17ObservedClassSilentlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (
-                              this.state.ind16FilledAllFormProperlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind15MeetingWithHeadTeacherStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind14FeedbackSessionWithTeacherStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind13IsObservedBanglaLibraryStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind12IsCheckedInRightTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind11IsCarriedAllMaterialStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (
+                                this.state.ind28LFTrack3StudentStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (
+                                this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
@@ -17019,7 +16841,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd31 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd31}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -17107,6 +16933,18 @@ export default class PLFObservationScreen extends React.Component {
                               ind32LFInstructDevelopmentPlanStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd32: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd32: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set LF status
                             if (
                               (this.state.ind11IsCarriedAllMaterialStatus ===
@@ -17435,177 +17273,128 @@ export default class PLFObservationScreen extends React.Component {
 
                             // Setup BestPractice
                             if (
-                              this.state
-                                .ind35LFAllowTeacherForDiscussionStatus ===
-                              "Yes"
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind34LFAllowToChangeTeachingPatternStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33LFDiscussAboutDevelopmentPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state
-                                .ind31LFIdentifyGoodImprovablePointStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind29LFTeacherAgreedNextPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind28LFTrack3StudentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind27LFVerifyWorkbookStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind26LFObserveStudentOrGroupStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (
-                              this.state.ind25LFInstructIdealLessonStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24LFDiscussLastFollowupIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (
-                              this.state.ind17ObservedClassSilentlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (
-                              this.state.ind16FilledAllFormProperlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind15MeetingWithHeadTeacherStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind14FeedbackSessionWithTeacherStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind13IsObservedBanglaLibraryStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind12IsCheckedInRightTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind11IsCarriedAllMaterialStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (
+                                this.state.ind28LFTrack3StudentStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (
+                                this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
@@ -17853,7 +17642,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd32 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd32}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -17940,6 +17733,18 @@ export default class PLFObservationScreen extends React.Component {
                               ind33LFDiscussAboutDevelopmentPlanStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd33: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd33: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set LF status
                             if (
                               (this.state.ind11IsCarriedAllMaterialStatus ===
@@ -18268,176 +18073,128 @@ export default class PLFObservationScreen extends React.Component {
 
                             // Setup BestPractice
                             if (
-                              this.state
-                                .ind35LFAllowTeacherForDiscussionStatus ===
-                              "Yes"
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind34LFAllowToChangeTeachingPatternStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32LFInstructDevelopmentPlanStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state
-                                .ind31LFIdentifyGoodImprovablePointStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind29LFTeacherAgreedNextPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind28LFTrack3StudentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind27LFVerifyWorkbookStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind26LFObserveStudentOrGroupStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (
-                              this.state.ind25LFInstructIdealLessonStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24LFDiscussLastFollowupIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (
-                              this.state.ind17ObservedClassSilentlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (
-                              this.state.ind16FilledAllFormProperlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind15MeetingWithHeadTeacherStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind14FeedbackSessionWithTeacherStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind13IsObservedBanglaLibraryStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind12IsCheckedInRightTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind11IsCarriedAllMaterialStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (
+                                this.state.ind28LFTrack3StudentStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (
+                                this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
@@ -18685,7 +18442,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
-
+                        {!!this.state.errorInd33 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd33}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -18774,6 +18535,18 @@ export default class PLFObservationScreen extends React.Component {
                               ind34LFAllowToChangeTeachingPatternStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd34: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd34: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set LF status
                             if (
                               (this.state.ind11IsCarriedAllMaterialStatus ===
@@ -19102,176 +18875,128 @@ export default class PLFObservationScreen extends React.Component {
 
                             // Setup BestPractice
                             if (
-                              this.state
-                                .ind35LFAllowTeacherForDiscussionStatus ===
-                              "Yes"
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33LFDiscussAboutDevelopmentPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32LFInstructDevelopmentPlanStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state
-                                .ind31LFIdentifyGoodImprovablePointStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind29LFTeacherAgreedNextPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind28LFTrack3StudentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind27LFVerifyWorkbookStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind26LFObserveStudentOrGroupStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (
-                              this.state.ind25LFInstructIdealLessonStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24LFDiscussLastFollowupIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (
-                              this.state.ind17ObservedClassSilentlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (
-                              this.state.ind16FilledAllFormProperlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind15MeetingWithHeadTeacherStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind14FeedbackSessionWithTeacherStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind13IsObservedBanglaLibraryStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind12IsCheckedInRightTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind11IsCarriedAllMaterialStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (
+                                this.state.ind28LFTrack3StudentStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (
+                                this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
@@ -19519,6 +19244,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
+                        {!!this.state.errorInd34 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd34}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -19606,6 +19336,18 @@ export default class PLFObservationScreen extends React.Component {
                               ind35LFAllowTeacherForDiscussionStatus: value,
                             });
 
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd35: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd35: "",
+                              });
+                            }
+                            // Set error message
+
                             // Set LF status
                             if (
                               (this.state.ind11IsCarriedAllMaterialStatus ===
@@ -19933,177 +19675,129 @@ export default class PLFObservationScreen extends React.Component {
                             // Set LF status
 
                             // Setup BestPractice
-                            if (value === "Yes") {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind34LFAllowToChangeTeachingPatternStatus ===
-                              "Yes"
+                            if (
+                              this.state.lfStatus === "Priority 2" ||
+                              this.state.lfStatus === "Priority 3"
                             ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind33LFDiscussAboutDevelopmentPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind32LFInstructDevelopmentPlanStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-                                bestPracticeInd2: "",
-                              });
-                            } else if (
-                              this.state
-                                .ind31LFIdentifyGoodImprovablePointStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind29LFTeacherAgreedNextPlanStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind28LFTrack3StudentStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind27LFVerifyWorkbookStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind26LFObserveStudentOrGroupStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-                              });
-                            } else if (
-                              this.state.ind25LFInstructIdealLessonStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind24LFDiscussLastFollowupIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-                              });
-                            } else if (
-                              this.state.ind17ObservedClassSilentlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-                              });
-                            } else if (
-                              this.state.ind16FilledAllFormProperlyStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind15MeetingWithHeadTeacherStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state
-                                .ind14FeedbackSessionWithTeacherStatus === "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind13IsObservedBanglaLibraryStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-                              });
-                            } else if (
-                              this.state.ind12IsCheckedInRightTimeStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-                              });
-                            } else if (
-                              this.state.ind11IsCarriedAllMaterialStatus ===
-                              "Yes"
-                            ) {
-                              this.setState({
-                                bestPracticeIndicator1:
-                                  "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)",
-                              });
+                              if (value === "Yes") {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+                                  bestPracticeInd2: "",
+                                });
+                              } else if (
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+                                });
+                              }
+                            } else if (this.state.lfStatus === "Priority 1") {
+                              if (
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+                                });
+                              } else if (
+                                this.state.ind28LFTrack3StudentStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+                                });
+                              } else if (
+                                this.state.ind27LFVerifyWorkbookStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+                                });
+                              } else if (
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+                                });
+                              } else if (
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes"
+                              ) {
+                                this.setState({
+                                  bestPracticeIndicator1:
+                                    "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+                                });
+                              }
                             } else {
                               this.setState({
                                 bestPracticeIndicator1: "N/A",
@@ -20351,6 +20045,11 @@ export default class PLFObservationScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>মন্তব্য: (Comment:)</Text>
+                        {!!this.state.errorInd35 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd35}
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 100,
@@ -20434,11 +20133,28 @@ export default class PLFObservationScreen extends React.Component {
                       এলএফ তার পর্যবেক্ষণের সময় ভালো করেছেন এমন ১-২টি বিষয়
                       উল্লেখ করুন:
                     </Text>
+                    <TouchableOpacity
+                      style={{
+                        alignItems: "center",
+                        width: "40%",
+                        backgroundColor: "#994263",
+                        borderRadius: 25,
+                        height: 50,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginTop: 2,
+                        marginLeft: 170,
+                        marginBottom: 2,
+                      }}
+                      onPress={this.bestPracticeIndcoachingSupportInd}
+                    >
+                      <Text style={{ color: "#ffff" }}>Click to Generate</Text>
+                    </TouchableOpacity>
                   </View>
                 </View>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1, padding: 2 }}>
-                    <Text>ইনডিকেটর</Text>
+                    <Text>ইনডিকেটর 1</Text>
                     <Text></Text>
                     <Text
                       style={{
@@ -20450,15 +20166,20 @@ export default class PLFObservationScreen extends React.Component {
                     >
                       {this.state.bestPracticeIndicator1}
                     </Text>
-                    {/* <TextInput
-                      style={{ height: 150, padding: 5, borderWidth: 1 }}
-                      multiline={true}
-                      numberOfLines={20}
-                      placeholder=""
-                      editable={false}
-                      selectTextOnFocus={false}
-                      value={this.state.bestPracticeInd1}
-                    ></TextInput> */}
+                  </View>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <Text>ইনডিকেটর 2</Text>
+                    <Text></Text>
+                    <Text
+                      style={{
+                        backgroundColor: "white",
+                        fontSize: 18,
+                        fontWeight: "bold",
+                        color: "red",
+                      }}
+                    >
+                      {this.state.bestPracticeIndicator2}
+                    </Text>
                   </View>
                 </View>
 
@@ -20482,7 +20203,6 @@ export default class PLFObservationScreen extends React.Component {
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1, padding: 2 }}>
                     <Text></Text>
-
                     <TextInput
                       style={{ height: 80, padding: 5, borderWidth: 1 }}
                       multiline={true}
@@ -20510,7 +20230,7 @@ export default class PLFObservationScreen extends React.Component {
                 </View>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1, padding: 2 }}>
-                    <Text>ইনডিকেটর</Text>
+                    <Text>ইনডিকেটর 1</Text>
                     <Text></Text>
                     <Text
                       style={{
@@ -20521,6 +20241,20 @@ export default class PLFObservationScreen extends React.Component {
                       }}
                     >
                       {this.state.coachingSupportIndicator1}
+                    </Text>
+                  </View>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <Text>ইনডিকেটর 2</Text>
+                    <Text></Text>
+                    <Text
+                      style={{
+                        backgroundColor: "white",
+                        fontSize: 18,
+                        fontWeight: "bold",
+                        color: "red",
+                      }}
+                    >
+                      {this.state.coachingSupportIndicator2}
                     </Text>
                   </View>
                 </View>
