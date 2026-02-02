@@ -452,6 +452,15 @@ function LFScreen({ navigation }) {
                 ></Button>
               </View>
             </View>
+            <View style={{ flex: 1, padding: 2 }}>
+              <View>
+                <Button
+                  title="বই চেক আউট তথ্য"
+                  color="#006B4D"
+                  onPress={() => navigation.navigate("PBookCheckoutTool")}
+                ></Button>
+              </View>
+            </View>
           </View>
           {/* <View style={{ flexDirection: "row", marginTop: 5 }}>
             <View style={{ flex: 1, padding: 2 }}>
@@ -468,16 +477,6 @@ function LFScreen({ navigation }) {
             <View style={{ flex: 1, padding: 2 }}>
               <View>
                 <Button
-                  title="বই চেক আউট তথ্য"
-                  color="#006B4D"
-                  onPress={() => navigation.navigate("PBookCheckoutTool")}
-                ></Button>
-              </View>
-            </View>
-
-            <View style={{ flex: 1, padding: 2 }}>
-              <View>
-                <Button
                   title="শ্রেণিকক্ষ কার্যক্রম প্রাক-প্রাথমিক"
                   color="#006B4D"
                   onPress={() => navigation.navigate("PPrePrimaryClass")}
@@ -485,15 +484,27 @@ function LFScreen({ navigation }) {
               </View>
             </View>
 
-            {/* <View style={{ flex: 1, padding: 2 }}>
+            <View style={{ flex: 1, padding: 2 }}>
               <View>
                 <Button
-                  title="পড়ার ঘণ্টা কার্যক্রম পর্যবেক্ষণ ফরম"
-                  // onPress={() => navigation.navigate("LibraryReading")}
+                  title="পড়ার ঘণ্টা কার্যক্রম পর্যবেক্ষণ"
+                  color="#006B4D"
+                  onPress={() =>
+                    navigation.navigate("PLibraryReadingActivities")
+                  }
                 ></Button>
               </View>
-            </View> */}
+            </View>
           </View>
+
+          {/* <View style={{ flex: 1, padding: 2 }}>
+            <View>
+              <Button
+                title="পড়ার ঘণ্টা কার্যক্রম পর্যবেক্ষণ ফরম"
+                onPress={() => navigation.navigate("LibraryReading")}
+              ></Button>
+            </View>
+          </View> */}
 
           {/* <View style={{ flexDirection: "row" }}>
             <View style={{ flex: 1, padding: 2 }}>

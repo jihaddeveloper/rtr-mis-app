@@ -28,6 +28,7 @@ import PBanglaClassObservationScreen from "./screens/PBanglaClassObservationScre
 import PLibraryObservationScreen from "./screens/PLibraryObservationScreen";
 import PBookCheckoutScreen from "./screens/PBookCheckoutScreen";
 import PPrePrimaryClassScreen from "./screens/PPrePrimaryClassScreen";
+import PLibraryReadingActivitiesScreen from "./screens/PLibraryReadingActivitiesScreen";
 
 import LoginScreen2 from "./screens/LoginScreen2";
 import MainScreen from "./screens/MainScreen";
@@ -113,6 +114,15 @@ export default function App() {
             title: "PREVAIL PP Class Observation Form", //Set Header Title
           }}
         />
+
+        <Stack.Screen
+          name="PLibraryReadingActivities"
+          component={PLibraryReadingActivitiesScreen}
+          options={{
+            title: "PREVAIL Library Reading Activity Form", //Set Header Title
+          }}
+        />
+
         <Stack.Screen
           name="BanglaClass"
           component={BanglaClassObservationScreen}
@@ -135,6 +145,7 @@ export default function App() {
             title: "Library Reading Observation Form", //Set Header Title
           }}
         />
+
         <Stack.Screen
           name="BookCheckoutSchool"
           component={MonthlyBookCheckoutScreen}

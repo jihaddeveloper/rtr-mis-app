@@ -39,7 +39,16 @@
         "projectId": "d00c0ebe-ba5d-441f-8839-dc34f8fd87bb"
       }
     },
-    "plugins": ["expo-build-properties"],
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
+    ],
     "owner": "jihaddeveloper"
   }
 }
