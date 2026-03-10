@@ -101,6 +101,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
 
       // Date picker property
       date: new Date(),
+      selectedDate: new Date(),
       time: new Date(Date.now()),
       mode: "date",
       show: false,
@@ -343,37 +344,42 @@ export default class PBanglaClassObservationScreen extends React.Component {
   // Alert in back-button press of device function
 
   // For Datepicker
-  setDate = (event, date) => {
-    date = date || this.state.date;
+  setDate = (event, value) => {
+    this.setState({
+      show: false,
+    }); // Hide picker after selection
 
     this.setState({
-      show: Platform.OS === "ios" ? true : false,
-      date,
+      selectedDate: value,
+      pickerMonth: value.toLocaleString("default", { month: "long" }),
+      pickerYear: value.getFullYear().toString(),
     });
   };
 
   setStartTime = (event, value) => {
-    const startTime = value || this.state.startTime;
+    this.setState({
+      show: false,
+    }); // Hide picker after selection
 
     this.setState({
-      startTime: startTime,
-      show: Platform.OS === "ios" ? true : false,
+      schoolEntryTime: value,
     });
   };
 
   setEndTime = (event, value) => {
-    const endTime = value || this.state.endTime;
+    this.setState({
+      show: false,
+    }); // Hide picker after selection
 
     this.setState({
-      endTime: endTime,
-      show: Platform.OS === "ios" ? true : false,
+      schoolExitTime: value,
     });
   };
 
   show = (mode) => {
     this.setState({
       show: true,
-      mode,
+      mode: mode,
     });
   };
 
@@ -822,7 +828,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
   // Register new Bangla Class data
   saveBanglaClassObservation = async () => {
     const newBanglaClass = {
-      date: this.state.date,
+      date: this.state.selectedDate,
       month: this.state.pickerMonth,
       year: this.state.pickerYear,
       district: this.state.pickerDistrict.name,
@@ -982,7 +988,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
     //Check duplicate data
 
     // Validation
-    if (this.state.date === "") {
+    if (this.state.selectedDate === "") {
       Alert.alert("Alert", "Date can not be empty");
       return;
     } else if (this.state.pickerMonth === "") {
@@ -1114,7 +1120,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
           if (response.status >= 200 && response.status < 300) {
             Alert.alert(
               "Alert",
-              "Bangla class obsvervatio data saved successfully!!!",
+              "Bangla class obsvervatio data saved successfully to online!!!",
             );
             //this.getAllBanglaClassObservation();
             this.updateToInitialState();
@@ -1206,7 +1212,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
   // Save form data locally
   storeLocally = async () => {
     const formData = {
-      date: this.state.date,
+      date: this.state.selectedDate,
       month: this.state.pickerMonth,
       year: this.state.pickerYear,
       district: this.state.pickerDistrict.name,
@@ -1344,7 +1350,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
     };
 
     // Validation
-    if (this.state.date === "") {
+    if (this.state.selectedDate === "") {
       Alert.alert("Alert", "Date can not be empty");
       return;
     } else if (this.state.pickerMonth === "") {
@@ -1495,8 +1501,8 @@ export default class PBanglaClassObservationScreen extends React.Component {
         console.log(
           "Pending data synced successfully: " + JSON.parse(existingData),
         );
-        console.log("Pending data synced successfully!");
-        Alert.alert("Pending data synced successfully!");
+        console.log("Pending data synced successfully to server!");
+        Alert.alert("Pending data synced successfully to server!");
       }
     } catch (error) {
       console.error("Error syncing pending data:", error);
@@ -1508,7 +1514,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
   // Save for later
   saveForLater = async () => {
     const formData = {
-      date: this.state.date,
+      date: this.state.selectedDate,
       month: this.state.pickerMonth,
       year: this.state.pickerYear,
       district: this.state.pickerDistrict.name,
@@ -1646,7 +1652,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
     };
 
     // Validation
-    if (this.state.date === "") {
+    if (this.state.selectedDate === "") {
       Alert.alert("Alert", "Date can not be empty");
       return;
     } else if (this.state.pickerMonth === "") {
@@ -1912,232 +1918,279 @@ export default class PBanglaClassObservationScreen extends React.Component {
 
   // Calculate bestPractice  && coachingSupport
   bestPracticeIndCoachingSupportInd = () => {
-    this.setState({
-      coachingSupportInd1: "N/A",
-      coachingSupportDetailsInd1: "N/A",
-      coachingSupportInd2: "N/A",
-      coachingSupportDetailsInd2: "N/A",
-    });
+    // this.setState({
+    //   coachingSupportInd1: "N/A",
+    //   coachingSupportDetailsInd1: "N/A",
+    //   coachingSupportInd2: "N/A",
+    //   coachingSupportDetailsInd2: "N/A",
+    // });
 
-    this.setState({
-      bestPracticeInd1: "N/A",
-      bestPracticeInd2: "N/A",
-    });
+    // this.setState({
+    //   bestPracticeInd1: "N/A",
+    //   bestPracticeInd2: "N/A",
+    // });
 
-    // Setup CoachingSupport
-    const variablesInd = [
-      this.state.ind11TeacherFollowedTeacherGuideInClassStatus,
-      this.state.ind12FollowedIDoWeDoYouDoStatus,
-      this.state.ind13FollowedContinuityOfLessonStatus,
-      this.state.ind14ImplementedAllTaskInTimeStatus,
-      this.state.ind15InstructedToUseWorkbookStatus,
-      this.state.ind16IndependentReadingOpportunityStatus,
-      this.state.ind21CorrectlyPronouncedStatus,
-      this.state.ind22TaughtCorrectlyAllowPracticeStatus,
-      this.state.ind23DemonstratesFluentReadingStatus,
-      this.state.ind24AllowReadIndividuallyPairGroupsStatus,
-      this.state.ind25FollowsInstructionsInWritingStatus,
-      this.state.ind31AskedHelpfulQuestionsStatus,
-      this.state.ind32TaughtVocabularyNewSentenceStatus,
-      this.state.ind33CheckWritingSpellingPunctuationStatus,
-      this.state.ind34CheckedWeDoYouDoStatus,
-    ];
-
-    const variablesIndValue = [
-      "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
-      "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
-      "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-      "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-      "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-      "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-      "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-      "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-      "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-      "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-      "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-      "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-      "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন ।",
-      "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-      "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-    ];
-
-    const variables3 = [
-      "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ ।",
-      "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে ।",
-      "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয় ।",
-      "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে ।",
-      "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে ।",
-      "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন ।",
-      "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে ।",
-      "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে ।",
-      "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে ।",
-      "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে ।",
-      "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে ।",
-      "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা ।",
-      "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে ।",
-      "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ ।",
-      "শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন ।",
-    ];
-
-    let noCount = 0;
-
-    for (let i = 0; i < variablesInd.length; i++) {
-      if (variablesInd[i] === "No") {
-        if (noCount === 0) {
-          // Assign the first 'No' found to coachingSupport1
-          this.setState({
-            coachingSupportInd1: variablesIndValue[i],
-            coachingSupportDetailsInd1: variables3[i],
-          });
-          noCount++;
-        } else if (noCount === 1) {
-          this.setState({
-            coachingSupportInd2: variablesIndValue[i],
-            coachingSupportDetailsInd2: variables3[i],
-          }); // Assign the second 'No' found to coachingSupport2
-          noCount++;
-          // We found both, so we can stop the loop if needed (optional optimization)
-          break;
-        }
-      } else if (variablesInd[i] === "Partial") {
-        if (noCount === 0) {
-          // Assign the first 'No' found to coachingSupport1
-          this.setState({
-            coachingSupportInd1: variablesIndValue[i],
-            coachingSupportDetailsInd1: variables3[i],
-          });
-          noCount++;
-        } else if (noCount === 1) {
-          this.setState({
-            coachingSupportInd2: variablesIndValue[i],
-            coachingSupportDetailsInd2: variables3[i],
-          }); // Assign the second 'No' found to coachingSupport2
-          noCount++;
-          // We found both, so we can stop the loop if needed (optional optimization)
-          break;
-        }
-      }
-    }
-
-    // Setup CoachingSupport
-
-    // Setup BestPractice test2
-    if (
-      this.state.teacherStatus === "Priority 3" ||
-      this.state.teacherStatus === "Priority 2"
-    ) {
-      const variables = [
-        this.state.ind34CheckedWeDoYouDoStatus,
-        this.state.ind33CheckWritingSpellingPunctuationStatus,
-        this.state.ind32TaughtVocabularyNewSentenceStatus,
-        this.state.ind31AskedHelpfulQuestionsStatus,
-      ];
-
-      const variables2 = [
-        "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
-        "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
-        "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন ।",
-        "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
-      ];
-      let yesCount = 0;
-
-      for (let i = 0; i < variables.length; i++) {
-        if (variables[i] === "Yes") {
-          if (yesCount === 0) {
-            // Assign the first 'yes' found to bestPracticeInd1
-            this.setState({
-              bestPracticeInd1: variables2[i],
-            });
-            yesCount++;
-          } else if (yesCount === 1) {
-            this.setState({
-              bestPracticeInd2: variables2[i],
-            }); // Assign the second 'yes' found to y
-            yesCount++;
-            // We found both, so we can stop the loop if needed (optional optimization)
-            break;
-          }
-        }
-      }
-    } else if (this.state.teacherStatus === "Priority 1") {
-      const variables = [
-        this.state.ind25FollowsInstructionsInWritingStatus,
-        this.state.ind24AllowReadIndividuallyPairGroupsStatus,
-        this.state.ind23DemonstratesFluentReadingStatus,
-        this.state.ind22TaughtCorrectlyAllowPracticeStatus,
-        this.state.ind21CorrectlyPronouncedStatus,
-      ];
-
-      const variables2 = [
-        "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
-        "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
-        "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
-        "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
-        "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
-      ];
-
-      let yesCount = 0;
-
-      for (let i = 0; i < variables.length; i++) {
-        if (variables[i] === "Yes") {
-          if (yesCount === 0) {
-            // Assign the first 'yes' found to bestPracticeInd1
-            this.setState({
-              bestPracticeInd1: variables2[i],
-            });
-
-            yesCount++;
-          } else if (yesCount === 1) {
-            this.setState({
-              bestPracticeInd2: variables2[i],
-            }); // Assign the second 'yes' found to y
-            yesCount++;
-            // We found both, so we can stop the loop if needed (optional optimization)
-            break;
-          }
-        }
-      }
-    } else if (this.state.teacherStatus === "Priority 0") {
-      const variables = [
-        this.state.ind16IndependentReadingOpportunityStatus,
-        this.state.ind15InstructedToUseWorkbookStatus,
-        this.state.ind14ImplementedAllTaskInTimeStatus,
-        this.state.ind13FollowedContinuityOfLessonStatus,
-        this.state.ind12FollowedIDoWeDoYouDoStatus,
+    if (this.state.ind11TeacherFollowedTeacherGuideInClassStatus === "") {
+      Alert.alert("Alert", "Indicator-1.1 can not be empty");
+      return;
+    } else if (this.state.ind12FollowedIDoWeDoYouDoStatus === "") {
+      Alert.alert("Alert", "Indicator-1.2 can not be empty");
+      return;
+    } else if (this.state.ind13FollowedContinuityOfLessonStatus === "") {
+      Alert.alert("Alert", "Indicator-1.3 can not be empty");
+      return;
+    } else if (this.state.ind14ImplementedAllTaskInTimeStatus === "") {
+      Alert.alert("Alert", "Indicator-1.4 can not be empty");
+      return;
+    } else if (this.state.ind15InstructedToUseWorkbookStatus === "") {
+      Alert.alert("Alert", "Indicator-1.5 can not be empty");
+      return;
+    } else if (this.state.ind16IndependentReadingOpportunityStatus === "") {
+      Alert.alert("Alert", "Indicator-1.6 can not be empty");
+      return;
+    } else if (this.state.ind21CorrectlyPronouncedStatus === "") {
+      Alert.alert("Alert", "Indicator-2.1 can not be empty");
+      return;
+    } else if (this.state.ind22TaughtCorrectlyAllowPracticeStatus === "") {
+      Alert.alert("Alert", "Indicator-2.2 can not be empty");
+      return;
+    } else if (this.state.ind23DemonstratesFluentReadingStatus === "") {
+      Alert.alert("Alert", "Indicator-2.3 can not be empty");
+      return;
+    } else if (this.state.ind24AllowReadIndividuallyPairGroupsStatus === "") {
+      Alert.alert("Alert", "Indicator-2.4 can not be empty");
+      return;
+    } else if (this.state.ind25FollowsInstructionsInWritingStatus === "") {
+      Alert.alert("Alert", "Indicator-2.5 can not be empty");
+      return;
+    } else if (this.state.ind31AskedHelpfulQuestionsStatus === "") {
+      Alert.alert("Alert", "Indicator-3.1 can not be empty");
+      return;
+    } else if (this.state.ind32TaughtVocabularyNewSentenceStatus === "") {
+      Alert.alert("Alert", "Indicator-3.2 can not be empty");
+      return;
+    } else if (this.state.ind33CheckWritingSpellingPunctuationStatus === "") {
+      Alert.alert("Alert", "Indicator-3.2 can not be empty");
+      return;
+    } else if (this.state.ind34CheckedWeDoYouDoStatus === "") {
+      Alert.alert("Alert", "Indicator-3.2 can not be empty");
+      return;
+    } else {
+      // Setup CoachingSupport
+      const variablesInd = [
         this.state.ind11TeacherFollowedTeacherGuideInClassStatus,
+        this.state.ind12FollowedIDoWeDoYouDoStatus,
+        this.state.ind13FollowedContinuityOfLessonStatus,
+        this.state.ind14ImplementedAllTaskInTimeStatus,
+        this.state.ind15InstructedToUseWorkbookStatus,
+        this.state.ind16IndependentReadingOpportunityStatus,
+        this.state.ind21CorrectlyPronouncedStatus,
+        this.state.ind22TaughtCorrectlyAllowPracticeStatus,
+        this.state.ind23DemonstratesFluentReadingStatus,
+        this.state.ind24AllowReadIndividuallyPairGroupsStatus,
+        this.state.ind25FollowsInstructionsInWritingStatus,
+        this.state.ind31AskedHelpfulQuestionsStatus,
+        this.state.ind32TaughtVocabularyNewSentenceStatus,
+        this.state.ind33CheckWritingSpellingPunctuationStatus,
+        this.state.ind34CheckedWeDoYouDoStatus,
       ];
 
-      const variables2 = [
-        "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
-        "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
-        "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
-        "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
-        "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+      const variablesIndValue = [
         "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+        "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+        "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+        "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+        "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+        "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+        "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+        "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+        "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+        "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+        "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+        "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+        "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন ।",
+        "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+        "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
       ];
-      let yesCount = 0;
 
-      for (let i = 0; i < variables.length; i++) {
-        if (variables[i] === "Yes") {
-          if (yesCount === 0) {
-            // Assign the first 'yes' found to bestPracticeInd1
+      const variables3 = [
+        "পাঠদানে কোন কোন পদ্ধতি অনুসরণ করে কী কী কাজ করানো হবে, কাজের ধারাবাহিকতা কী হবে, পড়তে শেখা এবং পড়ে শেখার সব কাজ ওয়ার্কবুক ব্যবহারের নির্দেশিকায় উল্লেখ থাকে বলে নির্দেশিকা অনুসরণ করা গুরুত্বপূর্ণ ।",
+        "‘আমি করি’ নীতিতে শিক্ষক শিক্ষার্থীদের করে দেখাবেন যাতে শিক্ষার্থীরা কার্যক্রমটি স্পষ্টভাবে বুঝতে পারে। ‘আমরা করি’ পদ্ধতিতে শিক্ষার্থীরা শিক্ষকের সহায়তায় কাজটি করার চেষ্টা করে। এভাবে শিক্ষক শিক্ষার্থীদের ভুলগুলো সংশোধন করে দিতে পারেন এবং সঠিকভাবে কাজ করার জন্যে সাহায্য করতে পারেন। ‘তুমি কর’ নীতিতে শিক্ষার্থীরা নিজেরা স্বাধীনভাবে কাজ করার চেষ্টা করে ।",
+        "পাঠদান প্রক্রিয়ায় এক পাঠের সাথে পরবর্তী পাঠের সংযোগ ও ধারাবাহিকতা শিক্ষার্থীর দক্ষতা অর্জনে সহায়তা করে। পাঠের ধারাবাহিকতা ব্যাহত হলে শিক্ষার্থীদের যে পাঠ পড়ানো হয়নি সে পাঠের ও যে পাঠ থেকে শুরু করা হয়েছে উভয় পাঠেরই প্রয়োজনীয় দক্ষতা অর্জনে প্রতিবদ্ধকতা তৈরি হয় ।",
+        "শিক্ষার্থীর পড়ার দক্ষতা তৈরি করতে পাঠের সকল কাজ প্রথম থেকে শেষ পর্যন্ত করা প্রয়োজন, তাই শিখন-শেখানো প্রক্রিয়ার জন্য নির্ধারিত সময়ের মধ্যে সকল কাজ ধারাবাহিকভাবে বাস্তবায়ন করতে হবে ।",
+        "শিক্ষার্থীদের ওয়ার্কবুকে অনুশীলনের জন্যে উপযোগী বিষয় থাকে। সেগুলো চর্চা করা খুবই গুরুত্বপূর্ণ কারণ এর মাধ্যমে তাদের বেশি করে চর্চার, স্বাধীনভাবে অনুশীলনের সুযোগ বৃদ্ধি পায় যা তাদের আত্মবিশ্বাসী করে তোলে ।",
+        "শিক্ষার্থীরা যাতে নিজে নিজে পড়তে পারে, বেশি বেশি চর্চার করার সুযোগ পায়, নির্ধারিত মানগতি মেনে পড়তে পারে এবং তাদেও মধ্যে পড়তে পারার আত্মবিশ্বাস তৈরি হয় সে উদ্দেশ্যে শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দেয়া প্রয়োজন ।",
+        "শব্দের মধ্যে ব্যবহৃত ধ্বনির সঠিক উচ্চারণ শিক্ষার্থীর শোনার দক্ষতা বৃদ্ধিতে সহায়তা করে, সঠিক বানান লিখতে সহায়তা করে, পড়তে পারার দক্ষতা অর্জনে সহায়তা করে ।",
+        "বাংলা শিখন শেখানো কার্যক্রমে শিক্ষক কে অনুকণের মাধ্যমে শিক্ষার্থীরা পরিচিত বর্ণ বা শব্দাংশ মিলিয়ে শব্দ পড়া শিখতে পারে, এমনকি যেসব শব্দ তারা আগে দেখেনি সেগুলোও পড়তে শেখে এবং নিজের মত করে অনুশীলন করে ।",
+        "শিক্ষক কর্তৃক একটি সাবলীল পঠন উপস্থাপনা শিক্ষার্থীদের সাবলীলভাবে পড়তে সাহায্য করে যার মাধ্যমে শিক্ষার্থীরা শব্দের সঠিক উচ্চারণ, কতটুকু মানগতি বজায় রেখে পড়া প্রয়োজন এবং কিভাবে অভিব্যক্তি বজায় রেখে আনন্দের সাথে পড়তে হয় সে দক্ষতা অর্জন করে ।",
+        "পড়ার ক্ষেত্রে পুনরাবৃত্তি শিক্ষার্থীর সার্বিক পড়ার দক্ষতা বৃদ্ধি করে। একারণে তাদের শব্দ, বাক্য ও ডিকোডেবল টেক্সট একক বা দলে বার বার পড়ার সুযোগ দিতে হবে ।",
+        "বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার সঠিক ধারাবাহিকতা এবং গঠন অনুসরণ শিক্ষার্থীদের সঠিক প্রবাহ ও ধারাবাহিকতা বজায় রেখে লেখার দক্ষতা অর্জনে সহায়তা করে ।",
+        "সরাসরি উত্তর দেওয়ার পরিবর্তে শিক্ষকের উচিত অন্য প্রশ্ন করে তাদের নিজের মতো করে উত্তর বের করতে সহায়তা করা ।",
+        "শিক্ষার্থীরদের যদি দক্ষ পাঠক হিসেবে গড়ে তুলতে হয় তাহলে তাদেরকে শব্দের সঠিক অর্থ বলা এবং বাক্যের মধ্যে ব্যবহার করতে দেবার সুযোগ দিতে হবে যাতে শব্দগুলি ভালভাবে মনে রাখতে পারে এবং গল্পটি বুঝতে পারে ।",
+        "শব্দের সঠিক বানান ও বিরামচিহ্নের সঠিক ব্যবহার একটি পরিপূর্ণ বাক্য গঠনে এবং বাক্যের অর্থ বুঝতে গুরুত্বপূর্ণ। তাই শিক্ষার্থীদের সঠিক বানান এবং যতিচিহ্নের সঠিক ব্যবহার শেখানো গুরুত্বপূর্ণ ।",
+        "শ্রেণিকক্ষে কাজ চলাকালীন সময়ে শিক্ষক ঘুরে ঘুরে শিক্ষার্থীদের দেখলে বুঝতে পারবেন সবাই অনুশীলন করছে কি না এবং কারো কোনো সমস্যা হচ্ছে কি না, কোথায় সহায়তা প্রয়োজন এবং কীভাবে তিনি সহায়তা করতে পারবেন ।",
+      ];
+
+      let noCount = 0;
+
+      for (let i = 0; i < variablesInd.length; i++) {
+        if (variablesInd[i] === "No") {
+          if (noCount === 0) {
+            // Assign the first 'No' found to coachingSupport1
             this.setState({
-              bestPracticeInd1: variables2[i],
+              coachingSupportInd1: variablesIndValue[i],
+              coachingSupportDetailsInd1: variables3[i],
             });
-
-            yesCount++;
-          } else if (yesCount === 1) {
+            noCount++;
+          } else if (noCount === 1) {
             this.setState({
-              bestPracticeInd2: variables2[i],
-            }); // Assign the second 'yes' found to y
-            yesCount++;
+              coachingSupportInd2: variablesIndValue[i],
+              coachingSupportDetailsInd2: variables3[i],
+            }); // Assign the second 'No' found to coachingSupport2
+            noCount++;
+            // We found both, so we can stop the loop if needed (optional optimization)
+            break;
+          }
+        } else if (variablesInd[i] === "Partial") {
+          if (noCount === 0) {
+            // Assign the first 'No' found to coachingSupport1
+            this.setState({
+              coachingSupportInd1: variablesIndValue[i],
+              coachingSupportDetailsInd1: variables3[i],
+            });
+            noCount++;
+          } else if (noCount === 1) {
+            this.setState({
+              coachingSupportInd2: variablesIndValue[i],
+              coachingSupportDetailsInd2: variables3[i],
+            }); // Assign the second 'No' found to coachingSupport2
+            noCount++;
             // We found both, so we can stop the loop if needed (optional optimization)
             break;
           }
         }
       }
+
+      // Setup CoachingSupport
+
+      // Setup BestPractice test2
+      if (
+        this.state.teacherStatus === "Priority 3" ||
+        this.state.teacherStatus === "Priority 2"
+      ) {
+        const variables = [
+          this.state.ind34CheckedWeDoYouDoStatus,
+          this.state.ind33CheckWritingSpellingPunctuationStatus,
+          this.state.ind32TaughtVocabularyNewSentenceStatus,
+          this.state.ind31AskedHelpfulQuestionsStatus,
+        ];
+
+        const variables2 = [
+          "৩ঘ. 'আমরা করি-তুমি কর' কাজের সময় শিক্ষার্থীরা ঠিকমতো অংশ গ্রহণ করেছে কিনা শিক্ষক তা ঘুরে ঘুরে দেখেছেন ।",
+          "৩গ. শিক্ষক শিক্ষার্থীদের লেখা দেখে সঠিক বানান এবং যতি চিহ্নের ব্যবহার নিশ্চিত করেছেন ।",
+          "৩খ. শিক্ষক শব্দভান্ডারের শব্দগুলো অর্থসহ শিখিয়েছেন এবং শিক্ষার্থীদের বাক্যে ব্যবহারের সুযোগ দিয়েছেন অথবা সঠিক শব্দ দিয়ে অর্থবোধক বাক্য তৈরির কাজ করিয়েছেন ।",
+          "৩ক. সঠিক উত্তরের জন্য শিক্ষক শিক্ষার্থীদের সহায়ক প্রশ্ন করেছেন বা উত্তর খোঁজার কৌশল শিখিয়েছেন ।",
+        ];
+        let yesCount = 0;
+
+        for (let i = 0; i < variables.length; i++) {
+          if (variables[i] === "Yes") {
+            if (yesCount === 0) {
+              // Assign the first 'yes' found to bestPracticeInd1
+              this.setState({
+                bestPracticeInd1: variables2[i],
+              });
+              yesCount++;
+            } else if (yesCount === 1) {
+              this.setState({
+                bestPracticeInd2: variables2[i],
+              }); // Assign the second 'yes' found to y
+              yesCount++;
+              // We found both, so we can stop the loop if needed (optional optimization)
+              break;
+            }
+          }
+        }
+      } else if (this.state.teacherStatus === "Priority 1") {
+        const variables = [
+          this.state.ind25FollowsInstructionsInWritingStatus,
+          this.state.ind24AllowReadIndividuallyPairGroupsStatus,
+          this.state.ind23DemonstratesFluentReadingStatus,
+          this.state.ind22TaughtCorrectlyAllowPracticeStatus,
+          this.state.ind21CorrectlyPronouncedStatus,
+        ];
+
+        const variables2 = [
+          "২ঙ. শিক্ষক নির্দেশনা অনুযায়ী বর্ণ/ যুক্তবর্ণ/শব্দ/বাক্য লেখার কাজ করিয়েছেন ।",
+          "২ঘ. শিক্ষক শিক্ষার্থীদের কয়েকবার এককভাবে বা জুটিতে বা দলে পড়ার সুযোগ দিয়েছেন ।",
+          "২গ. শিক্ষক শিক্ষার্থীদের সাবলীল পঠন (সঠিক গতি, শুদ্ধ উচ্চারণ ও অভিব্যক্তি বজায় রেখে পড়া) উপস্থাপন করে দেখিয়েছেন ।",
+          "২খ. শিক্ষক সঠিকভাবে বর্ণ/ যুক্তবর্ণ পড়া বা বর্ণ/ যুক্তবর্ণ ও শব্দাংশ মিলিয়ে শব্দ পড়া শিখিয়েছেন এবং শিক্ষার্থীদের চর্চা করার সুযোগ দিয়েছেন ।",
+          "২ক. শিক্ষক ধ্বনিসচেতনতার কাজে ব্যবহৃত সকল বর্ণ ও শব্দের ধ্বনি সঠিকভাবে উচ্চারণ করেছেন ।",
+        ];
+
+        let yesCount = 0;
+
+        for (let i = 0; i < variables.length; i++) {
+          if (variables[i] === "Yes") {
+            if (yesCount === 0) {
+              // Assign the first 'yes' found to bestPracticeInd1
+              this.setState({
+                bestPracticeInd1: variables2[i],
+              });
+
+              yesCount++;
+            } else if (yesCount === 1) {
+              this.setState({
+                bestPracticeInd2: variables2[i],
+              }); // Assign the second 'yes' found to y
+              yesCount++;
+              // We found both, so we can stop the loop if needed (optional optimization)
+              break;
+            }
+          }
+        }
+      } else if (this.state.teacherStatus === "Priority 0") {
+        const variables = [
+          this.state.ind16IndependentReadingOpportunityStatus,
+          this.state.ind15InstructedToUseWorkbookStatus,
+          this.state.ind14ImplementedAllTaskInTimeStatus,
+          this.state.ind13FollowedContinuityOfLessonStatus,
+          this.state.ind12FollowedIDoWeDoYouDoStatus,
+          this.state.ind11TeacherFollowedTeacherGuideInClassStatus,
+        ];
+
+        const variables2 = [
+          "১চ. শিক্ষক ক্লাস চলাকালীন শিক্ষার্থীদের স্বাধীনভাবে পড়ার সুযোগ দিয়েছেন ।",
+          "১ঙ. শিক্ষক শিক্ষার্থীদের ওয়ার্কবুকে কাজ করার নির্দেশনা দিয়েছেন ।",
+          "১ঘ. শিক্ষক নির্ধারিত সময়ের মধ্যে পাঠের সকল কাজ ধারাবাহিভাবে বাস্তবায়ন করেছেন ।",
+          "১গ. শিক্ষার্থীদের ওয়ার্কবুকের কাজ, বই, খাতা এবং এলএফ-এর গত পর্যবেক্ষণ ফরম থেকে দেখা গেছে গত ভিজিটের পর শিক্ষক ধারাবাহিকভাবে পাঠের অনুসরণ করেছেন ।",
+          "১খ. শিক্ষক ক্লাসে 'আমি করি-আমরা করি-তুমি কর' পদ্ধতি অনুসরণ করেছেন ।",
+          "১ক. শিক্ষক ওয়ার্কবুক ব্যবহারের নির্দেশিকা অনুসরণ করে শ্রেণি কার্যক্রম পরিচালনা করেছেন এবং প্রয়োজনে দেখেছেন ।",
+        ];
+        let yesCount = 0;
+
+        for (let i = 0; i < variables.length; i++) {
+          if (variables[i] === "Yes") {
+            if (yesCount === 0) {
+              // Assign the first 'yes' found to bestPracticeInd1
+              this.setState({
+                bestPracticeInd1: variables2[i],
+              });
+
+              yesCount++;
+            } else if (yesCount === 1) {
+              this.setState({
+                bestPracticeInd2: variables2[i],
+              }); // Assign the second 'yes' found to y
+              yesCount++;
+              // We found both, so we can stop the loop if needed (optional optimization)
+              break;
+            }
+          }
+        }
+      }
+      // Setup BestPractice test2
     }
-    // Setup BestPractice test2
   };
   // Calculate bestPractice  && coachingSupport
 
@@ -2157,6 +2210,9 @@ export default class PBanglaClassObservationScreen extends React.Component {
       mode,
       startTime,
       endTime,
+      selectedDate,
+      pickerMonth,
+      pickerYear,
 
       employee,
       school,
@@ -2265,37 +2321,6 @@ export default class PBanglaClassObservationScreen extends React.Component {
             </ExpandableView> */}
             <Card style={{ padding: 10, margin: 10, flex: 1 }}>
               <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
-                {/* <View>
-                  {school ? (
-                    <Text>School Data: {school.length}</Text>
-                  ) : (
-                    <Text>Loading data...</Text>
-                  )}
-
-                  {teacher ? (
-                    <Text>Teacher Data: {teacher.length}</Text>
-                  ) : (
-                    <Text>Loading data...</Text>
-                  )}
-
-                  {employee ? (
-                    <Text>Employee Data: {employee.length}</Text>
-                  ) : (
-                    <Text>Loading data...</Text>
-                  )}
-
-                  {office ? (
-                    <Text>Office Data: {office.length}</Text>
-                  ) : (
-                    <Text>Loading data...</Text>
-                  )}
-
-                  {project ? (
-                    <Text>Project Data: {project.length}</Text>
-                  ) : (
-                    <Text>Loading data...</Text>
-                  )}
-                </View> */}
                 <View style={{ flex: 1 }}></View>
                 <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
@@ -2319,7 +2344,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   </View>
 
                   <Text style={{ fontSize: 14 }}>
-                    {String(this.state.date.toISOString().slice(0, 10))}
+                    {String(selectedDate.toDateString())}
                   </Text>
                   <Button
                     style={{
@@ -2327,14 +2352,14 @@ export default class PBanglaClassObservationScreen extends React.Component {
                       width: 10,
                     }}
                     onPress={this.datepicker}
-                    title="Select"
+                    title="Select Date"
                   />
                   {show && (
                     <DateTimePicker
                       value={date}
-                      mode={mode}
+                      mode="date"
                       is24Hour={true}
-                      display="default"
+                      display="spinner"
                       onChange={this.setDate}
                       style={{
                         height: 40,
@@ -2432,12 +2457,6 @@ export default class PBanglaClassObservationScreen extends React.Component {
                     itemStyle={{ color: "white" }}
                   >
                     <Picker.Item label={"Select"} value={""} />
-                    <Picker.Item label={"2018"} value={"2018"} />
-                    <Picker.Item label={"2019"} value={"2019"} />
-                    <Picker.Item label={"2020"} value={"2020"} />
-                    <Picker.Item label={"2021"} value={"2021"} />
-                    <Picker.Item label={"2022"} value={"2022"} />
-                    <Picker.Item label={"2023"} value={"2023"} />
                     <Picker.Item label={"2024"} value={"2024"} />
                     <Picker.Item label={"2025"} value={"2025"} />
                     <Picker.Item label={"2026"} value={"2026"} />
@@ -3015,7 +3034,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                         fontWeight: "bold",
                       }}
                     >
-                      শ্রেণী: (Grade:)
+                      শ্রেণি : (Grade:)
                     </Text>
                     <Text
                       style={{
@@ -3429,6 +3448,11 @@ export default class PBanglaClassObservationScreen extends React.Component {
                     </Text>
                   </View>
                   <Text></Text>
+                  {this.state.studentTotal < this.state.presentTotal && (
+                    <Text style={{ color: "red", fontSize: 20 }}>
+                      Admitted will be greater or equal to Present
+                    </Text>
+                  )}
                   <TextInput
                     style={{
                       height: 30,
@@ -9089,7 +9113,9 @@ export default class PBanglaClassObservationScreen extends React.Component {
                                 this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
                                   "N/A") &&
-                              (value === "Yes" ||
+                              (this.state
+                                .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes" ||
                                 this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
                                   "N/A") &&
@@ -9170,7 +9196,9 @@ export default class PBanglaClassObservationScreen extends React.Component {
                                 this.state
                                   .ind24AllowReadIndividuallyPairGroupsStatus ===
                                   "N/A") &&
-                              (value === "Yes" ||
+                              (this.state
+                                .ind25FollowsInstructionsInWritingStatus ===
+                                "Yes" ||
                                 this.state
                                   .ind25FollowsInstructionsInWritingStatus ===
                                   "N/A") &&

@@ -84,6 +84,7 @@ export default class PrePrimaryClassScreen extends React.Component {
       choosenIndex: 0,
 
       // Date picker property
+      selectedDate: new Date(),
       date: new Date(),
       time: new Date(Date.now()),
       mode: "date",
@@ -119,15 +120,25 @@ export default class PrePrimaryClassScreen extends React.Component {
       section: "",
 
       lessonNo: "",
-      lessonName: "",
+
+      lessonName1: "",
+      lessonName2: "",
+      lessonName3: "",
+      lessonName4: "",
 
       storyName: "",
       pictureName: "",
       cardName: "",
       gameName: "",
 
-      classStartTime: "",
-      classEndTime: "",
+      lesson1StartTime: "",
+      lesson1EndTime: "",
+      lesson2StartTime: "",
+      lesson2EndTime: "",
+      lesson3StartTime: "",
+      lesson3EndTime: "",
+      lesson4StartTime: "",
+      lesson4EndTime: "",
 
       studentBoy: 0,
       studentGirl: 0,
@@ -247,7 +258,7 @@ export default class PrePrimaryClassScreen extends React.Component {
     // Alert in back-button press of device
     this.backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
-      this.handleBackPress
+      this.handleBackPress,
     );
     // Alert in back-button press of device
   }
@@ -273,7 +284,7 @@ export default class PrePrimaryClassScreen extends React.Component {
           onPress: () => BackHandler.exitApp(), // Exit the app on YES
         },
       ],
-      { cancelable: false } // Prevent dismissing the alert by tapping outside
+      { cancelable: false }, // Prevent dismissing the alert by tapping outside
     );
     return true; // Return true to prevent default back button behavior
   };
@@ -362,37 +373,42 @@ export default class PrePrimaryClassScreen extends React.Component {
   // Get All General Data
 
   // For Datepicker
-  setDate = (event, date) => {
-    date = date || this.state.date;
+  setDate = (event, value) => {
+    this.setState({
+      show: false,
+    }); // Hide picker after selection
 
     this.setState({
-      show: Platform.OS === "ios" ? true : false,
-      date,
+      selectedDate: value,
+      pickerMonth: value.toLocaleString("default", { month: "long" }),
+      pickerYear: value.getFullYear().toString(),
     });
   };
 
   setStartTime = (event, value) => {
-    const startTime = value || this.state.startTime;
+    this.setState({
+      show: false,
+    }); // Hide picker after selection
 
     this.setState({
-      startTime: startTime,
-      show: Platform.OS === "ios" ? true : false,
+      schoolEntryTime: value,
     });
   };
 
   setEndTime = (event, value) => {
-    const endTime = value || this.state.endTime;
+    this.setState({
+      show: false,
+    }); // Hide picker after selection
 
     this.setState({
-      endTime: endTime,
-      show: Platform.OS === "ios" ? true : false,
+      schoolExitTime: value,
     });
   };
 
   show = (mode) => {
     this.setState({
       show: true,
-      mode,
+      mode: mode,
     });
   };
 
@@ -435,15 +451,25 @@ export default class PrePrimaryClassScreen extends React.Component {
       section: "",
 
       lessonNo: "",
-      lessonName: "",
+
+      lessonName1: "",
+      lessonName2: "",
+      lessonName3: "",
+      lessonName4: "",
 
       storyName: "",
       pictureName: "",
       cardName: "",
       gameName: "",
 
-      classStartTime: "",
-      classEndTime: "",
+      lesson1StartTime: "",
+      lesson1EndTime: "",
+      lesson2StartTime: "",
+      lesson2EndTime: "",
+      lesson3StartTime: "",
+      lesson3EndTime: "",
+      lesson4StartTime: "",
+      lesson4EndTime: "",
 
       studentBoy: 0,
       studentGirl: 0,
@@ -581,7 +607,7 @@ export default class PrePrimaryClassScreen extends React.Component {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       this.setState({ allEmployee: response.data, isLoading: false });
@@ -603,7 +629,7 @@ export default class PrePrimaryClassScreen extends React.Component {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       this.setState({ allDesignation: response.data, isLoading: false });
@@ -625,7 +651,7 @@ export default class PrePrimaryClassScreen extends React.Component {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       this.setState({
@@ -650,7 +676,7 @@ export default class PrePrimaryClassScreen extends React.Component {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       this.setState({
@@ -659,7 +685,7 @@ export default class PrePrimaryClassScreen extends React.Component {
       });
       console.log(
         "allPreprimaryClassObservationData Data: ",
-        this.state.allPreprimaryClassObservationData.length
+        this.state.allPreprimaryClassObservationData.length,
       );
     } catch (error) {
       console.log(error);
@@ -670,7 +696,7 @@ export default class PrePrimaryClassScreen extends React.Component {
   // Register new Preprimary Class data
   savePreprimaryClassObservation = async () => {
     const newPreprimary = {
-      date: this.state.date,
+      date: this.state.selectedDate,
       month: this.state.pickerMonth,
       year: this.state.pickerYear,
       district: this.state.pickerDistrict.name,
@@ -692,14 +718,26 @@ export default class PrePrimaryClassScreen extends React.Component {
       yearOfSupport: this.state.yearOfSupport,
 
       lessonNo: this.state.lessonNo,
-      lessonName: this.state.lessonName,
-      storyName: this.state.storyName,
-      pictureName: this.state.pictureName,
-      cardName: this.state.cardName,
-      gameName: this.state.gameName,
 
-      classStartTime: this.state.classStartTime,
-      classEndTime: this.state.classEndTime,
+      lessonName1: this.state.lessonName1,
+      storyName: this.state.storyName,
+      lesson1StartTime: this.state.lesson1StartTime,
+      lesson1EndTime: this.state.lesson1EndTime,
+
+      lessonName2: this.state.lessonName2,
+      pictureName: this.state.pictureName,
+      lesson2StartTime: this.state.lesson2StartTime,
+      lesson2EndTime: this.state.lesson2EndTime,
+
+      lessonName3: this.state.lessonName3,
+      cardName: this.state.cardName,
+      lesson3StartTime: this.state.lesson3StartTime,
+      lesson3EndTime: this.state.lesson3EndTime,
+
+      lessonName4: this.state.lessonName4,
+      gameName: this.state.gameName,
+      lesson4StartTime: this.state.lesson4StartTime,
+      lesson4EndTime: this.state.lesson4EndTime,
 
       totalPresentStudent: this.state.studentTotal,
       totalPresentGirl: this.state.studentGirl,
@@ -794,13 +832,12 @@ export default class PrePrimaryClassScreen extends React.Component {
 
     console.log(
       "Duplicate Preprimary Class Data: ",
-      this.state.duplicatePreprimaryClassObservationData.length
+      this.state.duplicatePreprimaryClassObservationData.length,
     );
     //Check duplicate data
 
     // Validation
-    if (this.state.date === "") {
-      this.setState({ dateError: "Date can not be empty" });
+    if (this.state.selectedDate === "") {
       Alert.alert("Alert", "Date can not be empty");
       return;
     } else if (this.state.pickerMonth === "") {
@@ -842,14 +879,14 @@ export default class PrePrimaryClassScreen extends React.Component {
     } else if (this.state.lessonNo === "") {
       Alert.alert("Alert", "Lesson No can not be empty");
       return;
-    } else if (this.state.lessonName === "") {
+    } else if (this.state.lessonName1 === "") {
       Alert.alert("Alert", "Lesson name can not be empty");
       return;
-    } else if (this.state.classStartTime === "") {
-      Alert.alert("Alert", "ClassStartTime can not be empty");
+    } else if (this.state.lesson1StartTime === "") {
+      Alert.alert("Alert", "Start Time can not be empty");
       return;
-    } else if (this.state.classEndTime === "") {
-      Alert.alert("Alert", "ClassEndTime can not be empty");
+    } else if (this.state.lesson1EndTime === "") {
+      Alert.alert("Alert", "End Time can not be empty");
       return;
     } else if (this.state.ind11UsedRtRMaterialStatus === "") {
       Alert.alert("Alert", "Indicator 1.1 can not be empty");
@@ -903,27 +940,15 @@ export default class PrePrimaryClassScreen extends React.Component {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(newPreprimary),
-          }
+          },
         );
         if (response.status >= 200 && response.status < 300) {
           Alert.alert(
-            "Alert",
-            "Preprimary class obsvervatio data saved successfully!!!",
-            [
-              // The "Cancel" button
-              {
-                text: "Cancel",
-              },
-              // The "Ok" button
-              {
-                text: "Ok",
-              },
-            ]
+            "Preprimary class obsvervatio data saved successfully to online!!!",
           );
-          this.getAllPreprimaryClassObservation();
           this.updateToInitialState();
         } else {
-          Alert.alert("Alert", "Error there !!!", [
+          Alert.alert("Alert", "Error there to save online !!!", [
             // The "Cancel" button
             {
               text: "Cancel",
@@ -987,7 +1012,7 @@ export default class PrePrimaryClassScreen extends React.Component {
   // Save form data locally
   storeLocally = async () => {
     const formData = {
-      date: this.state.date,
+      date: this.state.selectedDate,
       month: this.state.pickerMonth,
       year: this.state.pickerYear,
       district: this.state.pickerDistrict.name,
@@ -1009,14 +1034,26 @@ export default class PrePrimaryClassScreen extends React.Component {
       yearOfSupport: this.state.yearOfSupport,
 
       lessonNo: this.state.lessonNo,
-      lessonName: this.state.lessonName,
-      storyName: this.state.storyName,
-      pictureName: this.state.pictureName,
-      cardName: this.state.cardName,
-      gameName: this.state.gameName,
 
-      classStartTime: this.state.classStartTime,
-      classEndTime: this.state.classEndTime,
+      lessonName1: this.state.lessonName1,
+      storyName: this.state.storyName,
+      lesson1StartTime: this.state.lesson1StartTime,
+      lesson1EndTime: this.state.lesson1EndTime,
+
+      lessonName2: this.state.lessonName2,
+      pictureName: this.state.pictureName,
+      lesson2StartTime: this.state.lesson2StartTime,
+      lesson2EndTime: this.state.lesson2EndTime,
+
+      lessonName3: this.state.lessonName3,
+      cardName: this.state.cardName,
+      lesson3StartTime: this.state.lesson3StartTime,
+      lesson3EndTime: this.state.lesson3EndTime,
+
+      lessonName4: this.state.lessonName4,
+      gameName: this.state.gameName,
+      lesson4StartTime: this.state.lesson4StartTime,
+      lesson4EndTime: this.state.lesson4EndTime,
 
       totalPresentStudent: this.state.studentTotal,
       totalPresentGirl: this.state.studentGirl,
@@ -1095,7 +1132,7 @@ export default class PrePrimaryClassScreen extends React.Component {
     };
 
     // Validation
-    if (this.state.date === "") {
+    if (this.state.selectedDate === "") {
       this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Date can not be empty");
       return;
@@ -1138,14 +1175,14 @@ export default class PrePrimaryClassScreen extends React.Component {
     } else if (this.state.lessonNo === "") {
       Alert.alert("Alert", "Lesson No can not be empty");
       return;
-    } else if (this.state.lessonName === "") {
+    } else if (this.state.lessonName1 === "") {
       Alert.alert("Alert", "Lesson name can not be empty");
       return;
-    } else if (this.state.classStartTime === "") {
-      Alert.alert("Alert", "ClassStartTime can not be empty");
+    } else if (this.state.lesson1StartTime === "") {
+      Alert.alert("Alert", "Start Time can not be empty");
       return;
-    } else if (this.state.classEndTime === "") {
-      Alert.alert("Alert", "ClassEndTime can not be empty");
+    } else if (this.state.lesson1EndTime === "") {
+      Alert.alert("Alert", "End Time can not be empty");
       return;
     } else if (this.state.ind11UsedRtRMaterialStatus === "") {
       Alert.alert("Alert", "Indicator 1.1 can not be empty");
@@ -1190,13 +1227,13 @@ export default class PrePrimaryClassScreen extends React.Component {
       // Save data locally
       try {
         const existingData = await AsyncStorage.getItem(
-          "offlineFormsPPrePrimary"
+          "offlineFormsPPrePrimary",
         );
         const forms = existingData ? JSON.parse(existingData) : [];
         forms.push(formData);
         await AsyncStorage.setItem(
           "offlineFormsPPrePrimary",
-          JSON.stringify(forms)
+          JSON.stringify(forms),
         );
         console.log("Data stored locally: " + JSON.stringify(forms));
         Alert.alert("Data stored locally.");
@@ -1214,7 +1251,7 @@ export default class PrePrimaryClassScreen extends React.Component {
   syncPendingData = async () => {
     try {
       const existingData = await AsyncStorage.getItem(
-        "offlineFormsPPrePrimary"
+        "offlineFormsPPrePrimary",
       );
       if (existingData) {
         const formsToSync = JSON.parse(existingData);
@@ -1228,7 +1265,7 @@ export default class PrePrimaryClassScreen extends React.Component {
         console.log("PP Data syncing");
         await AsyncStorage.removeItem("offlineFormsPPrePrimary"); // Clear synced data
         console.log(
-          "Pending data synced successfully: " + JSON.parse(existingData)
+          "Pending data synced successfully: " + JSON.parse(existingData),
         );
         console.log("Pending data synced successfully!");
         Alert.alert("Pending data synced successfully!");
@@ -1242,117 +1279,155 @@ export default class PrePrimaryClassScreen extends React.Component {
 
   // Calculate bestPractice  && coachingSupport
   bestPracticeIndCoachingSupportInd = () => {
-    // Setup CoachingSupport
-    const variablesInd = [
-      this.state.ind11UsedRtRMaterialStatus,
-      this.state.ind12PlanWiseTeachingStatus,
-      this.state.ind13FollowedIWeUDoStatus,
-      this.state.ind14UsedStandardLanguageAllowPracticeStatus,
-      this.state.ind21UsedRtRReadingMaterialStatus,
-      this.state.ind22FollowedPlanContinuityStatus,
-      this.state.ind23AskedRelatedQuestionStatus,
-      this.state.ind24ShowedPictureAllowedSpeakingStatus,
-      this.state.ind31UsedReadingMaterialForAssessmentStatus,
-      this.state.ind32FollowedTeachingPlanStatus,
-      this.state.ind33AssessmentOn5StudentStatus,
-      this.state.ind34Allowed5StudentStoryTellingStatus,
-    ];
+    if (this.state.ind11UsedRtRMaterialStatus === "") {
+      Alert.alert("Alert", "Indicator 1.1 can not be empty");
+      return;
+    } else if (this.state.ind12PlanWiseTeachingStatus === "") {
+      Alert.alert("Alert", "Indicator 1.2 can not be empty");
+      return;
+    } else if (this.state.ind13FollowedIWeUDoStatus === "") {
+      Alert.alert("Alert", "Indicator 1.3 can not be empty");
+      return;
+    } else if (this.state.ind14UsedStandardLanguageAllowPracticeStatus === "") {
+      Alert.alert("Alert", "Indicator 1.4 can not be empty");
+      return;
+    } else if (this.state.ind21UsedRtRReadingMaterialStatus === "") {
+      Alert.alert("Alert", "Indicator 2.1 can not be empty");
+      return;
+    } else if (this.state.ind22FollowedPlanContinuityStatus === "") {
+      Alert.alert("Alert", "Indicator 2.2 can not be empty");
+      return;
+    } else if (this.state.ind23AskedRelatedQuestionStatus === "") {
+      Alert.alert("Alert", "Indicator 2.3 can not be empty");
+      return;
+    } else if (this.state.ind24ShowedPictureAllowedSpeakingStatus === "") {
+      Alert.alert("Alert", "Indicator 2.4 can not be empty");
+      return;
+    } else if (this.state.ind31UsedReadingMaterialForAssessmentStatus === "") {
+      Alert.alert("Alert", "Indicator 3.1 can not be empty");
+      return;
+    } else if (this.state.ind32FollowedTeachingPlanStatus === "") {
+      Alert.alert("Alert", "Indicator 3.2 can not be empty");
+      return;
+    } else if (this.state.ind33AssessmentOn5StudentStatus === "") {
+      Alert.alert("Alert", "Indicator 3.3 can not be empty");
+      return;
+    } else if (this.state.ind34Allowed5StudentStoryTellingStatus === "") {
+      Alert.alert("Alert", "Indicator 3.4 can not be empty");
+      return;
+    } else {
+      // Setup CoachingSupport
+      const variablesInd = [
+        this.state.ind11UsedRtRMaterialStatus,
+        this.state.ind12PlanWiseTeachingStatus,
+        this.state.ind13FollowedIWeUDoStatus,
+        this.state.ind14UsedStandardLanguageAllowPracticeStatus,
+        this.state.ind21UsedRtRReadingMaterialStatus,
+        this.state.ind22FollowedPlanContinuityStatus,
+        this.state.ind23AskedRelatedQuestionStatus,
+        this.state.ind24ShowedPictureAllowedSpeakingStatus,
+        this.state.ind31UsedReadingMaterialForAssessmentStatus,
+        this.state.ind32FollowedTeachingPlanStatus,
+        this.state.ind33AssessmentOn5StudentStatus,
+        this.state.ind34Allowed5StudentStoryTellingStatus,
+      ];
 
-    const variablesIndValue = [
-      "১ক. রুম টু রিড কর্তৃক প্রদত্ত পাঠ সংশ্লিষ্ট উপকরণ ব্যবহার করেছেন।",
-      "১খ. শিক্ষক পরিকল্পনা অনুযায়ী দিনভিত্তিক পাঠ পরিচালনা করেছেন (গল্প/ কথোপকথন/ অভিজ্ঞতার গল্প/ ধ্বনি সচেতনতা)।",
-      "১গ. শিক্ষক ক্লাসে আমি করি- আমরা করি- তুমি কর পদ্ধতি অনুসরণ করেছেন।",
-      "১ঘ. শিক্ষক পাঠের প্রয়োজনে কথ্য ও প্রমিত ভাষার ব্যবহার করেছেন এবং শিক্ষার্থীদের কথ্য ও প্রমিত ভাষা চর্চার সুযোগ দিয়েছেন।",
-      "২ক. রুম টু রিড কর্তৃক প্রদত্ত পাঠ সংশ্লিষ্ট উপকরণ ব্যবহার করে শিক্ষার্থীদের অংশগ্রহণে সু-স্পষ্ট নির্দেশনা দিয়েছেন।",
-      "২খ. শিক্ষক পরিকল্পনা অনুযায়ী দিনভিত্তিক পাঠের ধারাবাহিকতা অনুসরণ করে পাঠ পরিচালনা করেছেন।",
-      "২গ. শিক্ষক শিক্ষার্থীদের সক্রিয় অংশগ্রহণে পাঠ সম্পর্কিত প্রশ্ন করেছেন।",
-      "২ঘ. শিক্ষক পাঠ সংশ্লিষ্ট ছবির বিষয়বস্তু নিয়ে প্রশ্ন করেছেন এবং শিক্ষার্থীদের বলার সুযোগ দিয়েছেন।",
-      "৩ক. রুম টু রিড কর্তৃক প্রদত্ত পাঠ সংশ্লিষ্ট উপকরণ ব্যবহার করে শিখন যাচাই করেছেন।",
-      "তখ. শিক্ষক পরিকল্পনা অনুযায়ী কাজের সঠিক ধাপ অনুসরণ করে পাঠ পরিচালনা করেছেন।",
-      "তগ. শিক্ষক ছোট ছোট প্রশ্নের মাধ্যমে অন্তত ৫ জন শিক্ষার্থীর বোধগম্যতা যাচাই করেছেন।",
-      "৩ঘ. শিক্ষক শিক্ষার্থীদেরকে নিজের মতো করে অন্তত ৫ জন শিক্ষার্থীর গল্প/ শব্দ/বাক্য/ অভিজ্ঞতার গল্প বলার সুযোগ দিয়েছেন।",
-    ];
+      const variablesIndValue = [
+        "১ক. রুম টু রিড কর্তৃক প্রদত্ত পাঠ সংশ্লিষ্ট উপকরণ ব্যবহার করেছেন।",
+        "১খ. শিক্ষক পরিকল্পনা অনুযায়ী দিনভিত্তিক পাঠ পরিচালনা করেছেন (গল্প/ কথোপকথন/ অভিজ্ঞতার গল্প/ ধ্বনি সচেতনতা)।",
+        "১গ. শিক্ষক ক্লাসে আমি করি- আমরা করি- তুমি কর পদ্ধতি অনুসরণ করেছেন।",
+        "১ঘ. শিক্ষক পাঠের প্রয়োজনে কথ্য ও প্রমিত ভাষার ব্যবহার করেছেন এবং শিক্ষার্থীদের কথ্য ও প্রমিত ভাষা চর্চার সুযোগ দিয়েছেন।",
+        "২ক. রুম টু রিড কর্তৃক প্রদত্ত পাঠ সংশ্লিষ্ট উপকরণ ব্যবহার করে শিক্ষার্থীদের অংশগ্রহণে সু-স্পষ্ট নির্দেশনা দিয়েছেন।",
+        "২খ. শিক্ষক পরিকল্পনা অনুযায়ী দিনভিত্তিক পাঠের ধারাবাহিকতা অনুসরণ করে পাঠ পরিচালনা করেছেন।",
+        "২গ. শিক্ষক শিক্ষার্থীদের সক্রিয় অংশগ্রহণে পাঠ সম্পর্কিত প্রশ্ন করেছেন।",
+        "২ঘ. শিক্ষক পাঠ সংশ্লিষ্ট ছবির বিষয়বস্তু নিয়ে প্রশ্ন করেছেন এবং শিক্ষার্থীদের বলার সুযোগ দিয়েছেন।",
+        "৩ক. রুম টু রিড কর্তৃক প্রদত্ত পাঠ সংশ্লিষ্ট উপকরণ ব্যবহার করে শিখন যাচাই করেছেন।",
+        "তখ. শিক্ষক পরিকল্পনা অনুযায়ী কাজের সঠিক ধাপ অনুসরণ করে পাঠ পরিচালনা করেছেন।",
+        "তগ. শিক্ষক ছোট ছোট প্রশ্নের মাধ্যমে অন্তত ৫ জন শিক্ষার্থীর বোধগম্যতা যাচাই করেছেন।",
+        "৩ঘ. শিক্ষক শিক্ষার্থীদেরকে নিজের মতো করে অন্তত ৫ জন শিক্ষার্থীর গল্প/ শব্দ/বাক্য/ অভিজ্ঞতার গল্প বলার সুযোগ দিয়েছেন।",
+      ];
 
-    let noCount = 0;
+      let noCount = 0;
 
-    for (let i = 0; i < variablesInd.length; i++) {
-      if (variablesInd[i] === "No") {
-        if (noCount === 0) {
-          // Assign the first 'No' found to coachingSupport1
-          this.setState({
-            coachingSupportIndicator1: variablesIndValue[i],
-          });
-          noCount++;
-        } else if (noCount === 1) {
-          this.setState({
-            coachingSupportIndicator2: variablesIndValue[i],
-          }); // Assign the second 'No' found to coachingSupport2
-          noCount++;
-          // We found both, so we can stop the loop if needed (optional optimization)
-          break;
-        }
-      } else if (variablesInd[i] === "Partial") {
-        if (noCount === 0) {
-          // Assign the first 'No' found to coachingSupport1
-          this.setState({
-            coachingSupportIndicator1: variablesIndValue[i],
-          });
-          noCount++;
-        } else if (noCount === 1) {
-          this.setState({
-            coachingSupportIndicator2: variablesIndValue[i],
-          }); // Assign the second 'No' found to coachingSupport2
-          noCount++;
-          // We found both, so we can stop the loop if needed (optional optimization)
-          break;
+      for (let i = 0; i < variablesInd.length; i++) {
+        if (variablesInd[i] === "No") {
+          if (noCount === 0) {
+            // Assign the first 'No' found to coachingSupport1
+            this.setState({
+              coachingSupportIndicator1: variablesIndValue[i],
+            });
+            noCount++;
+          } else if (noCount === 1) {
+            this.setState({
+              coachingSupportIndicator2: variablesIndValue[i],
+            }); // Assign the second 'No' found to coachingSupport2
+            noCount++;
+            // We found both, so we can stop the loop if needed (optional optimization)
+            break;
+          }
+        } else if (variablesInd[i] === "Partial") {
+          if (noCount === 0) {
+            // Assign the first 'No' found to coachingSupport1
+            this.setState({
+              coachingSupportIndicator1: variablesIndValue[i],
+            });
+            noCount++;
+          } else if (noCount === 1) {
+            this.setState({
+              coachingSupportIndicator2: variablesIndValue[i],
+            }); // Assign the second 'No' found to coachingSupport2
+            noCount++;
+            // We found both, so we can stop the loop if needed (optional optimization)
+            break;
+          }
         }
       }
-    }
-    // Setup CoachingSupport
+      // Setup CoachingSupport
 
-    // Setup BestPractice
+      // Setup BestPractice
 
-    const variables = [
-      this.state.ind24ShowedPictureAllowedSpeakingStatus,
-      this.state.ind23AskedRelatedQuestionStatus,
-      this.state.ind22FollowedPlanContinuityStatus,
-      this.state.ind21UsedRtRReadingMaterialStatus,
-    ];
+      const variables = [
+        this.state.ind24ShowedPictureAllowedSpeakingStatus,
+        this.state.ind23AskedRelatedQuestionStatus,
+        this.state.ind22FollowedPlanContinuityStatus,
+        this.state.ind21UsedRtRReadingMaterialStatus,
+      ];
 
-    const variables2 = [
-      "২ঘ. শিক্ষক পাঠ সংশ্লিষ্ট ছবির বিষয়বস্তু নিয়ে প্রশ্ন করেছেন এবং শিক্ষার্থীদের বলার সুযোগ দিয়েছেন।",
-      "২গ. শিক্ষক শিক্ষার্থীদের সক্রিয় অংশগ্রহণে পাঠ সম্পর্কিত প্রশ্ন করেছেন।",
-      "২খ. শিক্ষক পরিকল্পনা অনুযায়ী দিনভিত্তিক পাঠের ধারাবাহিকতা অনুসরণ করে পাঠ পরিচালনা করেছেন।",
-      "২ক. রুম টু রিড কর্তৃক প্রদত্ত পাঠ সংশ্লিষ্ট উপকরণ ব্যবহার করে শিক্ষার্থীদের অংশগ্রহণে সু-স্পষ্ট নির্দেশনা দিয়েছেন।",
-    ];
-    let yesCount = 0;
+      const variables2 = [
+        "২ঘ. শিক্ষক পাঠ সংশ্লিষ্ট ছবির বিষয়বস্তু নিয়ে প্রশ্ন করেছেন এবং শিক্ষার্থীদের বলার সুযোগ দিয়েছেন।",
+        "২গ. শিক্ষক শিক্ষার্থীদের সক্রিয় অংশগ্রহণে পাঠ সম্পর্কিত প্রশ্ন করেছেন।",
+        "২খ. শিক্ষক পরিকল্পনা অনুযায়ী দিনভিত্তিক পাঠের ধারাবাহিকতা অনুসরণ করে পাঠ পরিচালনা করেছেন।",
+        "২ক. রুম টু রিড কর্তৃক প্রদত্ত পাঠ সংশ্লিষ্ট উপকরণ ব্যবহার করে শিক্ষার্থীদের অংশগ্রহণে সু-স্পষ্ট নির্দেশনা দিয়েছেন।",
+      ];
+      let yesCount = 0;
 
-    for (let i = 0; i < variables.length; i++) {
-      if (variables[i] === "Yes") {
-        if (yesCount === 0) {
-          // Assign the first 'yes' found to bestPracticeInd1
-          this.setState({
-            bestPracticeIndicator1: variables2[i],
-          });
-          yesCount++;
-        } else if (yesCount === 1) {
-          this.setState({
-            bestPracticeIndicator2: variables2[i],
-          }); // Assign the second 'yes' found to y
-          yesCount++;
-          // We found both, so we can stop the loop if needed (optional optimization)
-          break;
+      for (let i = 0; i < variables.length; i++) {
+        if (variables[i] === "Yes") {
+          if (yesCount === 0) {
+            // Assign the first 'yes' found to bestPracticeInd1
+            this.setState({
+              bestPracticeIndicator1: variables2[i],
+            });
+            yesCount++;
+          } else if (yesCount === 1) {
+            this.setState({
+              bestPracticeIndicator2: variables2[i],
+            }); // Assign the second 'yes' found to y
+            yesCount++;
+            // We found both, so we can stop the loop if needed (optional optimization)
+            break;
+          }
         }
       }
+      // Setup BestPractice
     }
-    // Setup BestPractice
   };
   // Calculate bestPractice  && coachingSupport
 
   // Save for later
   saveForLater = async () => {
     const formData = {
-      date: this.state.date,
+      date: this.state.selectedDate,
       month: this.state.pickerMonth,
       year: this.state.pickerYear,
       district: this.state.pickerDistrict.name,
@@ -1374,14 +1449,26 @@ export default class PrePrimaryClassScreen extends React.Component {
       yearOfSupport: this.state.yearOfSupport,
 
       lessonNo: this.state.lessonNo,
-      lessonName: this.state.lessonName,
-      storyName: this.state.storyName,
-      pictureName: this.state.pictureName,
-      cardName: this.state.cardName,
-      gameName: this.state.gameName,
 
-      classStartTime: this.state.classStartTime,
-      classEndTime: this.state.classEndTime,
+      lessonName1: this.state.lessonName1,
+      storyName: this.state.storyName,
+      lesson1StartTime: this.state.lesson1StartTime,
+      lesson1EndTime: this.state.lesson1EndTime,
+
+      lessonName2: this.state.lessonName2,
+      pictureName: this.state.pictureName,
+      lesson2StartTime: this.state.lesson2StartTime,
+      lesson2EndTime: this.state.lesson2EndTime,
+
+      lessonName3: this.state.lessonName3,
+      cardName: this.state.cardName,
+      lesson3StartTime: this.state.lesson3StartTime,
+      lesson3EndTime: this.state.lesson3EndTime,
+
+      lessonName4: this.state.lessonName4,
+      gameName: this.state.gameName,
+      lesson4StartTime: this.state.lesson4StartTime,
+      lesson4EndTime: this.state.lesson4EndTime,
 
       totalPresentStudent: this.state.studentTotal,
       totalPresentGirl: this.state.studentGirl,
@@ -1503,25 +1590,25 @@ export default class PrePrimaryClassScreen extends React.Component {
     } else if (this.state.lessonNo === "") {
       Alert.alert("Alert", "Lesson No can not be empty");
       return;
-    } else if (this.state.lessonName === "") {
+    } else if (this.state.lessonName1 === "") {
       Alert.alert("Alert", "Lesson name can not be empty");
       return;
-    } else if (this.state.classStartTime === "") {
-      Alert.alert("Alert", "ClassStartTime can not be empty");
+    } else if (this.state.lesson1StartTime === "") {
+      Alert.alert("Alert", "Start Time can not be empty");
       return;
-    } else if (this.state.classEndTime === "") {
-      Alert.alert("Alert", "ClassEndTime can not be empty");
+    } else if (this.state.lesson1EndTime === "") {
+      Alert.alert("Alert", "End Time can not be empty");
       return;
     } else {
       try {
         const existingData = await AsyncStorage.getItem(
-          "saveForLaterPPrePrimary"
+          "saveForLaterPPrePrimary",
         );
         const forms = existingData ? JSON.parse(existingData) : [];
         forms.push(formData);
         await AsyncStorage.setItem(
           "saveForLaterPPrePrimary",
-          JSON.stringify(forms)
+          JSON.stringify(forms),
         );
         console.log("Data saved for later: " + JSON.stringify(forms));
         Alert.alert("Data saved for later.");
@@ -1538,7 +1625,7 @@ export default class PrePrimaryClassScreen extends React.Component {
   loadSavedData = async () => {
     try {
       const existingData = await AsyncStorage.getItem(
-        "saveForLaterPPrePrimary"
+        "saveForLaterPPrePrimary",
       );
       if (existingData) {
         const formsToSync = JSON.parse(existingData);
@@ -1566,14 +1653,25 @@ export default class PrePrimaryClassScreen extends React.Component {
             // visitorDesignation: formData.visitorDesignation,
 
             lessonNo: formData.lessonNo,
-            lessonName: formData.lessonName,
+
+            lessonName1: formData.lessonName1,
+            lessonName2: formData.lessonName2,
+            lessonName3: formData.lessonName3,
+            lessonName4: formData.lessonName4,
+
             storyName: formData.storyName,
             pictureName: formData.pictureName,
             cardName: formData.cardName,
             gameName: formData.gameName,
 
-            classStartTime: formData.classStartTime,
-            classEndTime: formData.classEndTime,
+            lesson1StartTime: formData.lesson1StartTime,
+            lesson1EndTime: formData.lesson1EndTime,
+            lesson2StartTime: formData.lesson2StartTime,
+            lesson2EndTime: formData.lesson2EndTime,
+            lesson3StartTime: formData.lesson3StartTime,
+            lesson3EndTime: formData.lesson3EndTime,
+            lesson4StartTime: formData.lesson4StartTime,
+            lesson4EndTime: formData.lesson4EndTime,
 
             studentTotal: formData.totalPresentStudent,
             studentGirl: formData.totalPresentGirl,
@@ -1685,7 +1783,7 @@ export default class PrePrimaryClassScreen extends React.Component {
         {
           text: "No",
         },
-      ]
+      ],
     );
   };
   // Alert before save for later
@@ -1693,6 +1791,7 @@ export default class PrePrimaryClassScreen extends React.Component {
   render() {
     // For Datepicker
     const {
+      selectedDate,
       show,
       date,
       mode,
@@ -1742,37 +1841,6 @@ export default class PrePrimaryClassScreen extends React.Component {
 
             <Card style={{ padding: 10, margin: 10, flex: 1 }}>
               <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
-                {/* <View>
-                                {school ? (
-                                  <Text>School Data: {school.length}</Text>
-                                ) : (
-                                  <Text>Loading data...</Text>
-                                )}
-              
-                                {teacher ? (
-                                  <Text>Teacher Data: {teacher.length}</Text>
-                                ) : (
-                                  <Text>Loading data...</Text>
-                                )}
-              
-                                {employee ? (
-                                  <Text>Employee Data: {employee.length}</Text>
-                                ) : (
-                                  <Text>Loading data...</Text>
-                                )}
-              
-                                {office ? (
-                                  <Text>Office Data: {office.length}</Text>
-                                ) : (
-                                  <Text>Loading data...</Text>
-                                )}
-              
-                                {project ? (
-                                  <Text>Project Data: {project.length}</Text>
-                                ) : (
-                                  <Text>Loading data...</Text>
-                                )}
-                              </View> */}
                 <View style={{ flex: 1 }}></View>
                 <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
@@ -1796,7 +1864,7 @@ export default class PrePrimaryClassScreen extends React.Component {
                   </View>
 
                   <Text style={{ fontSize: 14 }}>
-                    {String(this.state.date.toISOString().slice(0, 10))}
+                    {String(selectedDate.toDateString())}
                   </Text>
                   <Button
                     style={{
@@ -1804,14 +1872,14 @@ export default class PrePrimaryClassScreen extends React.Component {
                       width: 10,
                     }}
                     onPress={this.datepicker}
-                    title="Select"
+                    title="Select Date"
                   />
                   {show && (
                     <DateTimePicker
                       value={date}
-                      mode={mode}
+                      mode="date"
                       is24Hour={true}
-                      display="default"
+                      display="spinner"
                       onChange={this.setDate}
                       style={{
                         height: 40,
@@ -1908,12 +1976,6 @@ export default class PrePrimaryClassScreen extends React.Component {
                     itemStyle={{ color: "white" }}
                   >
                     <Picker.Item label={"Select"} value={""} />
-                    <Picker.Item label={"2018"} value={"2018"} />
-                    <Picker.Item label={"2019"} value={"2019"} />
-                    <Picker.Item label={"2020"} value={"2020"} />
-                    <Picker.Item label={"2021"} value={"2021"} />
-                    <Picker.Item label={"2022"} value={"2022"} />
-                    <Picker.Item label={"2023"} value={"2023"} />
                     <Picker.Item label={"2024"} value={"2024"} />
                     <Picker.Item label={"2025"} value={"2025"} />
                     <Picker.Item label={"2026"} value={"2026"} />
@@ -1975,7 +2037,7 @@ export default class PrePrimaryClassScreen extends React.Component {
                           item.name == "Moulvibazar" ||
                           item.name == "Jhalakathi" ||
                           item.name == "Habiganj" ||
-                          item.name == "Sirajganj"
+                          item.name == "Sirajganj",
                       )
                       .map((item) => {
                         //console.log(item);
@@ -2027,7 +2089,7 @@ export default class PrePrimaryClassScreen extends React.Component {
                     {upazillas
                       .filter(
                         (item) =>
-                          item.district_id == this.state.pickerDistrictKey
+                          item.district_id == this.state.pickerDistrictKey,
                       )
                       .map((item) => {
                         return (
@@ -2080,7 +2142,7 @@ export default class PrePrimaryClassScreen extends React.Component {
                     {this.state.office
                       .filter((item) => {
                         return item.address.includes(
-                          this.state.pickerDistrict.name
+                          this.state.pickerDistrict.name,
                         );
                       })
                       .map((item) => {
@@ -2129,7 +2191,7 @@ export default class PrePrimaryClassScreen extends React.Component {
                     {this.state.project
                       .filter((item) => {
                         return item.projectDetail.includes(
-                          this.state.pickerOffice
+                          this.state.pickerOffice,
                         );
                       })
                       .map((item) => {
@@ -2733,6 +2795,94 @@ export default class PrePrimaryClassScreen extends React.Component {
                   />
                 </View>
                 <View style={{ flex: 1 }}>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    উপস্থিত শিশুর সংখ্যা :
+                  </Text>
+                  <View style={{ flexDirection: "row" }}>
+                    <View style={{ flex: 1 }}>
+                      <Text>মেয়ে:</Text>
+                      <TextInput
+                        style={{
+                          height: 30,
+                          width: 100,
+                          padding: 5,
+                          borderWidth: 1,
+                        }}
+                        keyboardType="numeric"
+                        placeholder=""
+                        editable={true}
+                        onChangeText={(text) =>
+                          this.setState({
+                            studentGirl: Number(text),
+                            studentTotal: Number(text) + this.state.studentBoy,
+                          })
+                        }
+                        value={this.state.studentGirl + ""}
+                      />
+                      <Text>ছেলে:</Text>
+                      <TextInput
+                        style={{
+                          height: 30,
+                          width: 100,
+                          padding: 5,
+                          borderWidth: 1,
+                        }}
+                        keyboardType="numeric"
+                        placeholder=""
+                        editable={true}
+                        onChangeText={(text) =>
+                          this.setState({
+                            studentBoy: Number(text),
+                            studentTotal: Number(text) + this.state.studentGirl,
+                          })
+                        }
+                        value={this.state.studentBoy + ""}
+                      />
+                      <Text>মোট:</Text>
+                      <TextInput
+                        style={{
+                          height: 30,
+                          width: 100,
+                          padding: 5,
+                          borderWidth: 1,
+                        }}
+                        keyboardType="numeric"
+                        placeholder=""
+                        editable={false}
+                        value={this.state.studentTotal + ""}
+                      />
+
+                      <Text>প্রতিবন্ধী শিশু:</Text>
+                      <TextInput
+                        style={{
+                          height: 30,
+                          width: 100,
+                          padding: 5,
+                          borderWidth: 1,
+                        }}
+                        keyboardType="numeric"
+                        placeholder=""
+                        editable={true}
+                        onChangeText={(text) =>
+                          this.setState({
+                            studentSpecial: Number(text),
+                          })
+                        }
+                        value={this.state.studentSpecial + ""}
+                      />
+                    </View>
+                    <View style={{ flex: 1 }}></View>
+                  </View>
+                </View>
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 10 }}>
+                <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
                     <Text
                       style={{
@@ -2740,7 +2890,7 @@ export default class PrePrimaryClassScreen extends React.Component {
                         fontWeight: "bold",
                       }}
                     >
-                      পাঠ:(Lesson)
+                      পাঠ ১ :(Lesson 1)
                     </Text>
                     <Text
                       style={{
@@ -2754,12 +2904,12 @@ export default class PrePrimaryClassScreen extends React.Component {
                   <Picker
                     style={{
                       height: 60,
-                      width: 170,
+                      width: 180,
                     }}
                     enabled={true}
-                    selectedValue={this.state.lessonName}
+                    selectedValue={this.state.lessonName1}
                     onValueChange={(value) => {
-                      this.setState({ lessonName: value });
+                      this.setState({ lessonName1: value });
                     }}
                     itemStyle={{ color: "white" }}
                   >
@@ -2772,11 +2922,6 @@ export default class PrePrimaryClassScreen extends React.Component {
                     />
                     <Picker.Item label={"ভাষার খেলা"} value={"Language Game"} />
                   </Picker>
-                </View>
-              </View>
-
-              <View style={{ flexDirection: "row", padding: 10 }}>
-                <View style={{ flex: 1 }}>
                   <Text
                     style={{
                       fontSize: 16,
@@ -2804,6 +2949,85 @@ export default class PrePrimaryClassScreen extends React.Component {
                       fontWeight: "bold",
                     }}
                   >
+                    শুরুর সময়:
+                  </Text>
+                  <TextInput
+                    style={{
+                      height: 30,
+                      width: 200,
+                      padding: 5,
+                      borderWidth: 1,
+                    }}
+                    keyboardType="default"
+                    placeholder=""
+                    editable={true}
+                    onChangeText={(text) =>
+                      this.setState({ lesson1StartTime: text })
+                    }
+                    value={this.state.lesson1StartTime + ""}
+                  />
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    শেষের সময়:
+                  </Text>
+                  <TextInput
+                    style={{
+                      height: 30,
+                      width: 200,
+                      padding: 5,
+                      borderWidth: 1,
+                    }}
+                    keyboardType="default"
+                    placeholder=""
+                    editable={true}
+                    onChangeText={(text) =>
+                      this.setState({ lesson1EndTime: text })
+                    }
+                    value={this.state.lesson1EndTime + ""}
+                  />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      পাঠ ২:(Lesson 2)
+                    </Text>
+                  </View>
+                  <Picker
+                    style={{
+                      height: 60,
+                      width: 180,
+                    }}
+                    enabled={true}
+                    selectedValue={this.state.lessonName2}
+                    onValueChange={(value) => {
+                      this.setState({ lessonName2: value });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    <Picker.Item label={"Select"} value={""} />
+                    <Picker.Item label={"গল্প"} value={"Stroy"} />
+                    <Picker.Item label={"কথোপকথন"} value={"Speaking"} />
+                    <Picker.Item
+                      label={"অভিজ্ঞতার গল্প"}
+                      value={"Experience Story"}
+                    />
+                    <Picker.Item label={"ভাষার খেলা"} value={"Language Game"} />
+                  </Picker>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: "bold",
+                    }}
+                  >
                     ছবির নাম:
                   </Text>
                   <TextInput
@@ -2821,8 +3045,88 @@ export default class PrePrimaryClassScreen extends React.Component {
                     }
                     value={this.state.pictureName + ""}
                   />
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    শুরুর সময়:
+                  </Text>
+                  <TextInput
+                    style={{
+                      height: 30,
+                      width: 200,
+                      padding: 5,
+                      borderWidth: 1,
+                    }}
+                    keyboardType="default"
+                    placeholder=""
+                    editable={true}
+                    onChangeText={(text) =>
+                      this.setState({ lesson2StartTime: text })
+                    }
+                    value={this.state.lesson2StartTime + ""}
+                  />
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    শেষের সময়:
+                  </Text>
+                  <TextInput
+                    style={{
+                      height: 30,
+                      width: 200,
+                      padding: 5,
+                      borderWidth: 1,
+                    }}
+                    keyboardType="default"
+                    placeholder=""
+                    editable={true}
+                    onChangeText={(text) =>
+                      this.setState({ lesson2EndTime: text })
+                    }
+                    value={this.state.lesson2EndTime + ""}
+                  />
                 </View>
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 10 }}>
                 <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      পাঠ ৩:(Lesson 3)
+                    </Text>
+                  </View>
+                  <Picker
+                    style={{
+                      height: 60,
+                      width: 180,
+                    }}
+                    enabled={true}
+                    selectedValue={this.state.lessonName3}
+                    onValueChange={(value) => {
+                      this.setState({ lessonName3: value });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    <Picker.Item label={"Select"} value={""} />
+                    <Picker.Item label={"গল্প"} value={"Stroy"} />
+                    <Picker.Item label={"কথোপকথন"} value={"Speaking"} />
+                    <Picker.Item
+                      label={"অভিজ্ঞতার গল্প"}
+                      value={"Experience Story"}
+                    />
+                    <Picker.Item label={"ভাষার খেলা"} value={"Language Game"} />
+                  </Picker>
                   <Text
                     style={{
                       fontSize: 16,
@@ -2850,6 +3154,85 @@ export default class PrePrimaryClassScreen extends React.Component {
                       fontWeight: "bold",
                     }}
                   >
+                    শুরুর সময়:
+                  </Text>
+                  <TextInput
+                    style={{
+                      height: 30,
+                      width: 200,
+                      padding: 5,
+                      borderWidth: 1,
+                    }}
+                    keyboardType="default"
+                    placeholder=""
+                    editable={true}
+                    onChangeText={(text) =>
+                      this.setState({ lesson3StartTime: text })
+                    }
+                    value={this.state.lesson3StartTime + ""}
+                  />
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    শেষের সময়:
+                  </Text>
+                  <TextInput
+                    style={{
+                      height: 30,
+                      width: 200,
+                      padding: 5,
+                      borderWidth: 1,
+                    }}
+                    keyboardType="default"
+                    placeholder=""
+                    editable={true}
+                    onChangeText={(text) =>
+                      this.setState({ lesson3EndTime: text })
+                    }
+                    value={this.state.lesson3EndTime + ""}
+                  />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      পাঠ ৪:(Lesson 4)
+                    </Text>
+                  </View>
+                  <Picker
+                    style={{
+                      height: 60,
+                      width: 180,
+                    }}
+                    enabled={true}
+                    selectedValue={this.state.lessonName4}
+                    onValueChange={(value) => {
+                      this.setState({ lessonName4: value });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    <Picker.Item label={"Select"} value={""} />
+                    <Picker.Item label={"গল্প"} value={"Stroy"} />
+                    <Picker.Item label={"কথোপকথন"} value={"Speaking"} />
+                    <Picker.Item
+                      label={"অভিজ্ঞতার গল্প"}
+                      value={"Experience Story"}
+                    />
+                    <Picker.Item label={"ভাষার খেলা"} value={"Language Game"} />
+                  </Picker>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: "bold",
+                    }}
+                  >
                     খেলার নাম:
                   </Text>
                   <TextInput
@@ -2865,47 +3248,13 @@ export default class PrePrimaryClassScreen extends React.Component {
                     onChangeText={(text) => this.setState({ gameName: text })}
                     value={this.state.gameName + ""}
                   />
-                </View>
-              </View>
-
-              <View style={{ flexDirection: "row", padding: 10 }}>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <View style={{ flex: 1 }}>
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontWeight: "bold",
-                        }}
-                      >
-                        ক্লাস শুরুর সময়:
-                      </Text>
-                      <TextInput
-                        style={{
-                          height: 30,
-                          width: 200,
-                          padding: 5,
-                          borderWidth: 1,
-                        }}
-                        keyboardType="default"
-                        placeholder=""
-                        editable={true}
-                        onChangeText={(text) =>
-                          this.setState({ classStartTime: text })
-                        }
-                        value={this.state.classStartTime + ""}
-                      />
-                    </View>
-                  </View>
-                </View>
-                <View style={{ flex: 1 }}>
                   <Text
                     style={{
                       fontSize: 16,
                       fontWeight: "bold",
                     }}
                   >
-                    ক্লাস শেষের সময়:
+                    শুরুর সময়:
                   </Text>
                   <TextInput
                     style={{
@@ -2918,98 +3267,33 @@ export default class PrePrimaryClassScreen extends React.Component {
                     placeholder=""
                     editable={true}
                     onChangeText={(text) =>
-                      this.setState({ classEndTime: text })
+                      this.setState({ lesson4StartTime: text })
                     }
-                    value={this.state.classEndTime + ""}
+                    value={this.state.lesson4StartTime + ""}
                   />
-                </View>
-              </View>
-
-              <View style={{ flexDirection: "row", padding: 10 }}>
-                <View style={{ flex: 1 }}>
                   <Text
                     style={{
                       fontSize: 16,
                       fontWeight: "bold",
                     }}
                   >
-                    উপস্থিত শিশুর সংখ্যা :
+                    শেষের সময়:
                   </Text>
-                  <View style={{ flexDirection: "row" }}>
-                    <View style={{ flex: 1 }}>
-                      <Text>মেয়ে:</Text>
-                      <Text>ছেলে:</Text>
-                      <Text>মোট:</Text>
-                      <Text>প্রতিবন্ধী শিশু:</Text>
-                    </View>
-                    <View style={{ flex: 1 }}>
-                      <TextInput
-                        style={{
-                          height: 30,
-                          width: 100,
-                          padding: 5,
-                          borderWidth: 1,
-                        }}
-                        keyboardType="numeric"
-                        placeholder=""
-                        editable={true}
-                        onChangeText={(text) =>
-                          this.setState({
-                            studentGirl: Number(text),
-                            studentTotal: Number(text) + this.state.studentBoy,
-                          })
-                        }
-                        value={this.state.studentGirl + ""}
-                      />
-                      <TextInput
-                        style={{
-                          height: 30,
-                          width: 100,
-                          padding: 5,
-                          borderWidth: 1,
-                        }}
-                        keyboardType="numeric"
-                        placeholder=""
-                        editable={true}
-                        onChangeText={(text) =>
-                          this.setState({
-                            studentBoy: Number(text),
-                            studentTotal: Number(text) + this.state.studentGirl,
-                          })
-                        }
-                        value={this.state.studentBoy + ""}
-                      />
-                      <TextInput
-                        style={{
-                          height: 30,
-                          width: 100,
-                          padding: 5,
-                          borderWidth: 1,
-                        }}
-                        keyboardType="numeric"
-                        placeholder=""
-                        editable={false}
-                        value={this.state.studentTotal + ""}
-                      />
-                      <TextInput
-                        style={{
-                          height: 30,
-                          width: 100,
-                          padding: 5,
-                          borderWidth: 1,
-                        }}
-                        keyboardType="numeric"
-                        placeholder=""
-                        editable={true}
-                        onChangeText={(text) =>
-                          this.setState({
-                            studentSpecial: Number(text),
-                          })
-                        }
-                        value={this.state.studentSpecial + ""}
-                      />
-                    </View>
-                  </View>
+                  <TextInput
+                    style={{
+                      height: 30,
+                      width: 200,
+                      padding: 5,
+                      borderWidth: 1,
+                    }}
+                    keyboardType="default"
+                    placeholder=""
+                    editable={true}
+                    onChangeText={(text) =>
+                      this.setState({ lesson4EndTime: text })
+                    }
+                    value={this.state.lesson4EndTime + ""}
+                  />
                 </View>
               </View>
 

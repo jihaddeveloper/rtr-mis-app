@@ -92,6 +92,14 @@ export default function App() {
           }}
         />
 
+        {/* <Stack.Screen
+          name="BanglaTool"
+          component={BanglaClassObservationScreen}
+          options={{
+            title: "Bangla Observation Tool", //Set Header Title
+          }}
+        /> */}
+
         <Stack.Screen
           name="PLibraryTool"
           component={PLibraryObservationScreen}

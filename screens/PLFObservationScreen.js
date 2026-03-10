@@ -1,6 +1,6 @@
 //  Author: Mohammad Jihad Hossain
 //  Create Date: 15/09/2025
-//  Modify Date: 20/10/2025
+//  Modify Date: 16/2/2026
 //  Description: LFObservationScreen component
 
 import React, { useRef } from "react";
@@ -99,8 +99,9 @@ export default class PLFObservationScreen extends React.Component {
 
       // Date picker property
 
-      time: new Date(Date.now()),
+      time: new Date(),
       mode: "date",
+      modeTime: "time",
       show: false,
       startTime: "",
       endTime: "",
@@ -110,6 +111,7 @@ export default class PLFObservationScreen extends React.Component {
 
       visitNo: 0,
       date: new Date(),
+      selectedDate: new Date(),
       // office: "",
       // project: "",
       district: "",
@@ -352,37 +354,42 @@ export default class PLFObservationScreen extends React.Component {
   // Alert in back-button press of device function
 
   // For Datepicker
-  setDate = (event, date) => {
-    date = date || this.state.date;
+  setDate = (event, value) => {
+    this.setState({
+      show: false,
+    }); // Hide picker after selection
 
     this.setState({
-      show: Platform.OS === "ios" ? true : false,
-      date,
+      selectedDate: value,
+      pickerMonth: value.toLocaleString("default", { month: "long" }),
+      pickerYear: value.getFullYear().toString(),
     });
   };
 
   setStartTime = (event, value) => {
-    const startTime = value || this.state.startTime;
+    this.setState({
+      show: false,
+    }); // Hide picker after selection
 
     this.setState({
-      startTime: startTime,
-      show: Platform.OS === "ios" ? true : false,
+      schoolEntryTime: value,
     });
   };
 
   setEndTime = (event, value) => {
-    const endTime = value || this.state.endTime;
+    this.setState({
+      show: false,
+    }); // Hide picker after selection
 
     this.setState({
-      endTime: endTime,
-      show: Platform.OS === "ios" ? true : false,
+      schoolExitTime: value,
     });
   };
 
   show = (mode) => {
     this.setState({
       show: true,
-      mode,
+      mode: mode,
     });
   };
 
@@ -798,7 +805,7 @@ export default class PLFObservationScreen extends React.Component {
   // Register new LFObservation data
   saveLFObservation = async () => {
     const newLFObservation = {
-      date: this.state.date,
+      date: this.state.selectedDate,
       month: this.state.pickerMonth,
       year: this.state.pickerYear,
       rtrSchoolId: this.state.rtrSchoolId,
@@ -960,7 +967,7 @@ export default class PLFObservationScreen extends React.Component {
     //Check duplicate data
 
     // Validation
-    if (this.state.date === "") {
+    if (this.state.selectedDate === "") {
       Alert.alert("Alert", "Date can not be empty");
       return;
     } else if (this.state.pickerMonth === "") {
@@ -1101,7 +1108,10 @@ export default class PLFObservationScreen extends React.Component {
           },
         );
         if (response.status >= 200 && response.status < 300) {
-          Alert.alert("Alert", "LF obsvervatio data saved successfully!!!");
+          Alert.alert(
+            "Alert",
+            "LF obsvervatio data saved successfully to online!!!",
+          );
           this.updateToInitialState();
         } else {
           Alert.alert("Alert", "Error to save data online !!!");
@@ -1166,7 +1176,7 @@ export default class PLFObservationScreen extends React.Component {
   // Save form data locally
   storeLocally = async () => {
     const formData = {
-      date: this.state.date,
+      date: this.state.selectedDate,
       month: this.state.pickerMonth,
       year: this.state.pickerYear,
       rtrSchoolId: this.state.rtrSchoolId,
@@ -1306,7 +1316,7 @@ export default class PLFObservationScreen extends React.Component {
     };
 
     // Validation
-    if (this.state.date === "") {
+    if (this.state.selectedDate === "") {
       Alert.alert("Alert", "Date can not be empty");
       return;
     } else if (this.state.pickerMonth === "") {
@@ -1486,180 +1496,245 @@ export default class PLFObservationScreen extends React.Component {
 
   // Calculate bestPractice  && coachingSupport
   bestPracticeIndcoachingSupportInd = () => {
-    // Setup CoachingSupport
-    const variablesInd = [
-      this.state.ind11IsCarriedAllMaterialStatus,
-      this.state.ind12IsCheckedInRightTimeStatus,
-      this.state.ind13IsObservedBanglaLibraryStatus,
-      this.state.ind14FeedbackSessionWithTeacherStatus,
-      this.state.ind15MeetingWithHeadTeacherStatus,
-      this.state.ind16FilledAllFormProperlyStatus,
-      this.state.ind17ObservedClassSilentlyStatus,
-      this.state.ind21LFTeacherMaintainGoodRelationshipStatus,
-      this.state.ind22LFDiscussGoodPracticeIndicatorStatus,
-      this.state.ind23LFDiscussCoachingSupportIndicatorStatus,
-      this.state.ind24LFDiscussLastFollowupIndicatorStatus,
-      this.state.ind25LFInstructIdealLessonStatus,
-      this.state.ind26LFObserveStudentOrGroupStatus,
-      this.state.ind27LFVerifyWorkbookStatus,
-      this.state.ind28LFTrack3StudentStatus,
-      this.state.ind29LFTeacherAgreedNextPlanStatus,
-      this.state.ind31LFIdentifyGoodImprovablePointStatus,
-      this.state.ind32LFInstructDevelopmentPlanStatus,
-      this.state.ind33LFDiscussAboutDevelopmentPlanNote,
-      this.state.ind34LFAllowToChangeTeachingPatternStatus,
-      this.state.ind35LFAllowTeacherForDiscussionStatus,
-    ];
-
-    const variablesIndValue = [
-      "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)।",
-      "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
-      "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
-      "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
-      "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
-      "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
-      "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
-      "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
-      "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
-      "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-      "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-      "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-      "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-      "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-      "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-      "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-      "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-      "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-      "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-      "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-      "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-    ];
-
-    let noCount = 0;
-
-    for (let i = 0; i < variablesInd.length; i++) {
-      if (variablesInd[i] === "No") {
-        if (noCount === 0) {
-          // Assign the first 'No' found to coachingSupport1
-          this.setState({
-            coachingSupportIndicator1: variablesIndValue[i],
-          });
-          noCount++;
-        } else if (noCount === 1) {
-          this.setState({
-            coachingSupportIndicator2: variablesIndValue[i],
-          }); // Assign the second 'No' found to coachingSupport2
-          noCount++;
-          // We found both, so we can stop the loop if needed (optional optimization)
-          break;
-        }
-      } else if (variablesInd[i] === "Partial") {
-        if (noCount === 0) {
-          // Assign the first 'No' found to coachingSupport1
-          this.setState({
-            coachingSupportIndicator1: variablesIndValue[i],
-          });
-          noCount++;
-        } else if (noCount === 1) {
-          this.setState({
-            coachingSupportIndicator2: variablesIndValue[i],
-          }); // Assign the second 'No' found to coachingSupport2
-          noCount++;
-          // We found both, so we can stop the loop if needed (optional optimization)
-          break;
-        }
-      }
-    }
-    // Setup CoachingSupport
-
-    // Setup BestPractice test2
-    if (
-      this.state.lfStatus === "Priority 3" ||
-      this.state.lfStatus === "Priority 2"
-    ) {
-      const variables = [
-        this.state.ind35LFAllowTeacherForDiscussionStatus,
-        this.state.ind34LFAllowToChangeTeachingPatternStatus,
-        this.state.ind33LFDiscussAboutDevelopmentPlanStatus,
-        this.state.ind32LFInstructDevelopmentPlanStatus,
-        this.state.ind31LFIdentifyGoodImprovablePointStatus,
-      ];
-
-      const variables2 = [
-        "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
-        "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
-        "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
-        "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
-        "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
-      ];
-      let yesCount = 0;
-
-      for (let i = 0; i < variables.length; i++) {
-        if (variables[i] === "Yes") {
-          if (yesCount === 0) {
-            // Assign the first 'yes' found to bestPracticeInd1
-            this.setState({
-              bestPracticeIndicator1: variables2[i],
-            });
-            yesCount++;
-          } else if (yesCount === 1) {
-            this.setState({
-              bestPracticeIndicator2: variables2[i],
-            }); // Assign the second 'yes' found to y
-            yesCount++;
-            // We found both, so we can stop the loop if needed (optional optimization)
-            break;
-          }
-        }
-      }
-    } else if (this.state.lfStatus === "Priority 1") {
-      const variables = [
-        this.state.ind29LFTeacherAgreedNextPlanStatus,
-        this.state.ind28LFTrack3StudentStatus,
-        this.state.ind27LFVerifyWorkbookStatus,
-        this.state.ind26LFObserveStudentOrGroupStatus,
-        this.state.ind25LFInstructIdealLessonStatus,
-        this.state.ind24LFDiscussLastFollowupIndicatorStatus,
-        this.state.ind23LFDiscussCoachingSupportIndicatorStatus,
-        this.state.ind22LFDiscussGoodPracticeIndicatorStatus,
+    if (this.state.ind11IsCarriedAllMaterialStatus === "") {
+      Alert.alert("Alert", "Indicator-1.1 can not be empty");
+      return;
+    } else if (this.state.ind12IsCheckedInRightTimeStatus === "") {
+      Alert.alert("Alert", "Indicator-1.2 can not be empty");
+      return;
+    } else if (this.state.ind13IsObservedBanglaLibraryStatus === "") {
+      Alert.alert("Alert", "Indicator-1.3 can not be empty");
+      return;
+    } else if (this.state.ind14FeedbackSessionWithTeacherStatus === "") {
+      Alert.alert("Alert", "Indicator-1.4 can not be empty");
+      return;
+    } else if (this.state.ind15MeetingWithHeadTeacherStatus === "") {
+      Alert.alert("Alert", "Indicator-1.5 can not be empty");
+      return;
+    } else if (this.state.ind16FilledAllFormProperlyStatus === "") {
+      Alert.alert("Alert", "Indicator-1.6 can not be empty");
+      return;
+    } else if (this.state.ind17ObservedClassSilentlyStatus === "") {
+      Alert.alert("Alert", "Indicator-1.7 can not be empty");
+      return;
+    } else if (this.state.ind21LFTeacherMaintainGoodRelationshipStatus === "") {
+      Alert.alert("Alert", "Indicator-2.1 can not be empty");
+      return;
+    } else if (this.state.ind22LFDiscussGoodPracticeIndicatorStatus === "") {
+      Alert.alert("Alert", "Indicator-2.2 can not be empty");
+      return;
+    } else if (this.state.ind23LFDiscussCoachingSupportIndicatorStatus === "") {
+      Alert.alert("Alert", "Indicator-2.3 can not be empty");
+      return;
+    } else if (this.state.ind24LFDiscussLastFollowupIndicatorStatus === "") {
+      Alert.alert("Alert", "Indicator-2.4 can not be empty");
+      return;
+    } else if (this.state.ind25LFInstructIdealLessonStatus === "") {
+      Alert.alert("Alert", "Indicator-2.5 can not be empty");
+      return;
+    } else if (this.state.ind26LFObserveStudentOrGroupStatus === "") {
+      Alert.alert("Alert", "Indicator-2.6 can not be empty");
+      return;
+    } else if (this.state.ind27LFVerifyWorkbookStatus === "") {
+      Alert.alert("Alert", "Indicator-2.7 can not be empty");
+      return;
+    } else if (this.state.ind28LFTrack3StudentStatus === "") {
+      Alert.alert("Alert", "Indicator-2.8 can not be empty");
+      return;
+    } else if (this.state.ind29LFTeacherAgreedNextPlanStatus === "") {
+      Alert.alert("Alert", "Indicator-2.9 can not be empty");
+      return;
+    } else if (this.state.ind31LFIdentifyGoodImprovablePointStatus === "") {
+      Alert.alert("Alert", "Indicator-3.1 can not be empty");
+      return;
+    } else if (this.state.ind32LFInstructDevelopmentPlanStatus === "") {
+      Alert.alert("Alert", "Indicator-3.2 can not be empty");
+      return;
+    } else if (this.state.ind33LFDiscussAboutDevelopmentPlanStatus === "") {
+      Alert.alert("Alert", "Indicator-3.3 can not be empty");
+      return;
+    } else if (this.state.ind34LFAllowToChangeTeachingPatternStatus === "") {
+      Alert.alert("Alert", "Indicator-3.4 can not be empty");
+      return;
+    } else if (this.state.ind35LFAllowTeacherForDiscussionStatus === "") {
+      Alert.alert("Alert", "Indicator-3.5 can not be empty");
+      return;
+    } else {
+      // Setup CoachingSupport
+      const variablesInd = [
+        this.state.ind11IsCarriedAllMaterialStatus,
+        this.state.ind12IsCheckedInRightTimeStatus,
+        this.state.ind13IsObservedBanglaLibraryStatus,
+        this.state.ind14FeedbackSessionWithTeacherStatus,
+        this.state.ind15MeetingWithHeadTeacherStatus,
+        this.state.ind16FilledAllFormProperlyStatus,
+        this.state.ind17ObservedClassSilentlyStatus,
         this.state.ind21LFTeacherMaintainGoodRelationshipStatus,
+        this.state.ind22LFDiscussGoodPracticeIndicatorStatus,
+        this.state.ind23LFDiscussCoachingSupportIndicatorStatus,
+        this.state.ind24LFDiscussLastFollowupIndicatorStatus,
+        this.state.ind25LFInstructIdealLessonStatus,
+        this.state.ind26LFObserveStudentOrGroupStatus,
+        this.state.ind27LFVerifyWorkbookStatus,
+        this.state.ind28LFTrack3StudentStatus,
+        this.state.ind29LFTeacherAgreedNextPlanStatus,
+        this.state.ind31LFIdentifyGoodImprovablePointStatus,
+        this.state.ind32LFInstructDevelopmentPlanStatus,
+        this.state.ind33LFDiscussAboutDevelopmentPlanNote,
+        this.state.ind34LFAllowToChangeTeachingPatternStatus,
+        this.state.ind35LFAllowTeacherForDiscussionStatus,
       ];
 
-      const variables2 = [
-        "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
-        "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
-        "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
-        "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
-        "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
-        "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
-        "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
-        "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+      const variablesIndValue = [
+        "১ক. এলএফ প্রয়োজনীয় উপকরণ সঙ্গে এনেছেন (বিদ্যালয় পরিদর্শন রেকর্ড ফরম, বাংলা ক্লাস পর্যবেক্ষণ ফরম, শিক্ষক সহায়িকা)।",
+        "১খ. এলএফ পরিদর্শনের জন্য সঠিক সময়ে বিদ্যালয়ে উপস্থিত হয়েছেন।",
+        "১গ. এলএফ প্রথম এবং/অথবা দ্বিতীয় শ্রেণির পুরো বাংলা ক্লাস পর্যবেক্ষণ করছেন এবং একটি শ্রেণির পাঠাগার কার্যক্রম পর্যবেক্ষণ করেছেন।",
+        "১ঘ. এলএফ যেসব ক্লাস পর্যবেক্ষণ করেছেন ঐসব ক্লাসের প্রত্যেক শিক্ষকের সাথে একটি করে ফিডব্যাক মিটিং করেছেন।",
+        "১ঙ. এলএফ উক্ত বিদ্যালয়ের প্রধান শিক্ষকের সাথে প্রয়োজনীয় মিটিং করেছেন।",
+        "১চ. এলএফ প্রয়োজনীয় সকল ফরম ঠিকমতো পূরণ করেছেন।",
+        "১ছ. এলএফ শিক্ষকের পাঠদান বাধাগ্রস্ত না করে নীরবে পাঠদান পর্যবেক্ষণ করেছেন (আলোচনার ভিত্তিতে আদর্শ পাঠদান ব্যতিরেকে)।",
         "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+        "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+        "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+        "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+        "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+        "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+        "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+        "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+        "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+        "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+        "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+        "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+        "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+        "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
       ];
 
-      let yesCount = 0;
+      let noCount = 0;
 
-      for (let i = 0; i < variables.length; i++) {
-        if (variables[i] === "Yes") {
-          if (yesCount === 0) {
-            // Assign the first 'yes' found to bestPracticeInd1
+      for (let i = 0; i < variablesInd.length; i++) {
+        if (variablesInd[i] === "No") {
+          if (noCount === 0) {
+            // Assign the first 'No' found to coachingSupport1
             this.setState({
-              bestPracticeIndicator1: variables2[i],
+              coachingSupportIndicator1: variablesIndValue[i],
             });
-
-            yesCount++;
-          } else if (yesCount === 1) {
+            noCount++;
+          } else if (noCount === 1) {
             this.setState({
-              bestPracticeIndicator2: variables2[i],
-            }); // Assign the second 'yes' found to y
-            yesCount++;
+              coachingSupportIndicator2: variablesIndValue[i],
+            }); // Assign the second 'No' found to coachingSupport2
+            noCount++;
+            // We found both, so we can stop the loop if needed (optional optimization)
+            break;
+          }
+        } else if (variablesInd[i] === "Partial") {
+          if (noCount === 0) {
+            // Assign the first 'No' found to coachingSupport1
+            this.setState({
+              coachingSupportIndicator1: variablesIndValue[i],
+            });
+            noCount++;
+          } else if (noCount === 1) {
+            this.setState({
+              coachingSupportIndicator2: variablesIndValue[i],
+            }); // Assign the second 'No' found to coachingSupport2
+            noCount++;
             // We found both, so we can stop the loop if needed (optional optimization)
             break;
           }
         }
       }
+      // Setup CoachingSupport
+
+      // Setup BestPractice test2
+      if (
+        this.state.lfStatus === "Priority 3" ||
+        this.state.lfStatus === "Priority 2"
+      ) {
+        const variables = [
+          this.state.ind35LFAllowTeacherForDiscussionStatus,
+          this.state.ind34LFAllowToChangeTeachingPatternStatus,
+          this.state.ind33LFDiscussAboutDevelopmentPlanStatus,
+          this.state.ind32LFInstructDevelopmentPlanStatus,
+          this.state.ind31LFIdentifyGoodImprovablePointStatus,
+        ];
+
+        const variables2 = [
+          "৩ঙ. কি ভালো চলছে বা কি কি উন্নতি দরকার এলএফ প্রশ্ন করার মাধ্যমে শিক্ষককে তা বলার সুযোগ দিয়েছেন।",
+          "৩ঘ. এলএফ শিক্ষকের সাথে আলোচনার সময় পাঠদানের কাঙ্খিত পরিবর্তন চর্চা করার সুযোগ দিয়েছেন।",
+          "৩গ. কেন এই কাঙ্খিত উন্নয়ন প্রয়োজন এলএফ তা ব্যাখ্যা করতে সক্ষম হয়েছেন।",
+          "৩খ. এলএফ শিক্ষককে সুনির্দিষ্ট পরামর্শ দিয়েছেন যার মধ্যে রয়েছে শিক্ষকের কাঙ্খিত উন্নয়নের ক্ষেত্র।",
+          "৩ক. এলএফ পর্যবেক্ষণের মাধ্যমে শিক্ষকদের সফল দিক এবং উন্নয়ন প্রয়োজন এমন দিকগুলো চিহ্নিত করেছেন।",
+        ];
+        let yesCount = 0;
+
+        for (let i = 0; i < variables.length; i++) {
+          if (variables[i] === "Yes") {
+            if (yesCount === 0) {
+              // Assign the first 'yes' found to bestPracticeInd1
+              this.setState({
+                bestPracticeIndicator1: variables2[i],
+              });
+              yesCount++;
+            } else if (yesCount === 1) {
+              this.setState({
+                bestPracticeIndicator2: variables2[i],
+              }); // Assign the second 'yes' found to y
+              yesCount++;
+              // We found both, so we can stop the loop if needed (optional optimization)
+              break;
+            }
+          }
+        }
+      } else if (this.state.lfStatus === "Priority 1") {
+        const variables = [
+          this.state.ind29LFTeacherAgreedNextPlanStatus,
+          this.state.ind28LFTrack3StudentStatus,
+          this.state.ind27LFVerifyWorkbookStatus,
+          this.state.ind26LFObserveStudentOrGroupStatus,
+          this.state.ind25LFInstructIdealLessonStatus,
+          this.state.ind24LFDiscussLastFollowupIndicatorStatus,
+          this.state.ind23LFDiscussCoachingSupportIndicatorStatus,
+          this.state.ind22LFDiscussGoodPracticeIndicatorStatus,
+          this.state.ind21LFTeacherMaintainGoodRelationshipStatus,
+        ];
+
+        const variables2 = [
+          "২ঝ. এলএফ ও শিক্ষক পরবর্তী কাজ বা পাঠের বিষয়ে একমত হয়েছেন।",
+          "২জ. এলএফ তাৎক্ষণিকভাবে ৩ জন শিক্ষার্থীর অনানুষ্ঠানিক মূল্যায়ন করেছেন।",
+          "২ছ. গত পরিদর্শনের পর পরিকল্পনা অনুযায়ী পাঠদান এগিয়েছে কিনা তা বোঝার জন্য এলএফ শিক্ষার্থীদের ওয়ার্কবুক যাচাই করেছেন।",
+          "২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।",
+          "২ঙ. এলএফ যদি কোনো আদর্শ পাঠ উপস্থাপন করে থাকেন তবে তিনি সেই পাঠের সকল অংশ ধাপে ধাপে দেখিয়েছেন।",
+          "২ঘ. ফিডব্যাক মিটিং-এর সময় এলএফ গত পর্যবেক্ষণ ফর্ম রিভিউ করেছেন এবং গত পর্যবেক্ষণে যেসব বিষয়ে উন্নতি করা প্রয়োজন বলে চিহ্নিত হয়েছিল তা নিয়ে আলোচনা করেছেন।",
+          "২গ. পাঠদান পর্যবেক্ষণ ফরমে 'না' বা 'আংশিক' চিহ্নিত হয়েছে এমন বিষয়ের উপর এলএফ শিক্ষককে গঠনমূলক পরামর্শ দিয়েছেন।",
+          "২খ. এলএফ একটি বা দুটি ইতিবাচক ও গঠনমূলক মতামত প্রদান করেছেন।",
+          "২ক. এলএফ ও শিক্ষকের মধ্যে ভালো সম্পর্ক বিদ্যমান এবং তারা বন্ধুত্বপূর্ণ সম্পর্ক বজায় রেখে কথা বলেছেন।",
+        ];
+
+        let yesCount = 0;
+
+        for (let i = 0; i < variables.length; i++) {
+          if (variables[i] === "Yes") {
+            if (yesCount === 0) {
+              // Assign the first 'yes' found to bestPracticeInd1
+              this.setState({
+                bestPracticeIndicator1: variables2[i],
+              });
+
+              yesCount++;
+            } else if (yesCount === 1) {
+              this.setState({
+                bestPracticeIndicator2: variables2[i],
+              }); // Assign the second 'yes' found to y
+              yesCount++;
+              // We found both, so we can stop the loop if needed (optional optimization)
+              break;
+            }
+          }
+        }
+      }
+      // Setup BestPractice test2
     }
-    // Setup BestPractice test2
   };
   // Calculate bestPractice  && coachingSupport
 
@@ -1675,9 +1750,17 @@ export default class PLFObservationScreen extends React.Component {
       inputEnabled,
       show,
       date,
+      time,
       mode,
+      modeTime,
       startTime,
       endTime,
+      pickerMonth,
+      pickerYear,
+
+      selectedDate,
+      schoolEntryTime,
+      schoolExitTime,
 
       employee,
       school,
@@ -1813,37 +1896,6 @@ export default class PLFObservationScreen extends React.Component {
             </ExpandableView> */}
             <Card style={{ padding: 10, margin: 10, flex: 1 }}>
               <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
-                {/* <View>
-                  {school ? (
-                    <Text>School Data: {school.length}</Text>
-                  ) : (
-                    <Text>Loading data...</Text>
-                  )}
-
-                  {teacher ? (
-                    <Text>Teacher Data: {teacher.length}</Text>
-                  ) : (
-                    <Text>Loading data...</Text>
-                  )}
-
-                  {employee ? (
-                    <Text>Employee Data: {employee.length}</Text>
-                  ) : (
-                    <Text>Loading data...</Text>
-                  )}
-
-                  {office ? (
-                    <Text>Office Data: {office.length}</Text>
-                  ) : (
-                    <Text>Loading data...</Text>
-                  )}
-
-                  {project ? (
-                    <Text>Project Data: {project.length}</Text>
-                  ) : (
-                    <Text>Loading data...</Text>
-                  )}
-                </View> */}
                 <View style={{ flex: 1 }}></View>
                 <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
@@ -1867,7 +1919,7 @@ export default class PLFObservationScreen extends React.Component {
                   </View>
 
                   <Text style={{ fontSize: 14 }}>
-                    {String(this.state.date.toISOString().slice(0, 10))}
+                    {String(selectedDate.toDateString())}
                   </Text>
                   <Button
                     style={{
@@ -1875,14 +1927,14 @@ export default class PLFObservationScreen extends React.Component {
                       width: 10,
                     }}
                     onPress={this.datepicker}
-                    title="Select"
+                    title="Select Date"
                   />
                   {show && (
                     <DateTimePicker
                       value={date}
-                      mode={mode}
+                      mode="date"
                       is24Hour={true}
-                      display="default"
+                      display="spinner"
                       onChange={this.setDate}
                       style={{
                         height: 40,
@@ -1976,12 +2028,6 @@ export default class PLFObservationScreen extends React.Component {
                     itemStyle={{ color: "white" }}
                   >
                     <Picker.Item label={"Select"} value={""} />
-                    <Picker.Item label={"2018"} value={"2018"} />
-                    <Picker.Item label={"2019"} value={"2019"} />
-                    <Picker.Item label={"2020"} value={"2020"} />
-                    <Picker.Item label={"2021"} value={"2021"} />
-                    <Picker.Item label={"2022"} value={"2022"} />
-                    <Picker.Item label={"2023"} value={"2023"} />
                     <Picker.Item label={"2024"} value={"2024"} />
                     <Picker.Item label={"2025"} value={"2025"} />
                     <Picker.Item label={"2026"} value={"2026"} />
@@ -2564,7 +2610,7 @@ export default class PLFObservationScreen extends React.Component {
                         fontWeight: "bold",
                       }}
                     >
-                      শ্রেণী: (Grade:)
+                      শ্রেণি: (Grade:)
                     </Text>
                     <Text
                       style={{
@@ -2719,7 +2765,30 @@ export default class PLFObservationScreen extends React.Component {
                           *
                         </Text>
                       </View>
-
+                      {/* <Text>
+                        Selected: {schoolEntryTime.toLocaleTimeString()}
+                      </Text> */}
+                      {/* <Button
+                        style={{
+                          height: 40,
+                          width: 10,
+                        }}
+                        onPress={this.timepicker}
+                        title="Select Time"
+                      />
+                      {show && (
+                        <DateTimePicker
+                          value={time}
+                          mode="time"
+                          is24Hour={true}
+                          display="clock"
+                          onChange={this.setStartTime}
+                          style={{
+                            height: 40,
+                            width: 10,
+                          }}
+                        />
+                      )} */}
                       <TextInput
                         style={{
                           height: 30,
@@ -3032,6 +3101,9 @@ export default class PLFObservationScreen extends React.Component {
                                   .ind31LFIdentifyGoodImprovablePointStatus ===
                                   "N/A" ||
                                 this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                  "" ||
+                                this.state
                                   .ind32LFInstructDevelopmentPlanStatus ===
                                   "Yes" ||
                                 this.state
@@ -3044,6 +3116,9 @@ export default class PLFObservationScreen extends React.Component {
                                   .ind32LFInstructDevelopmentPlanStatus ===
                                   "N/A" ||
                                 this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                  "" ||
+                                this.state
                                   .ind33LFDiscussAboutDevelopmentPlanStatus ===
                                   "Yes" ||
                                 this.state
@@ -3056,6 +3131,9 @@ export default class PLFObservationScreen extends React.Component {
                                   .ind33LFDiscussAboutDevelopmentPlanStatus ===
                                   "N/A" ||
                                 this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                  "" ||
+                                this.state
                                   .ind34LFAllowToChangeTeachingPatternStatus ===
                                   "Yes" ||
                                 this.state
@@ -3068,6 +3146,9 @@ export default class PLFObservationScreen extends React.Component {
                                   .ind34LFAllowToChangeTeachingPatternStatus ===
                                   "N/A" ||
                                 this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                  "" ||
+                                this.state
                                   .ind35LFAllowTeacherForDiscussionStatus ===
                                   "Yes" ||
                                 this.state
@@ -3078,7 +3159,10 @@ export default class PLFObservationScreen extends React.Component {
                                   "Partial" ||
                                 this.state
                                   .ind35LFAllowTeacherForDiscussionStatus ===
-                                  "N/A")
+                                  "N/A" ||
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                  "")
                             ) {
                               this.setState({
                                 lfStatus: "Priority 3",
@@ -3125,6 +3209,9 @@ export default class PLFObservationScreen extends React.Component {
                                   .ind21LFTeacherMaintainGoodRelationshipStatus ===
                                   "N/A" ||
                                 this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                  "" ||
+                                this.state
                                   .ind22LFDiscussGoodPracticeIndicatorStatus ===
                                   "Yes" ||
                                 this.state
@@ -3136,6 +3223,9 @@ export default class PLFObservationScreen extends React.Component {
                                 this.state
                                   .ind22LFDiscussGoodPracticeIndicatorStatus ===
                                   "N/A" ||
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                  "" ||
                                 this.state
                                   .ind23LFDiscussCoachingSupportIndicatorStatus ===
                                   "Yes" ||
@@ -3149,6 +3239,9 @@ export default class PLFObservationScreen extends React.Component {
                                   .ind23LFDiscussCoachingSupportIndicatorStatus ===
                                   "N/A" ||
                                 this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                  "" ||
+                                this.state
                                   .ind24LFDiscussLastFollowupIndicatorStatus ===
                                   "Yes" ||
                                 this.state
@@ -3160,6 +3253,9 @@ export default class PLFObservationScreen extends React.Component {
                                 this.state
                                   .ind24LFDiscussLastFollowupIndicatorStatus ===
                                   "N/A" ||
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                  "" ||
                                 this.state.ind25LFInstructIdealLessonStatus ===
                                   "Yes" ||
                                 this.state.ind25LFInstructIdealLessonStatus ===
@@ -3168,6 +3264,8 @@ export default class PLFObservationScreen extends React.Component {
                                   "Partial" ||
                                 this.state.ind25LFInstructIdealLessonStatus ===
                                   "N/A" ||
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                  "" ||
                                 this.state
                                   .ind26LFObserveStudentOrGroupStatus ===
                                   "Yes" ||
@@ -3180,6 +3278,8 @@ export default class PLFObservationScreen extends React.Component {
                                 this.state
                                   .ind26LFObserveStudentOrGroupStatus ===
                                   "N/A" ||
+                                this.state
+                                  .ind26LFObserveStudentOrGroupStatus === "" ||
                                 this.state.ind27LFVerifyWorkbookStatus ===
                                   "Yes" ||
                                 this.state.ind27LFVerifyWorkbookStatus ===
@@ -3188,6 +3288,7 @@ export default class PLFObservationScreen extends React.Component {
                                   "Partial" ||
                                 this.state.ind27LFVerifyWorkbookStatus ===
                                   "N/A" ||
+                                this.state.ind27LFVerifyWorkbookStatus === "" ||
                                 this.state.ind28LFTrack3StudentStatus ===
                                   "Yes" ||
                                 this.state.ind28LFTrack3StudentStatus ===
@@ -3196,6 +3297,7 @@ export default class PLFObservationScreen extends React.Component {
                                   "Partial" ||
                                 this.state.ind28LFTrack3StudentStatus ===
                                   "N/A" ||
+                                this.state.ind28LFTrack3StudentStatus === "" ||
                                 this.state
                                   .ind29LFTeacherAgreedNextPlanStatus ===
                                   "Yes" ||
@@ -3209,6 +3311,8 @@ export default class PLFObservationScreen extends React.Component {
                                   .ind29LFTeacherAgreedNextPlanStatus ===
                                   "N/A" ||
                                 this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus === "" ||
+                                this.state
                                   .ind31LFIdentifyGoodImprovablePointStatus ===
                                   "Yes" ||
                                 this.state
@@ -3220,6 +3324,9 @@ export default class PLFObservationScreen extends React.Component {
                                 this.state
                                   .ind31LFIdentifyGoodImprovablePointStatus ===
                                   "N/A" ||
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                  "" ||
                                 this.state
                                   .ind32LFInstructDevelopmentPlanStatus ===
                                   "Yes" ||
@@ -3233,6 +3340,9 @@ export default class PLFObservationScreen extends React.Component {
                                   .ind32LFInstructDevelopmentPlanStatus ===
                                   "N/A" ||
                                 this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                  "" ||
+                                this.state
                                   .ind33LFDiscussAboutDevelopmentPlanStatus ===
                                   "Yes" ||
                                 this.state
@@ -3245,6 +3355,9 @@ export default class PLFObservationScreen extends React.Component {
                                   .ind33LFDiscussAboutDevelopmentPlanStatus ===
                                   "N/A" ||
                                 this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                  "" ||
+                                this.state
                                   .ind34LFAllowToChangeTeachingPatternStatus ===
                                   "Yes" ||
                                 this.state
@@ -3257,6 +3370,9 @@ export default class PLFObservationScreen extends React.Component {
                                   .ind34LFAllowToChangeTeachingPatternStatus ===
                                   "N/A" ||
                                 this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                  "" ||
+                                this.state
                                   .ind35LFAllowTeacherForDiscussionStatus ===
                                   "Yes" ||
                                 this.state
@@ -3267,7 +3383,10 @@ export default class PLFObservationScreen extends React.Component {
                                   "Partial" ||
                                 this.state
                                   .ind35LFAllowTeacherForDiscussionStatus ===
-                                  "N/A")
+                                  "N/A" ||
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                  "")
                             ) {
                               this.setState({
                                 lfStatus: "Priority 2",
@@ -8599,6 +8718,448 @@ export default class PLFObservationScreen extends React.Component {
                           editable={this.state.inputEnabled}
                           onChangeText={(text) =>
                             this.setState({
+                              ind25LFInstructIdealLessonNote: text,
+                            })
+                          }
+                          value={this.state.ind25LFInstructIdealLessonNote + ""}
+                        ></TextInput>
+                      </View>
+                    </View>
+                  </Card>
+                </Card>
+
+                <Card
+                  style={{
+                    padding: 10,
+                    margin: 10,
+                    flex: 1,
+                    alignSelf: "center",
+                  }}
+                >
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
+                    <Text style={{ fontWeight: "bold" }}>
+                      ২চ. শিক্ষার্থীরা বড় দলে বা একা একা কাজ করার সময় এলএফ
+                      শ্রেণিকক্ষে ঘুরে ঘুরে দেখেছেন।
+                    </Text>
+
+                    <Text style={{ fontWeight: "bold" }}>
+                      অগ্রাধিকার এরিয়া: ২ (Priority Area: 2)
+                    </Text>
+                  </Card>
+                  <Card
+                    style={{
+                      padding: 5,
+                      margin: 5,
+                      flex: 1,
+                      alignSelf: "center",
+                    }}
+                  >
+                    <View style={{ flexDirection: "row" }}>
+                      <View style={{ flex: 1, padding: 2 }}>
+                        <View style={{ flexDirection: "row" }}>
+                          <Text>পর্যবেক্ষণ: (Observation:)</Text>
+                          <Text
+                            style={{
+                              textAlign: "right",
+                              color: "red",
+                              fontSize: 16,
+                            }}
+                          >
+                            *
+                          </Text>
+                        </View>
+
+                        <Picker
+                          style={{
+                            height: 50,
+                            width: 150,
+                          }}
+                          enabled={this.state.inputEnabled}
+                          selectedValue={
+                            this.state.ind26LFObserveStudentOrGroupStatus
+                          }
+                          onValueChange={(value) => {
+                            this.setState({
+                              ind26LFObserveStudentOrGroupStatus: value,
+                            });
+
+                            // Set error message
+                            if (value === "Partial" || value === "N/A") {
+                              this.setState({
+                                errorInd25: "Comment is mandetory **",
+                              });
+                            } else {
+                              this.setState({
+                                errorInd25: "",
+                              });
+                            }
+                            // Set error message
+
+                            // Set LF status
+                            if (
+                              (this.state.ind11IsCarriedAllMaterialStatus ===
+                                "Yes" ||
+                                this.state.ind11IsCarriedAllMaterialStatus ===
+                                  "N/A") &&
+                              (this.state.ind12IsCheckedInRightTimeStatus ===
+                                "Yes" ||
+                                this.state.ind12IsCheckedInRightTimeStatus ===
+                                  "N/A") &&
+                              (this.state.ind13IsObservedBanglaLibraryStatus ===
+                                "Yes" ||
+                                this.state
+                                  .ind13IsObservedBanglaLibraryStatus ===
+                                  "N/A") &&
+                              (this.state
+                                .ind14FeedbackSessionWithTeacherStatus ===
+                                "Yes" ||
+                                this.state
+                                  .ind14FeedbackSessionWithTeacherStatus ===
+                                  "N/A") &&
+                              (this.state.ind15MeetingWithHeadTeacherStatus ===
+                                "Yes" ||
+                                this.state.ind15MeetingWithHeadTeacherStatus ===
+                                  "N/A") &&
+                              (this.state.ind16FilledAllFormProperlyStatus ===
+                                "Yes" ||
+                                this.state.ind16FilledAllFormProperlyStatus ===
+                                  "N/A") &&
+                              (this.state.ind17ObservedClassSilentlyStatus ===
+                                "Yes" ||
+                                this.state.ind17ObservedClassSilentlyStatus ===
+                                  "N/A") &&
+                              (this.state
+                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes" ||
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                  "N/A") &&
+                              (this.state
+                                .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                "Yes" ||
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                  "N/A") &&
+                              (this.state
+                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes" ||
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                  "N/A") &&
+                              (this.state
+                                .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                "Yes" ||
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                  "N/A") &&
+                              (this.state.ind25LFInstructIdealLessonStatus ===
+                                "Yes" ||
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                  "N/A") &&
+                              (value === "Yes" || value === "N/A") &&
+                              (this.state.ind27LFVerifyWorkbookStatus ===
+                                "Yes" ||
+                                this.state.ind27LFVerifyWorkbookStatus ===
+                                  "N/A") &&
+                              (this.state.ind28LFTrack3StudentStatus ===
+                                "Yes" ||
+                                this.state.ind28LFTrack3StudentStatus ===
+                                  "N/A") &&
+                              (this.state.ind29LFTeacherAgreedNextPlanStatus ===
+                                "Yes" ||
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus ===
+                                  "N/A") &&
+                              (this.state
+                                .ind31LFIdentifyGoodImprovablePointStatus ===
+                                "Yes" ||
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                  "N/A" ||
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                  "N/A" ||
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                  "N/A" ||
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                  "N/A" ||
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                  "N/A")
+                            ) {
+                              this.setState({
+                                lfStatus: "Priority 3",
+                              });
+                            } else if (
+                              (this.state.ind11IsCarriedAllMaterialStatus ===
+                                "Yes" ||
+                                this.state.ind11IsCarriedAllMaterialStatus ===
+                                  "N/A") &&
+                              (this.state.ind12IsCheckedInRightTimeStatus ===
+                                "Yes" ||
+                                this.state.ind12IsCheckedInRightTimeStatus ===
+                                  "N/A") &&
+                              (this.state.ind13IsObservedBanglaLibraryStatus ===
+                                "Yes" ||
+                                this.state
+                                  .ind13IsObservedBanglaLibraryStatus ===
+                                  "N/A") &&
+                              (this.state
+                                .ind14FeedbackSessionWithTeacherStatus ===
+                                "Yes" ||
+                                this.state
+                                  .ind14FeedbackSessionWithTeacherStatus ===
+                                  "N/A") &&
+                              (this.state.ind15MeetingWithHeadTeacherStatus ===
+                                "Yes" ||
+                                this.state.ind15MeetingWithHeadTeacherStatus ===
+                                  "N/A") &&
+                              (this.state.ind16FilledAllFormProperlyStatus ===
+                                "Yes" ||
+                                this.state.ind16FilledAllFormProperlyStatus ===
+                                  "N/A") &&
+                              (this.state.ind17ObservedClassSilentlyStatus ===
+                                "Yes" ||
+                                this.state.ind17ObservedClassSilentlyStatus ===
+                                  "N/A") &&
+                              (this.state
+                                .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                "Yes" ||
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind21LFTeacherMaintainGoodRelationshipStatus ===
+                                  "N/A" ||
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind22LFDiscussGoodPracticeIndicatorStatus ===
+                                  "N/A" ||
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind23LFDiscussCoachingSupportIndicatorStatus ===
+                                  "N/A" ||
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind24LFDiscussLastFollowupIndicatorStatus ===
+                                  "N/A" ||
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                  "Yes" ||
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                  "No" ||
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                  "Partial" ||
+                                this.state.ind25LFInstructIdealLessonStatus ===
+                                  "N/A" ||
+                                value === "Yes" ||
+                                value === "No" ||
+                                value === "Partial" ||
+                                value === "N/A" ||
+                                this.state.ind27LFVerifyWorkbookStatus ===
+                                  "Yes" ||
+                                this.state.ind27LFVerifyWorkbookStatus ===
+                                  "No" ||
+                                this.state.ind27LFVerifyWorkbookStatus ===
+                                  "Partial" ||
+                                this.state.ind27LFVerifyWorkbookStatus ===
+                                  "N/A" ||
+                                this.state.ind28LFTrack3StudentStatus ===
+                                  "Yes" ||
+                                this.state.ind28LFTrack3StudentStatus ===
+                                  "No" ||
+                                this.state.ind28LFTrack3StudentStatus ===
+                                  "Partial" ||
+                                this.state.ind28LFTrack3StudentStatus ===
+                                  "N/A" ||
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind29LFTeacherAgreedNextPlanStatus ===
+                                  "N/A" ||
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind31LFIdentifyGoodImprovablePointStatus ===
+                                  "N/A" ||
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind32LFInstructDevelopmentPlanStatus ===
+                                  "N/A" ||
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind33LFDiscussAboutDevelopmentPlanStatus ===
+                                  "N/A" ||
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind34LFAllowToChangeTeachingPatternStatus ===
+                                  "N/A" ||
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                  "Yes" ||
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                  "No" ||
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                  "Partial" ||
+                                this.state
+                                  .ind35LFAllowTeacherForDiscussionStatus ===
+                                  "N/A")
+                            ) {
+                              this.setState({
+                                lfStatus: "Priority 2",
+                              });
+                            } else {
+                              this.setState({
+                                lfStatus: "Priority 1",
+                              });
+                            }
+                            // Set LFs status
+                          }}
+                          itemStyle={{ color: "white" }}
+                        >
+                          <Picker.Item label={"Select"} value={""} />
+                          <Picker.Item label={"Yes"} value={"Yes"} />
+                          <Picker.Item label={"No"} value={"No"} />
+                          <Picker.Item label={"Partial"} value={"Partial"} />
+                          <Picker.Item label={"N/A"} value={"N/A"} />
+                        </Picker>
+                      </View>
+                      <View style={{ flex: 1, padding: 2 }}>
+                        <Text>মন্তব্য: (Comment:)</Text>
+                        {!!this.state.errorInd26 && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            {this.state.errorInd26}
+                          </Text>
+                        )}
+                        <TextInput
+                          style={{
+                            height: 100,
+                            width: 250,
+                            padding: 5,
+                            borderWidth: 1,
+                          }}
+                          keyboardType="default"
+                          placeholder=""
+                          editable={this.state.inputEnabled}
+                          onChangeText={(text) =>
+                            this.setState({
                               ind26LFObserveStudentOrGroupNote: text,
                             })
                           }
@@ -8745,8 +9306,7 @@ export default class PLFObservationScreen extends React.Component {
                                 "Yes" ||
                                 this.state.ind25LFInstructIdealLessonStatus ===
                                   "N/A") &&
-                              (this.state.ind26LFObserveStudentOrGroupStatus ===
-                                "Yes" ||
+                              (value === "Yes" ||
                                 this.state
                                   .ind26LFObserveStudentOrGroupStatus ===
                                   "N/A") &&

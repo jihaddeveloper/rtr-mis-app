@@ -47,7 +47,7 @@ export default class BanglaClassObservationScreen extends React.Component {
     this.state = {
       inputEnabled: true,
 
-      isCollapsed: false,
+      isCollapsed: true,
 
       //Preloaded Data
       allProject: [],
@@ -470,7 +470,7 @@ export default class BanglaClassObservationScreen extends React.Component {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       this.setState({ allSchool: response.data, isLoading: false });
@@ -484,7 +484,7 @@ export default class BanglaClassObservationScreen extends React.Component {
   getAllTeacher = async () => {
     try {
       const response = await fetch(
-        "http://118.179.80.51:8080/api/v1/di-teacher"
+        "http://118.179.80.51:8080/api/v1/di-teacher",
       );
       const json = await response.json();
       this.setState({ allTeacher: json });
@@ -508,7 +508,7 @@ export default class BanglaClassObservationScreen extends React.Component {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       this.setState({ allEmployee: response.data, isLoading: false });
@@ -530,7 +530,7 @@ export default class BanglaClassObservationScreen extends React.Component {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       this.setState({ allDesignation: response.data, isLoading: false });
@@ -552,7 +552,7 @@ export default class BanglaClassObservationScreen extends React.Component {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       this.setState({ allBanglaIndicator: response.data, isLoading: false });
@@ -574,7 +574,7 @@ export default class BanglaClassObservationScreen extends React.Component {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       this.setState({
@@ -583,7 +583,7 @@ export default class BanglaClassObservationScreen extends React.Component {
       });
       console.log(
         "All Bangla-class Data: ",
-        this.state.allBanglaClassObservationData.length
+        this.state.allBanglaClassObservationData.length,
       );
     } catch (error) {
       console.log(error);
@@ -763,7 +763,7 @@ export default class BanglaClassObservationScreen extends React.Component {
 
     console.log(
       "Duplicate Bangla Class Data: ",
-      this.state.duplicateBanglaClassObservationData.length
+      this.state.duplicateBanglaClassObservationData.length,
     );
     //Check duplicate data
 
@@ -852,12 +852,12 @@ export default class BanglaClassObservationScreen extends React.Component {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(newBanglaClass),
-          }
+          },
         );
         if (response.status >= 200 && response.status < 300) {
           Alert.alert(
             "Alert",
-            "Bangla class obsvervatio data saved successfully!!!"
+            "Bangla class obsvervatio data saved successfully!!!",
           );
           this.getAllBanglaClassObservation();
           this.updateToInitialState();
@@ -1222,7 +1222,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                     {upazillas
                       .filter(
                         (item) =>
-                          item.district_id == this.state.pickerDistrictKey
+                          item.district_id == this.state.pickerDistrictKey,
                       )
                       .map((item) => {
                         return (
@@ -1275,7 +1275,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                     {this.state.allOffice
                       .filter((item) => {
                         return item.address.includes(
-                          this.state.pickerDistrict.name
+                          this.state.pickerDistrict.name,
                         );
                       })
                       .map((item) => {
@@ -1324,7 +1324,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                     {this.state.allProject
                       .filter((item) => {
                         return item.projectDetail.includes(
-                          this.state.pickerOffice
+                          this.state.pickerOffice,
                         );
                       })
                       .map((item) => {
@@ -1939,7 +1939,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                                 item.classTeacher.toLowerCase().trim() ===
                                   this.state.classTeacher.toLowerCase().trim()
                               );
-                            }
+                            },
                           ),
                       });
 
@@ -1950,7 +1950,7 @@ export default class BanglaClassObservationScreen extends React.Component {
                         this.state.pickerYear,
                         this.state.grade,
                         this.state.section,
-                        this.state.classTeacher
+                        this.state.classTeacher,
                       );
                       // console.log("preMonthData: " + this.state.preMonthData);
                       // console.log(
@@ -2034,12 +2034,13 @@ export default class BanglaClassObservationScreen extends React.Component {
 
                       // Set perivious visit data
                       console.log(
-                        "preMonthData Length: " + this.state.preMonthData.length
+                        "preMonthData Length: " +
+                          this.state.preMonthData.length,
                       );
 
                       console.log(
                         "preMonthData: " +
-                          JSON.stringify(this.state.preMonthData)
+                          JSON.stringify(this.state.preMonthData),
                       );
 
                       if (this.state.preMonthData.length > 0) {

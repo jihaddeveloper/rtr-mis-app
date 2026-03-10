@@ -80,6 +80,7 @@ export default class PLibraryObservationScreen extends React.Component {
       date: new Date(),
       mode: "date",
       show: false,
+      selectedDate: new Date(),
       // Date picker property
 
       // General data
@@ -265,7 +266,7 @@ export default class PLibraryObservationScreen extends React.Component {
     // Alert in back-button press of device
     this.backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
-      this.handleBackPress
+      this.handleBackPress,
     );
     // Alert in back-button press of device
 
@@ -293,26 +294,49 @@ export default class PLibraryObservationScreen extends React.Component {
           onPress: () => BackHandler.exitApp(), // Exit the app on YES
         },
       ],
-      { cancelable: false } // Prevent dismissing the alert by tapping outside
+      { cancelable: false }, // Prevent dismissing the alert by tapping outside
     );
     return true; // Return true to prevent default back button behavior
   };
   // Alert in back-button press of device function
 
   // For Datepicker
-  setDate = (event, date) => {
-    date = date || this.state.date;
+  setDate = (event, value) => {
+    this.setState({
+      show: false,
+    }); // Hide picker after selection
 
     this.setState({
-      show: Platform.OS === "ios" ? true : false,
-      date,
+      selectedDate: value,
+      pickerMonth: value.toLocaleString("default", { month: "long" }),
+      pickerYear: value.getFullYear().toString(),
+    });
+  };
+
+  setStartTime = (event, value) => {
+    this.setState({
+      show: false,
+    }); // Hide picker after selection
+
+    this.setState({
+      schoolEntryTime: value,
+    });
+  };
+
+  setEndTime = (event, value) => {
+    this.setState({
+      show: false,
+    }); // Hide picker after selection
+
+    this.setState({
+      schoolExitTime: value,
     });
   };
 
   show = (mode) => {
     this.setState({
       show: true,
-      mode,
+      mode: mode,
     });
   };
 
@@ -591,7 +615,7 @@ export default class PLibraryObservationScreen extends React.Component {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       this.setState({ allSchool: response.data, isLoading: false });
@@ -605,7 +629,7 @@ export default class PLibraryObservationScreen extends React.Component {
   getAllTeacher = async () => {
     try {
       const response = await fetch(
-        "http://118.179.80.51:8080/api/v1/di-teacher"
+        "http://118.179.80.51:8080/api/v1/di-teacher",
       );
       const json = await response.json();
       this.setState({ allTeacher: json });
@@ -629,7 +653,7 @@ export default class PLibraryObservationScreen extends React.Component {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       this.setState({ allEmployee: response.data, isLoading: false });
@@ -651,7 +675,7 @@ export default class PLibraryObservationScreen extends React.Component {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       this.setState({ allDesignation: response.data, isLoading: false });
@@ -673,7 +697,7 @@ export default class PLibraryObservationScreen extends React.Component {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       this.setState({ allLibraryIndicator: response.data, isLoading: false });
@@ -695,7 +719,7 @@ export default class PLibraryObservationScreen extends React.Component {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       this.setState({
@@ -711,7 +735,7 @@ export default class PLibraryObservationScreen extends React.Component {
   //Register new library-observation data
   saveLibraryObservation = async () => {
     const newLibraryObservation = {
-      date: this.state.date,
+      date: this.state.selectedDate,
       office: this.state.pickerOffice,
       project: this.state.pickerProject,
       district: this.state.pickerDistrict.name,
@@ -854,7 +878,7 @@ export default class PLibraryObservationScreen extends React.Component {
     this.state.duplicateLibraryObservation =
       this.state.allLibraryObservationData.filter((item) => {
         return (
-          item.date == this.state.date &&
+          item.date == this.state.selectedDate &&
           item.school == this.state.pickerSchool &&
           item.month == this.state.pickerMonth &&
           item.year == this.state.pickerYear
@@ -863,11 +887,11 @@ export default class PLibraryObservationScreen extends React.Component {
 
     console.log(
       "Duplicate LibraryObservation Data: ",
-      this.state.duplicateLibraryObservation.length
+      this.state.duplicateLibraryObservation.length,
     );
     // Check duplicate data
 
-    if (this.state.date === "") {
+    if (this.state.selectedDate === "") {
       Alert.alert("Alert", "Date can not be empty");
       return;
     } else if (this.state.pickerOffice === "") {
@@ -1046,12 +1070,14 @@ export default class PLibraryObservationScreen extends React.Component {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(newLibraryObservation),
-          }
+          },
         );
         if (response.status >= 200 && response.status < 300) {
-          Alert.alert("Library observation data saved successfully!!!");
+          Alert.alert(
+            "Library observation data saved successfully to online!!!",
+          );
           console.log(
-            "Data to be saved: " + JSON.stringify(newLibraryObservation)
+            "Data to be saved: " + JSON.stringify(newLibraryObservation),
           );
           this.getAllLibraryObservation();
           this.updateState();
@@ -1059,7 +1085,7 @@ export default class PLibraryObservationScreen extends React.Component {
           Alert.alert("Alert", "Error there !!!");
           console.log("Error to save data: " + response.status);
           console.log(
-            "Data to be saved: " + JSON.stringify(newLibraryObservation)
+            "Data to be saved: " + JSON.stringify(newLibraryObservation),
           );
         }
       } catch (errors) {
@@ -1114,7 +1140,7 @@ export default class PLibraryObservationScreen extends React.Component {
   // Save form data locally
   storeLocally = async () => {
     const formData = {
-      date: this.state.date,
+      date: this.state.selectedDate,
       office: this.state.pickerOffice,
       project: this.state.pickerProject,
       district: this.state.pickerDistrict.name,
@@ -1254,7 +1280,7 @@ export default class PLibraryObservationScreen extends React.Component {
     };
 
     // Validation
-    if (this.state.date === "") {
+    if (this.state.selectedDate === "") {
       Alert.alert("Alert", "Date can not be empty");
       return;
     } else if (this.state.pickerOffice === "") {
@@ -1425,13 +1451,13 @@ export default class PLibraryObservationScreen extends React.Component {
       // Save data locally
       try {
         const existingData = await AsyncStorage.getItem(
-          "offlineFormsPLibraryObservation"
+          "offlineFormsPLibraryObservation",
         );
         const forms = existingData ? JSON.parse(existingData) : [];
         forms.push(formData);
         await AsyncStorage.setItem(
           "offlineFormsPLibraryObservation",
-          JSON.stringify(forms)
+          JSON.stringify(forms),
         );
         //console.log("Data stored locally: " + JSON.stringify(forms));
         console.log("Data stored locally.");
@@ -1450,7 +1476,7 @@ export default class PLibraryObservationScreen extends React.Component {
   syncPendingData = async () => {
     try {
       const existingData = await AsyncStorage.getItem(
-        "offlineFormsPLibraryObservation"
+        "offlineFormsPLibraryObservation",
       );
       if (existingData) {
         const formsToSync = JSON.parse(existingData);
@@ -1461,15 +1487,15 @@ export default class PLibraryObservationScreen extends React.Component {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(formData),
-            }
+            },
           );
         }
         console.log("LF Data syncing");
         await AsyncStorage.removeItem("offlineFormsPLibraryObservation"); // Clear synced data
         console.log(
-          "Pending data synced successfully: " + JSON.parse(existingData)
+          "Pending data synced successfully: " + JSON.parse(existingData),
         );
-        Alert.alert("Pending data synced successfully!");
+        Alert.alert("Pending data synced successfully to online!");
       }
     } catch (error) {
       console.error("Error syncing pending data:", error);
@@ -1480,149 +1506,276 @@ export default class PLibraryObservationScreen extends React.Component {
 
   // Calculate bestPractice  && coachingSupport
   bestPracticeIndcoachingSupportInd = () => {
-    this.setState({
-      coachingSupportIndicator1: "N/A",
-      coachingSupportIndicator2: "N/A",
-    });
+    // this.setState({
+    //   coachingSupportIndicator1: "N/A",
+    //   coachingSupportIndicator2: "N/A",
+    // });
 
-    this.setState({
-      bestPracticeIndicator1: "N/A",
-      bestPracticeIndicator2: "N/A",
-    });
+    // this.setState({
+    //   bestPracticeIndicator1: "N/A",
+    //   bestPracticeIndicator2: "N/A",
+    // });
 
-    // Setup CoachingSupport
-    const variablesInd = [
-      this.state.ind11IsPointTeacherIncharge,
-      this.state.ind12IsTrainedLibraryManagementReadingHour,
-      this.state.ind2HeadTeacherTrainedLibraryManagementReadingHour,
-      this.state.ind31ClassroomDoorWindowOkay,
-      this.state.ind32ClassroomDoorWindowLock,
-      this.state.ind33ClassroomSafeFromRainWater,
-      this.state.ind34ClassroomSafeClean,
-      this.state.ind41BookshelfUsable,
-      this.state.ind42BookshelfProtectedSunRain,
-      this.state.ind43BookshelfPortableSafeForStudent,
-      this.state.ind44BookshelfReadingSpace,
-      this.state.ind45BookshelfFurnitureGoodCondition,
-      this.state.ind5BookRegisterUpdated,
-      this.state.ind61BookshelfBookOrganizedByGrade,
-      this.state.ind62BookshelfRtRBookLabelViewable,
-      this.state.ind63BookshelfNonRtRBookLabelViewable,
-      this.state.ind64BookOrganizedByLabel,
-      this.state.ind65BookAccessible,
-      this.state.ind66BookCoverViewable,
-      this.state.ind71ChartPosterDisplayed,
-      this.state.ind72ChartPosterCompatible,
-      this.state.ind81BookCheckoutProcedureDisplayed,
-      this.state.ind82BookCheckoutRegisterUsable,
-      this.state.ind83BookCheckoutRegisterUpdated,
-      this.state.ind84BookCheckoutPendingBookList,
-      this.state.ind85BookCheckoutDataCollection,
-      this.state.ind86BookCheckoutByLeast5Student,
-      this.state.ind91ReadingHourActivityWeekly,
-      this.state.ind92ReadingHourActivityRoutineHanged,
-      this.state.ind93BookCheckoutOpportunity,
-      this.state.ind94BookCheckoutNoticeHanged,
-      this.state.ind101ReadingHourRegisterUpdated,
-      this.state.ind102ReadingActivityListedRegister,
-      this.state.ind11TrainedLibraryObservationReadingHour,
-      this.state.ind121SchoolHasCommitteeAboutLibrary,
-      this.state.ind122SchoolCommitteeMeetingAboutLibrary,
-      this.state.ind13ParentMeetingAboutLibrary,
-      this.state.ind141SchoolArrangeReadFestival,
-      this.state.ind142ParentPublicEngageReadFestival,
-      this.state.ind151ParentPublicHeadTeacherCombinedPlan,
-      this.state.ind152ParentPublicResponsibility,
-    ];
+    if (this.state.ind11IsPointTeacherIncharge === "") {
+      Alert.alert("Alert", "Indicator 1.1 can not be empty");
+      return;
+    } else if (this.state.ind12IsTrainedLibraryManagementReadingHour === "") {
+      Alert.alert("Alert", "Indicator 1.2 can not be empty");
+      return;
+    } else if (
+      this.state.ind2HeadTeacherTrainedLibraryManagementReadingHour === ""
+    ) {
+      Alert.alert("Alert", "Indicator 2 can not be empty");
+      return;
+    } else if (this.state.ind31ClassroomDoorWindowOkay === "") {
+      Alert.alert("Alert", "Indicator 3.1 can not be empty");
+      return;
+    } else if (this.state.ind32ClassroomDoorWindowLock === "") {
+      Alert.alert("Alert", "Indicator 3.2 can not be empty");
+      return;
+    } else if (this.state.ind33ClassroomSafeFromRainWater === "") {
+      Alert.alert("Alert", "Indicator 3.3 can not be empty");
+      return;
+    } else if (this.state.ind34ClassroomSafeClean === "") {
+      Alert.alert("Alert", "Indicator 3.4 can not be empty");
+      return;
+    } else if (this.state.ind41BookshelfUsable === "") {
+      Alert.alert("Alert", "Indicator 4.1 can not be empty");
+      return;
+    } else if (this.state.ind42BookshelfProtectedSunRain === "") {
+      Alert.alert("Alert", "Indicator 4.2 can not be empty");
+      return;
+    } else if (this.state.ind43BookshelfPortableSafeForStudent === "") {
+      Alert.alert("Alert", "Indicator 4.3 can not be empty");
+      return;
+    } else if (this.state.ind44BookshelfReadingSpace === "") {
+      Alert.alert("Alert", "Indicator 4.4 can not be empty");
+      return;
+    } else if (this.state.ind45BookshelfFurnitureGoodCondition === "") {
+      Alert.alert("Alert", "Indicator 4.5 can not be empty");
+      return;
+    } else if (this.state.ind5BookRegisterUpdated === "") {
+      Alert.alert("Alert", "Indicator 5 can not be empty");
+      return;
+    } else if (this.state.ind61BookshelfBookOrganizedByGrade === "") {
+      Alert.alert("Alert", "Indicator 6.1 can not be empty");
+      return;
+    } else if (this.state.ind62BookshelfRtRBookLabelViewable === "") {
+      Alert.alert("Alert", "Indicator 6.2 can not be empty");
+      return;
+    } else if (this.state.ind63BookshelfNonRtRBookLabelViewable === "") {
+      Alert.alert("Alert", "Indicator 6.3 can not be empty");
+      return;
+    } else if (this.state.ind64BookOrganizedByLabel === "") {
+      Alert.alert("Alert", "Indicator 6.4 can not be empty");
+      return;
+    } else if (this.state.ind65BookAccessible === "") {
+      Alert.alert("Alert", "Indicator 6.5 can not be empty");
+      return;
+    } else if (this.state.ind66BookCoverViewable === "") {
+      Alert.alert("Alert", "Indicator 6.6 can not be empty");
+      return;
+    } else if (this.state.ind71ChartPosterDisplayed === "") {
+      Alert.alert("Alert", "Indicator 7.1 can not be empty");
+      return;
+    } else if (this.state.ind72ChartPosterCompatible === "") {
+      Alert.alert("Alert", "Indicator 7.2 can not be empty");
+      return;
+    } else if (this.state.ind81BookCheckoutProcedureDisplayed === "") {
+      Alert.alert("Alert", "Indicator 8.1 can not be empty");
+      return;
+    } else if (this.state.ind82BookCheckoutRegisterUsable === "") {
+      Alert.alert("Alert", "Indicator 8.2 can not be empty");
+      return;
+    } else if (this.state.ind83BookCheckoutRegisterUpdated === "") {
+      Alert.alert("Alert", "Indicator 8.3 can not be empty");
+      return;
+    } else if (this.state.ind84BookCheckoutPendingBookList === "") {
+      Alert.alert("Alert", "Indicator 8.4 can not be empty");
+      return;
+    } else if (this.state.ind85BookCheckoutDataCollection === "") {
+      Alert.alert("Alert", "Indicator 8.5 can not be empty");
+      return;
+    } else if (this.state.ind86BookCheckoutByLeast5Student === "") {
+      Alert.alert("Alert", "Indicator 8.6 can not be empty");
+      return;
+    } else if (this.state.ind91ReadingHourActivityWeekly === "") {
+      Alert.alert("Alert", "Indicator 9.1 can not be empty");
+      return;
+    } else if (this.state.ind92ReadingHourActivityRoutineHanged === "") {
+      Alert.alert("Alert", "Indicator 9.2 can not be empty");
+      return;
+    } else if (this.state.ind93BookCheckoutOpportunity === "") {
+      Alert.alert("Alert", "Indicator 9.3 can not be empty");
+      return;
+    } else if (this.state.ind94BookCheckoutNoticeHanged === "") {
+      Alert.alert("Alert", "Indicator 9.4 can not be empty");
+      return;
+    } else if (this.state.ind101ReadingHourRegisterUpdated === "") {
+      Alert.alert("Alert", "Indicator 10.1 can not be empty");
+      return;
+    } else if (this.state.ind102ReadingActivityListedRegister === "") {
+      Alert.alert("Alert", "Indicator 10.2 can not be empty");
+      return;
+    } else if (this.state.ind11TrainedLibraryObservationReadingHour === "") {
+      Alert.alert("Alert", "Indicator 11 can not be empty");
+      return;
+    } else if (this.state.ind121SchoolHasCommitteeAboutLibrary === "") {
+      Alert.alert("Alert", "Indicator 12.1 can not be empty");
+      return;
+    } else if (this.state.ind122SchoolCommitteeMeetingAboutLibrary === "") {
+      Alert.alert("Alert", "Indicator 12.2 can not be empty");
+      return;
+    } else if (this.state.ind13ParentMeetingAboutLibrary === "") {
+      Alert.alert("Alert", "Indicator 13 can not be empty");
+      return;
+    } else if (this.state.ind141SchoolArrangeReadFestival === "") {
+      Alert.alert("Alert", "Indicator 14.1 can not be empty");
+      return;
+    } else if (this.state.ind142ParentPublicEngageReadFestival === "") {
+      Alert.alert("Alert", "Indicator 14.2 can not be empty");
+      return;
+    } else if (this.state.ind151ParentPublicHeadTeacherCombinedPlan === "") {
+      Alert.alert("Alert", "Indicator 15.1 can not be empty");
+      return;
+    } else if (this.state.ind152ParentPublicResponsibility === "") {
+      Alert.alert("Alert", "Indicator 15.2 can not be empty");
+      return;
+    } else {
+      // Setup CoachingSupport
+      const variablesInd = [
+        this.state.ind11IsPointTeacherIncharge,
+        this.state.ind12IsTrainedLibraryManagementReadingHour,
+        this.state.ind2HeadTeacherTrainedLibraryManagementReadingHour,
+        this.state.ind31ClassroomDoorWindowOkay,
+        this.state.ind32ClassroomDoorWindowLock,
+        this.state.ind33ClassroomSafeFromRainWater,
+        this.state.ind34ClassroomSafeClean,
+        this.state.ind41BookshelfUsable,
+        this.state.ind42BookshelfProtectedSunRain,
+        this.state.ind43BookshelfPortableSafeForStudent,
+        this.state.ind44BookshelfReadingSpace,
+        this.state.ind45BookshelfFurnitureGoodCondition,
+        this.state.ind5BookRegisterUpdated,
+        this.state.ind61BookshelfBookOrganizedByGrade,
+        this.state.ind62BookshelfRtRBookLabelViewable,
+        this.state.ind63BookshelfNonRtRBookLabelViewable,
+        this.state.ind64BookOrganizedByLabel,
+        this.state.ind65BookAccessible,
+        this.state.ind66BookCoverViewable,
+        this.state.ind71ChartPosterDisplayed,
+        this.state.ind72ChartPosterCompatible,
+        this.state.ind81BookCheckoutProcedureDisplayed,
+        this.state.ind82BookCheckoutRegisterUsable,
+        this.state.ind83BookCheckoutRegisterUpdated,
+        this.state.ind84BookCheckoutPendingBookList,
+        this.state.ind85BookCheckoutDataCollection,
+        this.state.ind86BookCheckoutByLeast5Student,
+        this.state.ind91ReadingHourActivityWeekly,
+        this.state.ind92ReadingHourActivityRoutineHanged,
+        this.state.ind93BookCheckoutOpportunity,
+        this.state.ind94BookCheckoutNoticeHanged,
+        this.state.ind101ReadingHourRegisterUpdated,
+        this.state.ind102ReadingActivityListedRegister,
+        this.state.ind11TrainedLibraryObservationReadingHour,
+        this.state.ind121SchoolHasCommitteeAboutLibrary,
+        this.state.ind122SchoolCommitteeMeetingAboutLibrary,
+        this.state.ind13ParentMeetingAboutLibrary,
+        this.state.ind141SchoolArrangeReadFestival,
+        this.state.ind142ParentPublicEngageReadFestival,
+        this.state.ind151ParentPublicHeadTeacherCombinedPlan,
+        this.state.ind152ParentPublicResponsibility,
+      ];
 
-    const variablesIndValue = [
-      "১.১ পাঠাগার ব্যবস্থাপনার জন্য একজন শিক্ষক(পয়েন্ট শিক্ষক) দায়িত্ব প্রাপ্ত আছেন।",
-      "১.২ পয়েন্ট শিক্ষক 'পাঠাগার ব্যবস্থাপনা ও পড়ার ঘণ্টা কার্যক্রম' প্রশিক্ষণে অংশগ্রহণ করেছেন।",
-      "২. বিদ্যালয়ের প্রধান শিক্ষক রুম টু রিড পরিচালিত 'পাঠাগার ব্যবস্থাপনা ও পড়ার ঘণ্টা কার্যক্রম' প্রশিক্ষণে অংশগ্রহণ করেছেন।",
-      "৩.১ শ্রেণিকক্ষের দরজা-জানালা ভালো অবস্থায় আছে।",
-      "৩.২ শ্রেণিকক্ষ সুরক্ষিত; দরজা জানালায় তালা দেওয়ার ব্যবস্থা আছে যাতে বই হারিয়ে না যায়।",
-      "৩.৩ বৃষ্টির সময় শ্রেণিকক্ষের ভেতরে পানি পড়ে না।",
-      "৩.৪ শিক্ষার্থীদের বসার জন্য শ্রেণিকক্ষ ঝুঁকিপূর্ণ বা অস্বস্তিকর নয় (ফাটল, গর্ত ইত্যাদি সমস্যা নেই)।",
-      "৪.১ বুকশেলফের আশেপাশে পর্যাপ্ত জায়গা রয়েছে যাতে শিক্ষার্থীরা সহজে চলাচল করতে পারে, সহজে বই নিতে পারে এবং বই পড়ার কাজে অংশ নিতে পারে।",
-      "৪.২ বুকশেলফ এমন জায়গায় স্থাপন করা হয়েছে যেন বইয়ের উপর সরাসরি সূর্যের আলো বা বৃষ্টি পড়ে না কিংবা সরাসরি জানালার সম্মুখে নয়।",
-      "৪.৩ বুকশেলফ সহজে বহনযোগ্য, এতে কোন ধারালো বস্তু বা বেরিয়ে থাকা 'স্ক্রু' নেই যা থেকে শিক্ষার্থীদের ক্ষতি হতে পারে।",
-      "৪.৪ বুকশেলফটি কোন ডেস্ক, চেয়ার, টেবিল দ্বারা আবদ্ধ নয় এবং শেলফের পাশে দাঁড়িয়ে বা বসে পড়ার যথেষ্ট জায়গা আছে।",
-      "৪.৫ বুকশেলফ চেয়ার, টেবিল এবং ডেস্ক ভালো অবস্থায় আছে (ভাঙ্গা/ব্যবহার অনুপযোগী নয়)।",
-      "৫. বুক রেজিস্টার আছে এবং নতুন বই পাওয়ার সাথে সাথে নিয়মিত হালনাগাদ করা হয়েছে।",
-      "৬.১ সকল বই এবং সংশ্লিষ্ট পড়ার সামগ্রী নির্ধারিত শ্রেণির শেলফে সাজানো আছে, বাক্সে বা অন্য কক্ষে তালাবদ্ধ নয়।",
-      "৬.২ রুম টু রিড প্রকাশিত বইগুলো লেভেল অনুযায়ী সাজানো এবং বইয়ের কভারের লেভেল সহজেই চোখে পড়ে।",
-      "৬.৩ রুম টু রিড প্রকাশিত নয় এমন বইও লেভেল অনুযায়ী সাজানো এবং বইয়ের কভারের লেভেল সহজেই চোখে পড়ে।",
-      "৬.৪ নির্দিষ্ট লেভেলের বই একসাথে সাজানো যাতে বিভিন্ন লেভেলের বই সহজে চিহ্নিত করা যায়।",
-      "৬.৫ বইগুলো এমনভাবে সাজানো আছে যাতে শিক্ষার্থীরা সহজেই নিতে পারে।",
-      "৬.৬ বইগুলো এমনভাবে সাজানো আছে যাতে সর্বোচ্চ সংখ্যক বইয়ের প্রচ্ছদ দেখা যায়।",
-      "৭.১ চার্ট পোস্টার অথবা শিক্ষার্থীদের সৃজনশীল কাজ (আঁকা এবং লেখা) প্রদর্শিত আছে।",
-      "৭.২ চার্ট ও পোস্টারের লেখা শিক্ষার্থীদের পঠন দক্ষতার সাথে সঙ্গতিপূর্ণ-স্পষ্ট ও বড় অক্ষরে লেখা।",
-      "৮.১ বই চেক-আউটের নিয়মাবলী ও প্রক্রিয়া শ্রেণিকক্ষে পোস্টারে প্রদর্শিত আছে।",
-      "৮.২ বই চেক-আউট করার জন্য রেজিস্টার-এর ব্যবহার আছে।",
-      "৮.৩ পূর্ববর্তী সপ্তাহের বই গ্রহণ ও জমা দেয়ার তথ্য রেজিস্টারে লিপিবদ্ধ আছে",
-      "৮.৪ গত মাস পর্যন্ত ফেরত দেওয়া হয়নি এমন বইসমূহের নাম রেজিস্টারে লিপিবদ্ধ আছে।",
-      "৮.৫ পূর্ববর্তী মাসে এই চেক-আউট হয়েছে।",
-      "৮.৬ গত তিন মাসে প্রত্যেক শ্রেণি থেকে কমপক্ষে পাঁচজন শিক্ষার্থী বই চেক-আউট করেছে।",
-      "৯.১ বিদ্যালয়ের সকল শ্রেণির রুটিনে সন্তাহে একদিন পড়ার ঘণ্টা কার্যক্রম আছে।",
-      "৯.২ পড়ার ঘন্টা সম্বলিত রুটিন বিদ্যালয়ের কোনো না কোনো স্থানে টানানো আছে।",
-      "৯.৩ প্রতিদিন বিদ্যালয় ছুটির পূর্বে-পরে অথবা বিরতির সময় বা পড়ার ঘণ্টায় বই পড়া বা চেক-আউটের সুযোগ আছে।",
-      "৯.৪ ছুটির পূর্বে, পরে, বিরতির সময় বই পড়া বা চেক-আউটের নির্দেশনা বিদ্যালয়ে টানানো আছে।",
-      "১০.১ পড়াভিত্তিক কার্যক্রমের তথ্য লিপিবদ্ধ করার জন্য একটি রেজিস্টার হয়েছে এবং শিক্ষক প্রতি সপ্তাহে পড়ার ঘণ্টায় কী কী কার্যক্রম করেছেন যা লিপিবদ্ধ করেন।",
-      "১০.২ পড়াভিত্তিক চারটি কাজের মধ্যে সপ্তাহে কমপক্ষে একটি কাজ রেজিস্টারে উল্লেখ রয়েছে।",
-      "১১. বিদ্যালয়ের পড়ার ঘণ্টা সংশ্লিষ্ট সকল শিক্ষক রুম টু রিড প্রদত্ত 'পাঠাগার ব্যবস্থাপনা ও পড়ার ঘণ্টা কার্যক্রম' প্রশিক্ষণে অংশগ্রহন করেছেন।",
-      "১২.১ বিদ্যালয়ে একটি কমিটি আছে যা পাঠাগার সংক্রান্ত বিষয়ে সিদ্ধান্ত নেয়।",
-      "১২.২ বিগত ছয় মাসে কমিটি একটি সভা করেছে এবং সভায় পাঠাগার বিষয়ে আলোচনা হয়েছে।",
-      "১৩. বিদ্যালয়ে গত ছয় মাসে কমপক্ষে একটি অভিভাবক সভা হয়েছে যেখানে শিক্ষার্থীদের পঠন অথবা পাঠাগার বিষয়ে আলোচনা হয়েছে।",
-      "১৪.১ বিদ্যালয় কর্তৃপক্ষ বিগত বছরে পড়া অথবা পাঠাগার নিয়ে একটি অনুষ্ঠান আয়োজন করেছে।",
-      "১৪.২ অনুষ্ঠানটির পরিকল্পনা এবং পরিচালনায় অভিভাবক ও স্থানীয় জনগণের অংশগ্রহণ ছিল।",
-      "১৫.১ অভিভাবক, স্থানীয় জনগণ এবং প্রধান শিক্ষক যৌথভাবে একমত হয়ে পরিকল্পনাটি করেছেন।",
-      "১৫.২ পরিকল্পনায় অভিভাবক ও স্থানীয় জনগণের সুনির্দিষ্ট দায়িত্বের বিষয়টি উল্লেখ আছে।",
-    ];
+      const variablesIndValue = [
+        "১.১ পাঠাগার ব্যবস্থাপনার জন্য একজন শিক্ষক(পয়েন্ট শিক্ষক) দায়িত্ব প্রাপ্ত আছেন।",
+        "১.২ পয়েন্ট শিক্ষক 'পাঠাগার ব্যবস্থাপনা ও পড়ার ঘণ্টা কার্যক্রম' প্রশিক্ষণে অংশগ্রহণ করেছেন।",
+        "২. বিদ্যালয়ের প্রধান শিক্ষক রুম টু রিড পরিচালিত 'পাঠাগার ব্যবস্থাপনা ও পড়ার ঘণ্টা কার্যক্রম' প্রশিক্ষণে অংশগ্রহণ করেছেন।",
+        "৩.১ শ্রেণিকক্ষের দরজা-জানালা ভালো অবস্থায় আছে।",
+        "৩.২ শ্রেণিকক্ষ সুরক্ষিত; দরজা জানালায় তালা দেওয়ার ব্যবস্থা আছে যাতে বই হারিয়ে না যায়।",
+        "৩.৩ বৃষ্টির সময় শ্রেণিকক্ষের ভেতরে পানি পড়ে না।",
+        "৩.৪ শিক্ষার্থীদের বসার জন্য শ্রেণিকক্ষ ঝুঁকিপূর্ণ বা অস্বস্তিকর নয় (ফাটল, গর্ত ইত্যাদি সমস্যা নেই)।",
+        "৪.১ বুকশেলফের আশেপাশে পর্যাপ্ত জায়গা রয়েছে যাতে শিক্ষার্থীরা সহজে চলাচল করতে পারে, সহজে বই নিতে পারে এবং বই পড়ার কাজে অংশ নিতে পারে।",
+        "৪.২ বুকশেলফ এমন জায়গায় স্থাপন করা হয়েছে যেন বইয়ের উপর সরাসরি সূর্যের আলো বা বৃষ্টি পড়ে না কিংবা সরাসরি জানালার সম্মুখে নয়।",
+        "৪.৩ বুকশেলফ সহজে বহনযোগ্য, এতে কোন ধারালো বস্তু বা বেরিয়ে থাকা 'স্ক্রু' নেই যা থেকে শিক্ষার্থীদের ক্ষতি হতে পারে।",
+        "৪.৪ বুকশেলফটি কোন ডেস্ক, চেয়ার, টেবিল দ্বারা আবদ্ধ নয় এবং শেলফের পাশে দাঁড়িয়ে বা বসে পড়ার যথেষ্ট জায়গা আছে।",
+        "৪.৫ বুকশেলফ চেয়ার, টেবিল এবং ডেস্ক ভালো অবস্থায় আছে (ভাঙ্গা/ব্যবহার অনুপযোগী নয়)।",
+        "৫. বুক রেজিস্টার আছে এবং নতুন বই পাওয়ার সাথে সাথে নিয়মিত হালনাগাদ করা হয়েছে।",
+        "৬.১ সকল বই এবং সংশ্লিষ্ট পড়ার সামগ্রী নির্ধারিত শ্রেণির শেলফে সাজানো আছে, বাক্সে বা অন্য কক্ষে তালাবদ্ধ নয়।",
+        "৬.২ রুম টু রিড প্রকাশিত বইগুলো লেভেল অনুযায়ী সাজানো এবং বইয়ের কভারের লেভেল সহজেই চোখে পড়ে।",
+        "৬.৩ রুম টু রিড প্রকাশিত নয় এমন বইও লেভেল অনুযায়ী সাজানো এবং বইয়ের কভারের লেভেল সহজেই চোখে পড়ে।",
+        "৬.৪ নির্দিষ্ট লেভেলের বই একসাথে সাজানো যাতে বিভিন্ন লেভেলের বই সহজে চিহ্নিত করা যায়।",
+        "৬.৫ বইগুলো এমনভাবে সাজানো আছে যাতে শিক্ষার্থীরা সহজেই নিতে পারে।",
+        "৬.৬ বইগুলো এমনভাবে সাজানো আছে যাতে সর্বোচ্চ সংখ্যক বইয়ের প্রচ্ছদ দেখা যায়।",
+        "৭.১ চার্ট পোস্টার অথবা শিক্ষার্থীদের সৃজনশীল কাজ (আঁকা এবং লেখা) প্রদর্শিত আছে।",
+        "৭.২ চার্ট ও পোস্টারের লেখা শিক্ষার্থীদের পঠন দক্ষতার সাথে সঙ্গতিপূর্ণ-স্পষ্ট ও বড় অক্ষরে লেখা।",
+        "৮.১ বই চেক-আউটের নিয়মাবলী ও প্রক্রিয়া শ্রেণিকক্ষে পোস্টারে প্রদর্শিত আছে।",
+        "৮.২ বই চেক-আউট করার জন্য রেজিস্টার-এর ব্যবহার আছে।",
+        "৮.৩ পূর্ববর্তী সপ্তাহের বই গ্রহণ ও জমা দেয়ার তথ্য রেজিস্টারে লিপিবদ্ধ আছে",
+        "৮.৪ গত মাস পর্যন্ত ফেরত দেওয়া হয়নি এমন বইসমূহের নাম রেজিস্টারে লিপিবদ্ধ আছে।",
+        "৮.৫ পূর্ববর্তী মাসে এই চেক-আউট হয়েছে।",
+        "৮.৬ গত তিন মাসে প্রত্যেক শ্রেণি থেকে কমপক্ষে পাঁচজন শিক্ষার্থী বই চেক-আউট করেছে।",
+        "৯.১ বিদ্যালয়ের সকল শ্রেণির রুটিনে সন্তাহে একদিন পড়ার ঘণ্টা কার্যক্রম আছে।",
+        "৯.২ পড়ার ঘন্টা সম্বলিত রুটিন বিদ্যালয়ের কোনো না কোনো স্থানে টানানো আছে।",
+        "৯.৩ প্রতিদিন বিদ্যালয় ছুটির পূর্বে-পরে অথবা বিরতির সময় বা পড়ার ঘণ্টায় বই পড়া বা চেক-আউটের সুযোগ আছে।",
+        "৯.৪ ছুটির পূর্বে, পরে, বিরতির সময় বই পড়া বা চেক-আউটের নির্দেশনা বিদ্যালয়ে টানানো আছে।",
+        "১০.১ পড়াভিত্তিক কার্যক্রমের তথ্য লিপিবদ্ধ করার জন্য একটি রেজিস্টার হয়েছে এবং শিক্ষক প্রতি সপ্তাহে পড়ার ঘণ্টায় কী কী কার্যক্রম করেছেন যা লিপিবদ্ধ করেন।",
+        "১০.২ পড়াভিত্তিক চারটি কাজের মধ্যে সপ্তাহে কমপক্ষে একটি কাজ রেজিস্টারে উল্লেখ রয়েছে।",
+        "১১. বিদ্যালয়ের পড়ার ঘণ্টা সংশ্লিষ্ট সকল শিক্ষক রুম টু রিড প্রদত্ত 'পাঠাগার ব্যবস্থাপনা ও পড়ার ঘণ্টা কার্যক্রম' প্রশিক্ষণে অংশগ্রহন করেছেন।",
+        "১২.১ বিদ্যালয়ে একটি কমিটি আছে যা পাঠাগার সংক্রান্ত বিষয়ে সিদ্ধান্ত নেয়।",
+        "১২.২ বিগত ছয় মাসে কমিটি একটি সভা করেছে এবং সভায় পাঠাগার বিষয়ে আলোচনা হয়েছে।",
+        "১৩. বিদ্যালয়ে গত ছয় মাসে কমপক্ষে একটি অভিভাবক সভা হয়েছে যেখানে শিক্ষার্থীদের পঠন অথবা পাঠাগার বিষয়ে আলোচনা হয়েছে।",
+        "১৪.১ বিদ্যালয় কর্তৃপক্ষ বিগত বছরে পড়া অথবা পাঠাগার নিয়ে একটি অনুষ্ঠান আয়োজন করেছে।",
+        "১৪.২ অনুষ্ঠানটির পরিকল্পনা এবং পরিচালনায় অভিভাবক ও স্থানীয় জনগণের অংশগ্রহণ ছিল।",
+        "১৫.১ অভিভাবক, স্থানীয় জনগণ এবং প্রধান শিক্ষক যৌথভাবে একমত হয়ে পরিকল্পনাটি করেছেন।",
+        "১৫.২ পরিকল্পনায় অভিভাবক ও স্থানীয় জনগণের সুনির্দিষ্ট দায়িত্বের বিষয়টি উল্লেখ আছে।",
+      ];
 
-    let noCount = 0;
+      let noCount = 0;
 
-    for (let i = 0; i < variablesInd.length; i++) {
-      if (variablesInd[i] === "No") {
-        if (noCount === 0) {
-          // Assign the first 'No' found to coachingSupport1
-          this.setState({
-            coachingSupportIndicator1: variablesIndValue[i],
-          });
-          noCount++;
-        } else if (noCount === 1) {
-          this.setState({
-            coachingSupportIndicator2: variablesIndValue[i],
-          }); // Assign the second 'No' found to coachingSupport2
-          noCount++;
-          // We found both, so we can stop the loop if needed (optional optimization)
-          break;
+      for (let i = 0; i < variablesInd.length; i++) {
+        if (variablesInd[i] === "No") {
+          if (noCount === 0) {
+            // Assign the first 'No' found to coachingSupport1
+            this.setState({
+              coachingSupportIndicator1: variablesIndValue[i],
+            });
+            noCount++;
+          } else if (noCount === 1) {
+            this.setState({
+              coachingSupportIndicator2: variablesIndValue[i],
+            }); // Assign the second 'No' found to coachingSupport2
+            noCount++;
+            // We found both, so we can stop the loop if needed (optional optimization)
+            break;
+          }
         }
       }
-    }
-    // Setup CoachingSupport
+      // Setup CoachingSupport
 
-    // Setup BestPractice test2
-    let yesCount = 0;
+      // Setup BestPractice test2
+      let yesCount = 0;
 
-    for (let i = variablesInd.length; i >= 0; i--) {
-      if (variablesInd[i] === "Yes") {
-        if (yesCount === 0) {
-          // Assign the first 'yes' found to bestPracticeInd1
-          this.setState({
-            bestPracticeIndicator1: variablesIndValue[i],
-          });
-          yesCount++;
-        } else if (yesCount === 1) {
-          this.setState({
-            bestPracticeIndicator2: variablesIndValue[i],
-          }); // Assign the second 'yes' found to y
-          yesCount++;
-          // We found both, so we can stop the loop if needed (optional optimization)
-          break;
+      for (let i = variablesInd.length; i >= 0; i--) {
+        if (variablesInd[i] === "Yes") {
+          if (yesCount === 0) {
+            // Assign the first 'yes' found to bestPracticeInd1
+            this.setState({
+              bestPracticeIndicator1: variablesIndValue[i],
+            });
+            yesCount++;
+          } else if (yesCount === 1) {
+            this.setState({
+              bestPracticeIndicator2: variablesIndValue[i],
+            }); // Assign the second 'yes' found to y
+            yesCount++;
+            // We found both, so we can stop the loop if needed (optional optimization)
+            break;
+          }
         }
       }
+      // Setup BestPractice test2
     }
-    // Setup BestPractice test2
   };
   // Calculate bestPractice  && coachingSupport
 
@@ -1643,6 +1796,7 @@ export default class PLibraryObservationScreen extends React.Component {
       show,
       date,
       mode,
+      selectedDate,
       libraryStatus,
       pickerOffice,
       pickerProject,
@@ -1819,15 +1973,15 @@ export default class PLibraryObservationScreen extends React.Component {
                     </Text>
                   </View>
                   <Text style={{ fontSize: 14 }}>
-                    {String(this.state.date.toISOString().slice(0, 10))}
+                    {String(selectedDate.toDateString())}
                   </Text>
-                  <Button onPress={this.datepicker} title="Select" />
+                  <Button onPress={this.datepicker} title="Select Date" />
                   {show && (
                     <DateTimePicker
                       value={date}
-                      mode={mode}
+                      mode="date"
                       is24Hour={true}
-                      display="default"
+                      display="spinner"
                       onChange={this.setDate}
                     />
                   )}
@@ -1908,12 +2062,6 @@ export default class PLibraryObservationScreen extends React.Component {
                     itemStyle={{ color: "white" }}
                   >
                     <Picker.Item label={"Select"} value={""} />
-                    <Picker.Item label={"2018"} value={"2018"} />
-                    <Picker.Item label={"2019"} value={"2019"} />
-                    <Picker.Item label={"2020"} value={"2020"} />
-                    <Picker.Item label={"2021"} value={"2021"} />
-                    <Picker.Item label={"2022"} value={"2022"} />
-                    <Picker.Item label={"2023"} value={"2023"} />
                     <Picker.Item label={"2024"} value={"2024"} />
                     <Picker.Item label={"2025"} value={"2025"} />
                     <Picker.Item label={"2026"} value={"2026"} />
@@ -1971,7 +2119,7 @@ export default class PLibraryObservationScreen extends React.Component {
                           item.name == "Moulvibazar" ||
                           item.name == "Jhalakathi" ||
                           item.name == "Habiganj" ||
-                          item.name == "Sirajganj"
+                          item.name == "Sirajganj",
                       )
                       .map((item) => {
                         //console.log(item);
@@ -2019,7 +2167,7 @@ export default class PLibraryObservationScreen extends React.Component {
                     {upazillas
                       .filter(
                         (item) =>
-                          item.district_id == this.state.pickerDistrictKey
+                          item.district_id == this.state.pickerDistrictKey,
                       )
                       .map((item) => {
                         return (
@@ -2066,7 +2214,7 @@ export default class PLibraryObservationScreen extends React.Component {
                     {this.state.office
                       .filter((item) => {
                         return item.address.includes(
-                          this.state.pickerDistrict.name
+                          this.state.pickerDistrict.name,
                         );
                       })
                       .map((item) => {
@@ -2111,7 +2259,7 @@ export default class PLibraryObservationScreen extends React.Component {
                     {this.state.project
                       .filter((item) => {
                         return item.projectDetail.includes(
-                          this.state.pickerOffice
+                          this.state.pickerOffice,
                         );
                       })
                       .map((item) => {
@@ -2489,7 +2637,7 @@ export default class PLibraryObservationScreen extends React.Component {
                         fontWeight: "bold",
                       }}
                     >
-                      প্রতিষ্ঠার সন: (Established:)
+                      লাইব্রেরি প্রতিষ্ঠার সন: (Established:)
                     </Text>
                     <Text
                       style={{ textAlign: "right", color: "red", fontSize: 16 }}
@@ -17346,7 +17494,7 @@ export default class PLibraryObservationScreen extends React.Component {
                           });
 
                           console.log(
-                            "pickerPhase ==" + this.state.pickerPhase
+                            "pickerPhase ==" + this.state.pickerPhase,
                           );
                           // Set main indicator
                           if (

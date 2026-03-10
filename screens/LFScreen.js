@@ -51,7 +51,7 @@ function LFScreen({ navigation }) {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       ); // Replace with your API endpoint
       const schoolData = await response.json();
 
@@ -78,7 +78,7 @@ function LFScreen({ navigation }) {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       ); // Replace with your API endpoint
       const teacherData = await response.json();
 
@@ -104,7 +104,7 @@ function LFScreen({ navigation }) {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       ); // Replace with your API endpoint
       const employeeData = await response.json();
 
@@ -130,7 +130,7 @@ function LFScreen({ navigation }) {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       ); // Replace with your API endpoint
       const projectData = await response.json();
 

@@ -91,6 +91,7 @@ export default class PBookCheckoutScreen extends React.Component {
       date: new Date(),
       mode: "date",
       show: false,
+      selectedDate: new Date(),
       // Date picker property
 
       // General data
@@ -277,14 +278,14 @@ export default class PBookCheckoutScreen extends React.Component {
     console.log("Component mounted");
     console.log(
       "Duplicate Bookcheckout Data: ",
-      this.state.duplicateBookCheckoutSchool.length
+      this.state.duplicateBookCheckoutSchool.length,
     );
     //console.log("Duplicate Data: ", this.state.duplicateBookCheckoutSchool);
 
     // Alert in back-button press of device
     this.backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
-      this.handleBackPress
+      this.handleBackPress,
     );
     // Alert in back-button press of device
   }
@@ -310,7 +311,7 @@ export default class PBookCheckoutScreen extends React.Component {
           onPress: () => BackHandler.exitApp(), // Exit the app on YES
         },
       ],
-      { cancelable: false } // Prevent dismissing the alert by tapping outside
+      { cancelable: false }, // Prevent dismissing the alert by tapping outside
     );
     return true; // Return true to prevent default back button behavior
   };
@@ -466,19 +467,42 @@ export default class PBookCheckoutScreen extends React.Component {
   // Update state
 
   // For Datepicker
-  setDate = (event, date) => {
-    date = date || this.state.date;
+  setDate = (event, value) => {
+    this.setState({
+      show: false,
+    }); // Hide picker after selection
 
     this.setState({
-      show: Platform.OS === "ios" ? true : false,
-      date,
+      selectedDate: value,
+      pickerMonth: value.toLocaleString("default", { month: "long" }),
+      pickerYear: value.getFullYear().toString(),
+    });
+  };
+
+  setStartTime = (event, value) => {
+    this.setState({
+      show: false,
+    }); // Hide picker after selection
+
+    this.setState({
+      schoolEntryTime: value,
+    });
+  };
+
+  setEndTime = (event, value) => {
+    this.setState({
+      show: false,
+    }); // Hide picker after selection
+
+    this.setState({
+      schoolExitTime: value,
     });
   };
 
   show = (mode) => {
     this.setState({
       show: true,
-      mode,
+      mode: mode,
     });
   };
 
@@ -739,7 +763,7 @@ export default class PBookCheckoutScreen extends React.Component {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       this.setState({ allSchool: response.data, isLoading: false });
@@ -761,7 +785,7 @@ export default class PBookCheckoutScreen extends React.Component {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       const json = await response.json();
       this.setState({ allTeacher: json, isLoading: false });
@@ -783,7 +807,7 @@ export default class PBookCheckoutScreen extends React.Component {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       this.setState({ allEmployee: response.data, isLoading: false });
@@ -805,7 +829,7 @@ export default class PBookCheckoutScreen extends React.Component {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       this.setState({ allDesignation: response.data, isLoading: false });
@@ -827,7 +851,7 @@ export default class PBookCheckoutScreen extends React.Component {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       this.setState({
@@ -844,7 +868,7 @@ export default class PBookCheckoutScreen extends React.Component {
   // Register new book-checkout data
   saveBookCheckout = async () => {
     const newBookCheckout = {
-      date: this.state.date,
+      date: this.state.selectedDate,
       office: this.state.pickerOffice,
       project: this.state.pickerProject,
       district: this.state.pickerDistrict.name,
@@ -957,7 +981,7 @@ export default class PBookCheckoutScreen extends React.Component {
       });
     console.log(
       "Duplicate Bookcheckout School Data: ",
-      this.state.duplicateBookCheckoutSchool.length
+      this.state.duplicateBookCheckoutSchool.length,
     );
     // Check duplicate data
 
@@ -1019,10 +1043,10 @@ export default class PBookCheckoutScreen extends React.Component {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(newBookCheckout),
-          }
+          },
         );
         if (response.status >= 200 && response.status < 300) {
-          Alert.alert("Alert", "Book checkout data saved successfully!!!");
+          Alert.alert("Book checkout data saved successfully to online!!!");
           //this.getAllBookCheckoutSchool();
           this.updateState();
           this.forceUpdate();
@@ -1084,7 +1108,7 @@ export default class PBookCheckoutScreen extends React.Component {
   syncPendingData = async () => {
     try {
       const existingData = await AsyncStorage.getItem(
-        "offlineFormsPBookCheckout"
+        "offlineFormsPBookCheckout",
       );
       if (existingData) {
         const formsToSync = JSON.parse(existingData);
@@ -1098,7 +1122,7 @@ export default class PBookCheckoutScreen extends React.Component {
         console.log("LF Data syncing");
         await AsyncStorage.removeItem("offlineFormsPBookCheckout"); // Clear synced data
         console.log(
-          "Pending data synced successfully: " + JSON.parse(existingData)
+          "Pending data synced successfully: " + JSON.parse(existingData),
         );
         Alert.alert("Pending data synced successfully!");
       }
@@ -1112,7 +1136,7 @@ export default class PBookCheckoutScreen extends React.Component {
   // Save form data locally
   storeLocally = async () => {
     const formData = {
-      date: this.state.date,
+      date: this.state.selectedDate,
       office: this.state.pickerOffice,
       project: this.state.pickerProject,
       district: this.state.pickerDistrict.name,
@@ -1256,13 +1280,13 @@ export default class PBookCheckoutScreen extends React.Component {
       // Save data locally
       try {
         const existingData = await AsyncStorage.getItem(
-          "offlineFormsPBookCheckout"
+          "offlineFormsPBookCheckout",
         );
         const forms = existingData ? JSON.parse(existingData) : [];
         forms.push(formData);
         await AsyncStorage.setItem(
           "offlineFormsPBookCheckout",
-          JSON.stringify(forms)
+          JSON.stringify(forms),
         );
         //console.log("Data stored locally: " + JSON.stringify(forms));
         console.log("Data stored locally.");
@@ -1287,6 +1311,7 @@ export default class PBookCheckoutScreen extends React.Component {
       connectionType,
       // Network
 
+      selectedDate,
       show,
       date,
       mode,
@@ -1350,15 +1375,15 @@ export default class PBookCheckoutScreen extends React.Component {
                     </Text>
                   </View>
                   <Text style={{ fontSize: 14 }}>
-                    {String(this.state.date.toISOString().slice(0, 10))}
+                    {String(selectedDate.toDateString())}
                   </Text>
-                  <Button onPress={this.datepicker} title="Select" />
+                  <Button onPress={this.datepicker} title="Select Date" />
                   {show && (
                     <DateTimePicker
                       value={date}
-                      mode={mode}
+                      mode="date"
                       is24Hour={true}
-                      display="default"
+                      display="spinner"
                       onChange={this.setDate}
                     />
                   )}
@@ -1439,12 +1464,6 @@ export default class PBookCheckoutScreen extends React.Component {
                     itemStyle={{ color: "white" }}
                   >
                     <Picker.Item label={"Select"} value={""} />
-                    <Picker.Item label={"2018"} value={"2018"} />
-                    <Picker.Item label={"2019"} value={"2019"} />
-                    <Picker.Item label={"2020"} value={"2020"} />
-                    <Picker.Item label={"2021"} value={"2021"} />
-                    <Picker.Item label={"2022"} value={"2022"} />
-                    <Picker.Item label={"2023"} value={"2023"} />
                     <Picker.Item label={"2024"} value={"2024"} />
                     <Picker.Item label={"2025"} value={"2025"} />
                     <Picker.Item label={"2026"} value={"2026"} />
@@ -1502,7 +1521,7 @@ export default class PBookCheckoutScreen extends React.Component {
                           item.name == "Moulvibazar" ||
                           item.name == "Jhalakathi" ||
                           item.name == "Habiganj" ||
-                          item.name == "Sirajganj"
+                          item.name == "Sirajganj",
                       )
                       .map((item) => {
                         //console.log(item);
@@ -1550,7 +1569,7 @@ export default class PBookCheckoutScreen extends React.Component {
                     {upazillas
                       .filter(
                         (item) =>
-                          item.district_id == this.state.pickerDistrictKey
+                          item.district_id == this.state.pickerDistrictKey,
                       )
                       .map((item) => {
                         return (
@@ -1597,7 +1616,7 @@ export default class PBookCheckoutScreen extends React.Component {
                     {this.state.office
                       .filter((item) => {
                         return item.address.includes(
-                          this.state.pickerDistrict.name
+                          this.state.pickerDistrict.name,
                         );
                       })
                       .map((item) => {
@@ -1642,7 +1661,7 @@ export default class PBookCheckoutScreen extends React.Component {
                     {this.state.project
                       .filter((item) => {
                         return item.projectDetail.includes(
-                          this.state.pickerOffice
+                          this.state.pickerOffice,
                         );
                       })
                       .map((item) => {
@@ -2020,7 +2039,7 @@ export default class PBookCheckoutScreen extends React.Component {
                         fontWeight: "bold",
                       }}
                     >
-                      প্রতিষ্ঠার সন: (Established:)
+                      লাইব্রেরি প্রতিষ্ঠার সন: (Established:)
                     </Text>
                     <Text
                       style={{ textAlign: "right", color: "red", fontSize: 16 }}
@@ -2182,7 +2201,7 @@ export default class PBookCheckoutScreen extends React.Component {
 
           <View style={{ padding: 10 }}>
             <Text style={styles.bigRedText}>
-              শ্রেণি অনুযায়ী সকল শিক্ষার্থীর বই চেক-আউট ও চেক-ইন তথ্য
+              শ্রেণি অনুযায়ী সকল শিক্ষার্থীর বই চেক-আউট তথ্য
             </Text>
 
             {/* <Button
@@ -2328,6 +2347,13 @@ export default class PBookCheckoutScreen extends React.Component {
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>কত জন শিক্ষার্থী বই চেক আউট করেছে, বালক: </Text>
+                        {this.state.priPrimaryBoy <
+                          this.state.priPrimaryNoBoyBC && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            BCO Student will be smaller or equal to Total
+                            Student
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 30,
@@ -2365,6 +2391,13 @@ export default class PBookCheckoutScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>কত জন শিক্ষার্থী বই চেক আউট করেছে, বালিকা: </Text>
+                        {this.state.priPrimaryGirl <
+                          this.state.priPrimaryNoGirlBC && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            BCO Student will be smaller or equal to Total
+                            Student
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 30,
@@ -2656,6 +2689,13 @@ export default class PBookCheckoutScreen extends React.Component {
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>কত জন শিক্ষার্থী বই চেক আউট করেছে, বালক: </Text>
+                        {this.state.classOneBoy <
+                          this.state.classOneNoBoyBC && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            BCO Student will be smaller or equal to Total
+                            Student
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 30,
@@ -2693,6 +2733,13 @@ export default class PBookCheckoutScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>কত জন শিক্ষার্থী বই চেক আউট করেছে, বালিকা: </Text>
+                        {this.state.classOneGirl <
+                          this.state.classOneNoGirlBC && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            BCO Student will be smaller or equal to Total
+                            Student
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 30,
@@ -2984,6 +3031,13 @@ export default class PBookCheckoutScreen extends React.Component {
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>কত জন শিক্ষার্থী বই চেক আউট করেছে, বালক: </Text>
+                        {this.state.classTwoBoy <
+                          this.state.classTwoNoBoyBC && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            BCO Student will be smaller or equal to Total
+                            Student
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 30,
@@ -3021,6 +3075,13 @@ export default class PBookCheckoutScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>কত জন শিক্ষার্থী বই চেক আউট করেছে, বালিকা: </Text>
+                        {this.state.classTwoGirl <
+                          this.state.classTwoNoGirlBC && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            BCO Student will be smaller or equal to Total
+                            Student
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 30,
@@ -3313,6 +3374,13 @@ export default class PBookCheckoutScreen extends React.Component {
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>কত জন শিক্ষার্থী বই চেক আউট করেছে, বালক: </Text>
+                        {this.state.classThreeBoy <
+                          this.state.classThreeNoBoyBC && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            BCO Student will be smaller or equal to Total
+                            Student
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 30,
@@ -3350,6 +3418,13 @@ export default class PBookCheckoutScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>কত জন শিক্ষার্থী বই চেক আউট করেছে, বালিকা: </Text>
+                        {this.state.classThreeGirl <
+                          this.state.classThreeNoGirlBC && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            BCO Student will be smaller or equal to Total
+                            Student
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 30,
@@ -3641,6 +3716,13 @@ export default class PBookCheckoutScreen extends React.Component {
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>কত জন শিক্ষার্থী বই চেক আউট করেছে, বালক: </Text>
+                        {this.state.classFourBoy <
+                          this.state.classFourNoBoyBC && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            BCO Student will be smaller or equal to Total
+                            Student
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 30,
@@ -3678,6 +3760,13 @@ export default class PBookCheckoutScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>কত জন শিক্ষার্থী বই চেক আউট করেছে, বালিকা: </Text>
+                        {this.state.classFourGirl <
+                          this.state.classFourNoGirlBC && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            BCO Student will be smaller or equal to Total
+                            Student
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 30,
@@ -3969,6 +4058,13 @@ export default class PBookCheckoutScreen extends React.Component {
                     <View style={{ flexDirection: "row" }}>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>কত জন শিক্ষার্থী বই চেক আউট করেছে, বালক: </Text>
+                        {this.state.classFiveBoy <
+                          this.state.classFiveNoBoyBC && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            BCO Student will be smaller or equal to Total
+                            Student
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 30,
@@ -4006,6 +4102,13 @@ export default class PBookCheckoutScreen extends React.Component {
                       </View>
                       <View style={{ flex: 1, padding: 2 }}>
                         <Text>কত জন শিক্ষার্থী বই চেক আউট করেছে, বালিকা: </Text>
+                        {this.state.classFiveGirl <
+                          this.state.classFiveNoGirlBC && (
+                          <Text style={{ color: "red", fontSize: 20 }}>
+                            BCO Student will be smaller or equal to Total
+                            Student
+                          </Text>
+                        )}
                         <TextInput
                           style={{
                             height: 30,

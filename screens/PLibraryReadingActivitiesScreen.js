@@ -89,6 +89,7 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
       // Date picker property
       date: new Date(),
+      selectedDate: new Date(),
       time: new Date(Date.now()),
       mode: "date",
       show: false,
@@ -126,16 +127,17 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
       yearOfSupport: "",
       yearOfEstablish: "",
 
+      totalAdmittedStudent: 0,
+      totalPresentStudent: 0,
+
       note: "",
       // General data
-
-      typeOfReadingPartA: "",
-      typeOfReadingPartB: "",
-      timeOfReading: "",
 
       lastFollowupTopic1: "",
       lastFollowupTopic2: "",
       lastFollowupTopic3: "",
+
+      typeOfReadingPartA: "",
 
       partAInd11TeacherHelpedStudentToSeatStatus: "",
       partAInd11TeacherHelpedStudentToSeatNote: "",
@@ -176,7 +178,20 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
       partAInd34TeacherCongratulatedStudentStatus: "",
       partAInd34TeacherCongratulatedStudentNote: "",
 
+      // Discussion topic
+      bestPracticeIndicator1PartA: "",
+      bestPracticeIndicator2PartA: "",
+
+      coachingSupportIndicator1PartA: "",
+      coachingSupportIndicator2PartA: "",
+
+      agreedStatementTeacherPartA: "",
+      agreedStatementLFPartA: "",
+      // Discussion topic
+
       ///////
+
+      typeOfReadingPartB: "",
 
       partBInd11TeacherHelpedStudentToSeatStatus: "",
       partBInd11TeacherHelpedStudentToSeatNote: "",
@@ -206,16 +221,14 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
       partBInd34TeacherAlloedStudentToBCONote: "",
 
       // Discussion topic
-      bestPracticeIndicator1: "",
-      bestPracticeIndicator2: "",
-      bestPracticeIndicator3: "",
+      bestPracticeIndicator1PartB: "",
+      bestPracticeIndicator2PartB: "",
 
-      coachingSupportIndicator1: "",
-      coachingSupportIndicator2: "",
-      coachingSupportIndicator3: "",
+      coachingSupportIndicator1PartB: "",
+      coachingSupportIndicator2PartB: "",
 
-      agreedStatementTeacher: "",
-      agreedStatementLF: "",
+      agreedStatementTeacherPartB: "",
+      agreedStatementLFPartB: "",
       // Discussion topic
 
       teacherStatus: "",
@@ -377,37 +390,42 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
   // Get All General Data
 
   // For Datepicker
-  setDate = (event, date) => {
-    date = date || this.state.date;
+  setDate = (event, value) => {
+    this.setState({
+      show: false,
+    }); // Hide picker after selection
 
     this.setState({
-      show: Platform.OS === "ios" ? true : false,
-      date,
+      selectedDate: value,
+      pickerMonth: value.toLocaleString("default", { month: "long" }),
+      pickerYear: value.getFullYear().toString(),
     });
   };
 
   setStartTime = (event, value) => {
-    const startTime = value || this.state.startTime;
+    this.setState({
+      show: false,
+    }); // Hide picker after selection
 
     this.setState({
-      startTime: startTime,
-      show: Platform.OS === "ios" ? true : false,
+      schoolEntryTime: value,
     });
   };
 
   setEndTime = (event, value) => {
-    const endTime = value || this.state.endTime;
+    this.setState({
+      show: false,
+    }); // Hide picker after selection
 
     this.setState({
-      endTime: endTime,
-      show: Platform.OS === "ios" ? true : false,
+      schoolExitTime: value,
     });
   };
 
   show = (mode) => {
     this.setState({
       show: true,
-      mode,
+      mode: mode,
     });
   };
 
@@ -423,99 +441,151 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
   // Update state
   updateToInitialState = () => {
     this.setState({
-      pickerMonth: "",
-      pickerYear: "",
-      pickerDistrict: "",
-      pickerUpazilla: "",
-      pickerDistrictKey: "",
-      pickerUpazillaKey: "",
+      // Date picker property
+      date: new Date(),
+      selectedDate: new Date(),
+      time: new Date(Date.now()),
+      mode: "date",
+      show: false,
+      startTime: "",
+      endTime: "",
+      // Date picker property
+
+      // General data
+
+      visitNo: 0,
       pickerOffice: "",
       pickerProject: "",
-      visitNo: 0,
-      pickerLF: "",
-      pickerLPO: "",
-      pickerLFName: "",
-      pickerLPOName: "",
+      pickerDistrict: "",
+      pickerDistrictKey: "",
+      pickerUpazilla: "",
+      pickerUpazillaKey: "",
+
       pickerSchool: "",
       pickerVisitor: "",
       pickerDesignation: "",
       pickerVisitorOffice: "",
+      pickerLF: "",
+      pickerLPO: "",
+      pickerLFName: "",
+      pickerLPOName: "",
+      pickerMonth: "",
+      pickerYear: "",
+      pickerPhase: "",
 
-      classTeacher: "",
-      classTeacherGender: "",
-      teacherTrained: "",
-      grade: "",
-      section: "",
-      classStartTime: "",
-      classEndTime: "",
-      teachingTopic: "",
-      teachingDay: "",
-      studentBoy: 0,
-      studentGirl: 0,
-      studentTotal: 0,
-      presentBoy: 0,
-      presentGirl: 0,
-      presentTotal: 0,
+      visitor: "",
+      visitorDesignation: "",
+
+      pointTeacher: "",
+      rtrSchoolId: "",
+      yearOfSupport: "",
+      yearOfEstablish: "",
+
+      totalAdmittedStudent: 0,
+      totalPresentStudent: 0,
 
       note: "",
-
       // General data
-
-      typeOfReading: "",
-      timeOfReading: "",
 
       lastFollowupTopic1: "",
       lastFollowupTopic2: "",
       lastFollowupTopic3: "",
 
-      ind1FriendlyCommunicationStatus: "",
-      ind1FriendlyCommunicationNotes: "",
+      typeOfReadingPartA: "",
 
-      ind2SRMInspiringStatus: "",
-      ind2SRMInspiringNotes: "",
+      partAInd11TeacherHelpedStudentToSeatStatus: "",
+      partAInd11TeacherHelpedStudentToSeatNote: "",
 
-      ind3SRMInstructionStatus: "",
-      ind3SRMInstructionNotes: "",
+      partAInd12TeacherShowedABookDetailStatus: "",
+      partAInd12TeacherShowedABookDetailNote: "",
 
-      ind4BookShowingStatus: "",
-      ind4BookShowingNotes: "",
+      partAInd13TeacherTeachesWordWithMeaningStatus: "",
+      partAInd13TeacherTeachesWordWithMeaningNote: "",
 
-      ind5WordTeachingStatus: "",
-      ind5WordTeachingNotes: "",
+      partAInd21TeacherInspireToParticipateStatus: "",
+      partAInd21TeacherInspireToParticipateNote: "",
 
-      ind6StoryReadingStatus: "",
-      ind6StoryReadingNotes: "",
+      partAInd22TeacherShowedPictureTextStatus: "",
+      partAInd22TeacherShowedPictureTextNote: "",
 
-      ind7StorySuitableStatus: "",
-      ind7StorySuitableNotes: "",
+      partAInd23TeacherTeachesByActionStatus: "",
+      partAInd23TeacherTeachesByActionNote: "",
 
-      ind8StoryReadingCombinationStatus: "",
-      ind8StoryReadingCombinationNotes: "",
+      partAInd24TeacherAskedNextStepStatus: "",
+      partAInd24TeacherAskedNextStepNote: "",
 
-      ind9AllStudentEngagementStatus: "",
-      ind9AllStudentEngagementNotes: "",
+      partAInd25TeacherSelectedBookAsLevelStatus: "",
+      partAInd25TeacherSelectedBookAsLevelNote: "",
 
-      ind10InclusiveAssessmentStatus: "",
-      ind10InclusiveAssessmentNotes: "",
+      partAInd26TeacherAskedToParticipateInReadingStatus: "",
+      partAInd26TeacherAskedToParticipateInReadingNote: "",
 
-      ind11AskingForBCOStatus: "",
-      ind11AskingForBCONotes: "",
+      partAInd31TeacherAllowToBCOStatus: "",
+      partAInd31TeacherAllowToBCONote: "",
 
-      bestPracticeInd1: "",
-      bestPracticeInd2: "",
-      bestPracticeInd3: "",
+      partAInd32TeacherAskedQuestionForAssessmentStatus: "",
+      partAInd32TeacherAskedQuestionForAssessmentNote: "",
 
-      coachingSupportInd1: "",
-      coachingSupportInd2: "",
-      coachingSupportDetailsInd1: "",
-      coachingSupportDetailsInd2: "",
+      partAInd33TeacherParticipateStudentToSRMStatus: "",
+      partAInd33TeacherParticipateStudentToSRMNote: "",
 
-      agreedStatement1: "",
-      agreedStatement2: "",
+      partAInd34TeacherCongratulatedStudentStatus: "",
+      partAInd34TeacherCongratulatedStudentNote: "",
+
+      // Discussion topic
+      bestPracticeIndicator1PartA: "",
+      bestPracticeIndicator2PartA: "",
+
+      coachingSupportIndicator1PartA: "",
+      coachingSupportIndicator2PartA: "",
+
+      agreedStatementTeacherPartA: "",
+      agreedStatementLFPartA: "",
+      // Discussion topic
+
+      ///////
+
+      typeOfReadingPartB: "",
+
+      partBInd11TeacherHelpedStudentToSeatStatus: "",
+      partBInd11TeacherHelpedStudentToSeatNote: "",
+
+      partBInd12TeacherInstructSRMStatus: "",
+      partBInd12TeacherInstructSRMNote: "",
+
+      partBInd13TeacherCheckedBookLevelStatus: "",
+      partBInd13TeacherCheckedBookLevelNote: "",
+
+      partBInd21TeacherListenAndAskQuestionStatus: "",
+      partBInd21TeacherListenAndAskQuestionNote: "",
+
+      partBInd22TeacherCheckedStudentParticipationStatus: "",
+      partBInd22TeacherCheckedStudentParticipationNote: "",
+
+      partBInd31TeacherHelpedStudentToShareStatus: "",
+      partBInd31TeacherHelpedStudentToShareNote: "",
+
+      partBInd32TeacherInspiredStudentEffortStatus: "",
+      partBInd32TeacherInspiredStudentEffortNote: "",
+
+      partBInd33TeacherInspiredStudentForSRMStatus: "",
+      partBInd33TeacherInspiredStudentForSRMNote: "",
+
+      partBInd34TeacherAlloedStudentToBCOStatus: "",
+      partBInd34TeacherAlloedStudentToBCONote: "",
+
+      // Discussion topic
+      bestPracticeIndicator1PartB: "",
+      bestPracticeIndicator2PartB: "",
+
+      coachingSupportIndicator1PartB: "",
+      coachingSupportIndicator2PartB: "",
+
+      agreedStatementTeacherPartB: "",
+      agreedStatementLFPartB: "",
+      // Discussion topic
 
       teacherStatus: "",
-
-      dateError: "",
     });
   };
   // Update state
@@ -676,93 +746,168 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
   // Register new book-checkout data
   saveSRMClassObservation = async () => {
     const newSRMClass = {
-      date: this.state.date,
+      date: this.state.selectedDate,
       month: this.state.pickerMonth,
       year: this.state.pickerYear,
       district: this.state.pickerDistrict.name,
       upazilla: this.state.pickerUpazilla.name,
-      fieldOffice: this.state.pickerOffice,
+      office: this.state.pickerOffice,
       project: this.state.pickerProject,
-      visitNo: this.state.visitNo,
+      visitNo: Math.floor(Math.random() * 100),
       lpo: this.state.pickerLPO.employeeRegId,
       lpoName: this.state.pickerLPOName.name,
       lf: this.state.pickerLF.employeeRegId,
       lfName: this.state.pickerLFName.name,
-      school: this.state.pickerSchool,
-      visitor: this.state.pickerVisitor,
-      visitorDesignation: this.state.pickerDesignation,
-      visitorOffice: this.state.pickerVisitorOffice,
-      classTeacher: this.state.classTeacher,
-      teacherGender: this.state.classTeacherGender,
-      isTrained: this.state.teacherTrained,
-      grade: this.state.grade,
-      section: this.state.section,
-      classStartTime: this.state.classStartTime,
-      classEndTime: this.state.classEndTime,
-      contentName: this.state.teachingTopic,
-      periodDay: this.state.teachingDay,
-      totalAdmittedStudent: this.state.studentTotal,
-      totalAdmittedGirl: this.state.studentGirl,
-      totalAdmittedBoy: this.state.studentBoy,
-      totalPresentStudent: this.state.presentTotal,
-      totalPresentGirl: this.state.presentGirl,
-      totalPresentBoy: this.state.presentBoy,
+      school: this.state.pickerSchool.name,
+      rtrSchoolId: this.state.rtrSchoolId,
+      yearOfSupport: this.state.yearOfSupport,
+      yearOfEstablish: this.state.yearOfEstablish,
+      phase: this.state.pickerPhase,
+      visitor: this.state.visitor,
+      visitorDesignation: this.state.visitorDesignation,
+
+      pointTeacher: this.state.pointTeacher,
+
+      totalAdmittedStudent: this.state.totalAdmittedStudent,
+      totalPresentStudent: this.state.totalPresentStudent,
+
       note: this.state.note,
 
       lastFollowupTopic1: this.state.lastFollowupTopic1,
       lastFollowupTopic2: this.state.lastFollowupTopic2,
       lastFollowupTopic3: this.state.lastFollowupTopic3,
 
-      typeOfReading: this.state.typeOfReading,
-      timeOfReading: this.state.timeOfReading,
+      typeOfReadingPartA: this.state.typeOfReadingPartA,
 
-      ind1FriendlyCommunicationStatus:
-        this.state.ind1FriendlyCommunicationStatus,
-      ind1FriendlyCommunicationNotes: this.state.ind1FriendlyCommunicationNotes,
+      partAInd11TeacherHelpedStudentToSeatStatus:
+        this.state.partAInd11TeacherHelpedStudentToSeatStatus,
+      partAInd11TeacherHelpedStudentToSeatNote:
+        this.state.partAInd11TeacherHelpedStudentToSeatNote,
 
-      ind2SRMInspiringStatus: this.state.ind2SRMInspiringStatus,
-      ind2SRMInspiringNotes: this.state.ind2SRMInspiringNotes,
+      partAInd12TeacherShowedABookDetailStatus:
+        this.state.partAInd12TeacherShowedABookDetailStatus,
+      partAInd12TeacherShowedABookDetailNote:
+        this.state.partAInd12TeacherShowedABookDetailNote,
 
-      ind3SRMInstructionStatus: this.state.ind3SRMInstructionStatus,
-      ind3SRMInstructionNotes: this.state.ind3SRMInstructionNotes,
+      partAInd13TeacherTeachesWordWithMeaningStatus:
+        this.state.partAInd13TeacherTeachesWordWithMeaningStatus,
+      partAInd13TeacherTeachesWordWithMeaningNote:
+        this.state.partAInd13TeacherTeachesWordWithMeaningNote,
 
-      ind4BookShowingStatus: this.state.ind4BookShowingStatus,
-      ind4BookShowingNotes: this.state.ind4BookShowingNotes,
+      partAInd21TeacherInspireToParticipateStatus:
+        this.state.partAInd21TeacherInspireToParticipateStatus,
+      partAInd21TeacherInspireToParticipateNote:
+        this.state.partAInd21TeacherInspireToParticipateNote,
 
-      ind5WordTeachingStatus: this.state.ind5WordTeachingStatus,
-      ind5WordTeachingNotes: this.state.ind5WordTeachingNotes,
+      partAInd22TeacherShowedPictureTextStatus:
+        this.state.partAInd22TeacherShowedPictureTextStatus,
+      partAInd22TeacherShowedPictureTextNote:
+        this.state.partAInd22TeacherShowedPictureTextNote,
 
-      ind6StoryReadingStatus: this.state.ind6StoryReadingStatus,
-      ind6StoryReadingNotes: this.state.ind6StoryReadingNotes,
+      partAInd23TeacherTeachesByActionStatus:
+        this.state.partAInd23TeacherTeachesByActionStatus,
+      partAInd23TeacherTeachesByActionNote:
+        this.state.partAInd23TeacherTeachesByActionNote,
 
-      ind7StorySuitableStatus: this.state.ind7StorySuitableStatus,
-      ind7StorySuitableNotes: this.state.ind7StorySuitableNotes,
+      partAInd24TeacherAskedNextStepStatus:
+        this.state.partAInd24TeacherAskedNextStepStatus,
+      partAInd24TeacherAskedNextStepNote:
+        this.state.partAInd24TeacherAskedNextStepNote,
 
-      ind8StoryReadingCombinationStatus:
-        this.state.ind8StoryReadingCombinationStatus,
-      ind8StoryReadingCombinationNotes:
-        this.state.ind8StoryReadingCombinationNotes,
+      partAInd25TeacherSelectedBookAsLevelStatus:
+        this.state.partAInd25TeacherSelectedBookAsLevelStatus,
+      partAInd25TeacherSelectedBookAsLevelNote:
+        this.state.partAInd25TeacherSelectedBookAsLevelNote,
 
-      ind9AllStudentEngagementStatus: this.state.ind9AllStudentEngagementStatus,
-      ind9AllStudentEngagementNotes: this.state.ind9AllStudentEngagementNotes,
+      partAInd26TeacherAskedToParticipateInReadingStatus:
+        this.state.partAInd26TeacherAskedToParticipateInReadingStatus,
+      partAInd26TeacherAskedToParticipateInReadingNote:
+        this.state.partAInd26TeacherAskedToParticipateInReadingNote,
 
-      ind10InclusiveAssessmentStatus: this.state.ind10InclusiveAssessmentStatus,
-      ind10InclusiveAssessmentNotes: this.state.ind10InclusiveAssessmentNotes,
+      partAInd31TeacherAllowToBCOStatus:
+        this.state.partAInd31TeacherAllowToBCOStatus,
+      partAInd31TeacherAllowToBCONote:
+        this.state.partAInd31TeacherAllowToBCONote,
 
-      ind11AskingForBCOStatus: this.state.ind11AskingForBCOStatus,
-      ind11AskingForBCONotes: this.state.ind11AskingForBCONotes,
+      partAInd32TeacherAskedQuestionForAssessmentStatus:
+        this.state.partAInd32TeacherAskedQuestionForAssessmentStatus,
+      partAInd32TeacherAskedQuestionForAssessmentNote:
+        this.state.partAInd32TeacherAskedQuestionForAssessmentNote,
 
-      bestPracticeInd1: this.state.bestPracticeInd1,
-      bestPracticeInd2: this.state.bestPracticeInd2,
-      bestPracticeInd3: this.state.bestPracticeInd3,
+      partAInd33TeacherParticipateStudentToSRMStatus:
+        this.state.partAInd33TeacherParticipateStudentToSRMStatus,
+      partAInd33TeacherParticipateStudentToSRMNote:
+        this.state.partAInd33TeacherParticipateStudentToSRMNote,
 
-      coachingSupportInd1: this.state.coachingSupportInd1,
-      coachingSupportInd2: this.state.coachingSupportInd2,
-      coachingSupportDetailsInd1: this.state.coachingSupportDetailsInd1,
-      coachingSupportDetailsInd2: this.state.coachingSupportDetailsInd2,
+      partAInd34TeacherCongratulatedStudentStatus:
+        this.state.partAInd34TeacherCongratulatedStudentStatus,
+      partAInd34TeacherCongratulatedStudentNote:
+        this.state.partAInd34TeacherCongratulatedStudentNote,
 
-      agreedStatement1: this.state.agreedStatement1,
-      agreedStatement2: this.state.agreedStatement2,
+      bestPracticeIndicator1PartA: this.state.bestPracticeIndicator1PartA,
+      bestPracticeIndicator2PartA: this.state.bestPracticeIndicator2PartA,
+
+      coachingSupportIndicator1PartA: this.state.coachingSupportIndicator1PartA,
+      coachingSupportIndicator2PartA: this.state.coachingSupportIndicator2PartA,
+
+      agreedStatementTeacherPartA: this.state.agreedStatementTeacherPartA,
+      agreedStatementLFPartA: this.state.agreedStatementLFPartA,
+
+      typeOfReadingPartB: this.state.typeOfReadingPartB,
+
+      partBInd11TeacherHelpedStudentToSeatStatus:
+        this.state.partBInd11TeacherHelpedStudentToSeatStatus,
+      partBInd11TeacherHelpedStudentToSeatNote:
+        this.state.partBInd11TeacherHelpedStudentToSeatNote,
+
+      partBInd12TeacherInstructSRMStatus:
+        this.state.partBInd12TeacherInstructSRMStatus,
+      partBInd12TeacherInstructSRMNote:
+        this.state.partBInd12TeacherInstructSRMNote,
+
+      partBInd13TeacherCheckedBookLevelStatus:
+        this.state.partBInd13TeacherCheckedBookLevelStatus,
+      partBInd13TeacherCheckedBookLevelNote:
+        this.state.partBInd13TeacherCheckedBookLevelNote,
+
+      partBInd21TeacherListenAndAskQuestionStatus:
+        this.state.partBInd21TeacherListenAndAskQuestionStatus,
+      partBInd21TeacherListenAndAskQuestionNote:
+        this.state.partBInd21TeacherListenAndAskQuestionNote,
+
+      partBInd22TeacherCheckedStudentParticipationStatus:
+        this.state.partBInd22TeacherCheckedStudentParticipationStatus,
+      partBInd22TeacherCheckedStudentParticipationNote:
+        this.state.partBInd22TeacherCheckedStudentParticipationNote,
+
+      partBInd31TeacherHelpedStudentToShareStatus:
+        this.state.partBInd31TeacherHelpedStudentToShareStatus,
+      partBInd31TeacherHelpedStudentToShareNote:
+        this.state.partBInd31TeacherHelpedStudentToShareNote,
+
+      partBInd32TeacherInspiredStudentEffortStatus:
+        this.state.partBInd32TeacherInspiredStudentEffortStatus,
+      partBInd32TeacherInspiredStudentEffortNote:
+        this.state.partBInd32TeacherInspiredStudentEffortNote,
+
+      partBInd33TeacherInspiredStudentForSRMStatus:
+        this.state.partBInd33TeacherInspiredStudentForSRMStatus,
+      partBInd33TeacherInspiredStudentForSRMNote:
+        this.state.partBInd33TeacherInspiredStudentForSRMNote,
+
+      partBInd34TeacherAllowedStudentToBCOStatus:
+        this.state.partBInd34TeacherAlloedStudentToBCOStatus,
+      partBInd34TeacherAllowedStudentToBCONote:
+        this.state.partBInd34TeacherAlloedStudentToBCONote,
+
+      bestPracticeIndicator1PartB: this.state.bestPracticeIndicator1PartB,
+      bestPracticeIndicator2PartB: this.state.bestPracticeIndicator2PartB,
+
+      coachingSupportIndicator1PartB: this.state.coachingSupportIndicator1PartB,
+      coachingSupportIndicator2PartB: this.state.coachingSupportIndicator2PartB,
+
+      agreedStatementTeacherPartB: this.state.agreedStatementTeacherPartB,
+      agreedStatementLFPartB: this.state.agreedStatementLFPartB,
 
       teacherStatus: this.state.teacherStatus,
     };
@@ -787,7 +932,7 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
     //Check duplicate data
 
     // Validation
-    if (this.state.date === "") {
+    if (this.state.selectedDate === "") {
       this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Date can not be empty");
       return;
@@ -827,29 +972,9 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
       this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "School can not be empty");
       return;
-    } else if (this.state.pickerVisitor === "") {
+    } else if (this.state.pointTeacher === "") {
       this.setState({ dateError: "Date can not be empty" });
-      Alert.alert("Alert", "Visitor can not be empty");
-      return;
-    } else if (this.state.pickerDesignation === "") {
-      this.setState({ dateError: "Date can not be empty" });
-      Alert.alert("Alert", "Designation can not be empty");
-      return;
-    } else if (this.state.pickerVisitorOffice === "") {
-      this.setState({ dateError: "Date can not be empty" });
-      Alert.alert("Alert", "Visitor Office can not be empty");
-      return;
-    } else if (this.state.classTeacher === "") {
-      this.setState({ dateError: "Date can not be empty" });
-      Alert.alert("Alert", "Class Teacher can not be empty");
-      return;
-    } else if (this.state.classTeacherGender === "") {
-      this.setState({ dateError: "Date can not be empty" });
-      Alert.alert("Alert", "Gender can not be empty");
-      return;
-    } else if (this.state.teacherTrained === "") {
-      this.setState({ dateError: "Date can not be empty" });
-      Alert.alert("Alert", "Teacher training can not be empty");
+      Alert.alert("Alert", "Point Teacher can not be empty");
       return;
     } else if (this.state.grade === "") {
       this.setState({ dateError: "Date can not be empty" });
@@ -869,7 +994,7 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
       try {
         let response = await fetch(
-          "http://118.179.80.51:8080/api/v1/srm-class",
+          "http://118.179.80.51:8080/api/v1/p-srm-class",
           {
             method: "POST",
             mode: "no-cors",
@@ -885,8 +1010,7 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
         if (response.status >= 200 && response.status < 300) {
           Alert.alert(
-            "Alert",
-            "SRM class obsvervatio data saved successfully!!!",
+            "SRM class obsvervatio data saved successfully to online!!!",
           );
           this.getAllSRMClassObservation();
           this.updateToInitialState();
@@ -922,11 +1046,851 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
   };
   // Alert before submit
 
+  // Alert before submit
+  showConfirmDialogOffline = () => {
+    return Alert.alert("Alert !!", "Are you sure you want to save data ?", [
+      // The "Cancel" button
+      {
+        text: "Cancel",
+      },
+      // The "Yes" button
+      {
+        text: "Yes",
+        onPress: this.storeLocally,
+      },
+      // The "No" button
+      // Does nothing but dismiss the dialog when tapped
+      {
+        text: "No",
+      },
+    ]);
+  };
+  // Alert before submit
+
+  // Save form data locally
+  storeLocally = async () => {
+    const formData = {
+      date: this.state.selectedDate,
+      month: this.state.pickerMonth,
+      year: this.state.pickerYear,
+      district: this.state.pickerDistrict.name,
+      upazilla: this.state.pickerUpazilla.name,
+      office: this.state.pickerOffice,
+      project: this.state.pickerProject,
+      visitNo: Math.floor(Math.random() * 100),
+      lpo: this.state.pickerLPO.employeeRegId,
+      lpoName: this.state.pickerLPOName.name,
+      lf: this.state.pickerLF.employeeRegId,
+      lfName: this.state.pickerLFName.name,
+      school: this.state.pickerSchool.name,
+      rtrSchoolId: this.state.rtrSchoolId,
+      yearOfSupport: this.state.yearOfSupport,
+      yearOfEstablish: this.state.yearOfEstablish,
+      phase: this.state.pickerPhase,
+      visitor: this.state.pickerVisitor,
+      visitorDesignation: this.state.pickerDesignation,
+
+      pointTeacher: this.state.pointTeacher,
+
+      totalAdmittedStudent: this.state.totalAdmittedStudent,
+      totalPresentStudent: this.state.totalPresentStudent,
+
+      note: this.state.note,
+
+      lastFollowupTopic1: this.state.lastFollowupTopic1,
+      lastFollowupTopic2: this.state.lastFollowupTopic2,
+      lastFollowupTopic3: this.state.lastFollowupTopic3,
+
+      typeOfReadingPartA: this.state.typeOfReadingPartA,
+
+      partAInd11TeacherHelpedStudentToSeatStatus:
+        this.state.partAInd11TeacherHelpedStudentToSeatStatus,
+      partAInd11TeacherHelpedStudentToSeatNote:
+        this.state.partAInd11TeacherHelpedStudentToSeatNote,
+
+      partAInd12TeacherShowedABookDetailStatus:
+        this.state.partAInd12TeacherShowedABookDetailStatus,
+      partAInd12TeacherShowedABookDetailNote:
+        this.state.partAInd12TeacherShowedABookDetailNote,
+
+      partAInd13TeacherTeachesWordWithMeaningStatus:
+        this.state.partAInd13TeacherTeachesWordWithMeaningStatus,
+      partAInd13TeacherTeachesWordWithMeaningNote:
+        this.state.partAInd13TeacherTeachesWordWithMeaningNote,
+
+      partAInd21TeacherInspireToParticipateStatus:
+        this.state.partAInd21TeacherInspireToParticipateStatus,
+      partAInd21TeacherInspireToParticipateNote:
+        this.state.partAInd21TeacherInspireToParticipateNote,
+
+      partAInd22TeacherShowedPictureTextStatus:
+        this.state.partAInd22TeacherShowedPictureTextStatus,
+      partAInd22TeacherShowedPictureTextNote:
+        this.state.partAInd22TeacherShowedPictureTextNote,
+
+      partAInd23TeacherTeachesByActionStatus:
+        this.state.partAInd23TeacherTeachesByActionStatus,
+      partAInd23TeacherTeachesByActionNote:
+        this.state.partAInd23TeacherTeachesByActionNote,
+
+      partAInd24TeacherAskedNextStepStatus:
+        this.state.partAInd24TeacherAskedNextStepStatus,
+      partAInd24TeacherAskedNextStepNote:
+        this.state.partAInd24TeacherAskedNextStepNote,
+
+      partAInd25TeacherSelectedBookAsLevelStatus:
+        this.state.partAInd25TeacherSelectedBookAsLevelStatus,
+      partAInd25TeacherSelectedBookAsLevelNote:
+        this.state.partAInd25TeacherSelectedBookAsLevelNote,
+
+      partAInd26TeacherAskedToParticipateInReadingStatus:
+        this.state.partAInd26TeacherAskedToParticipateInReadingStatus,
+      partAInd26TeacherAskedToParticipateInReadingNote:
+        this.state.partAInd26TeacherAskedToParticipateInReadingNote,
+
+      partAInd31TeacherAllowToBCOStatus:
+        this.state.partAInd31TeacherAllowToBCOStatus,
+      partAInd31TeacherAllowToBCONote:
+        this.state.partAInd31TeacherAllowToBCONote,
+
+      partAInd32TeacherAskedQuestionForAssessmentStatus:
+        this.state.partAInd32TeacherAskedQuestionForAssessmentStatus,
+      partAInd32TeacherAskedQuestionForAssessmentNote:
+        this.state.partAInd32TeacherAskedQuestionForAssessmentNote,
+
+      partAInd33TeacherParticipateStudentToSRMStatus:
+        this.state.partAInd33TeacherParticipateStudentToSRMStatus,
+      partAInd33TeacherParticipateStudentToSRMNote:
+        this.state.partAInd33TeacherParticipateStudentToSRMNote,
+
+      partAInd34TeacherCongratulatedStudentStatus:
+        this.state.partAInd34TeacherCongratulatedStudentStatus,
+      partAInd34TeacherCongratulatedStudentNote:
+        this.state.partAInd34TeacherCongratulatedStudentNote,
+
+      bestPracticeIndicator1PartA: this.state.bestPracticeIndicator1PartA,
+      bestPracticeIndicator2PartA: this.state.bestPracticeIndicator2PartA,
+
+      coachingSupportIndicator1PartA: this.state.coachingSupportIndicator1PartA,
+      coachingSupportIndicator2PartA: this.state.coachingSupportIndicator2PartA,
+
+      agreedStatementTeacherPartA: this.state.agreedStatementTeacherPartA,
+      agreedStatementLFPartA: this.state.agreedStatementLFPartA,
+
+      typeOfReadingPartB: this.state.typeOfReadingPartB,
+
+      partBInd11TeacherHelpedStudentToSeatStatus:
+        this.state.partBInd11TeacherHelpedStudentToSeatStatus,
+      partBInd11TeacherHelpedStudentToSeatNote:
+        this.state.partBInd11TeacherHelpedStudentToSeatNote,
+
+      partBInd12TeacherInstructSRMStatus:
+        this.state.partBInd12TeacherInstructSRMStatus,
+      partBInd12TeacherInstructSRMNote:
+        this.state.partBInd12TeacherInstructSRMNote,
+
+      partBInd13TeacherCheckedBookLevelStatus:
+        this.state.partBInd13TeacherCheckedBookLevelStatus,
+      partBInd13TeacherCheckedBookLevelNote:
+        this.state.partBInd13TeacherCheckedBookLevelNote,
+
+      partBInd21TeacherListenAndAskQuestionStatus:
+        this.state.partBInd21TeacherListenAndAskQuestionStatus,
+      partBInd21TeacherListenAndAskQuestionNote:
+        this.state.partBInd21TeacherListenAndAskQuestionNote,
+
+      partBInd22TeacherCheckedStudentParticipationStatus:
+        this.state.partBInd22TeacherCheckedStudentParticipationStatus,
+      partBInd22TeacherCheckedStudentParticipationNote:
+        this.state.partBInd22TeacherCheckedStudentParticipationNote,
+
+      partBInd31TeacherHelpedStudentToShareStatus:
+        this.state.partBInd31TeacherHelpedStudentToShareStatus,
+      partBInd31TeacherHelpedStudentToShareNote:
+        this.state.partBInd31TeacherHelpedStudentToShareNote,
+
+      partBInd32TeacherInspiredStudentEffortStatus:
+        this.state.partBInd32TeacherInspiredStudentEffortStatus,
+      partBInd32TeacherInspiredStudentEffortNote:
+        this.state.partBInd32TeacherInspiredStudentEffortNote,
+
+      partBInd33TeacherInspiredStudentForSRMStatus:
+        this.state.partBInd33TeacherInspiredStudentForSRMStatus,
+      partBInd33TeacherInspiredStudentForSRMNote:
+        this.state.partBInd33TeacherInspiredStudentForSRMNote,
+
+      partBInd34TeacherAllowedStudentToBCOStatus:
+        this.state.partBInd34TeacherAlloedStudentToBCOStatus,
+      partBInd34TeacherAllowedStudentToBCONote:
+        this.state.partBInd34TeacherAlloedStudentToBCONote,
+
+      bestPracticeIndicator1PartB: this.state.bestPracticeIndicator1PartB,
+      bestPracticeIndicator2PartB: this.state.bestPracticeIndicator2PartB,
+
+      coachingSupportIndicator1PartB: this.state.coachingSupportIndicator1PartB,
+      coachingSupportIndicator2PartB: this.state.coachingSupportIndicator2PartB,
+
+      agreedStatementTeacherPartB: this.state.agreedStatementTeacherPartB,
+      agreedStatementLFPartB: this.state.agreedStatementLFPartB,
+
+      teacherStatus: this.state.teacherStatus,
+    };
+
+    // Validation
+    if (this.state.selectedDate === "") {
+      Alert.alert("Alert", "Date can not be empty");
+      return;
+    } else if (this.state.pickerMonth === "") {
+      Alert.alert("Alert", "Month can not be empty");
+      return;
+    } else if (this.state.pickerYear === "") {
+      Alert.alert("Alert", "Year can not be empty");
+      return;
+    } else if (this.state.pickerDistrict === "") {
+      Alert.alert("Alert", "District can not be empty");
+      return;
+    } else if (this.state.pickerUpazilla === "") {
+      Alert.alert("Alert", "Upazilla can not be empty");
+      return;
+    } else if (this.state.pickerOffice === "") {
+      Alert.alert("Alert", "Office can not be empty");
+      return;
+    } else if (this.state.pickerProject === "") {
+      Alert.alert("Alert", "Project can not be empty");
+      return;
+    } else if (this.state.pickerLF === "") {
+      Alert.alert("Alert", "LF can not be empty");
+      return;
+    } else if (this.state.pickerLPO === "") {
+      Alert.alert("Alert", "LPO can not be empty");
+      return;
+    } else if (this.state.pickerSchool === "") {
+      Alert.alert("Alert", "School can not be empty");
+      return;
+    } else if (this.state.rtrSchoolId === "") {
+      Alert.alert("Alert", "School ID can not be empty");
+      return;
+    } else if (this.state.yearOfSupport === "") {
+      Alert.alert("Alert", "Year of Support Office can not be empty");
+      return;
+    } else {
+      // Save data locally
+      try {
+        const existingData = await AsyncStorage.getItem("offlineFormsPSRM");
+        const forms = existingData ? JSON.parse(existingData) : [];
+        forms.push(formData);
+        await AsyncStorage.setItem("offlineFormsPSRM", JSON.stringify(forms));
+        //console.log("Data stored locally: " + JSON.stringify(forms));
+        console.log("Data stored locally.");
+        Alert.alert("Data stored locally.");
+        this.updateToInitialState();
+      } catch (error) {
+        console.error("Error storing data locally:", error);
+        Alert.alert("Error storing data locally:", error);
+      }
+      // Save data locally
+    }
+  };
+  // Save form data locally
+
+  // Sync stored data
+  syncPendingData = async () => {
+    try {
+      const existingData = await AsyncStorage.getItem("offlineFormsPSRM");
+      if (existingData) {
+        const formsToSync = JSON.parse(existingData);
+        for (const formData of formsToSync) {
+          await fetch("http://118.179.80.51:8080/api/v1/p-srm-class", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          });
+        }
+        console.log("LF Data syncing");
+        await AsyncStorage.removeItem("offlineFormsPSRM"); // Clear synced data
+        // console.log(
+        //   "Pending data synced successfully: " + JSON.parse(existingData),
+        // );
+        console.log("Pending data synced successfully!");
+        Alert.alert("Pending data synced successfully!");
+      }
+    } catch (error) {
+      console.error("Error syncing pending data:", error);
+      Alert.alert("Error syncing pending data:", error);
+    }
+  };
+  // Sync stored data
+
+  // Calculate bestPractice  && coachingSupport
+  // Part A
+  bestPracticeIndcoachingSupportIndPartA = () => {
+    // Initially set all value to N/A
+    this.setState({
+      coachingSupportIndicator1PartA: "N/A",
+      coachingSupportIndicator2PartA: "N/A",
+    });
+    this.setState({
+      bestPracticeIndicator1PartA: "N/A",
+      bestPracticeIndicator2PartA: "N/A",
+    });
+    // Initially set all value to N/A
+
+    if (this.state.typeOfReadingPartA === "Read Aloud") {
+      // Setup CoachingSupport
+      const variablesIndAA = [
+        this.state.partAInd21TeacherInspireToParticipateStatus,
+        this.state.partAInd22TeacherShowedPictureTextStatus,
+        this.state.partAInd23TeacherTeachesByActionStatus,
+        this.state.partAInd31TeacherAllowToBCOStatus,
+        this.state.partAInd11TeacherHelpedStudentToSeatStatus,
+        this.state.partAInd12TeacherShowedABookDetailStatus,
+        this.state.partAInd13TeacherTeachesWordWithMeaningStatus,
+        this.state.partAInd24TeacherAskedNextStepStatus,
+        this.state.partAInd32TeacherAskedQuestionForAssessmentStatus,
+        this.state.partAInd33TeacherParticipateStudentToSRMStatus,
+        this.state.partAInd34TeacherCongratulatedStudentStatus,
+      ];
+
+      const variablesIndValueAA = [
+        "২ক. শিক্ষক পড়ার সময়ে শিক্ষার্থীদের অংশগ্রহণ উৎসাহিত করেছেন । এমনকি শিক্ষার্থীদের ভুল ভুল উত্তরকেও নিরুৎসাহিত করেননি।",
+        "২খ. শিক্ষক পড়ার সময়ে বইয়ের ছবি ও টেক্সট দেখিয়ে এমন স্বরে পড়েছেন যা সকল শিক্ষার্থী শুনতে পেয়েছে এবং অংশগ্রহণমূলক পড়ার সময় শিক্ষক বইয়ের টেক্সট নির্দেশ করে পড়েছেন।",
+        "২গ. পড়ার সাথে সাথে শিক্ষক যথাযথ অভিব্যক্তি ও অঙ্গভঙ্গি করে দেখিয়েছেন।",
+        "৩ক. শিক্ষক অন্তত কয়েকজন শিক্ষার্থীকে বই চেক-আউট করার সুযোগ দিয়েছেন।",
+        "১ক. শিক্ষক শিক্ষার্থীদের পড়ার ঘণ্টা কার্যক্রম শুরুর আগে শান্ত ও সুশৃঙ্খলভাবে বসিয়েছেন।",
+        "১খ. শিক্ষক পাঠাগার থেকে একটি বই নিয়ে শিক্ষার্থীদের বইয়ের প্রচ্ছদ দেখিয়েছেন এবং বইয়ের নাম ও লেখকের নাম বলেছেন। এরপর বইটির বিষয় কী হতে পারে তা শিক্ষার্থীদের কাছে জানতে চেয়েছেন।",
+        "১গ. শিক্ষক বই থেকে ১/২টি শব্দ অর্থসহ সুস্পষ্টভাবে শিক্ষার্থীদের শিখিয়েছেন।",
+        "২ঘ. শিক্ষক পড়ার সময় ‘এরপর কী ঘটতে পারে' এমন দু-তিনটি প্রশ্ন করেছেন।",
+        "৩খ. শিক্ষক কখন, কোথায়, কী এবং কে দিয়ে প্রশ্ন করে শিক্ষার্থীদের পড়ার বোধগম্যতা যাচাই করেছেন।",
+        "৩গ. শিক্ষক পড়ার ঘণ্টা কার্যক্রমে শিক্ষার্থীদের সক্রিয় অংশগ্রহণ করিয়েছেন।",
+        "৩ঘ. শিক্ষক শিক্ষার্থীদের পড়ার সকল প্রচেষ্টার প্রশংসা করেছেন।",
+      ];
+
+      let noCount = 0;
+
+      for (let i = 0; i < variablesIndAA.length; i++) {
+        if (variablesIndAA[i] === "No") {
+          if (noCount === 0) {
+            // Assign the first 'No' found to coachingSupport1
+            this.setState({
+              coachingSupportIndicator1PartA: variablesIndValueAA[i],
+            });
+            noCount++;
+          } else if (noCount === 1) {
+            this.setState({
+              coachingSupportIndicator2PartA: variablesIndValueAA[i],
+            }); // Assign the second 'No' found to coachingSupport2
+            noCount++;
+            // We found both, so we can stop the loop if needed (optional optimization)
+            break;
+          }
+        }
+      }
+      // Setup CoachingSupport
+
+      // Setup BestPractice
+      if (
+        this.state.teacherStatus === "Priority 3" ||
+        this.state.teacherStatus === "Priority 2"
+      ) {
+        const variablesIndAA = [
+          this.state.partAInd11TeacherHelpedStudentToSeatStatus,
+          this.state.partAInd12TeacherShowedABookDetailStatus,
+          this.state.partAInd13TeacherTeachesWordWithMeaningStatus,
+          this.state.partAInd24TeacherAskedNextStepStatus,
+          this.state.partAInd32TeacherAskedQuestionForAssessmentStatus,
+          this.state.partAInd33TeacherParticipateStudentToSRMStatus,
+          this.state.partAInd34TeacherCongratulatedStudentStatus,
+        ];
+
+        const variablesIndValueAA = [
+          "১ক. শিক্ষক শিক্ষার্থীদের পড়ার ঘণ্টা কার্যক্রম শুরুর আগে শান্ত ও সুশৃঙ্খলভাবে বসিয়েছেন।",
+          "১খ. শিক্ষক পাঠাগার থেকে একটি বই নিয়ে শিক্ষার্থীদের বইয়ের প্রচ্ছদ দেখিয়েছেন এবং বইয়ের নাম ও লেখকের নাম বলেছেন। এরপর বইটির বিষয় কী হতে পারে তা শিক্ষার্থীদের কাছে জানতে চেয়েছেন।",
+          "১গ. শিক্ষক বই থেকে ১/২টি শব্দ অর্থসহ সুস্পষ্টভাবে শিক্ষার্থীদের শিখিয়েছেন।",
+          "২ঘ. শিক্ষক পড়ার সময় ‘এরপর কী ঘটতে পারে' এমন দু-তিনটি প্রশ্ন করেছেন।",
+          "৩খ. শিক্ষক কখন, কোথায়, কী এবং কে দিয়ে প্রশ্ন করে শিক্ষার্থীদের পড়ার বোধগম্যতা যাচাই করেছেন।",
+          "৩গ. শিক্ষক পড়ার ঘণ্টা কার্যক্রমে শিক্ষার্থীদের সক্রিয় অংশগ্রহণ করিয়েছেন।",
+          "৩ঘ. শিক্ষক শিক্ষার্থীদের পড়ার সকল প্রচেষ্টার প্রশংসা করেছেন।",
+        ];
+
+        let yesCount = 0;
+
+        for (let i = variablesIndAA.length; i >= 0; i--) {
+          if (variablesIndAA[i] === "Yes") {
+            if (yesCount === 0) {
+              // Assign the first 'yes' found to bestPracticeInd1
+              this.setState({
+                bestPracticeIndicator1PartA: variablesIndValueAA[i],
+              });
+              yesCount++;
+            } else if (yesCount === 1) {
+              this.setState({
+                bestPracticeIndicator2PartA: variablesIndValueAA[i],
+              }); // Assign the second 'yes' found to y
+              yesCount++;
+              // We found both, so we can stop the loop if needed (optional optimization)
+              break;
+            }
+          }
+        }
+      } else if (this.state.teacherStatus === "Priority 1") {
+        const variablesIndAA = [
+          this.state.partAInd11TeacherHelpedStudentToSeatStatus,
+          this.state.partAInd12TeacherShowedABookDetailStatus,
+        ];
+
+        const variablesIndValueAA = [
+          "১ক. শিক্ষক শিক্ষার্থীদের পড়ার ঘণ্টা কার্যক্রম শুরুর আগে শান্ত ও সুশৃঙ্খলভাবে বসিয়েছেন।",
+          "১খ. শিক্ষক পাঠাগার থেকে একটি বই নিয়ে শিক্ষার্থীদের বইয়ের প্রচ্ছদ দেখিয়েছেন এবং বইয়ের নাম ও লেখকের নাম বলেছেন। এরপর বইটির বিষয় কী হতে পারে তা শিক্ষার্থীদের কাছে জানতে চেয়েছেন।",
+        ];
+
+        let yesCount = 0;
+
+        for (let i = variablesIndAA.length; i >= 0; i--) {
+          if (variablesIndAA[i] === "Yes") {
+            if (yesCount === 0) {
+              // Assign the first 'yes' found to bestPracticeInd1
+              this.setState({
+                bestPracticeIndicator1PartA: variablesIndValueAA[i],
+              });
+              yesCount++;
+            } else if (yesCount === 1) {
+              this.setState({
+                bestPracticeIndicator2PartA: variablesIndValueAA[i],
+              }); // Assign the second 'yes' found to y
+              yesCount++;
+              // We found both, so we can stop the loop if needed (optional optimization)
+              break;
+            }
+          }
+        }
+      }
+      // Setup BestPractice
+    } else if (this.state.typeOfReadingPartA === "Participatory Reading") {
+      // Setup CoachingSupport
+      const variablesIndAB = [
+        this.state.partAInd21TeacherInspireToParticipateStatus,
+        this.state.partAInd22TeacherShowedPictureTextStatus,
+        this.state.partAInd23TeacherTeachesByActionStatus,
+        this.state.partAInd25TeacherSelectedBookAsLevelStatus,
+        this.state.partAInd31TeacherAllowToBCOStatus,
+        this.state.partAInd11TeacherHelpedStudentToSeatStatus,
+        this.state.partAInd12TeacherShowedABookDetailStatus,
+        this.state.partAInd13TeacherTeachesWordWithMeaningStatus,
+        this.state.partAInd24TeacherAskedNextStepStatus,
+        this.state.partAInd26TeacherAskedToParticipateInReadingStatus,
+        this.state.partAInd32TeacherAskedQuestionForAssessmentStatus,
+        this.state.partAInd33TeacherParticipateStudentToSRMStatus,
+        this.state.partAInd34TeacherCongratulatedStudentStatus,
+      ];
+
+      const variablesIndValueAB = [
+        "২ক. শিক্ষক পড়ার সময়ে শিক্ষার্থীদের অংশগ্রহণ উৎসাহিত করেছেন । এমনকি শিক্ষার্থীদের ভুল ভুল উত্তরকেও নিরুৎসাহিত করেননি।",
+        "২খ. শিক্ষক পড়ার সময়ে বইয়ের ছবি ও টেক্সট দেখিয়ে এমন স্বরে পড়েছেন যা সকল শিক্ষার্থী শুনতে পেয়েছে এবং অংশগ্রহণমূলক পড়ার সময় শিক্ষক বইয়ের টেক্সট নির্দেশ করে পড়েছেন।",
+        "২গ. পড়ার সাথে সাথে শিক্ষক যথাযথ অভিব্যক্তি ও অঙ্গভঙ্গি করে দেখিয়েছেন।",
+        "২ঙ. বই নির্বাচনের সময় শিক্ষার্থীদের পড়ার লেভেল অনুযায়ী উপযুক্ত বই নির্বাচন করেছেন।",
+        "৩ক. শিক্ষক অন্তত কয়েকজন শিক্ষার্থীকে বই চেক-আউট করার সুযোগ দিয়েছেন।",
+        "১ক. শিক্ষক শিক্ষার্থীদের পড়ার ঘণ্টা কার্যক্রম শুরুর আগে শান্ত ও সুশৃঙ্খলভাবে বসিয়েছেন।",
+        "১খ. শিক্ষক পাঠাগার থেকে একটি বই নিয়ে শিক্ষার্থীদের বইয়ের প্রচ্ছদ দেখিয়েছেন এবং বইয়ের নাম ও লেখকের নাম বলেছেন। এরপর বইটির বিষয় কী হতে পারে তা শিক্ষার্থীদের কাছে জানতে চেয়েছেন।",
+        "১গ. শিক্ষক বই থেকে ১/২টি শব্দ অর্থসহ সুস্পষ্টভাবে শিক্ষার্থীদের শিখিয়েছেন।",
+        "২ঘ. শিক্ষক পড়ার সময় ‘এরপর কী ঘটতে পারে' এমন দু-তিনটি প্রশ্ন করেছেন।",
+        "২চ. শিক্ষক শিক্ষার্থীদের পড়ায় অংশগ্রহণের জন্য আহ্বান জানিয়েছেন (শিক্ষকের সাথে সাথে শব্দ পড়া এবং অন্যান্য শব্দ, যেমন: পাখির ডাক, পশুর আওয়াজ ইত্যাদি নকল করা) । তবে শিক্ষক পড়ায় অংশগ্রহণ করার জন্য কোনো শিক্ষার্থীকে বাধ্য করেননি।",
+        "৩খ. শিক্ষক কখন, কোথায়, কী এবং কে দিয়ে প্রশ্ন করে শিক্ষার্থীদের পড়ার বোধগম্যতা যাচাই করেছেন।",
+        "৩গ. শিক্ষক পড়ার ঘণ্টা কার্যক্রমে শিক্ষার্থীদের সক্রিয় অংশগ্রহণ করিয়েছেন।",
+        "৩ঘ. শিক্ষক শিক্ষার্থীদের পড়ার সকল প্রচেষ্টার প্রশংসা করেছেন।",
+      ];
+
+      let noCount = 0;
+
+      for (let i = 0; i < variablesIndAB.length; i++) {
+        if (variablesIndAB[i] === "No") {
+          if (noCount === 0) {
+            // Assign the first 'No' found to coachingSupport1
+            this.setState({
+              coachingSupportIndicator1PartA: variablesIndValueAB[i],
+            });
+            noCount++;
+          } else if (noCount === 1) {
+            this.setState({
+              coachingSupportIndicator2PartA: variablesIndValueAB[i],
+            }); // Assign the second 'No' found to coachingSupport2
+            noCount++;
+            // We found both, so we can stop the loop if needed (optional optimization)
+            break;
+          }
+        }
+      }
+      // Setup CoachingSupport
+
+      // Setup BestPractice
+      if (
+        this.state.teacherStatus === "Priority 3" ||
+        this.state.teacherStatus === "Priority 2"
+      ) {
+        const variablesIndAA = [
+          this.state.partAInd11TeacherHelpedStudentToSeatStatus,
+          this.state.partAInd12TeacherShowedABookDetailStatus,
+          this.state.partAInd13TeacherTeachesWordWithMeaningStatus,
+          this.state.partAInd24TeacherAskedNextStepStatus,
+          this.state.partAInd32TeacherAskedQuestionForAssessmentStatus,
+          this.state.partAInd33TeacherParticipateStudentToSRMStatus,
+          this.state.partAInd34TeacherCongratulatedStudentStatus,
+        ];
+
+        const variablesIndValueAA = [
+          "১ক. শিক্ষক শিক্ষার্থীদের পড়ার ঘণ্টা কার্যক্রম শুরুর আগে শান্ত ও সুশৃঙ্খলভাবে বসিয়েছেন।",
+          "১খ. শিক্ষক পাঠাগার থেকে একটি বই নিয়ে শিক্ষার্থীদের বইয়ের প্রচ্ছদ দেখিয়েছেন এবং বইয়ের নাম ও লেখকের নাম বলেছেন। এরপর বইটির বিষয় কী হতে পারে তা শিক্ষার্থীদের কাছে জানতে চেয়েছেন।",
+          "১গ. শিক্ষক বই থেকে ১/২টি শব্দ অর্থসহ সুস্পষ্টভাবে শিক্ষার্থীদের শিখিয়েছেন।",
+          "২ঘ. শিক্ষক পড়ার সময় ‘এরপর কী ঘটতে পারে' এমন দু-তিনটি প্রশ্ন করেছেন।",
+          "৩খ. শিক্ষক কখন, কোথায়, কী এবং কে দিয়ে প্রশ্ন করে শিক্ষার্থীদের পড়ার বোধগম্যতা যাচাই করেছেন।",
+          "৩গ. শিক্ষক পড়ার ঘণ্টা কার্যক্রমে শিক্ষার্থীদের সক্রিয় অংশগ্রহণ করিয়েছেন।",
+          "৩ঘ. শিক্ষক শিক্ষার্থীদের পড়ার সকল প্রচেষ্টার প্রশংসা করেছেন।",
+        ];
+
+        let yesCount = 0;
+
+        for (let i = variablesIndAA.length; i >= 0; i--) {
+          if (variablesIndAA[i] === "Yes") {
+            if (yesCount === 0) {
+              // Assign the first 'yes' found to bestPracticeInd1
+              this.setState({
+                bestPracticeIndicator1PartA: variablesIndValueAA[i],
+              });
+              yesCount++;
+            } else if (yesCount === 1) {
+              this.setState({
+                bestPracticeIndicator2PartA: variablesIndValueAA[i],
+              }); // Assign the second 'yes' found to y
+              yesCount++;
+              // We found both, so we can stop the loop if needed (optional optimization)
+              break;
+            }
+          }
+        }
+      } else if (this.state.teacherStatus === "Priority 1") {
+        const variablesIndAA = [
+          this.state.partAInd11TeacherHelpedStudentToSeatStatus,
+          this.state.partAInd12TeacherShowedABookDetailStatus,
+          this.state.partAInd26TeacherAskedToParticipateInReadingStatus,
+        ];
+
+        const variablesIndValueAA = [
+          "১ক. শিক্ষক শিক্ষার্থীদের পড়ার ঘণ্টা কার্যক্রম শুরুর আগে শান্ত ও সুশৃঙ্খলভাবে বসিয়েছেন।",
+          "১খ. শিক্ষক পাঠাগার থেকে একটি বই নিয়ে শিক্ষার্থীদের বইয়ের প্রচ্ছদ দেখিয়েছেন এবং বইয়ের নাম ও লেখকের নাম বলেছেন। এরপর বইটির বিষয় কী হতে পারে তা শিক্ষার্থীদের কাছে জানতে চেয়েছেন।",
+          "২চ. শিক্ষক শিক্ষার্থীদের পড়ায় অংশগ্রহণের জন্য আহ্বান জানিয়েছেন (শিক্ষকের সাথে সাথে শব্দ পড়া এবং অন্যান্য শব্দ, যেমন: পাখির ডাক, পশুর আওয়াজ ইত্যাদি নকল করা) । তবে শিক্ষক পড়ায় অংশগ্রহণ করার জন্য কোনো শিক্ষার্থীকে বাধ্য করেননি।",
+        ];
+
+        let yesCount = 0;
+
+        for (let i = variablesIndAA.length; i >= 0; i--) {
+          if (variablesIndAA[i] === "Yes") {
+            if (yesCount === 0) {
+              // Assign the first 'yes' found to bestPracticeInd1
+              this.setState({
+                bestPracticeIndicator1PartA: variablesIndValueAA[i],
+              });
+              yesCount++;
+            } else if (yesCount === 1) {
+              this.setState({
+                bestPracticeIndicator2PartA: variablesIndValueAA[i],
+              }); // Assign the second 'yes' found to y
+              yesCount++;
+              // We found both, so we can stop the loop if needed (optional optimization)
+              break;
+            }
+          }
+        }
+      }
+      // Setup BestPractice
+    } else {
+      this.setState({
+        coachingSupportIndicator1PartA: "N/A",
+        coachingSupportIndicator2PartA: "N/A",
+      });
+      this.setState({
+        bestPracticeIndicator1PartA: "N/A",
+        bestPracticeIndicator2PartA: "N/A",
+      });
+    }
+  };
+  // Part A
+
+  // Part B
+  bestPracticeIndcoachingSupportIndPartB = () => {
+    // Initially set all value to N/A
+    this.setState({
+      coachingSupportIndicator1PartB: "N/A",
+      coachingSupportIndicator2PartB: "N/A",
+    });
+    this.setState({
+      bestPracticeIndicator1PartB: "N/A",
+      bestPracticeIndicator2PartB: "N/A",
+    });
+    // Initially set all value to N/A
+    if (this.state.typeOfReadingPartB === "Pair Reading") {
+      // Setup CoachingSupport
+      const variablesIndBA = [
+        this.state.partBInd12TeacherInstructSRMStatus,
+        this.state.partBInd33TeacherInspiredStudentForSRMStatus,
+        this.state.partBInd34TeacherAlloedStudentToBCOStatus,
+        this.state.partBInd11TeacherHelpedStudentToSeatStatus,
+        this.state.partBInd22TeacherCheckedStudentParticipationStatus,
+        this.state.partBInd31TeacherHelpedStudentToShareStatus,
+        this.state.partBInd21TeacherListenAndAskQuestionStatus,
+        this.state.partBInd32TeacherInspiredStudentEffortStatus,
+      ];
+
+      const variablesIndValueBA = [
+        "১খ. শিক্ষক পড়ার ঘণ্টা কার্যক্রম সম্পর্কে সুস্পষ্ট নির্দেশাবলি দিয়েছেন।",
+        "৩গ. শিক্ষক পড়ার ঘণ্টা কার্যক্রমে শিক্ষার্থীদের অংশগ্রহণকে উৎসাহিত করেন । এমনকি ভুল উত্তরকেও নিরুৎসাহিত করেননি।",
+        "৩ঘ. শিক্ষক অন্তত কয়েকজন শিক্ষার্থীকে বই চেক-আউট করার সময় দিয়েছেন।",
+        "১ক. শিক্ষক শিক্ষার্থীদের পড়ার ঘণ্টা কার্যক্রম শুরুর আগে শান্ত ও সুশৃঙ্খলভাবে বসিয়েছেন।",
+        "২খ. শিক্ষক পড়া চলাকালীন শিক্ষার্থীরা পড়ায় সক্রিয় অংশগ্রহণ করেছে কিনা তা ঘুরে ঘুরে দেখেছেন।",
+        "৩ক. শিক্ষার্থীরা যাতে তাদের পড়া অন্যের সাথে শেয়ার করতে শিক্ষক শিক্ষার্থীদের সহযোগিতা করেন।",
+        "২ক. শিক্ষক শিক্ষার্থীদের পড়া মনোযোগ দিয়ে শোনেন এবং প্রয়োজনে প্রশ্ন জিজ্ঞেস করেন।",
+        "৩খ. শিক্ষক শিক্ষার্থীদের পড়ার সকল প্রচেষ্টার প্রশংসা করেন।",
+      ];
+
+      let noCount = 0;
+
+      for (let i = 0; i < variablesIndBA.length; i++) {
+        if (variablesIndBA[i] === "No") {
+          if (noCount === 0) {
+            // Assign the first 'No' found to coachingSupport1
+            this.setState({
+              coachingSupportIndicator1PartB: variablesIndValueBA[i],
+            });
+            noCount++;
+          } else if (noCount === 1) {
+            this.setState({
+              coachingSupportIndicator2PartB: variablesIndValueBA[i],
+            }); // Assign the second 'No' found to coachingSupport2
+            noCount++;
+            // We found both, so we can stop the loop if needed (optional optimization)
+            break;
+          }
+        }
+      }
+      // Setup CoachingSupport
+
+      // Setup BestPractice
+      if (
+        this.state.teacherStatus === "Priority 3" ||
+        this.state.teacherStatus === "Priority 2"
+      ) {
+        const variablesIndBA = [
+          this.state.partBInd11TeacherHelpedStudentToSeatStatus,
+          this.state.partBInd22TeacherCheckedStudentParticipationStatus,
+          this.state.partBInd31TeacherHelpedStudentToShareStatus,
+          this.state.partBInd21TeacherListenAndAskQuestionStatus,
+          this.state.partBInd32TeacherInspiredStudentEffortStatus,
+        ];
+
+        const variablesIndValueBA = [
+          "১ক. শিক্ষক শিক্ষার্থীদের পড়ার ঘণ্টা কার্যক্রম শুরুর আগে শান্ত ও সুশৃঙ্খলভাবে বসিয়েছেন।",
+          "২খ. শিক্ষক পড়া চলাকালীন শিক্ষার্থীরা পড়ায় সক্রিয় অংশগ্রহণ করেছে কিনা তা ঘুরে ঘুরে দেখেছেন।",
+          "৩ক. শিক্ষার্থীরা যাতে তাদের পড়া অন্যের সাথে শেয়ার করতে শিক্ষক শিক্ষার্থীদের সহযোগিতা করেন।",
+          "২ক. শিক্ষক শিক্ষার্থীদের পড়া মনোযোগ দিয়ে শোনেন এবং প্রয়োজনে প্রশ্ন জিজ্ঞেস করেন।",
+          "৩খ. শিক্ষক শিক্ষার্থীদের পড়ার সকল প্রচেষ্টার প্রশংসা করেন।",
+        ];
+
+        let yesCount = 0;
+
+        for (let i = variablesIndBA.length; i >= 0; i--) {
+          if (variablesIndBA[i] === "Yes") {
+            if (yesCount === 0) {
+              // Assign the first 'yes' found to bestPracticeInd1
+              this.setState({
+                bestPracticeIndicator1PartB: variablesIndValueBA[i],
+              });
+              yesCount++;
+            } else if (yesCount === 1) {
+              this.setState({
+                bestPracticeIndicator2PartB: variablesIndValueBA[i],
+              }); // Assign the second 'yes' found to y
+              yesCount++;
+              // We found both, so we can stop the loop if needed (optional optimization)
+              break;
+            }
+          }
+        }
+      } else if (this.state.teacherStatus === "Priority 1") {
+        const variablesIndBA = [
+          this.state.partBInd11TeacherHelpedStudentToSeatStatus,
+          this.state.partBInd22TeacherCheckedStudentParticipationStatus,
+          this.state.partBInd31TeacherHelpedStudentToShareStatus,
+        ];
+
+        const variablesIndValueBA = [
+          "১ক. শিক্ষক শিক্ষার্থীদের পড়ার ঘণ্টা কার্যক্রম শুরুর আগে শান্ত ও সুশৃঙ্খলভাবে বসিয়েছেন।",
+          "২খ. শিক্ষক পড়া চলাকালীন শিক্ষার্থীরা পড়ায় সক্রিয় অংশগ্রহণ করেছে কিনা তা ঘুরে ঘুরে দেখেছেন।",
+          "৩ক. শিক্ষার্থীরা যাতে তাদের পড়া অন্যের সাথে শেয়ার করতে শিক্ষক শিক্ষার্থীদের সহযোগিতা করেন।",
+        ];
+
+        let yesCount = 0;
+
+        for (let i = variablesIndBA.length; i >= 0; i--) {
+          if (variablesIndBA[i] === "Yes") {
+            if (yesCount === 0) {
+              // Assign the first 'yes' found to bestPracticeInd1
+              this.setState({
+                bestPracticeIndicator1PartB: variablesIndValueBA[i],
+              });
+              yesCount++;
+            } else if (yesCount === 1) {
+              this.setState({
+                bestPracticeIndicator2PartB: variablesIndValueBA[i],
+              }); // Assign the second 'yes' found to y
+              yesCount++;
+              // We found both, so we can stop the loop if needed (optional optimization)
+              break;
+            }
+          }
+        }
+      }
+      // Setup BestPractice
+    } else if (this.state.typeOfReadingPartB === "Independent Reading") {
+      // Setup CoachingSupport
+      const variablesIndBA = [
+        this.state.partBInd12TeacherInstructSRMStatus,
+        this.state.partBInd13TeacherCheckedBookLevelStatus,
+        this.state.partBInd33TeacherInspiredStudentForSRMStatus,
+        this.state.partBInd34TeacherAlloedStudentToBCOStatus,
+        this.state.partBInd11TeacherHelpedStudentToSeatStatus,
+        this.state.partBInd22TeacherCheckedStudentParticipationStatus,
+        this.state.partBInd31TeacherHelpedStudentToShareStatus,
+        this.state.partBInd21TeacherListenAndAskQuestionStatus,
+        this.state.partBInd32TeacherInspiredStudentEffortStatus,
+      ];
+
+      const variablesIndValueBA = [
+        "১খ. শিক্ষক পড়ার ঘণ্টা কার্যক্রম সম্পর্কে সুস্পষ্ট নির্দেশাবলি দিয়েছেন।",
+        "১গ. শিক্ষার্থীরা পড়ার লেভেল অনুযায়ী বই নিয়েছে কিনা শিক্ষক তা দেখেছেন।",
+        "৩গ. শিক্ষক পড়ার ঘণ্টা কার্যক্রমে শিক্ষার্থীদের অংশগ্রহণকে উৎসাহিত করেন । এমনকি ভুল উত্তরকেও নিরুৎসাহিত করেননি।",
+        "৩ঘ. শিক্ষক অন্তত কয়েকজন শিক্ষার্থীকে বই চেক-আউট করার সময় দিয়েছেন।",
+        "১ক. শিক্ষক শিক্ষার্থীদের পড়ার ঘণ্টা কার্যক্রম শুরুর আগে শান্ত ও সুশৃঙ্খলভাবে বসিয়েছেন।",
+        "২খ. শিক্ষক পড়া চলাকালীন শিক্ষার্থীরা পড়ায় সক্রিয় অংশগ্রহণ করেছে কিনা তা ঘুরে ঘুরে দেখেছেন।",
+        "৩ক. শিক্ষার্থীরা যাতে তাদের পড়া অন্যের সাথে শেয়ার করতে শিক্ষক শিক্ষার্থীদের সহযোগিতা করেন।",
+        "২ক. শিক্ষক শিক্ষার্থীদের পড়া মনোযোগ দিয়ে শোনেন এবং প্রয়োজনে প্রশ্ন জিজ্ঞেস করেন।",
+        "৩খ. শিক্ষক শিক্ষার্থীদের পড়ার সকল প্রচেষ্টার প্রশংসা করেন।",
+      ];
+
+      let noCount = 0;
+
+      for (let i = 0; i < variablesIndBA.length; i++) {
+        if (variablesIndBA[i] === "No") {
+          if (noCount === 0) {
+            // Assign the first 'No' found to coachingSupport1
+            this.setState({
+              coachingSupportIndicator1PartB: variablesIndValueBA[i],
+            });
+            noCount++;
+          } else if (noCount === 1) {
+            this.setState({
+              coachingSupportIndicator2PartB: variablesIndValueBA[i],
+            }); // Assign the second 'No' found to coachingSupport2
+            noCount++;
+            // We found both, so we can stop the loop if needed (optional optimization)
+            break;
+          }
+        }
+      }
+      // Setup CoachingSupport
+
+      // Setup BestPractice
+      if (
+        this.state.teacherStatus === "Priority 3" ||
+        this.state.teacherStatus === "Priority 2"
+      ) {
+        const variablesIndBA = [
+          this.state.partBInd11TeacherHelpedStudentToSeatStatus,
+          this.state.partBInd22TeacherCheckedStudentParticipationStatus,
+          this.state.partBInd31TeacherHelpedStudentToShareStatus,
+          this.state.partBInd21TeacherListenAndAskQuestionStatus,
+          this.state.partBInd32TeacherInspiredStudentEffortStatus,
+        ];
+
+        const variablesIndValueBA = [
+          "১ক. শিক্ষক শিক্ষার্থীদের পড়ার ঘণ্টা কার্যক্রম শুরুর আগে শান্ত ও সুশৃঙ্খলভাবে বসিয়েছেন।",
+          "২খ. শিক্ষক পড়া চলাকালীন শিক্ষার্থীরা পড়ায় সক্রিয় অংশগ্রহণ করেছে কিনা তা ঘুরে ঘুরে দেখেছেন।",
+          "৩ক. শিক্ষার্থীরা যাতে তাদের পড়া অন্যের সাথে শেয়ার করতে শিক্ষক শিক্ষার্থীদের সহযোগিতা করেন।",
+          "২ক. শিক্ষক শিক্ষার্থীদের পড়া মনোযোগ দিয়ে শোনেন এবং প্রয়োজনে প্রশ্ন জিজ্ঞেস করেন।",
+          "৩খ. শিক্ষক শিক্ষার্থীদের পড়ার সকল প্রচেষ্টার প্রশংসা করেন।",
+        ];
+
+        let yesCount = 0;
+
+        for (let i = variablesIndBA.length; i >= 0; i--) {
+          if (variablesIndBA[i] === "Yes") {
+            if (yesCount === 0) {
+              // Assign the first 'yes' found to bestPracticeInd1
+              this.setState({
+                bestPracticeIndicator1PartB: variablesIndValueBA[i],
+              });
+              yesCount++;
+            } else if (yesCount === 1) {
+              this.setState({
+                bestPracticeIndicator2PartB: variablesIndValueBA[i],
+              }); // Assign the second 'yes' found to y
+              yesCount++;
+              // We found both, so we can stop the loop if needed (optional optimization)
+              break;
+            }
+          }
+        }
+      } else if (this.state.teacherStatus === "Priority 1") {
+        const variablesIndBA = [
+          this.state.partBInd11TeacherHelpedStudentToSeatStatus,
+          this.state.partBInd22TeacherCheckedStudentParticipationStatus,
+          this.state.partBInd31TeacherHelpedStudentToShareStatus,
+        ];
+
+        const variablesIndValueBA = [
+          "১ক. শিক্ষক শিক্ষার্থীদের পড়ার ঘণ্টা কার্যক্রম শুরুর আগে শান্ত ও সুশৃঙ্খলভাবে বসিয়েছেন।",
+          "২খ. শিক্ষক পড়া চলাকালীন শিক্ষার্থীরা পড়ায় সক্রিয় অংশগ্রহণ করেছে কিনা তা ঘুরে ঘুরে দেখেছেন।",
+          "৩ক. শিক্ষার্থীরা যাতে তাদের পড়া অন্যের সাথে শেয়ার করতে শিক্ষক শিক্ষার্থীদের সহযোগিতা করেন।",
+        ];
+
+        let yesCount = 0;
+
+        for (let i = variablesIndBA.length; i >= 0; i--) {
+          if (variablesIndBA[i] === "Yes") {
+            if (yesCount === 0) {
+              // Assign the first 'yes' found to bestPracticeInd1
+              this.setState({
+                bestPracticeIndicator1PartB: variablesIndValueBA[i],
+              });
+              yesCount++;
+            } else if (yesCount === 1) {
+              this.setState({
+                bestPracticeIndicator2PartB: variablesIndValueBA[i],
+              }); // Assign the second 'yes' found to y
+              yesCount++;
+              // We found both, so we can stop the loop if needed (optional optimization)
+              break;
+            }
+          }
+        }
+      }
+      // Setup BestPractice
+    } else {
+      this.setState({
+        coachingSupportIndicator1PartB: "N/A",
+        coachingSupportIndicator2PartB: "N/A",
+      });
+      this.setState({
+        bestPracticeIndicator1PartB: "N/A",
+        bestPracticeIndicator2PartB: "N/A",
+      });
+    }
+  };
+  // Part B
+  // Calculate bestPractice  && coachingSupport
+
   render() {
-    const { checked } = this.state;
+    const { checked, isConnected } = this.state;
 
     // For Datepicker
-    const { show, date, mode } = this.state;
+    const { show, date, selectedDate, mode } = this.state;
     // For Datepicker
 
     return (
@@ -973,21 +1937,26 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
                     </Text>
                   </View>
                   <Text style={{ fontSize: 14 }}>
-                    {String(this.state.date.toISOString().slice(0, 10))}
+                    {String(selectedDate.toDateString())}
                   </Text>
                   <Button onPress={this.datepicker} title="Select" />
                   {show && (
                     <DateTimePicker
                       value={date}
-                      mode={mode}
+                      mode="date"
                       is24Hour={true}
-                      display="default"
+                      display="spinner"
                       onChange={this.setDate}
+                      style={{
+                        height: 40,
+                        width: 10,
+                      }}
                     />
                   )}
                 </View>
                 <View style={{ flex: 1 }}></View>
               </View>
+
               <View style={{ flexDirection: "row", padding: 10 }}>
                 <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
@@ -1062,12 +2031,6 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
                     itemStyle={{ color: "white" }}
                   >
                     <Picker.Item label={"Select"} value={""} />
-                    <Picker.Item label={"2018"} value={"2018"} />
-                    <Picker.Item label={"2019"} value={"2019"} />
-                    <Picker.Item label={"2020"} value={"2020"} />
-                    <Picker.Item label={"2021"} value={"2021"} />
-                    <Picker.Item label={"2022"} value={"2022"} />
-                    <Picker.Item label={"2023"} value={"2023"} />
                     <Picker.Item label={"2024"} value={"2024"} />
                     <Picker.Item label={"2025"} value={"2025"} />
                     <Picker.Item label={"2026"} value={"2026"} />
@@ -1643,7 +2606,7 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
                         fontWeight: "bold",
                       }}
                     >
-                      প্রতিষ্ঠার সন: (Established:)
+                      লাইব্রেরি প্রতিষ্ঠার সন: (Established:)
                     </Text>
                     <Text
                       style={{ textAlign: "right", color: "red", fontSize: 16 }}
@@ -1760,6 +2723,91 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
               <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
                 <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      ভর্তিকৃত শিশুর সংখ্যা: (Admitted Student:)
+                    </Text>
+                    <Text
+                      style={{
+                        color: "red",
+                        fontSize: 16,
+                      }}
+                    >
+                      *
+                    </Text>
+                  </View>
+                  <Text></Text>
+                  <TextInput
+                    style={{
+                      height: 30,
+                      width: 100,
+                      padding: 5,
+                      borderWidth: 1,
+                    }}
+                    keyboardType="numeric"
+                    placeholder=""
+                    editable={true}
+                    value={this.state.totalAdmittedStudent + ""}
+                    onChangeText={(text) =>
+                      this.setState({
+                        totalAdmittedStudent: Number(text),
+                      })
+                    }
+                  />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      উপস্থিত শিশুর সংখ্যা: (Present Student:)
+                    </Text>
+                    <Text
+                      style={{
+                        color: "red",
+                        fontSize: 16,
+                      }}
+                    >
+                      *
+                    </Text>
+                  </View>
+                  <Text></Text>
+                  {this.state.totalAdmittedStudent <
+                    this.state.totalPresentStudent && (
+                    <Text style={{ color: "red", fontSize: 20 }}>
+                      Present will be smaller or equal to Admitted
+                    </Text>
+                  )}
+                  <TextInput
+                    style={{
+                      height: 30,
+                      width: 100,
+                      padding: 5,
+                      borderWidth: 1,
+                    }}
+                    keyboardType="numeric"
+                    placeholder=""
+                    editable={true}
+                    value={this.state.totalPresentStudent + ""}
+                    onChangeText={(text) =>
+                      this.setState({
+                        totalPresentStudent: Number(text),
+                      })
+                    }
+                  />
+                </View>
+              </View>
+
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
+                <View style={{ flex: 1 }}>
                   <Text
                     style={{
                       fontSize: 16,
@@ -1792,1035 +2840,6 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
             </Card>
           </View>
 
-          {/* <View style={{ padding: 10 }}>
-            <Text style={styles.bigRedText}>সাধারণ তথ্য:</Text>
-            <Card style={{ padding: 10, margin: 10, flex: 1 }}>
-              <View style={{ flexDirection: "row", padding: 10 }}>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      তারিখ:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <Text style={{ fontSize: 14 }}>
-                    {String(this.state.date.toISOString().slice(0, 10))}
-                  </Text>
-                  <Button onPress={this.datepicker} title="Select Date" />
-                  {show && (
-                    <DateTimePicker
-                      value={date}
-                      mode={mode}
-                      is24Hour={true}
-                      display="default"
-                      onChange={this.setDate}
-                    />
-                  )}
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      মাস:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state.pickerMonth}
-                    onValueChange={(value) => {
-                      this.setState({ pickerMonth: value });
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    <Picker.Item label={"January"} value={"January"} />
-                    <Picker.Item label={"February"} value={"February"} />
-                    <Picker.Item label={"March"} value={"March"} />
-                    <Picker.Item label={"April"} value={"April"} />
-                    <Picker.Item label={"May"} value={"May"} />
-                    <Picker.Item label={"June"} value={"June"} />
-                    <Picker.Item label={"July"} value={"July"} />
-                    <Picker.Item label={"August"} value={"August"} />
-                    <Picker.Item label={"September"} value={"September"} />
-                    <Picker.Item label={"October"} value={"October"} />
-                    <Picker.Item label={"November"} value={"November"} />
-                    <Picker.Item label={"December"} value={"December"} />
-                  </Picker>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      বছর:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state.pickerYear}
-                    onValueChange={(value) => {
-                      this.setState({ pickerYear: value });
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    <Picker.Item label={"2018"} value={"2018"} />
-                    <Picker.Item label={"2019"} value={"2019"} />
-                    <Picker.Item label={"2020"} value={"2020"} />
-                    <Picker.Item label={"2021"} value={"2021"} />
-                    <Picker.Item label={"2022"} value={"2022"} />
-                    <Picker.Item label={"2023"} value={"2023"} />
-                    <Picker.Item label={"2024"} value={"2024"} />
-                  </Picker>
-                </View>
-              </View>
-
-              <View style={{ flexDirection: "row", padding: 10 }}>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      জেলা:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state.pickerDistrict}
-                    onValueChange={(item, key) => {
-                      this.setState({
-                        pickerDistrict: item,
-                        pickerDistrictKey: item.id,
-                      });
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item key={""} label={"নির্বাচন করুন"} value={""} />
-                    {districts.map((item) => {
-                      return (
-                        <Picker.Item
-                          key={item.id}
-                          label={item.name}
-                          value={item}
-                        />
-                      );
-                    })}
-                  </Picker>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      উপজেলা:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state.pickerUpazilla}
-                    onValueChange={(item, key) => {
-                      this.setState({
-                        pickerUpazilla: item,
-                        pickerUpazillaKey: item.id,
-                      });
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item key={""} label={"নির্বাচন করুন"} value={""} />
-                    {upazillas
-                      .filter(
-                        (item) =>
-                          item.district_id == this.state.pickerDistrictKey
-                      )
-                      .map((item) => {
-                        return (
-                          <Picker.Item
-                            key={item.id}
-                            label={item.name}
-                            value={item}
-                          />
-                        );
-                      })}
-                  </Picker>
-                </View>
-              </View>
-
-              <View style={{ flexDirection: "row", padding: 10 }}>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      ফিল্ড অফিস:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state.pickerOffice}
-                    onValueChange={(value) => {
-                      this.setState({ pickerOffice: value });
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    <Picker.Item label={"DFO"} value={"DFO"} />
-                    <Picker.Item label={"CFO"} value={"CFO"} />
-                    <Picker.Item label={"NFO"} value={"NFO"} />
-                    <Picker.Item label={"MFO"} value={"MFO"} />
-                  </Picker>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      প্রোজেক্ট:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state.pickerProject}
-                    onValueChange={(value) => {
-                      this.setState({ pickerProject: value });
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    <Picker.Item
-                      label={"WFP funded project"}
-                      value={"WFP funded project"}
-                    />
-                    <Picker.Item
-                      label={"Natore LP Program"}
-                      value={"Natore LP Program"}
-                    />
-                    <Picker.Item
-                      label={"Dhaka LP Program"}
-                      value={"Dhaka LP Program"}
-                    />
-                    <Picker.Item
-                      label={"Moulvibazar LP Program"}
-                      value={"Moulvibazar LP Program"}
-                    />
-                  </Picker>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      ভিজিট নম্বর:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <TextInput
-                    style={{
-                      height: 30,
-                      width: 100,
-                      padding: 5,
-                      borderWidth: 1,
-                    }}
-                    keyboardType="numeric"
-                    placeholder=""
-                    editable={true}
-                    onChangeText={(text) =>
-                      this.setState({ visitNo: Number(text) })
-                    }
-                    value={this.state.visitNo + ""}
-                  />
-                </View>
-              </View>
-
-              <View style={{ flexDirection: "row", padding: 10 }}>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      দায়িত্ব প্রাপ্ত এলপিও
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state.pickerLPO}
-                    onValueChange={(value) => {
-                      this.setState({
-                        pickerLPO: value,
-                        pickerLPOName: value,
-                      });
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    {this.state.allEmployee
-                      .filter((item) => {
-                        return item.designation.includes("LPO");
-                      })
-                      .map((item) => {
-                        return (
-                          <Picker.Item
-                            key={item.id}
-                            label={item.name}
-                            value={item}
-                          />
-                        );
-                      })}
-                  </Picker>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      দায়িত্ব প্রাপ্ত এলএফ
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state.pickerLF}
-                    onValueChange={(value) => {
-                      this.setState({
-                        pickerLF: value,
-                        pickerLFName: value,
-                      });
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    {this.state.allEmployee
-                      .filter((item) => {
-                        return (
-                          item.designation == "LF" &&
-                          item.supervisor == this.state.pickerLPO.employeeRegId
-                        );
-                      })
-                      .map((item) => {
-                        return (
-                          <Picker.Item
-                            key={item.id}
-                            label={item.name}
-                            value={item}
-                          />
-                        );
-                      })}
-                  </Picker>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      বিদ্যালয়ের নাম:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state.pickerSchool}
-                    onValueChange={(value) => {
-                      this.setState({ pickerSchool: value });
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    {this.state.allSchool
-                      .filter((item) => {
-                        return item.lf == this.state.pickerLF.employeeRegId;
-                      })
-                      .map((item) => {
-                        return (
-                          <Picker.Item
-                            key={item.id}
-                            label={item.name}
-                            value={item.name}
-                          />
-                        );
-                      })}
-                  </Picker>
-                </View>
-              </View>
-
-              <View style={{ flexDirection: "row", padding: 10 }}>
-                <View style={{ flex: 1 }}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    শ্রেণি শিক্ষকের নাম:
-                  </Text>
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state.classTeacher}
-                    onValueChange={(value) => {
-                      this.setState({
-                        classTeacher: value,
-                      });
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    {this.state.allTeacher
-                      .filter((item) => {
-                        return item.school === this.state.pickerSchool;
-                      })
-                      .map((item) => {
-                        return (
-                          <Picker.Item
-                            key={item.id}
-                            label={item.name}
-                            value={item.name}
-                          />
-                        );
-                      })}
-                  </Picker>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    লিঙ্গ:
-                  </Text>
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 200,
-                    }}
-                    selectedValue={this.state.classTeacherGender}
-                    onValueChange={(value) => {
-                      this.setState({ classTeacherGender: value });
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    <Picker.Item label={"Female"} value={"Female"} />
-                    <Picker.Item label={"Male"} value={"Male"} />
-                    <Picker.Item label={"Other"} value={"Other"} />
-                  </Picker>
-                </View>
-              </View>
-
-              <View style={{ flexDirection: "row", padding: 10 }}>
-                <View style={{ flex: 1 }}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    সংশ্লিষ্ট বিষয়ে প্রশিক্ষণপ্রাপ্ত শিক্ষক পাঠ পরিচালনা করছেন
-                  </Text>
-                  <View style={{ flexDirection: "row" }}>
-                    <Picker
-                      style={{
-                        height: 40,
-                        width: 150,
-                      }}
-                      selectedValue={this.state.teacherTrained}
-                      onValueChange={(value) => {
-                        this.setState({ teacherTrained: value });
-                      }}
-                      itemStyle={{ color: "white" }}
-                    >
-                      <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                      <Picker.Item label={"Yes"} value={"Yes"} />
-                      <Picker.Item label={"No"} value={"No"} />
-                    </Picker>
-                  </View>
-                </View>
-              </View>
-
-              <View style={{ flexDirection: "row", padding: 10 }}>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <View style={{ flex: 1 }}>
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontWeight: "bold",
-                        }}
-                      >
-                        শ্রেণী:
-                      </Text>
-                      <Picker
-                        style={{
-                          height: 40,
-                          width: 150,
-                        }}
-                        selectedValue={this.state.grade}
-                        onValueChange={(value) => {
-                          this.setState({ grade: value });
-                        }}
-                        itemStyle={{ color: "white" }}
-                      >
-                        <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                        <Picker.Item
-                          label={"Pre-Primary"}
-                          value={"Pre-Primary"}
-                        />
-                        <Picker.Item label={"Grade 1"} value={"Grade 1"} />
-                        <Picker.Item label={"Grade 2"} value={"Grade 2"} />
-                        <Picker.Item label={"Grade 3"} value={"Grade 3"} />
-                        <Picker.Item label={"Grade 4"} value={"Grade 4"} />
-                        <Picker.Item label={"Grade 5"} value={"Grade 5"} />
-                      </Picker>
-
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontWeight: "bold",
-                        }}
-                      >
-                        শাখা:
-                      </Text>
-                      <Picker
-                        style={{
-                          height: 40,
-                          width: 150,
-                        }}
-                        selectedValue={this.state.section}
-                        onValueChange={(value) => {
-                          this.setState({ section: value });
-                        }}
-                        itemStyle={{ color: "white" }}
-                      >
-                        <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                        <Picker.Item label={"A"} value={"A"} />
-                        <Picker.Item label={"B"} value={"B"} />
-                        <Picker.Item label={"C"} value={"C"} />
-                        <Picker.Item label={"N/A"} value={"N/A"} />
-                      </Picker>
-                    </View>
-                    <View style={{ flex: 1 }}>
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontWeight: "bold",
-                        }}
-                      >
-                        ক্লাস শুরুর সময়:
-                      </Text>
-                      <TextInput
-                        style={{
-                          height: 30,
-                          width: 200,
-                          padding: 5,
-                          borderWidth: 1,
-                        }}
-                        keyboardType="default"
-                        placeholder=""
-                        editable={true}
-                        onChangeText={(text) =>
-                          this.setState({ classStartTime: text })
-                        }
-                        value={this.state.classStartTime + ""}
-                      />
-
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontWeight: "bold",
-                        }}
-                      >
-                        ক্লাস শেষের সময়:
-                      </Text>
-                      <TextInput
-                        style={{
-                          height: 30,
-                          width: 200,
-                          padding: 5,
-                          borderWidth: 1,
-                        }}
-                        keyboardType="default"
-                        placeholder=""
-                        editable={true}
-                        onChangeText={(text) =>
-                          this.setState({ classEndTime: text })
-                        }
-                        value={this.state.classEndTime + ""}
-                      />
-                    </View>
-                  </View>
-                </View>
-              </View>
-
-              <View style={{ flexDirection: "row", padding: 10 }}>
-                <View style={{ flex: 1 }}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    ভর্তিকৃত শিশুর সংখ্যা:
-                  </Text>
-                  <View style={{ flexDirection: "row" }}>
-                    <View style={{ flex: 1 }}>
-                      <Text>মেয়ে:</Text>
-                      <Text>ছেলে:</Text>
-                      <Text>মোট:</Text>
-                    </View>
-                    <View style={{ flex: 1 }}>
-                      <TextInput
-                        style={{
-                          height: 30,
-                          width: 100,
-                          padding: 5,
-                          borderWidth: 1,
-                        }}
-                        keyboardType="numeric"
-                        placeholder=""
-                        editable={true}
-                        onChangeText={(text) =>
-                          this.setState({
-                            studentGirl: Number(text),
-                            studentTotal: Number(text) + this.state.studentBoy,
-                          })
-                        }
-                        value={this.state.studentGirl + ""}
-                      />
-
-                      <TextInput
-                        style={{
-                          height: 30,
-                          width: 100,
-                          padding: 5,
-                          borderWidth: 1,
-                        }}
-                        keyboardType="numeric"
-                        placeholder=""
-                        editable={true}
-                        onChangeText={(text) =>
-                          this.setState({
-                            studentBoy: Number(text),
-                            studentTotal: Number(text) + this.state.studentGirl,
-                          })
-                        }
-                        value={this.state.studentBoy + ""}
-                      />
-                      <TextInput
-                        style={{
-                          height: 30,
-                          width: 100,
-                          padding: 5,
-                          borderWidth: 1,
-                        }}
-                        keyboardType="numeric"
-                        placeholder=""
-                        editable={false}
-                        value={this.state.studentTotal + ""}
-                      />
-                    </View>
-                  </View>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    উপস্থিত শিশুর সংখ্যা :
-                  </Text>
-                  <View style={{ flexDirection: "row" }}>
-                    <View style={{ flex: 1 }}>
-                      <Text>মেয়ে:</Text>
-                      <Text>ছেলে:</Text>
-                      <Text>মোট:</Text>
-                    </View>
-                    <View style={{ flex: 1 }}>
-                      <TextInput
-                        style={{
-                          height: 30,
-                          width: 100,
-                          padding: 5,
-                          borderWidth: 1,
-                        }}
-                        keyboardType="numeric"
-                        placeholder=""
-                        editable={true}
-                        onChangeText={(text) =>
-                          this.setState({
-                            presentGirl: Number(text),
-                            presentTotal: Number(text) + this.state.presentBoy,
-                          })
-                        }
-                        value={this.state.presentGirl + ""}
-                      />
-                      <TextInput
-                        style={{
-                          height: 30,
-                          width: 100,
-                          padding: 5,
-                          borderWidth: 1,
-                        }}
-                        keyboardType="numeric"
-                        placeholder=""
-                        editable={true}
-                        onChangeText={(text) =>
-                          this.setState({
-                            presentBoy: Number(text),
-                            presentTotal: Number(text) + this.state.presentGirl,
-                          })
-                        }
-                        value={this.state.presentBoy + ""}
-                      />
-                      <TextInput
-                        style={{
-                          height: 30,
-                          width: 100,
-                          padding: 5,
-                          borderWidth: 1,
-                        }}
-                        keyboardType="numeric"
-                        placeholder=""
-                        editable={false}
-                        value={this.state.presentTotal + ""}
-                      />
-                    </View>
-                  </View>
-                </View>
-              </View>
-
-              <View style={{ flexDirection: "row", padding: 10 }}>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      পরিদর্শক এর নাম:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state.pickerVisitor}
-                    onValueChange={(value) => {
-                      this.setState({ pickerVisitor: value });
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    {this.state.allEmployee.map((item) => {
-                      return (
-                        <Picker.Item
-                          key={item.id}
-                          label={item.name}
-                          value={item.name}
-                        />
-                      );
-                    })}
-                  </Picker>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      পদবী:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-
-                  <Picker
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                    selectedValue={this.state.pickerDesignation}
-                    onValueChange={(value) => {
-                      this.setState({ pickerDesignation: value });
-
-                      this.setState({
-                        preMonthData: this.state.allSRMClassData.filter(
-                          (item) => {
-                            return (
-                              item.visitNo ===
-                                parseInt(parseInt(this.state.visitNo) - 1) &&
-                              item.school === this.state.pickerSchool &&
-                              item.project === this.state.pickerProject &&
-                              item.year === this.state.pickerYear &&
-                              item.grade === this.state.grade &&
-                              item.classTeacher.trim() ===
-                                this.state.classTeacher.trim()
-                            );
-                          }
-                        ),
-                      });
-
-                      console.log(
-                        "this.state.pickerSchool : " + this.state.pickerSchool
-                      );
-
-                      console.log(
-                        "this.state.pickerProject : " + this.state.pickerProject
-                      );
-
-                      console.log(
-                        "this.state.pickerYear : " + this.state.pickerYear
-                      );
-
-                      console.log(
-                        "this.state.pickerMonth : " + this.state.pickerMonth
-                      );
-
-                      console.log("this.state.grade : " + this.state.grade);
-
-                      console.log(
-                        "parseInt(this.state.visitNo) : " +
-                          parseInt(parseInt(this.state.visitNo) - 1)
-                      );
-
-                      console.log(
-                        "preMonthData: " + this.state.preMonthData.length
-                      );
-                    }}
-                    itemStyle={{ color: "white" }}
-                  >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    {this.state.allDesignation.map((item) => {
-                      return (
-                        <Picker.Item
-                          key={item.id}
-                          label={item.name}
-                          value={item.name}
-                        />
-                      );
-                    })}
-                  </Picker>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      পরিদর্শক এর অফিস:
-                    </Text>
-                    <Text
-                      style={{ textAlign: "right", color: "red", fontSize: 16 }}
-                    >
-                      *
-                    </Text>
-                  </View>
-                  <Picker
-                    selectedValue={this.state.pickerVisitorOffice}
-                    onValueChange={(value) => {
-                      this.setState({ pickerVisitorOffice: value });
-                      console.log(
-                        "preMonthData: " + this.state.preMonthData.length
-                      );
-                      if (this.state.preMonthData.length > 0) {
-                        const followup1 = this.state.preMonthData
-                          .map((item) => {
-                            return item.coachingSupportInd1;
-                          })
-                          .toString();
-
-                        const followup2 = this.state.preMonthData
-                          .map((item) => {
-                            return item.coachingSupportInd2;
-                          })
-                          .toString();
-                        console.log("followup1 :" + followup1);
-                        this.setState({
-                          lastFollowupTopic1: followup1,
-                        });
-                        this.setState({
-                          lastFollowupTopic2: followup2,
-                        });
-                      }
-                    }}
-                    itemStyle={{ color: "white" }}
-                    style={{
-                      height: 40,
-                      width: 150,
-                    }}
-                  >
-                    <Picker.Item label={"নির্বাচন করুন"} value={""} />
-                    <Picker.Item label={"CO"} value={"CO"} />
-                    <Picker.Item label={"DFO"} value={"DFO"} />
-                    <Picker.Item label={"CFO"} value={"CFO"} />
-                    <Picker.Item label={"NFO"} value={"NFO"} />
-                    <Picker.Item label={"MFO"} value={"MFO"} />
-                  </Picker>
-                </View>
-              </View>
-
-              <View style={{ flexDirection: "row", padding: 10 }}>
-                <View style={{ flex: 2 }}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    মন্তব্য :
-                  </Text>
-                  <TextInput
-                    style={{
-                      height: 80,
-                      width: 520,
-                      padding: 5,
-                      borderWidth: 1,
-                    }}
-                    keyboardType="default"
-                    placeholder=""
-                    editable={true}
-                    onChangeText={(text) =>
-                      this.setState({
-                        note: text,
-                      })
-                    }
-                    value={this.state.note + ""}
-                  />
-                </View>
-              </View>
-            </Card>
-          </View> */}
-
           <View style={{ padding: 10 }}>
             <Text style={styles.bigRedText}>পড়ার ধরন </Text>
             <Card style={{ padding: 10, margin: 10, flex: 1 }}>
@@ -2840,7 +2859,7 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
                       fontWeight: "bold",
                     }}
                   >
-                    পড়ার ধরন নির্বাচন করুন
+                    পড়ার ধরন নির্বাচন করুন (সরব পাঠ/অংশগ্রহণমূলক পড়া)
                   </Text>
                 </View>
               </Card>
@@ -2955,200 +2974,320 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartA === "Read Aloud"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                value === "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            ///////
+
+                            if (
+                              this.state.typeOfReadingPartA ===
+                              "Participatory Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                value === "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -3224,200 +3363,322 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartA === "Read Aloud"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            ///////
+
+                            if (
+                              this.state.typeOfReadingPartA ===
+                              "Participatory Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -3465,7 +3726,7 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
                 >
                   <Card style={{ padding: 10, flex: 1, alignSelf: "center" }}>
                     <Text>
-                      ১গ . শিক্ষক বই থেকে ১/২টি শব্দ অর্থসহ সুস্পষ্টভাবে
+                      ১গ. শিক্ষক বই থেকে ১/২টি শব্দ অর্থসহ সুস্পষ্টভাবে
                       শিক্ষার্থীদের শিখিয়েছেন।
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
@@ -3493,200 +3754,314 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartA === "Read Aloud"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (value === "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            ///////
+
+                            if (
+                              this.state.typeOfReadingPartA ===
+                              "Participatory Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                value === "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -3758,7 +4133,7 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
                     <Text>
                       ২ক. শিক্ষক পড়ার সময়ে শিক্ষার্থীদের অংশগ্রহণ উৎসাহিত
                       করেছেন । এমনকি শিক্ষার্থীদের ভুল ভুল উত্তরকেও নিরুৎসাহিত
-                      করেননি ।
+                      করেননি।
                     </Text>
                     <Text style={{ fontWeight: "bold" }}>
                       অগ্রাধিকার এরিয়া: ১
@@ -3785,200 +4160,330 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartA === "Read Aloud"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                value === "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            ///////
+
+                            if (
+                              this.state.typeOfReadingPartA ===
+                              "Participatory Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                value === "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -4054,200 +4559,328 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartA === "Read Aloud"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            ///////
+
+                            if (
+                              this.state.typeOfReadingPartA ===
+                              "Participatory Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -4321,200 +4954,328 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartA === "Read Aloud"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            ///////
+
+                            if (
+                              this.state.typeOfReadingPartA ===
+                              "Participatory Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -4587,200 +5348,312 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartA === "Read Aloud"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            ///////
+
+                            if (
+                              this.state.typeOfReadingPartA ===
+                              "Participatory Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -4857,200 +5730,332 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartA === "Read Aloud"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            ///////
+
+                            if (
+                              this.state.typeOfReadingPartA ===
+                              "Participatory Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -5132,200 +6137,328 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartA === "Read Aloud"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            ///////
+
+                            if (
+                              this.state.typeOfReadingPartA ===
+                              "Participatory Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -5424,200 +6557,332 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartA === "Read Aloud"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            ///////
+
+                            if (
+                              this.state.typeOfReadingPartA ===
+                              "Participatory Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -5692,200 +6957,312 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartA === "Read Aloud"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            ///////
+
+                            if (
+                              this.state.typeOfReadingPartA ===
+                              "Participatory Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -5965,200 +7342,312 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartA === "Read Aloud"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            ///////
+
+                            if (
+                              this.state.typeOfReadingPartA ===
+                              "Participatory Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd34TeacherCongratulatedStudentStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -6235,200 +7724,312 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartA === "Read Aloud"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            ///////
+
+                            if (
+                              this.state.typeOfReadingPartA ===
+                              "Participatory Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd12TeacherShowedABookDetailStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partAInd21TeacherInspireToParticipateStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd22TeacherShowedPictureTextStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd23TeacherTeachesByActionStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partAInd25TeacherSelectedBookAsLevelStatus ===
+                                  "Yes" &&
+                                this.state.partAInd31TeacherAllowToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd12TeacherShowedABookDetailStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd13TeacherTeachesWordWithMeaningStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd24TeacherAskedNextStepStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd26TeacherAskedToParticipateInReadingStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd32TeacherAskedQuestionForAssessmentStatus ===
+                                    "" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partAInd33TeacherParticipateStudentToSRMStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -6470,6 +8071,190 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
           </View>
 
           <View style={{ padding: 10 }}>
+            <Text style={styles.bigRedText}>শিক্ষকের অবস্থা</Text>
+            <Card style={{ padding: 10, margin: 10, flex: 1 }}>
+              <View style={{ padding: 5 }}>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 3, padding: 2 }}>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      ইনডিকেটর অনুযায়ী শিক্ষকের অবস্থা
+                    </Text>
+                  </View>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        fontWeight: "bold",
+                        color: "red",
+                      }}
+                    >
+                      {this.state.teacherStatus}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </Card>
+          </View>
+
+          <View style={{ padding: 10 }}>
+            <Text style={styles.bigRedText}>আলোচনা</Text>
+            <Card style={{ padding: 10, margin: 10, flex: 1 }}>
+              <View style={{ flex: 1, padding: 2 }}>
+                <TouchableOpacity
+                  style={{
+                    alignItems: "center",
+                    width: "40%",
+                    backgroundColor: "#994263",
+                    borderRadius: 25,
+                    height: 50,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: 0,
+                    marginLeft: 170,
+                    marginBottom: 2,
+                  }}
+                  onPress={this.bestPracticeIndcoachingSupportIndPartA}
+                >
+                  <Text style={{ color: "#ffff" }}>Click to Generate</Text>
+                </TouchableOpacity>
+              </View>
+              <Text style={{ backgroundColor: "#ADD8E6", fontWeight: "bold" }}>
+                শিক্ষককে পরামর্শ প্রদানের জন্য কিছু গুরুত্বপূর্ণ বিষয়
+              </Text>
+              <View style={{ padding: 5 }}>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <Text>
+                      শিক্ষক ভালো করেছেন এমন দু-তিনটি বিষয় উল্লেখ করুন:
+                    </Text>
+                  </View>
+                </View>
+                <Text></Text>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <Text>ইনডিকেটর 1</Text>
+                    <Text></Text>
+                    <Text
+                      style={{
+                        backgroundColor: "white",
+                        fontSize: 18,
+                        fontWeight: "bold",
+                        color: "red",
+                      }}
+                    >
+                      {this.state.bestPracticeIndicator1PartA}
+                    </Text>
+                  </View>
+
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <Text>ইনডিকেটর 2</Text>
+                    <Text></Text>
+                    <Text
+                      style={{
+                        backgroundColor: "white",
+                        fontSize: 18,
+                        fontWeight: "bold",
+                        color: "red",
+                      }}
+                    >
+                      {this.state.bestPracticeIndicator2PartA}
+                    </Text>
+                  </View>
+                </View>
+                <View style={{ flexDirection: "row", marginTop: 20 }}>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <Text>
+                      কোন কোন ইন্ডিকেটরে আরো উন্নতির জন্য শিক্ষককে যত্নবান হতে
+                      হবে উল্লেখ করুন ।
+                    </Text>
+                  </View>
+                </View>
+                <Text></Text>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <Text>ইনডিকেটর 1</Text>
+                    <Text></Text>
+                    <Text
+                      style={{
+                        backgroundColor: "white",
+                        fontSize: 18,
+                        fontWeight: "bold",
+                        color: "red",
+                      }}
+                    >
+                      {this.state.coachingSupportIndicator1PartA}
+                    </Text>
+                  </View>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <Text>ইনডিকেটর 2</Text>
+                    <Text></Text>
+                    <Text
+                      style={{
+                        backgroundColor: "white",
+                        fontSize: 18,
+                        fontWeight: "bold",
+                        color: "red",
+                      }}
+                    >
+                      {this.state.coachingSupportIndicator2PartA}
+                    </Text>
+                  </View>
+                </View>
+                <View style={{ flexDirection: "row", marginTop: 20 }}>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <Text>এর জন্য শিক্ষককে কী কী উদ্যোগ নিতে হবে?</Text>
+                  </View>
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <TextInput
+                      style={{ height: 80, padding: 5, borderWidth: 1 }}
+                      placeholder="১."
+                      keyboardType="default"
+                      editable={true}
+                      onChangeText={(text) =>
+                        this.setState({
+                          agreedStatementTeacherPartA: text,
+                        })
+                      }
+                      value={this.state.agreedStatementTeacherPartA + ""}
+                    ></TextInput>
+                  </View>
+                </View>
+                <View style={{ flexDirection: "row", marginTop: 20 }}>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <Text>
+                      এ কাজে শিক্ষককে সহযোগিতা করার জন্য এলএফ-কে কী কী উদ্যোগ
+                      গ্রহণ করতে হবে?
+                    </Text>
+                  </View>
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <TextInput
+                      style={{ height: 80, padding: 5, borderWidth: 1 }}
+                      placeholder="২."
+                      keyboardType="default"
+                      editable={true}
+                      onChangeText={(text) =>
+                        this.setState({
+                          agreedStatementLFPartA: text,
+                        })
+                      }
+                      value={this.state.agreedStatementLFPartA + ""}
+                    ></TextInput>
+                  </View>
+                </View>
+              </View>
+            </Card>
+          </View>
+
+          <View style={{ padding: 10 }}>
             <Text style={styles.bigRedText}>পড়ার ধরন </Text>
             <Card style={{ padding: 10, margin: 10, flex: 1 }}>
               <Card
@@ -6488,7 +8273,7 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
                       fontWeight: "bold",
                     }}
                   >
-                    পড়ার ধরন নির্বাচন করুন
+                    পড়ার ধরন নির্বাচন করুন (জুটিতে পড়া/স্বাধীনভাবে পড়া)
                   </Text>
                 </View>
               </Card>
@@ -6586,200 +8371,216 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartB === "Pair Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                value === "Yes" &&
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd31TeacherHelpedStudentToShareStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd21TeacherListenAndAskQuestionStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            //////
+
+                            if (
+                              this.state.typeOfReadingPartB ===
+                              "Independent Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                value === "Yes" &&
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd13TeacherCheckedBookLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd31TeacherHelpedStudentToShareStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd21TeacherListenAndAskQuestionStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd13TeacherCheckedBookLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -6853,200 +8654,224 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartB === "Pair Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd31TeacherHelpedStudentToShareStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd21TeacherListenAndAskQuestionStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                value === "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            //////
+
+                            if (
+                              this.state.typeOfReadingPartB ===
+                              "Independent Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partBInd13TeacherCheckedBookLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd31TeacherHelpedStudentToShareStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd21TeacherListenAndAskQuestionStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                value === "Yes" &&
+                                this.state
+                                  .partBInd13TeacherCheckedBookLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -7122,200 +8947,228 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartB === "Pair Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd31TeacherHelpedStudentToShareStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd21TeacherListenAndAskQuestionStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            //////
+
+                            if (
+                              this.state.typeOfReadingPartB ===
+                              "Independent Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd31TeacherHelpedStudentToShareStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd21TeacherListenAndAskQuestionStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -7413,200 +9266,208 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartB === "Pair Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd31TeacherHelpedStudentToShareStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            //////
+
+                            if (
+                              this.state.typeOfReadingPartB ===
+                              "Independent Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd13TeacherCheckedBookLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd31TeacherHelpedStudentToShareStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd13TeacherCheckedBookLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -7682,200 +9543,216 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartB === "Pair Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partBInd31TeacherHelpedStudentToShareStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd21TeacherListenAndAskQuestionStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            //////
+
+                            if (
+                              this.state.typeOfReadingPartB ===
+                              "Independent Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd13TeacherCheckedBookLevelStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partBInd31TeacherHelpedStudentToShareStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd21TeacherListenAndAskQuestionStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd13TeacherCheckedBookLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -7975,200 +9852,216 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartB === "Pair Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd21TeacherListenAndAskQuestionStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            //////
+
+                            if (
+                              this.state.typeOfReadingPartB ===
+                              "Independent Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd13TeacherCheckedBookLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd21TeacherListenAndAskQuestionStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd13TeacherCheckedBookLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -8244,200 +10137,208 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartB === "Pair Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd31TeacherHelpedStudentToShareStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd21TeacherListenAndAskQuestionStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            //////
+
+                            if (
+                              this.state.typeOfReadingPartB ===
+                              "Independent Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd13TeacherCheckedBookLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd31TeacherHelpedStudentToShareStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd21TeacherListenAndAskQuestionStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd13TeacherCheckedBookLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "" ||
+                                  value === "Yes" ||
+                                  value === "No" ||
+                                  value === "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -8513,200 +10414,224 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartB === "Pair Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd31TeacherHelpedStudentToShareStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd21TeacherListenAndAskQuestionStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            //////
+
+                            if (
+                              this.state.typeOfReadingPartB ===
+                              "Independent Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd13TeacherCheckedBookLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd31TeacherHelpedStudentToShareStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd21TeacherListenAndAskQuestionStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd13TeacherCheckedBookLevelStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                this.state
+                                  .partBInd34TeacherAlloedStudentToBCOStatus ===
+                                  "Yes" &&
+                                (this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -8780,200 +10705,224 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
                             // Set teacher status
                             if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
+                              this.state.typeOfReadingPartB === "Pair Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
+                              if (
+                                this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd31TeacherHelpedStudentToShareStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                (this.state
+                                  .partBInd21TeacherListenAndAskQuestionStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                (this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
+                            }
+
+                            //////
+
+                            if (
+                              this.state.typeOfReadingPartB ===
+                              "Independent Reading"
                             ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Read Aloud" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind4BookShowingStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Participatory Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind6StoryReadingStatus === "Yes" &&
-                              this.state.ind7StorySuitableStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind4BookShowingStatus === "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "No" ||
-                                this.state.ind4BookShowingStatus ===
-                                  "Partial" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading ===
-                                "Independent Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind9AllStudentEngagementStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 3",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes"
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else if (
-                              this.state.typeOfReading === "Pair Reading" &&
-                              this.state.ind1FriendlyCommunicationStatus ===
-                                "Yes" &&
-                              this.state.ind2SRMInspiringStatus === "Yes" &&
-                              this.state.ind3SRMInstructionStatus === "Yes" &&
-                              this.state.ind8StoryReadingCombinationStatus ===
-                                "Yes" &&
-                              this.state.ind11AskingForBCOStatus === "Yes" &&
-                              (this.state.ind9AllStudentEngagementStatus ===
-                                "No" ||
-                                this.state.ind9AllStudentEngagementStatus ===
-                                  "Partial")
-                            ) {
-                              this.setState({
-                                teacherStatus: "Priority 2",
-                              });
-                            } else {
-                              this.setState({
-                                teacherStatus: "Priority 1",
-                              });
+                              if (
+                                this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd13TeacherCheckedBookLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd31TeacherHelpedStudentToShareStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                (this.state
+                                  .partBInd21TeacherListenAndAskQuestionStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 3",
+                                });
+                              } else if (
+                                this.state
+                                  .partBInd12TeacherInstructSRMStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd13TeacherCheckedBookLevelStatus ===
+                                  "Yes" &&
+                                this.state
+                                  .partBInd33TeacherInspiredStudentForSRMStatus ===
+                                  "Yes" &&
+                                value === "Yes" &&
+                                (this.state
+                                  .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                  "Yes" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd11TeacherHelpedStudentToSeatStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd21TeacherListenAndAskQuestionStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd22TeacherCheckedStudentParticipationStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd31TeacherHelpedStudentToShareStatus ===
+                                    "" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "Yes" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "No" ||
+                                  this.state
+                                    .partBInd32TeacherInspiredStudentEffortStatus ===
+                                    "")
+                              ) {
+                                this.setState({
+                                  teacherStatus: "Priority 2",
+                                });
+                              } else {
+                                this.setState({
+                                  teacherStatus: "Priority 1",
+                                });
+                              }
                             }
                             // Set teacher status
                           }}
@@ -9015,159 +10964,6 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
           </View>
 
           <View style={{ padding: 10 }}>
-            <Text style={styles.bigRedText}>আলোচনা</Text>
-            <Card style={{ padding: 10, margin: 10, flex: 1 }}>
-              <View style={{ flex: 1, padding: 2 }}>
-                <TouchableOpacity
-                  style={{
-                    alignItems: "center",
-                    width: "40%",
-                    backgroundColor: "#994263",
-                    borderRadius: 25,
-                    height: 50,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginTop: 0,
-                    marginLeft: 170,
-                    marginBottom: 2,
-                  }}
-                  //onPress={this.bestPracticeIndcoachingSupportInd}
-                >
-                  <Text style={{ color: "#ffff" }}>Click to Generate</Text>
-                </TouchableOpacity>
-              </View>
-              <Text style={{ backgroundColor: "#ADD8E6", fontWeight: "bold" }}>
-                শিক্ষককে পরামর্শ প্রদানের জন্য কিছু গুরুত্বপূর্ণ বিষয়
-              </Text>
-              <View style={{ padding: 5 }}>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 1, padding: 2 }}>
-                    <Text>
-                      শিক্ষক ভালো করেছেন এমন দু-তিনটি বিষয় উল্লেখ করুন:
-                    </Text>
-                  </View>
-                </View>
-                <Text></Text>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 1, padding: 2 }}>
-                    <Text>ইনডিকেটর 1</Text>
-                    <Text></Text>
-                    <Text
-                      style={{
-                        backgroundColor: "white",
-                        fontSize: 18,
-                        fontWeight: "bold",
-                        color: "red",
-                      }}
-                    >
-                      {this.state.bestPracticeIndicator1}
-                    </Text>
-                  </View>
-
-                  <View style={{ flex: 1, padding: 2 }}>
-                    <Text>ইনডিকেটর 2</Text>
-                    <Text></Text>
-                    <Text
-                      style={{
-                        backgroundColor: "white",
-                        fontSize: 18,
-                        fontWeight: "bold",
-                        color: "red",
-                      }}
-                    >
-                      {this.state.bestPracticeIndicator2}
-                    </Text>
-                  </View>
-                </View>
-                <View style={{ flexDirection: "row", marginTop: 20 }}>
-                  <View style={{ flex: 1, padding: 2 }}>
-                    <Text>
-                      কোন কোন ইন্ডিকেটরে আরো উন্নতির জন্য শিক্ষককে যত্নবান হতে
-                      হবে উল্লেখ করুন ।
-                    </Text>
-                  </View>
-                </View>
-                <Text></Text>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 1, padding: 2 }}>
-                    <Text>ইনডিকেটর 1</Text>
-                    <Text></Text>
-                    <Text
-                      style={{
-                        backgroundColor: "white",
-                        fontSize: 18,
-                        fontWeight: "bold",
-                        color: "red",
-                      }}
-                    >
-                      {this.state.coachingSupportIndicator1}
-                    </Text>
-                  </View>
-                  <View style={{ flex: 1, padding: 2 }}>
-                    <Text>ইনডিকেটর 2</Text>
-                    <Text></Text>
-                    <Text
-                      style={{
-                        backgroundColor: "white",
-                        fontSize: 18,
-                        fontWeight: "bold",
-                        color: "red",
-                      }}
-                    >
-                      {this.state.coachingSupportIndicator2}
-                    </Text>
-                  </View>
-                </View>
-                <View style={{ flexDirection: "row", marginTop: 20 }}>
-                  <View style={{ flex: 1, padding: 2 }}>
-                    <Text>এর জন্য শিক্ষককে কী কী উদ্যোগ নিতে হবে?</Text>
-                  </View>
-                </View>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 1, padding: 2 }}>
-                    <TextInput
-                      style={{ height: 80, padding: 5, borderWidth: 1 }}
-                      placeholder="১."
-                      keyboardType="default"
-                      editable={true}
-                      onChangeText={(text) =>
-                        this.setState({
-                          agreedStatementTeacher: text,
-                        })
-                      }
-                      value={this.state.agreedStatementTeacher + ""}
-                    ></TextInput>
-                  </View>
-                </View>
-                <View style={{ flexDirection: "row", marginTop: 20 }}>
-                  <View style={{ flex: 1, padding: 2 }}>
-                    <Text>
-                      এ কাজে শিক্ষককে সহযোগিতা করার জন্য এলএফ-কে কী কী উদ্যোগ
-                      গ্রহণ করতে হবে?
-                    </Text>
-                  </View>
-                </View>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 1, padding: 2 }}>
-                    <TextInput
-                      style={{ height: 80, padding: 5, borderWidth: 1 }}
-                      placeholder="২."
-                      keyboardType="default"
-                      editable={true}
-                      onChangeText={(text) =>
-                        this.setState({
-                          agreedStatementLF: text,
-                        })
-                      }
-                      value={this.state.agreedStatementLF + ""}
-                    ></TextInput>
-                  </View>
-                </View>
-              </View>
-            </Card>
-          </View>
-
-          <View style={{ padding: 10 }}>
             <Text style={styles.bigRedText}>শিক্ষকের অবস্থা</Text>
             <Card style={{ padding: 10, margin: 10, flex: 1 }}>
               <View style={{ padding: 5 }}>
@@ -9198,48 +10994,210 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
             </Card>
           </View>
 
-          {/* <View style={{ padding: 10 }}>
-            <TouchableOpacity
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                width: "60%",
-                backgroundColor: "#fb5b5a",
-                borderRadius: 25,
-                height: 50,
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: 40,
-                marginLeft: 100,
-                marginBottom: 20,
-              }}
-              // disabled={
-              //   !this.state.pickerMonth ||
-              //   !this.state.pickerYear ||
-              //   !this.state.pickerDistrict ||
-              //   !this.state.pickerUpazilla ||
-              //   !this.state.pickerOffice ||
-              //   !this.state.pickerProject ||
-              //   !this.state.pickerLPO ||
-              //   !this.state.pickerLF ||
-              //   !this.state.pickerSchool ||
-              //   !this.state.pickerVisitor ||
-              //   !this.state.pickerDesignation ||
-              //   !this.state.pickerVisitorOffice ||
-              //   !this.state.classTeacher ||
-              //   !this.state.classTeacherGender ||
-              //   !this.state.teacherTrained ||
-              //   !this.state.grade ||
-              //   !this.state.section ||
-              //   !this.state.note ||
-              //   !this.state.typeOfReading ||
+          <View style={{ padding: 10 }}>
+            <Text style={styles.bigRedText}>আলোচনা</Text>
+            <Card style={{ padding: 10, margin: 10, flex: 1 }}>
+              <View style={{ flex: 1, padding: 2 }}>
+                <TouchableOpacity
+                  style={{
+                    alignItems: "center",
+                    width: "40%",
+                    backgroundColor: "#994263",
+                    borderRadius: 25,
+                    height: 50,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: 0,
+                    marginLeft: 170,
+                    marginBottom: 2,
+                  }}
+                  onPress={this.bestPracticeIndcoachingSupportIndPartB}
+                >
+                  <Text style={{ color: "#ffff" }}>Click to Generate</Text>
+                </TouchableOpacity>
+              </View>
+              <Text style={{ backgroundColor: "#ADD8E6", fontWeight: "bold" }}>
+                শিক্ষককে পরামর্শ প্রদানের জন্য কিছু গুরুত্বপূর্ণ বিষয়
+              </Text>
+              <View style={{ padding: 5 }}>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <Text>
+                      শিক্ষক ভালো করেছেন এমন দু-তিনটি বিষয় উল্লেখ করুন:
+                    </Text>
+                  </View>
+                </View>
+                <Text></Text>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <Text>ইনডিকেটর 1</Text>
+                    <Text></Text>
+                    <Text
+                      style={{
+                        backgroundColor: "white",
+                        fontSize: 18,
+                        fontWeight: "bold",
+                        color: "red",
+                      }}
+                    >
+                      {this.state.bestPracticeIndicator1PartB}
+                    </Text>
+                  </View>
 
-              // }
-              onPress={this.showConfirmDialog.bind(this)}
-            >
-              <Text>Submit</Text>
-            </TouchableOpacity>
-          </View> */}
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <Text>ইনডিকেটর 2</Text>
+                    <Text></Text>
+                    <Text
+                      style={{
+                        backgroundColor: "white",
+                        fontSize: 18,
+                        fontWeight: "bold",
+                        color: "red",
+                      }}
+                    >
+                      {this.state.bestPracticeIndicator2PartB}
+                    </Text>
+                  </View>
+                </View>
+                <View style={{ flexDirection: "row", marginTop: 20 }}>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <Text>
+                      কোন কোন ইন্ডিকেটরে আরো উন্নতির জন্য শিক্ষককে যত্নবান হতে
+                      হবে উল্লেখ করুন ।
+                    </Text>
+                  </View>
+                </View>
+                <Text></Text>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <Text>ইনডিকেটর 1</Text>
+                    <Text></Text>
+                    <Text
+                      style={{
+                        backgroundColor: "white",
+                        fontSize: 18,
+                        fontWeight: "bold",
+                        color: "red",
+                      }}
+                    >
+                      {this.state.coachingSupportIndicator1PartB}
+                    </Text>
+                  </View>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <Text>ইনডিকেটর 2</Text>
+                    <Text></Text>
+                    <Text
+                      style={{
+                        backgroundColor: "white",
+                        fontSize: 18,
+                        fontWeight: "bold",
+                        color: "red",
+                      }}
+                    >
+                      {this.state.coachingSupportIndicator2PartB}
+                    </Text>
+                  </View>
+                </View>
+                <View style={{ flexDirection: "row", marginTop: 20 }}>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <Text>এর জন্য শিক্ষককে কী কী উদ্যোগ নিতে হবে?</Text>
+                  </View>
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <TextInput
+                      style={{ height: 80, padding: 5, borderWidth: 1 }}
+                      placeholder="১."
+                      keyboardType="default"
+                      editable={true}
+                      onChangeText={(text) =>
+                        this.setState({
+                          agreedStatementTeacherPartB: text,
+                        })
+                      }
+                      value={this.state.agreedStatementTeacherPartB + ""}
+                    ></TextInput>
+                  </View>
+                </View>
+                <View style={{ flexDirection: "row", marginTop: 20 }}>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <Text>
+                      এ কাজে শিক্ষককে সহযোগিতা করার জন্য এলএফ-কে কী কী উদ্যোগ
+                      গ্রহণ করতে হবে?
+                    </Text>
+                  </View>
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <TextInput
+                      style={{ height: 80, padding: 5, borderWidth: 1 }}
+                      placeholder="২."
+                      keyboardType="default"
+                      editable={true}
+                      onChangeText={(text) =>
+                        this.setState({
+                          agreedStatementLFPartB: text,
+                        })
+                      }
+                      value={this.state.agreedStatementLFPartB + ""}
+                    ></TextInput>
+                  </View>
+                </View>
+              </View>
+            </Card>
+          </View>
+
+          <View style={{ padding: 10 }}>
+            {isConnected ? (
+              <TouchableOpacity
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "60%",
+                  backgroundColor: "#A3C754",
+                  borderRadius: 25,
+                  height: 50,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 40,
+                  marginLeft: 100,
+                  marginBottom: 20,
+                }}
+                onPress={this.showConfirmDialog}
+              >
+                <Text>Submit Online</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "60%",
+                  backgroundColor: "#CC8285",
+                  borderRadius: 25,
+                  height: 50,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 40,
+                  marginLeft: 100,
+                  marginBottom: 20,
+                }}
+                onPress={this.showConfirmDialogOffline}
+              >
+                <Text>Submit Offline</Text>
+              </TouchableOpacity>
+            )}
+
+            {/* <Text>
+                                  Connected:
+                                  {isConnected !== null
+                                    ? isConnected
+                                      ? "Yes"
+                                      : "No"
+                                    : "Checking..."}
+                                </Text>
+                                <Text>Connection Type: {connectionType}</Text> */}
+          </View>
         </ScrollView>
         <View>
           <Text style={{ alignItems: "center", justifyContent: "center" }}>
