@@ -1976,6 +1976,17 @@ export default class PBanglaClassObservationScreen extends React.Component {
       Alert.alert("Alert", "Indicator-3.2 can not be empty");
       return;
     } else {
+      // Initially set all value to N/A
+      this.setState({
+        coachingSupportInd1: "N/A",
+        coachingSupportInd2: "N/A",
+      });
+      this.setState({
+        bestPracticeInd1: "N/A",
+        bestPracticeInd2: "N/A",
+      });
+      // Initially set all value to N/A
+
       // Setup CoachingSupport
       const variablesInd = [
         this.state.ind11TeacherFollowedTeacherGuideInClassStatus,

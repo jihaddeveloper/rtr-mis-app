@@ -1316,6 +1316,17 @@ export default class PrePrimaryClassScreen extends React.Component {
       Alert.alert("Alert", "Indicator 3.4 can not be empty");
       return;
     } else {
+      // Initially set all value to N/A
+      this.setState({
+        coachingSupportIndicator1: "N/A",
+        coachingSupportIndicator2: "N/A",
+      });
+      this.setState({
+        bestPracticeIndicator1: "N/A",
+        bestPracticeIndicator2: "N/A",
+      });
+      // Initially set all value to N/A
+
       // Setup CoachingSupport
       const variablesInd = [
         this.state.ind11UsedRtRMaterialStatus,

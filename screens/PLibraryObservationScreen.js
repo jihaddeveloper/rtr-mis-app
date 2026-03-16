@@ -1506,16 +1506,6 @@ export default class PLibraryObservationScreen extends React.Component {
 
   // Calculate bestPractice  && coachingSupport
   bestPracticeIndcoachingSupportInd = () => {
-    // this.setState({
-    //   coachingSupportIndicator1: "N/A",
-    //   coachingSupportIndicator2: "N/A",
-    // });
-
-    // this.setState({
-    //   bestPracticeIndicator1: "N/A",
-    //   bestPracticeIndicator2: "N/A",
-    // });
-
     if (this.state.ind11IsPointTeacherIncharge === "") {
       Alert.alert("Alert", "Indicator 1.1 can not be empty");
       return;
@@ -1642,6 +1632,17 @@ export default class PLibraryObservationScreen extends React.Component {
       Alert.alert("Alert", "Indicator 15.2 can not be empty");
       return;
     } else {
+      // Initially set all value to N/A
+      this.setState({
+        coachingSupportIndicator1: "N/A",
+        coachingSupportIndicator2: "N/A",
+      });
+      this.setState({
+        bestPracticeIndicator1: "N/A",
+        bestPracticeIndicator2: "N/A",
+      });
+      // Initially set all value to N/A
+
       // Setup CoachingSupport
       const variablesInd = [
         this.state.ind11IsPointTeacherIncharge,
