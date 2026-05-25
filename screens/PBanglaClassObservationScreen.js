@@ -52,6 +52,13 @@ const { windowWidth } = Dimensions.get("window").width;
 export default class PBanglaClassObservationScreen extends React.Component {
   constructor(props) {
     super(props);
+
+    // Alert in header back-button press of device
+    // Initialize a variable to store the unsubscribe function
+    this.unsubscribe = null;
+    // Initialize a variable to store the unsubscribe function
+    // Alert in header back-button press of device
+
     this.state = {
       // Network Connection
       isConnected: null,
@@ -313,12 +320,45 @@ export default class PBanglaClassObservationScreen extends React.Component {
     );
     // Alert in back-button press of device
 
+    // Alert in header back-button press of device
+    const { navigation } = this.props;
+    // Set up the listener when the component mounts
+    this.unsubscribe = navigation.addListener("beforeRemove", (e) => {
+      // Prevent default behavior of leaving the screen
+      e.preventDefault();
+
+      // Prompt the user for confirmation
+      Alert.alert(
+        "Discard changes?",
+        "You have unsaved changes. Are you sure you want to leave?",
+        [
+          { text: "Don't leave", style: "cancel", onPress: () => {} },
+          {
+            text: "Leave",
+            style: "destructive",
+            // Manually dispatch the action we blocked
+            onPress: () => navigation.dispatch(e.data.action),
+          },
+        ],
+      );
+    });
+    // Alert in header back-button press of device
+
     console.log("Component mounted");
   }
   //Load data from server
 
   componentWillUnmount() {
+    // Alert in header back-button press of device
+    // Clean up the listener when the component unmounts
+    if (this.unsubscribe) {
+      this.unsubscribe();
+    }
+    // Alert in header back-button press of device
+
+    // Alert in back-button press of device function
     this.backHandler.remove();
+    // Alert in back-button press of device function
   }
 
   // Alert in back-button press of device function
@@ -538,9 +578,11 @@ export default class PBanglaClassObservationScreen extends React.Component {
       classEndTime: "",
       teachingTopic: "",
       teachingDay: "",
-
+      studentBoy: 0,
+      studentGirl: 0,
       studentTotal: 0,
-
+      presentBoy: 0,
+      presentGirl: 0,
       presentTotal: 0,
 
       visitor: "",
@@ -549,6 +591,8 @@ export default class PBanglaClassObservationScreen extends React.Component {
       note: "",
 
       // General data
+
+      typeOfReading: "",
 
       lastFollowupTopic1: "",
       lastFollowupTopic2: "",

@@ -46,10 +46,10 @@ function MainScreen({ navigation }) {
 
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
-      backAction
+      backAction,
     );
 
-    return unsubscribe(), backHandler.remove();
+    return (unsubscribe(), backHandler.remove());
   }, [navigation]);
 
   return (

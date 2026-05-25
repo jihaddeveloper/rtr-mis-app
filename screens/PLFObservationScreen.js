@@ -1,6 +1,6 @@
 //  Author: Mohammad Jihad Hossain
 //  Create Date: 15/09/2025
-//  Modify Date: 16/2/2026
+//  Modify Date: 25/05/2026
 //  Description: LFObservationScreen component
 
 import React, { useRef } from "react";
@@ -49,6 +49,13 @@ const { width } = screenDimensions.width / 2;
 export default class PLFObservationScreen extends React.Component {
   constructor(props) {
     super(props);
+
+    // Alert in header back-button press of device
+    // Initialize a variable to store the unsubscribe function
+    this.unsubscribe = null;
+    // Initialize a variable to store the unsubscribe function
+    // Alert in header back-button press of device
+
     this.state = {
       // Network Connection
       isConnected: null,
@@ -323,12 +330,43 @@ export default class PLFObservationScreen extends React.Component {
     );
     // Alert in back-button press of device
 
+    // Alert in header back-button press of device
+    const { navigation } = this.props;
+    // Set up the listener when the component mounts
+    this.unsubscribe = navigation.addListener("beforeRemove", (e) => {
+      // Prevent default behavior of leaving the screen
+      e.preventDefault();
+
+      // Prompt the user for confirmation
+      Alert.alert(
+        "Discard changes?",
+        "You have unsaved changes. Are you sure you want to leave?",
+        [
+          { text: "Don't leave", style: "cancel", onPress: () => {} },
+          {
+            text: "Leave",
+            style: "destructive",
+            // Manually dispatch the action we blocked
+            onPress: () => navigation.dispatch(e.data.action),
+          },
+        ],
+      );
+    });
+    // Alert in header back-button press of device
+
     console.log("Component mounted");
   }
   //Load data from server
 
   componentWillUnmount() {
     this.backHandler.remove();
+
+    // Alert in header back-button press of device
+    // Clean up the listener when the component unmounts
+    if (this.unsubscribe) {
+      this.unsubscribe();
+    }
+    // Alert in header back-button press of device
   }
 
   // Alert in back-button press of device function
@@ -488,16 +526,45 @@ export default class PLFObservationScreen extends React.Component {
   updateToInitialState = () => {
     this.setState({
       // General data
+
+      visitNo: 0,
+      date: new Date(),
+      selectedDate: new Date(),
+      // office: "",
+      // project: "",
+      district: "",
+      upazilla: "",
+      lf: "",
+      lfName: "",
+      lpo: "",
+      lpoName: "",
+      // school: "",
+
       rtrSchoolId: "",
       yearOfSupport: "",
-      visitNo: 0,
-      pickerOffice: "",
+
+      grade: "",
+      section: "",
+      month: "",
+      year: "",
+      schoolEntryTime: "",
+      schoolExitTime: "",
+      teachingTopic: "",
+      teachingDay: "",
+
+      visitor: "",
+      visitorDesignation: "",
+
+      note: "",
+
       pickerProject: "",
       pickerDistrict: "",
       pickerDistrictKey: "",
       pickerUpazilla: "",
       pickerUpazillaKey: "",
       pickerSchool: "",
+      rtrSchoolId: "",
+      yearOfSupport: "",
       pickerVisitor: "",
       pickerDesignation: "",
       pickerVisitorOffice: "",
@@ -507,17 +574,6 @@ export default class PLFObservationScreen extends React.Component {
       pickerLPOName: "",
       pickerMonth: "",
       pickerYear: "",
-
-      classTeacher: "",
-      classTeacherGender: "",
-      teacherTrained: "",
-      grade: "",
-      section: "",
-
-      visitor: "",
-      visitorDesignation: "",
-
-      note: "",
 
       // General data
 
@@ -608,6 +664,34 @@ export default class PLFObservationScreen extends React.Component {
       agreedStatement2: "",
 
       lfStatus: "",
+
+      isChecked: "",
+      isActive: "",
+      isDeleted: "",
+
+      // error message
+      errorInd11: "",
+      errorInd12: "",
+      errorInd13: "",
+      errorInd14: "",
+      errorInd15: "",
+      errorInd16: "",
+      errorInd17: "",
+      errorInd21: "",
+      errorInd22: "",
+      errorInd23: "",
+      errorInd24: "",
+      errorInd25: "",
+      errorInd26: "",
+      errorInd27: "",
+      errorInd28: "",
+      errorInd29: "",
+      errorInd31: "",
+      errorInd32: "",
+      errorInd33: "",
+      errorInd34: "",
+      errorInd35: "",
+      // error message
     });
   };
   // Update state
@@ -2633,7 +2717,21 @@ export default class PLFObservationScreen extends React.Component {
                       *
                     </Text>
                   </View>
-                  <Picker
+
+                  <TextInput
+                    style={{
+                      height: 30,
+                      width: 170,
+                      padding: 5,
+                      borderWidth: 1,
+                    }}
+                    keyboardType="default"
+                    placeholder=""
+                    editable={true}
+                    onChangeText={(text) => this.setState({ grade: text })}
+                    value={this.state.grade + ""}
+                  />
+                  {/* <Picker
                     style={{
                       height: 50,
                       width: 150,
@@ -2710,7 +2808,7 @@ export default class PLFObservationScreen extends React.Component {
                     <Picker.Item label={"G1"} value={"G1"} />
                     <Picker.Item label={"G2"} value={"G2"} />
                     <Picker.Item label={"G3"} value={"G3"} />
-                  </Picker>
+                  </Picker> */}
                 </View>
                 <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: "row" }}>
@@ -2732,7 +2830,21 @@ export default class PLFObservationScreen extends React.Component {
                       *
                     </Text>
                   </View>
-                  <Picker
+                  <TextInput
+                    style={{
+                      height: 30,
+                      width: 170,
+                      padding: 5,
+                      borderWidth: 1,
+                    }}
+                    keyboardType="default"
+                    placeholder=""
+                    editable={true}
+                    onChangeText={(text) => this.setState({ section: text })}
+                    value={this.state.section + ""}
+                  />
+
+                  {/* <Picker
                     style={{
                       height: 50,
                       width: 150,
@@ -2749,7 +2861,7 @@ export default class PLFObservationScreen extends React.Component {
                     <Picker.Item label={"B"} value={"B"} />
                     <Picker.Item label={"C"} value={"C"} />
                     <Picker.Item label={"N/A"} value={"N/A"} />
-                  </Picker>
+                  </Picker> */}
                 </View>
               </View>
 
@@ -12984,7 +13096,7 @@ export default class PLFObservationScreen extends React.Component {
             </Card>
           </View>
 
-          <View style={{ padding: 10 }}>
+          <View style={{ padding: 10, marginTop: 150 }}>
             {isConnected ? (
               <TouchableOpacity
                 style={{

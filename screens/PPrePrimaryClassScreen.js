@@ -1,6 +1,6 @@
 //  Author: Mohammad Jihad Hossain
 //  Create Date: 6/12/2025
-//  Modify Date: 17/12/2025
+//  Modify Date: 25/05/2026
 //  Description: PPrePrimaryClass observation component
 
 import React from "react";
@@ -38,6 +38,13 @@ const { width, height } = Dimensions.get("window");
 export default class PrePrimaryClassScreen extends React.Component {
   constructor(props) {
     super(props);
+
+    // Alert in header back-button press of device
+    // Initialize a variable to store the unsubscribe function
+    this.unsubscribe = null;
+    // Initialize a variable to store the unsubscribe function
+    // Alert in header back-button press of device
+
     this.state = {
       // Network Connection
       isConnected: null,
@@ -261,11 +268,42 @@ export default class PrePrimaryClassScreen extends React.Component {
       this.handleBackPress,
     );
     // Alert in back-button press of device
+
+    // Alert in header back-button press of device
+    const { navigation } = this.props;
+    // Set up the listener when the component mounts
+    this.unsubscribe = navigation.addListener("beforeRemove", (e) => {
+      // Prevent default behavior of leaving the screen
+      e.preventDefault();
+
+      // Prompt the user for confirmation
+      Alert.alert(
+        "Discard changes?",
+        "You have unsaved changes. Are you sure you want to leave?",
+        [
+          { text: "Don't leave", style: "cancel", onPress: () => {} },
+          {
+            text: "Leave",
+            style: "destructive",
+            // Manually dispatch the action we blocked
+            onPress: () => navigation.dispatch(e.data.action),
+          },
+        ],
+      );
+    });
+    // Alert in header back-button press of device
   }
   //Load data from server
 
   componentWillUnmount() {
     this.backHandler.remove();
+
+    // Alert in header back-button press of device
+    // Clean up the listener when the component unmounts
+    if (this.unsubscribe) {
+      this.unsubscribe();
+    }
+    // Alert in header back-button press of device
   }
 
   // Alert in back-button press of device function
@@ -424,6 +462,10 @@ export default class PrePrimaryClassScreen extends React.Component {
   // Update state
   updateToInitialState = () => {
     this.setState({
+      startTime: "",
+      endTime: "",
+      // Date picker property
+
       // General data
       rtrSchoolId: "",
       yearOfSupport: "",
@@ -435,8 +477,8 @@ export default class PrePrimaryClassScreen extends React.Component {
       pickerUpazilla: "",
       pickerUpazillaKey: "",
       pickerSchool: "",
-      pickerVisitor: "",
 
+      pickerVisitorOffice: "",
       pickerLF: "",
       pickerLPO: "",
       pickerLFName: "",
@@ -530,6 +572,25 @@ export default class PrePrimaryClassScreen extends React.Component {
       agreedStatement2: "",
 
       teacherStatus: "",
+
+      // error message
+      dateError: "",
+
+      errorInd11: "",
+      errorInd12: "",
+      errorInd13: "",
+      errorInd14: "",
+
+      errorInd21: "",
+      errorInd22: "",
+      errorInd23: "",
+      errorInd24: "",
+
+      errorInd31: "",
+      errorInd32: "",
+      errorInd33: "",
+      errorInd34: "",
+      // error message
     });
   };
   // Update state
@@ -879,15 +940,6 @@ export default class PrePrimaryClassScreen extends React.Component {
     } else if (this.state.lessonNo === "") {
       Alert.alert("Alert", "Lesson No can not be empty");
       return;
-    } else if (this.state.lessonName1 === "") {
-      Alert.alert("Alert", "Lesson name can not be empty");
-      return;
-    } else if (this.state.lesson1StartTime === "") {
-      Alert.alert("Alert", "Start Time can not be empty");
-      return;
-    } else if (this.state.lesson1EndTime === "") {
-      Alert.alert("Alert", "End Time can not be empty");
-      return;
     } else if (this.state.ind11UsedRtRMaterialStatus === "") {
       Alert.alert("Alert", "Indicator 1.1 can not be empty");
       return;
@@ -944,7 +996,7 @@ export default class PrePrimaryClassScreen extends React.Component {
         );
         if (response.status >= 200 && response.status < 300) {
           Alert.alert(
-            "Preprimary class obsvervatio data saved successfully to online!!!",
+            "Preprimary class obsvervation data saved successfully to online!!!",
           );
           this.updateToInitialState();
         } else {
@@ -1174,15 +1226,6 @@ export default class PrePrimaryClassScreen extends React.Component {
       return;
     } else if (this.state.lessonNo === "") {
       Alert.alert("Alert", "Lesson No can not be empty");
-      return;
-    } else if (this.state.lessonName1 === "") {
-      Alert.alert("Alert", "Lesson name can not be empty");
-      return;
-    } else if (this.state.lesson1StartTime === "") {
-      Alert.alert("Alert", "Start Time can not be empty");
-      return;
-    } else if (this.state.lesson1EndTime === "") {
-      Alert.alert("Alert", "End Time can not be empty");
       return;
     } else if (this.state.ind11UsedRtRMaterialStatus === "") {
       Alert.alert("Alert", "Indicator 1.1 can not be empty");
@@ -1601,15 +1644,6 @@ export default class PrePrimaryClassScreen extends React.Component {
     } else if (this.state.lessonNo === "") {
       Alert.alert("Alert", "Lesson No can not be empty");
       return;
-    } else if (this.state.lessonName1 === "") {
-      Alert.alert("Alert", "Lesson name can not be empty");
-      return;
-    } else if (this.state.lesson1StartTime === "") {
-      Alert.alert("Alert", "Start Time can not be empty");
-      return;
-    } else if (this.state.lesson1EndTime === "") {
-      Alert.alert("Alert", "End Time can not be empty");
-      return;
     } else {
       try {
         const existingData = await AsyncStorage.getItem(
@@ -1621,7 +1655,7 @@ export default class PrePrimaryClassScreen extends React.Component {
           "saveForLaterPPrePrimary",
           JSON.stringify(forms),
         );
-        console.log("Data saved for later: " + JSON.stringify(forms));
+        //console.log("Data saved for later: " + JSON.stringify(forms));
         Alert.alert("Data saved for later.");
         this.updateToInitialState();
       } catch (error) {
@@ -1764,12 +1798,12 @@ export default class PrePrimaryClassScreen extends React.Component {
           });
         }
         await AsyncStorage.removeItem("saveForLaterPBangla"); // Clear synced data
-        console.log("Saved data set successful: " + JSON.parse(existingData));
+        //console.log("Saved data set successful: " + JSON.parse(existingData));
         Alert.alert("Saved data set successful!");
       }
     } catch (error) {
-      console.error("Error Saved data set successful", error);
-      Alert.alert("Error Saved data set successful", error);
+      //console.error("Error Saved data set successful", error);
+      Alert.alert("Error Saved data to set ", error);
     }
   };
   // Load saved data
@@ -6665,7 +6699,7 @@ export default class PrePrimaryClassScreen extends React.Component {
             </Card>
           </View>
 
-          <View style={{ padding: 10 }}>
+          <View style={{ padding: 10, marginTop: 150 }}>
             <TouchableOpacity
               style={{
                 alignItems: "center",

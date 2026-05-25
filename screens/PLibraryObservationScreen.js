@@ -1,6 +1,6 @@
 //  Author: Mohammad Jihad Hossain
 //  Create Date: 16/09/2025
-//  Modify Date: 25/11/2025
+//  Modify Date: 25/05/2026
 //  Description: PLibraryObservationScreen component
 
 import React from "react";
@@ -37,6 +37,13 @@ const { width } = Dimensions.get("window").width / 2;
 export default class PLibraryObservationScreen extends React.Component {
   constructor(props) {
     super(props);
+
+    // Alert in header back-button press of device
+    // Initialize a variable to store the unsubscribe function
+    this.unsubscribe = null;
+    // Initialize a variable to store the unsubscribe function
+    // Alert in header back-button press of device
+
     this.state = {
       // Network Connection
       isConnected: null,
@@ -84,7 +91,6 @@ export default class PLibraryObservationScreen extends React.Component {
       // Date picker property
 
       // General data
-
       visitNo: 0,
       pickerOffice: "",
       pickerProject: "",
@@ -270,12 +276,43 @@ export default class PLibraryObservationScreen extends React.Component {
     );
     // Alert in back-button press of device
 
+    // Alert in header back-button press of device
+    const { navigation } = this.props;
+    // Set up the listener when the component mounts
+    this.unsubscribe = navigation.addListener("beforeRemove", (e) => {
+      // Prevent default behavior of leaving the screen
+      e.preventDefault();
+
+      // Prompt the user for confirmation
+      Alert.alert(
+        "Discard changes?",
+        "You have unsaved changes. Are you sure you want to leave?",
+        [
+          { text: "Don't leave", style: "cancel", onPress: () => {} },
+          {
+            text: "Leave",
+            style: "destructive",
+            // Manually dispatch the action we blocked
+            onPress: () => navigation.dispatch(e.data.action),
+          },
+        ],
+      );
+    });
+    // Alert in header back-button press of device
+
     console.log("Component mounted");
   }
   //Load data from server
 
   componentWillUnmount() {
     this.backHandler.remove();
+
+    // Alert in header back-button press of device
+    // Clean up the listener when the component unmounts
+    if (this.unsubscribe) {
+      this.unsubscribe();
+    }
+    // Alert in header back-button press of device
   }
 
   // Alert in back-button press of device function
@@ -442,6 +479,7 @@ export default class PLibraryObservationScreen extends React.Component {
       pickerDistrictKey: "",
       pickerUpazilla: "",
       pickerUpazillaKey: "",
+
       pickerSchool: "",
       pickerVisitor: "",
       pickerDesignation: "",
@@ -452,8 +490,10 @@ export default class PLibraryObservationScreen extends React.Component {
       pickerLPOName: "",
       pickerMonth: "",
       pickerYear: "",
-
       pickerPhase: "",
+
+      visitor: "",
+      visitorDesignation: "",
 
       pointTeacher: "",
       rtrSchoolId: "",
@@ -547,7 +587,6 @@ export default class PLibraryObservationScreen extends React.Component {
 
       agreedSuggestion: "",
       agreedStatement: "",
-
       // Discussion topic
 
       //library status
@@ -1076,17 +1115,19 @@ export default class PLibraryObservationScreen extends React.Component {
           Alert.alert(
             "Library observation data saved successfully to online!!!",
           );
-          console.log(
-            "Data to be saved: " + JSON.stringify(newLibraryObservation),
-          );
-          this.getAllLibraryObservation();
+
           this.updateState();
+          // console.log(
+          //   "Data to be saved: " + JSON.stringify(newLibraryObservation),
+          // );
+
+          //this.getAllLibraryObservation();
         } else {
           Alert.alert("Alert", "Error there !!!");
-          console.log("Error to save data: " + response.status);
-          console.log(
-            "Data to be saved: " + JSON.stringify(newLibraryObservation),
-          );
+          // console.log("Error to save data: " + response.status);
+          // console.log(
+          //   "Data to be saved: " + JSON.stringify(newLibraryObservation),
+          // );
         }
       } catch (errors) {
         alert(errors);
@@ -17993,7 +18034,7 @@ export default class PLibraryObservationScreen extends React.Component {
             </Card>
           </View>
 
-          <View style={{ padding: 10 }}>
+          <View style={{ padding: 10, marginTop: 150 }}>
             {isConnected ? (
               <TouchableOpacity
                 style={{

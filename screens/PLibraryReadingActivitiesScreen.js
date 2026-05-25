@@ -1,6 +1,6 @@
 //  Author: Mohammad Jihad Hossain
 //  Create Date: 15/01/2026
-//  Modify Date: 15/01/2026
+//  Modify Date: 25/05/2026
 //  Description: PLibraryReadingActivitiesScreen component
 
 import React from "react";
@@ -39,6 +39,13 @@ const { width } = Dimensions.get("window").width / 2;
 export default class PLibraryReadingActivitiesScreen extends React.Component {
   constructor(props) {
     super(props);
+
+    // Alert in header back-button press of device
+    // Initialize a variable to store the unsubscribe function
+    this.unsubscribe = null;
+    // Initialize a variable to store the unsubscribe function
+    // Alert in header back-button press of device
+
     this.state = {
       // Network Connection
       isConnected: null,
@@ -121,6 +128,10 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
       visitor: "",
       visitorDesignation: "",
+
+      grade: "",
+      section: "",
+      classTeacher: "",
 
       pointTeacher: "",
       rtrSchoolId: "",
@@ -278,11 +289,42 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
       this.handleBackPress,
     );
     // Alert in back-button press of device
+
+    // Alert in header back-button press of device
+    const { navigation } = this.props;
+    // Set up the listener when the component mounts
+    this.unsubscribe = navigation.addListener("beforeRemove", (e) => {
+      // Prevent default behavior of leaving the screen
+      e.preventDefault();
+
+      // Prompt the user for confirmation
+      Alert.alert(
+        "Discard changes?",
+        "You have unsaved changes. Are you sure you want to leave?",
+        [
+          { text: "Don't leave", style: "cancel", onPress: () => {} },
+          {
+            text: "Leave",
+            style: "destructive",
+            // Manually dispatch the action we blocked
+            onPress: () => navigation.dispatch(e.data.action),
+          },
+        ],
+      );
+    });
+    // Alert in header back-button press of device
   }
   //Load data from server
 
   componentWillUnmount() {
     this.backHandler.remove();
+
+    // Alert in header back-button press of device
+    // Clean up the listener when the component unmounts
+    if (this.unsubscribe) {
+      this.unsubscribe();
+    }
+    // Alert in header back-button press of device
   }
 
   // Alert in back-button press of device function
@@ -475,6 +517,10 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
       visitor: "",
       visitorDesignation: "",
+
+      grade: "",
+      section: "",
+      classTeacher: "",
 
       pointTeacher: "",
       rtrSchoolId: "",
@@ -721,7 +767,7 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
   getAllSRMClassObservation = async () => {
     try {
       const response = await axios(
-        "http://118.179.80.51:8080/api/v1/srm-class",
+        "http://118.179.80.51:8080/api/v1/p-srm-class",
         {
           method: "GET",
           mode: "no-cors",
@@ -765,6 +811,10 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
       phase: this.state.pickerPhase,
       visitor: this.state.visitor,
       visitorDesignation: this.state.visitorDesignation,
+
+      grade: this.state.grade,
+      section: this.state.section,
+      classTeacher: this.state.classTeacher,
 
       pointTeacher: this.state.pointTeacher,
 
@@ -933,59 +983,45 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
     // Validation
     if (this.state.selectedDate === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Date can not be empty");
       return;
     } else if (this.state.pickerMonth === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Month can not be empty");
       return;
     } else if (this.state.pickerYear === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Year can not be empty");
       return;
     } else if (this.state.pickerDistrict === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "District can not be empty");
       return;
     } else if (this.state.pickerUpazilla === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Upazilla can not be empty");
       return;
     } else if (this.state.pickerOffice === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Office can not be empty");
       return;
     } else if (this.state.pickerProject === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Project can not be empty");
       return;
     } else if (this.state.pickerLF === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "LF can not be empty");
       return;
     } else if (this.state.pickerLPO === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "LPO can not be empty");
       return;
     } else if (this.state.pickerSchool === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "School can not be empty");
       return;
     } else if (this.state.pointTeacher === "") {
-      this.setState({ dateError: "Date can not be empty" });
-      Alert.alert("Alert", "Point Teacher can not be empty");
+      Alert.alert("Alert", "Teacher can not be empty");
       return;
     } else if (this.state.grade === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Grade can not be empty");
       return;
     } else if (this.state.section === "") {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Section can not be empty");
       return;
     } else if (this.state.duplicateSRMClassObservationData.length > 0) {
-      this.setState({ dateError: "Date can not be empty" });
       Alert.alert("Alert", "Duplicate SRM Class data !!");
       return;
     } else {
@@ -1012,8 +1048,8 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
           Alert.alert(
             "SRM class obsvervatio data saved successfully to online!!!",
           );
-          this.getAllSRMClassObservation();
           this.updateToInitialState();
+          //this.getAllSRMClassObservation();
         } else {
           Alert.alert("Alert", "Error there !!!");
         }
@@ -1089,6 +1125,10 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
       phase: this.state.pickerPhase,
       visitor: this.state.pickerVisitor,
       visitorDesignation: this.state.pickerDesignation,
+
+      grade: this.state.grade,
+      section: this.state.section,
+      classTeacher: this.state.classTeacher,
 
       pointTeacher: this.state.pointTeacher,
 
@@ -1267,11 +1307,17 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
     } else if (this.state.pickerSchool === "") {
       Alert.alert("Alert", "School can not be empty");
       return;
-    } else if (this.state.rtrSchoolId === "") {
-      Alert.alert("Alert", "School ID can not be empty");
+    } else if (this.state.pointTeacher === "") {
+      Alert.alert("Alert", "Teacher can not be empty");
       return;
-    } else if (this.state.yearOfSupport === "") {
-      Alert.alert("Alert", "Year of Support Office can not be empty");
+    } else if (this.state.grade === "") {
+      Alert.alert("Alert", "Grade can not be empty");
+      return;
+    } else if (this.state.section === "") {
+      Alert.alert("Alert", "Section can not be empty");
+      return;
+    } else if (this.state.duplicateSRMClassObservationData.length > 0) {
+      Alert.alert("Alert", "Duplicate SRM Class data !!");
       return;
     } else {
       // Save data locally
@@ -2646,7 +2692,195 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
                         fontWeight: "bold",
                       }}
                     >
-                      পয়েন্ট শিক্ষকের নাম: (Point Teacher:)
+                      শ্রেণি : (Grade:)
+                    </Text>
+                    <Text
+                      style={{
+                        color: "red",
+                        fontSize: 16,
+                        textAlign: "auto",
+                      }}
+                    >
+                      *
+                    </Text>
+                  </View>
+                  <Picker
+                    style={{
+                      height: 60,
+                      width: 170,
+                    }}
+                    enabled={true}
+                    selectedValue={this.state.grade}
+                    onValueChange={(value) => {
+                      this.setState({ grade: value });
+
+                      // Find perivious visit data
+                      // this.setState({
+                      //   preMonthData:
+                      //     this.state.allBanglaClassObservationData.filter(
+                      //       (item) => {
+                      //         return (
+                      //           // item.visitNo ===
+                      //           //   parseInt(parseInt(this.state.visitNo) - 1) &&
+                      //           item.rtrSchoolId === this.state.rtrSchoolId &&
+                      //           item.project === this.state.pickerProject &&
+                      //           item.year === this.state.pickerYear &&
+                      //           item.grade === this.state.grade &&
+                      //           item.section === this.state.section &&
+                      //           item.classTeacher.toLowerCase().trim() ===
+                      //             this.state.classTeacher.toLowerCase().trim()
+                      //         );
+                      //       },
+                      //     ),
+                      // });
+
+                      // console.log(
+                      //   "All values: ",
+                      //   this.state.rtrSchoolId,
+                      //   this.state.pickerProject,
+                      //   this.state.pickerYear,
+                      //   this.state.grade,
+                      //   this.state.section,
+                      //   this.state.classTeacher,
+                      // );
+                      // Find perivious visit data
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    <Picker.Item label={"Select"} value={""} />
+                    <Picker.Item label={"PP"} value={"PP"} />
+                    <Picker.Item label={"G1"} value={"G1"} />
+                    <Picker.Item label={"G2"} value={"G2"} />
+                    <Picker.Item label={"G3"} value={"G3"} />
+                  </Picker>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      শাখা: (Section:)
+                    </Text>
+                    <Text
+                      style={{
+                        color: "red",
+                        fontSize: 16,
+                      }}
+                    >
+                      *
+                    </Text>
+                  </View>
+                  <Picker
+                    style={{
+                      height: 60,
+                      width: 170,
+                    }}
+                    enabled={true}
+                    selectedValue={this.state.section}
+                    onValueChange={(value) => {
+                      this.setState({ section: value });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    <Picker.Item label={"Select"} value={""} />
+                    <Picker.Item label={"A"} value={"A"} />
+                    <Picker.Item label={"B"} value={"B"} />
+                    <Picker.Item label={"C"} value={"C"} />
+                    <Picker.Item label={"N/A"} value={"N/A"} />
+                  </Picker>
+                </View>
+              </View>
+
+              {/* <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      শিক্ষকের নাম: ( Teacher Name:)
+                    </Text>
+                    <Text
+                      style={{
+                        color: "red",
+                        fontSize: 16,
+                      }}
+                    >
+                      *
+                    </Text>
+                  </View>
+                  <Picker
+                    style={{
+                      height: 60,
+                      width: 340,
+                    }}
+                    enabled={true}
+                    selectedValue={this.state.classTeacher}
+                    onValueChange={(value) => {
+                      this.setState({
+                        classTeacher: value,
+                      });
+                    }}
+                    itemStyle={{ color: "white" }}
+                  >
+                    <Picker.Item label={"Select"} value={""} />
+                    {this.state.teacher
+                      .filter((item) => {
+                        return (
+                          item.schoolId === this.state.rtrSchoolId
+                          // &&
+                          // item.grade.includes(this.state.grade)
+                          // &&
+                          // item.section === this.state.section
+                        );
+                      })
+                      .map((item) => {
+                        return (
+                          <Picker.Item
+                            key={item.id}
+                            label={item.name}
+                            value={item.name}
+                          />
+                        );
+                      })}
+                  </Picker>
+                  <View>
+                    <TextInput
+                      style={{
+                        height: 30,
+                        width: 340,
+                        padding: 5,
+                        borderWidth: 2,
+                      }}
+                      keyboardType="default"
+                      placeholder=""
+                      editable={true}
+                      onChangeText={(text) =>
+                        this.setState({
+                          classTeacher: text,
+                        })
+                      }
+                      value={this.state.classTeacher + ""}
+                    />
+                  </View>
+                </View>
+              </View> */}
+
+              <View style={{ flexDirection: "row", padding: 2, margin: 2 }}>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      শিক্ষকের নাম: (Teacher:)
                     </Text>
                     <Text
                       style={{ textAlign: "right", color: "red", fontSize: 16 }}
@@ -8070,7 +8304,7 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
             </Card>
           </View>
 
-          <View style={{ padding: 10 }}>
+          {/* <View style={{ padding: 10 }}>
             <Text style={styles.bigRedText}>শিক্ষকের অবস্থা</Text>
             <Card style={{ padding: 10, margin: 10, flex: 1 }}>
               <View style={{ padding: 5 }}>
@@ -8099,7 +8333,7 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
                 </View>
               </View>
             </Card>
-          </View>
+          </View> */}
 
           <View style={{ padding: 10 }}>
             <Text style={styles.bigRedText}>আলোচনা</Text>
@@ -10964,37 +11198,6 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
           </View>
 
           <View style={{ padding: 10 }}>
-            <Text style={styles.bigRedText}>শিক্ষকের অবস্থা</Text>
-            <Card style={{ padding: 10, margin: 10, flex: 1 }}>
-              <View style={{ padding: 5 }}>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 3, padding: 2 }}>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      ইনডিকেটর অনুযায়ী শিক্ষকের অবস্থা
-                    </Text>
-                  </View>
-                  <View style={{ flex: 1, padding: 2 }}>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        fontWeight: "bold",
-                        color: "red",
-                      }}
-                    >
-                      {this.state.teacherStatus}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </Card>
-          </View>
-
-          <View style={{ padding: 10 }}>
             <Text style={styles.bigRedText}>আলোচনা</Text>
             <Card style={{ padding: 10, margin: 10, flex: 1 }}>
               <View style={{ flex: 1, padding: 2 }}>
@@ -11148,6 +11351,37 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
           </View>
 
           <View style={{ padding: 10 }}>
+            <Text style={styles.bigRedText}>শিক্ষকের অবস্থা</Text>
+            <Card style={{ padding: 10, margin: 10, flex: 1 }}>
+              <View style={{ padding: 5 }}>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 3, padding: 2 }}>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      ইনডিকেটর অনুযায়ী শিক্ষকের অবস্থা
+                    </Text>
+                  </View>
+                  <View style={{ flex: 1, padding: 2 }}>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        fontWeight: "bold",
+                        color: "red",
+                      }}
+                    >
+                      {this.state.teacherStatus}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </Card>
+          </View>
+
+          <View style={{ padding: 10, marginTop: 150 }}>
             {isConnected ? (
               <TouchableOpacity
                 style={{

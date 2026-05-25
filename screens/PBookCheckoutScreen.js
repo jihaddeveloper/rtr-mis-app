@@ -1,6 +1,6 @@
 //  Author: Mohammad Jihad Hossain
 //  Create Date: 16/09/2025
-//  Modify Date: 6/12/2025
+//  Modify Date: 05/05/2026
 //  Description: PBookCheckoutScreen component
 
 import React from "react";
@@ -41,6 +41,13 @@ const { width } = Dimensions.get("window").width / 2;
 export default class PBookCheckoutScreen extends React.Component {
   constructor(props) {
     super(props);
+
+    // Alert in header back-button press of device
+    // Initialize a variable to store the unsubscribe function
+    this.unsubscribe = null;
+    // Initialize a variable to store the unsubscribe function
+    // Alert in header back-button press of device
+
     this.state = {
       // Network Connection
       isConnected: null,
@@ -288,11 +295,42 @@ export default class PBookCheckoutScreen extends React.Component {
       this.handleBackPress,
     );
     // Alert in back-button press of device
+
+    // Alert in header back-button press of device
+    const { navigation } = this.props;
+    // Set up the listener when the component mounts
+    this.unsubscribe = navigation.addListener("beforeRemove", (e) => {
+      // Prevent default behavior of leaving the screen
+      e.preventDefault();
+
+      // Prompt the user for confirmation
+      Alert.alert(
+        "Discard changes?",
+        "You have unsaved changes. Are you sure you want to leave?",
+        [
+          { text: "Don't leave", style: "cancel", onPress: () => {} },
+          {
+            text: "Leave",
+            style: "destructive",
+            // Manually dispatch the action we blocked
+            onPress: () => navigation.dispatch(e.data.action),
+          },
+        ],
+      );
+    });
+    // Alert in header back-button press of device
   }
   //Load data from server
 
   componentWillUnmount() {
     this.backHandler.remove();
+
+    // Alert in header back-button press of device
+    // Clean up the listener when the component unmounts
+    if (this.unsubscribe) {
+      this.unsubscribe();
+    }
+    // Alert in header back-button press of device
   }
 
   // Alert in back-button press of device function
@@ -1049,7 +1087,6 @@ export default class PBookCheckoutScreen extends React.Component {
           Alert.alert("Book checkout data saved successfully to online!!!");
           //this.getAllBookCheckoutSchool();
           this.updateState();
-          this.forceUpdate();
         } else {
           Alert.alert("Alert", "Error there !!!");
           console.log("Error to save data: " + response.status);
@@ -1289,7 +1326,7 @@ export default class PBookCheckoutScreen extends React.Component {
           JSON.stringify(forms),
         );
         //console.log("Data stored locally: " + JSON.stringify(forms));
-        console.log("Data stored locally.");
+        //console.log("Data stored locally.");
         Alert.alert("Data stored locally.");
         this.updateState();
       } catch (error) {
