@@ -20,6 +20,8 @@ import {
 } from "react-native";
 import { Card } from "react-native-shadow-cards";
 
+import { useAuth } from "../Auth/AuthContext";
+
 const screenDimensions = Dimensions.get("screen");
 const windowDimensions = Dimensions.get("window");
 
@@ -27,6 +29,8 @@ const { height } = screenDimensions.height / 2;
 const { width } = screenDimensions.width / 2;
 
 function MainScreen({ navigation }) {
+  const { user, logout } = useAuth();
+
   React.useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       //Alert.alert("Refreshed");
@@ -69,7 +73,7 @@ function MainScreen({ navigation }) {
             marginRight: 10,
           }}
         >
-          RoomtoRead Online Observation & Data-Collection Application
+          RoomtoRead Observation & Data-Collection Application
         </Text>
       </View>
       <Card
@@ -77,8 +81,8 @@ function MainScreen({ navigation }) {
           padding: 10,
           margin: 10,
           flex: 1,
-          marginTop: 30,
-          marginBottom: 30,
+          marginTop: 10,
+          marginBottom: 10,
         }}
       >
         <View
@@ -163,7 +167,6 @@ function MainScreen({ navigation }) {
           </View>
         </View>
       </Card>
-
       <View>
         <Text>&copy; All Rights Reserved, RoomtoRead Bangladesh</Text>
       </View>

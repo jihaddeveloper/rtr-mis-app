@@ -1,6 +1,6 @@
 //  Author: Mohammad Jihad Hossain
 //  Create Date: 15/01/2026
-//  Modify Date: 25/05/2026
+//  Modify Date: 27/09/2026
 //  Description: PLibraryReadingActivitiesScreen component
 
 import React from "react";
@@ -32,6 +32,12 @@ import { Checkbox } from "react-native-paper";
 import { Card } from "react-native-shadow-cards";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
+
+import { File, Paths } from "expo-file-system";
+
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+
+const API_URL = `${BASE_URL}/p-srm-class`;
 
 const { height } = Dimensions.get("window").height / 2;
 const { width } = Dimensions.get("window").width / 2;
@@ -276,12 +282,7 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
     this.retrieveDataTeacher();
     this.retrieveDataEmployee();
 
-    this.getAllSchool();
-    this.getAllEmployee();
-    this.getAllDesignation();
-    this.getAllSRMIndicator();
     this.getAllSRMClassObservation();
-    this.getAllTeacher();
 
     // Alert in back-button press of device
     this.backHandler = BackHandler.addEventListener(
@@ -368,16 +369,24 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
 
   retrieveDataTeacher = async () => {
     try {
-      const stringValue = await AsyncStorage.getItem("teacherData");
-      if (stringValue != null) {
-        const teacherData = JSON.parse(stringValue); // Parse the string back to an object
+      // Check if the file exists first
+      const file = new File(Paths.document, "teacherData.json");
+
+      // Check if the file exists safely
+      if (file.exists) {
+        // Use text() or textSync() depending on context
+        const stringData = await file.text();
+
+        const teacherData = JSON.parse(stringData);
+
         console.log("Retrieved TeacherData:", teacherData.length);
         this.setState({ teacher: teacherData });
         return teacherData;
       }
-      return null;
+
+      return null; // No data saved yet
     } catch (error) {
-      console.error("Error retrieving  teacherData:", error);
+      console.error("Error reading teacher data file:", error);
       return null;
     }
   };
@@ -636,38 +645,10 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
   };
   // Update state
 
-  // Get All Project
-  getAllProject = async () => {
+  // Get All SRM Data for school
+  getAllSRMClassObservation = async () => {
     try {
-      const response = await fetch("http://118.179.80.51:8080/api/v1/projects");
-      const json = await response.json();
-      this.setState({ allProject: json });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      this.setState({ isLoading: false });
-    }
-  };
-  // Get All Project
-
-  // Get All Office
-  getAllOffice = async () => {
-    try {
-      const response = await fetch("http://118.179.80.51:8080/api/v1/offices");
-      const json = await response.json();
-      this.setState({ allOffice: json });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      this.setState({ isLoading: false });
-    }
-  };
-  // Get All Office}
-
-  // Get All School
-  getAllSchool = async () => {
-    try {
-      const response = await axios("http://118.179.80.51:8080/api/v1/schools", {
+      const response = await axios(API_URL, {
         method: "GET",
         mode: "no-cors",
         headers: {
@@ -676,113 +657,11 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
         },
       });
 
-      this.setState({ allSchool: response.data, isLoading: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // Get All School
-
-  // Get All Teacher
-  getAllTeacher = async () => {
-    try {
-      const response = await fetch("http://118.179.80.51:8080/api/v1/teachers");
-      const json = await response.json();
-      this.setState({ allTeacher: json });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      this.setState({ isLoading: false });
-    }
-  };
-  // Get All Teacher
-
-  // Get All Employee
-  getAllEmployee = async () => {
-    try {
-      const response = await axios(
-        "http://118.179.80.51:8080/api/v1/employees",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      this.setState({ allEmployee: response.data, isLoading: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // Get All Employee
-
-  // Get All Designation
-  getAllDesignation = async () => {
-    try {
-      const response = await axios(
-        "http://118.179.80.51:8080/api/v1/designations",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      this.setState({ allDesignation: response.data, isLoading: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // Get All Designation
-
-  // Get All SRM Indicator
-  getAllSRMIndicator = async () => {
-    try {
-      const response = await axios(
-        "http://118.179.80.51:8080/api/v1/srm-indicator",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      this.setState({ allSRMIndicator: response.data, isLoading: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // Get All SRM Indicator
-
-  // Get All SRM Data for school
-  getAllSRMClassObservation = async () => {
-    try {
-      const response = await axios(
-        "http://118.179.80.51:8080/api/v1/p-srm-class",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
       this.setState({
         allSRMClassData: response.data,
         isLoading: false,
       });
-      console.log("All SRM Data: ", this.state.allSRMClassData.length);
+      console.log("All SRM Data: ", response.data.length);
     } catch (error) {
       console.log(error);
     }
@@ -1029,18 +908,15 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
       // Send data to API
 
       try {
-        let response = await fetch(
-          "http://118.179.80.51:8080/api/v1/p-srm-class",
-          {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newSRMClass),
+        let response = await fetch(API_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
           },
-        );
+          body: JSON.stringify(newSRMClass),
+        });
 
         //console.log("response:" + JSON.stringify(newSRMClass));
 
@@ -1346,7 +1222,7 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
       if (existingData) {
         const formsToSync = JSON.parse(existingData);
         for (const formData of formsToSync) {
-          await fetch("http://118.179.80.51:8080/api/v1/p-srm-class", {
+          await fetch(API_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
@@ -1954,7 +1830,7 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
             marginBottom: 0,
           }}
         >
-          PREVAIL পড়ার ঘণ্টা কার্যক্রম পর্যবেক্ষণ ফরম
+          পড়ার ঘণ্টা কার্যক্রম পর্যবেক্ষণ ফরম
         </Text>
 
         <ScrollView style={{ flex: 1 }}>
@@ -2748,10 +2624,11 @@ export default class PLibraryReadingActivitiesScreen extends React.Component {
                     itemStyle={{ color: "white" }}
                   >
                     <Picker.Item label={"Select"} value={""} />
-                    <Picker.Item label={"PP"} value={"PP"} />
                     <Picker.Item label={"G1"} value={"G1"} />
                     <Picker.Item label={"G2"} value={"G2"} />
                     <Picker.Item label={"G3"} value={"G3"} />
+                    <Picker.Item label={"G4"} value={"G4"} />
+                    <Picker.Item label={"G5"} value={"G5"} />
                   </Picker>
                 </View>
                 <View style={{ flex: 1 }}>

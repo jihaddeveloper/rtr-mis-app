@@ -1,6 +1,6 @@
 //  Author: Mohammad Jihad Hossain
 //  Create Date: 6/12/2025
-//  Modify Date: 25/05/2026
+//  Modify Date: 27/09/2026
 //  Description: PPrePrimaryClass observation component
 
 import React from "react";
@@ -32,6 +32,12 @@ import { divisions, districts, upazillas, unions } from "bd-geojs";
 import { Card } from "react-native-shadow-cards";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
+
+import { File, Paths } from "expo-file-system";
+
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+
+const API_URL = `${BASE_URL}/p-preprimary`;
 
 const { width, height } = Dimensions.get("window");
 
@@ -255,12 +261,7 @@ export default class PrePrimaryClassScreen extends React.Component {
     this.retrieveDataTeacher();
     this.retrieveDataEmployee();
 
-    this.getAllSchool();
-    this.getAllEmployee();
-    this.getAllDesignation();
-    this.getAllPreprimaryIndicator();
     this.getAllPreprimaryClassObservation();
-    this.getAllTeacher();
 
     // Alert in back-button press of device
     this.backHandler = BackHandler.addEventListener(
@@ -347,16 +348,24 @@ export default class PrePrimaryClassScreen extends React.Component {
 
   retrieveDataTeacher = async () => {
     try {
-      const stringValue = await AsyncStorage.getItem("teacherData");
-      if (stringValue != null) {
-        const teacherData = JSON.parse(stringValue); // Parse the string back to an object
+      // Check if the file exists first
+      const file = new File(Paths.document, "teacherData.json");
+
+      // Check if the file exists safely
+      if (file.exists) {
+        // Use text() or textSync() depending on context
+        const stringData = await file.text();
+
+        const teacherData = JSON.parse(stringData);
+
         console.log("Retrieved TeacherData:", teacherData.length);
         this.setState({ teacher: teacherData });
         return teacherData;
       }
-      return null;
+
+      return null; // No data saved yet
     } catch (error) {
-      console.error("Error retrieving  teacherData:", error);
+      console.error("Error reading teacher data file:", error);
       return null;
     }
   };
@@ -728,17 +737,14 @@ export default class PrePrimaryClassScreen extends React.Component {
   // Get All Preprimary Data for school
   getAllPreprimaryClassObservation = async () => {
     try {
-      const response = await axios(
-        "http://118.179.80.51:8080/api/v1/p-preprimary",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
+      const response = await axios(API_URL, {
+        method: "GET",
+        mode: "no-cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
-      );
+      });
 
       this.setState({
         allPreprimaryClassObservationData: response.data,
@@ -746,7 +752,7 @@ export default class PrePrimaryClassScreen extends React.Component {
       });
       console.log(
         "allPreprimaryClassObservationData Data: ",
-        this.state.allPreprimaryClassObservationData.length,
+        response.data.length,
       );
     } catch (error) {
       console.log(error);
@@ -982,18 +988,15 @@ export default class PrePrimaryClassScreen extends React.Component {
     } else {
       // Send data to API
       try {
-        let response = await fetch(
-          "http://118.179.80.51:8080/api/v1/p-preprimary",
-          {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newPreprimary),
+        let response = await fetch(API_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
           },
-        );
+          body: JSON.stringify(newPreprimary),
+        });
         if (response.status >= 200 && response.status < 300) {
           Alert.alert(
             "Preprimary class obsvervation data saved successfully to online!!!",
@@ -1299,7 +1302,7 @@ export default class PrePrimaryClassScreen extends React.Component {
       if (existingData) {
         const formsToSync = JSON.parse(existingData);
         for (const formData of formsToSync) {
-          await fetch("http://118.179.80.51:8080/api/v1/p-preprimary", {
+          await fetch(API_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
@@ -2936,14 +2939,6 @@ export default class PrePrimaryClassScreen extends React.Component {
                       }}
                     >
                       পাঠ ১ :(Lesson 1)
-                    </Text>
-                    <Text
-                      style={{
-                        color: "red",
-                        fontSize: 16,
-                      }}
-                    >
-                      *
                     </Text>
                   </View>
                   <Picker

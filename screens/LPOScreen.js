@@ -1,6 +1,6 @@
 //  Author: Mohammad Jihad Hossain
 //  Create Date: 28/08/2025
-//  Modify Date: 14/10/2025
+//  Modify Date: 27/09/2026
 //  Description: LPO screen component
 
 import React, { useEffect, useState } from "react";
@@ -22,6 +22,17 @@ import { Card } from "react-native-shadow-cards";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NetInfo from "@react-native-community/netinfo";
 
+import { File, Paths } from "expo-file-system";
+
+// Make sure your backend port matches this and is running!
+const BASE_URL = "http://118.179.80.51:8080/api/v1";
+
+const School_URL = `${BASE_URL}/p-school`;
+const Teacher_URL = `${BASE_URL}/p-teacher`;
+const Employee_URL = `${BASE_URL}/p-employee`;
+const Office_URL = `${BASE_URL}/offices`;
+const Project_URL = `${BASE_URL}/projects`;
+
 const screenDimensions = Dimensions.get("screen");
 const windowDimensions = Dimensions.get("window");
 
@@ -41,17 +52,14 @@ function LPOScreen({ navigation }) {
 
   const fetchDataAndSaveSchool = async () => {
     try {
-      const response = await fetch(
-        "http://118.179.80.51:8080/api/v1/p-school",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      ); // Replace with your API endpoint
+      const response = await fetch(School_URL, {
+        method: "GET",
+        mode: "no-cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }); // Replace with your API endpoint
       const schoolData = await response.json();
 
       // Convert the data to a string before storing
@@ -68,25 +76,45 @@ function LPOScreen({ navigation }) {
 
   const fetchDataAndSaveTeacher = async () => {
     try {
-      const response = await fetch(
-        "http://118.179.80.51:8080/api/v1/p-teacher",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      ); // Replace with your API endpoint
+      const response = await fetch(Teacher_URL, {
+        method: "GET",
+        mode: "no-cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }); // Replace with your API endpoint
       const teacherData = await response.json();
 
       // Convert the data to a string before storing
       const stringValue = JSON.stringify(teacherData);
-      removeItem("teacherData");
-      await AsyncStorage.setItem("teacherData", stringValue); // Choose a unique key
 
-      console.log("TeacherData saved successfully!");
+      if (stringValue) {
+        try {
+          // 1. Target the specific file
+          const existingFile = new File(Paths.document, "teacherData.json");
+
+          // 2. Delete it if it exists
+          if (existingFile.exists) {
+            existingFile.delete();
+            console.log(
+              "Teacher data file deleted successfully, memory freed!",
+            );
+          } else {
+            console.log("No file found to delete.");
+          }
+        } catch (error) {
+          console.error("Error deleting the file:", error);
+        }
+      }
+
+      // 1. Initialize a modern File reference in the document directory
+      const file = new File(Paths.document, "teacherData.json");
+
+      // 2. Write the string directly to the file instance
+      file.write(stringValue);
+
+      console.log("TeacherData saved successfully using modern File API!");
     } catch (error) {
       console.error("Error fetching or saving data:", error);
     }
@@ -94,17 +122,14 @@ function LPOScreen({ navigation }) {
 
   const fetchDataAndSaveEmployee = async () => {
     try {
-      const response = await fetch(
-        "http://118.179.80.51:8080/api/v1/p-employee",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      ); // Replace with your API endpoint
+      const response = await fetch(Employee_URL, {
+        method: "GET",
+        mode: "no-cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }); // Replace with your API endpoint
       const employeeData = await response.json();
 
       // Convert the data to a string before storing
@@ -120,17 +145,14 @@ function LPOScreen({ navigation }) {
 
   const fetchDataAndSaveProject = async () => {
     try {
-      const response = await fetch(
-        "http://118.179.80.51:8080/api/v1/projects",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      ); // Replace with your API endpoint
+      const response = await fetch(Project_URL, {
+        method: "GET",
+        mode: "no-cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }); // Replace with your API endpoint
       const projectData = await response.json();
 
       // Convert the data to a string before storing
@@ -146,7 +168,7 @@ function LPOScreen({ navigation }) {
 
   const fetchDataAndSaveOffice = async () => {
     try {
-      const response = await fetch("http://118.179.80.51:8080/api/v1/offices", {
+      const response = await fetch(Office_URL, {
         method: "GET",
         mode: "no-cors",
         headers: {
@@ -186,15 +208,21 @@ function LPOScreen({ navigation }) {
 
   const retrieveDataTeacher = async () => {
     try {
-      const stringValue = await AsyncStorage.getItem("teacherData");
-      if (stringValue != null) {
-        const teacherData = JSON.parse(stringValue); // Parse the string back to an object
-        console.log("Retrieved TeacherData:", teacherData.length);
+      // Check if the file exists first
+      const file = new File(Paths.document, "teacherData.json");
+
+      // Check if the file exists safely
+      if (file.exists) {
+        // Use text() or textSync() depending on context
+        const stringData = await file.text();
+
+        const teacherData = JSON.parse(stringData);
         return teacherData;
       }
-      return null;
+
+      return null; // No data saved yet
     } catch (error) {
-      console.error("Error retrieving  teacherData:", error);
+      console.error("Error reading teacher data file:", error);
       return null;
     }
   };

@@ -1,6 +1,6 @@
 //  Author: Mohammad Jihad Hossain
 //  Create Date: 16/09/2025
-//  Modify Date: 25/05/2026
+//  Modify Date: 27/09/2026
 //  Description: PLibraryObservationScreen component
 
 import React from "react";
@@ -30,6 +30,12 @@ import { divisions, districts, upazillas, unions } from "bd-geojs";
 import { Card } from "react-native-shadow-cards";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
+
+import { File, Paths } from "expo-file-system";
+
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+
+const API_URL = `${BASE_URL}/p-library-observation`;
 
 const { height } = Dimensions.get("window").height / 2;
 const { width } = Dimensions.get("window").width / 2;
@@ -260,13 +266,6 @@ export default class PLibraryObservationScreen extends React.Component {
     this.retrieveDataTeacher();
     this.retrieveDataEmployee();
 
-    this.getAllSchool();
-    this.getAllEmployee();
-    this.getAllDesignation();
-    this.getAllLibraryIndicator();
-    this.getAllProject();
-    this.getAllOffice();
-    this.getAllTeacher();
     this.getAllLibraryObservation();
 
     // Alert in back-button press of device
@@ -405,16 +404,24 @@ export default class PLibraryObservationScreen extends React.Component {
 
   retrieveDataTeacher = async () => {
     try {
-      const stringValue = await AsyncStorage.getItem("teacherData");
-      if (stringValue != null) {
-        const teacherData = JSON.parse(stringValue); // Parse the string back to an object
+      // Check if the file exists first
+      const file = new File(Paths.document, "teacherData.json");
+
+      // Check if the file exists safely
+      if (file.exists) {
+        // Use text() or textSync() depending on context
+        const stringData = await file.text();
+
+        const teacherData = JSON.parse(stringData);
+
         console.log("Retrieved TeacherData:", teacherData.length);
         this.setState({ teacher: teacherData });
         return teacherData;
       }
-      return null;
+
+      return null; // No data saved yet
     } catch (error) {
-      console.error("Error retrieving  teacherData:", error);
+      console.error("Error reading teacher data file:", error);
       return null;
     }
   };
@@ -614,152 +621,17 @@ export default class PLibraryObservationScreen extends React.Component {
   };
   // Update state
 
-  // Get All Project
-  getAllProject = async () => {
-    try {
-      const response = await fetch("http://118.179.80.51:8080/api/v1/projects");
-      const json = await response.json();
-      this.setState({ allProject: json });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      this.setState({ isLoading: false });
-    }
-  };
-  // Get All Project
-
-  // Get All Office
-  getAllOffice = async () => {
-    try {
-      const response = await fetch("http://118.179.80.51:8080/api/v1/offices");
-      const json = await response.json();
-      this.setState({ allOffice: json });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      this.setState({ isLoading: false });
-    }
-  };
-  // Get All Office
-
-  // Get All School
-  getAllSchool = async () => {
-    try {
-      const response = await axios(
-        "http://118.179.80.51:8080/api/v1/di-school",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      this.setState({ allSchool: response.data, isLoading: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // Get All School
-
-  // Get All Teacher
-  getAllTeacher = async () => {
-    try {
-      const response = await fetch(
-        "http://118.179.80.51:8080/api/v1/di-teacher",
-      );
-      const json = await response.json();
-      this.setState({ allTeacher: json });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      this.setState({ isLoading: false });
-    }
-  };
-  // Get All Teacher
-
-  // Get All Employee
-  getAllEmployee = async () => {
-    try {
-      const response = await axios(
-        "http://118.179.80.51:8080/api/v1/di-employee",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      this.setState({ allEmployee: response.data, isLoading: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // Get All Employee
-
-  // Get All Designation
-  getAllDesignation = async () => {
-    try {
-      const response = await axios(
-        "http://118.179.80.51:8080/api/v1/designations",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      this.setState({ allDesignation: response.data, isLoading: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // Get All Designation
-
-  // Get All Library Indicator
-  getAllLibraryIndicator = async () => {
-    try {
-      const response = await axios(
-        "http://118.179.80.51:8080/api/v1/library-observation-indicators",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      this.setState({ allLibraryIndicator: response.data, isLoading: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // Get All Library Indicator
-
   // Get All Library Observation Data
   getAllLibraryObservation = async () => {
     try {
-      const response = await axios(
-        "http://118.179.80.51:8080/api/v1/p-library-observation",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
+      const response = await axios(API_URL, {
+        method: "GET",
+        mode: "no-cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
-      );
+      });
 
       this.setState({
         allLibraryObservationData: response.data,
@@ -1099,18 +971,15 @@ export default class PLibraryObservationScreen extends React.Component {
       return;
     } else {
       try {
-        let response = await fetch(
-          "http://118.179.80.51:8080/api/v1/p-library-observation",
-          {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newLibraryObservation),
+        let response = await fetch(API_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
           },
-        );
+          body: JSON.stringify(newLibraryObservation),
+        });
         if (response.status >= 200 && response.status < 300) {
           Alert.alert(
             "Library observation data saved successfully to online!!!",
@@ -1522,14 +1391,11 @@ export default class PLibraryObservationScreen extends React.Component {
       if (existingData) {
         const formsToSync = JSON.parse(existingData);
         for (const formData of formsToSync) {
-          await fetch(
-            "http://118.179.80.51:8080/api/v1/p-library-observation",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(formData),
-            },
-          );
+          await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          });
         }
         console.log("LF Data syncing");
         await AsyncStorage.removeItem("offlineFormsPLibraryObservation"); // Clear synced data
@@ -1976,7 +1842,7 @@ export default class PLibraryObservationScreen extends React.Component {
               marginBottom: 0,
             }}
           >
-            PREVAIL শ্রেণিকক্ষ পাঠাগার পর্যবেক্ষণ ফরম (Library Observation)
+            শ্রেণিকক্ষ পাঠাগার পর্যবেক্ষণ ফরম (Library Observation)
           </Text>
         </View>
         <Text

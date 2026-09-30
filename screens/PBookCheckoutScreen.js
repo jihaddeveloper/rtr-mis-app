@@ -1,6 +1,6 @@
 //  Author: Mohammad Jihad Hossain
 //  Create Date: 16/09/2025
-//  Modify Date: 05/05/2026
+//  Modify Date: 27/09/2026
 //  Description: PBookCheckoutScreen component
 
 import React from "react";
@@ -34,6 +34,12 @@ import { Card } from "react-native-shadow-cards";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 import Collapsible from "react-native-collapsible";
+
+import { File, Paths } from "expo-file-system";
+
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+
+const API_URL = `${BASE_URL}/p-book-checkout`;
 
 const { height } = Dimensions.get("window").height / 2;
 const { width } = Dimensions.get("window").width / 2;
@@ -275,19 +281,8 @@ export default class PBookCheckoutScreen extends React.Component {
     this.retrieveDataTeacher();
     this.retrieveDataEmployee();
 
-    this.getAllSchool();
-    this.getAllEmployee();
-    this.getAllDesignation();
-    this.getAllProject();
-    this.getAllOffice();
-    this.getAllTeacher();
     this.getAllBookCheckoutSchool();
     console.log("Component mounted");
-    console.log(
-      "Duplicate Bookcheckout Data: ",
-      this.state.duplicateBookCheckoutSchool.length,
-    );
-    //console.log("Duplicate Data: ", this.state.duplicateBookCheckoutSchool);
 
     // Alert in back-button press of device
     this.backHandler = BackHandler.addEventListener(
@@ -512,8 +507,8 @@ export default class PBookCheckoutScreen extends React.Component {
 
     this.setState({
       selectedDate: value,
-      pickerMonth: value.toLocaleString("default", { month: "long" }),
-      pickerYear: value.getFullYear().toString(),
+      //pickerMonth: value.toLocaleString("default", { month: "long" }),
+      //pickerYear: value.getFullYear().toString(),
     });
   };
 
@@ -698,16 +693,24 @@ export default class PBookCheckoutScreen extends React.Component {
 
   retrieveDataTeacher = async () => {
     try {
-      const stringValue = await AsyncStorage.getItem("teacherData");
-      if (stringValue != null) {
-        const teacherData = JSON.parse(stringValue); // Parse the string back to an object
+      // Check if the file exists first
+      const file = new File(Paths.document, "teacherData.json");
+
+      // Check if the file exists safely
+      if (file.exists) {
+        // Use text() or textSync() depending on context
+        const stringData = await file.text();
+
+        const teacherData = JSON.parse(stringData);
+
         console.log("Retrieved TeacherData:", teacherData.length);
         this.setState({ teacher: teacherData });
         return teacherData;
       }
-      return null;
+
+      return null; // No data saved yet
     } catch (error) {
-      console.error("Error retrieving  teacherData:", error);
+      console.error("Error reading teacher data file:", error);
       return null;
     }
   };
@@ -761,136 +764,17 @@ export default class PBookCheckoutScreen extends React.Component {
   };
   // Get All General Data
 
-  // Get All Project
-  getAllProject = async () => {
-    try {
-      const response = await fetch("http://118.179.80.51:8080/api/v1/projects");
-      const json = await response.json();
-      this.setState({ allProject: json });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      this.setState({ isLoading: false });
-    }
-  };
-  // Get All Project
-
-  // Get All Office
-  getAllOffice = async () => {
-    try {
-      const response = await fetch("http://118.179.80.51:8080/api/v1/offices");
-      const json = await response.json();
-      this.setState({ allOffice: json });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      this.setState({ isLoading: false });
-    }
-  };
-  // Get All Office
-
-  // Get All School
-  getAllSchool = async () => {
-    try {
-      const response = await axios(
-        "http://118.179.80.51:8080/api/v1/di-school",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      this.setState({ allSchool: response.data, isLoading: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // Get All School
-
-  // Get All Teacher
-  getAllTeacher = async () => {
-    try {
-      const response = await fetch(
-        "http://118.179.80.51:8080/api/v1/di-teacher",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        },
-      );
-      const json = await response.json();
-      this.setState({ allTeacher: json, isLoading: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // Get All Teacher
-
-  // Get All Employee
-  getAllEmployee = async () => {
-    try {
-      const response = await axios(
-        "http://118.179.80.51:8080/api/v1/di-employee",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      this.setState({ allEmployee: response.data, isLoading: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // Get All Employee
-
-  // Get All Designation
-  getAllDesignation = async () => {
-    try {
-      const response = await axios(
-        "http://118.179.80.51:8080/api/v1/designations",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      this.setState({ allDesignation: response.data, isLoading: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // Get All Designation
-
   // Get All Book-checkout Data for school
   getAllBookCheckoutSchool = async () => {
     try {
-      const response = await axios(
-        "http://118.179.80.51:8080/api/v1/p-book-checkout",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
+      const response = await axios(API_URL, {
+        method: "GET",
+        mode: "no-cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
-      );
+      });
 
       this.setState({
         allBookcheckoutSchoolData: response.data,
@@ -1071,18 +955,15 @@ export default class PBookCheckoutScreen extends React.Component {
 
       // Send data to API
       try {
-        let response = await fetch(
-          "http://118.179.80.51:8080/api/v1/p-book-checkout",
-          {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newBookCheckout),
+        let response = await fetch(API_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
           },
-        );
+          body: JSON.stringify(newBookCheckout),
+        });
         if (response.status >= 200 && response.status < 300) {
           Alert.alert("Book checkout data saved successfully to online!!!");
           //this.getAllBookCheckoutSchool();
@@ -1150,7 +1031,7 @@ export default class PBookCheckoutScreen extends React.Component {
       if (existingData) {
         const formsToSync = JSON.parse(existingData);
         for (const formData of formsToSync) {
-          await fetch("http://118.179.80.51:8080/api/v1/p-book-checkout", {
+          await fetch(API_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
@@ -1383,7 +1264,7 @@ export default class PBookCheckoutScreen extends React.Component {
                   marginRight: 100,
                 }}
               >
-                PREVAIL মাসিক বই চেক-আউট ফরম (Monthly Book Checkout Form)
+                মাসিক বই চেক-আউট ফরম (Monthly Book Checkout Form)
               </Text>
             </View>
           </View>
@@ -1436,7 +1317,7 @@ export default class PBookCheckoutScreen extends React.Component {
                         fontWeight: "bold",
                       }}
                     >
-                      মাস: (Month:)
+                      BCO মাস: (Month:)
                     </Text>
                     <Text
                       style={{ textAlign: "right", color: "red", fontSize: 16 }}
@@ -2246,7 +2127,7 @@ export default class PBookCheckoutScreen extends React.Component {
               onPress={() => this.setState({ isCollapsedPP: false })}
             ></Button>
             <Collapsible collapsed={isCollapsedPP}></Collapsible> */}
-            <Card style={{ padding: 10, margin: 10, flex: 1 }}>
+            {/* <Card style={{ padding: 10, margin: 10, flex: 1 }}>
               <View style={{ padding: 5 }}>
                 <Card
                   style={{
@@ -2588,7 +2469,7 @@ export default class PBookCheckoutScreen extends React.Component {
                   </Card>
                 </Card>
               </View>
-            </Card>
+            </Card> */}
 
             <Card style={{ padding: 10, margin: 10, flex: 1 }}>
               <View style={{ padding: 5 }}>

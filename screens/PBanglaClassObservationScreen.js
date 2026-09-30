@@ -1,6 +1,6 @@
 //  Author: Mohammad Jihad Hossain
 //  Create Date: 22/09/2025
-//  Modify Date: 06/10/2025
+//  Modify Date: 27/09/2026
 //  Description: PBanglaClassObservationScreen component
 
 import React, { useRef, useEffect, useState } from "react";
@@ -39,6 +39,13 @@ import ExpandableView from "react-native-expandable-view";
 import Collapsible from "react-native-collapsible";
 
 import LFScreen from "./LFScreen";
+
+import { File, Paths } from "expo-file-system";
+
+// Make sure your backend port matches this and is running!
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+
+const API_URL = `${BASE_URL}/p-bangla-class`;
 
 const screenDimensions = Dimensions.get("screen");
 const windowDimensions = Dimensions.get("window");
@@ -309,8 +316,6 @@ export default class PBanglaClassObservationScreen extends React.Component {
     this.retrieveDataTeacher();
     this.retrieveDataEmployee();
 
-    this.getAllDesignation();
-    this.getAllBanglaIndicator();
     this.getAllBanglaClassObservation();
 
     // Alert in back-button press of device
@@ -451,16 +456,24 @@ export default class PBanglaClassObservationScreen extends React.Component {
 
   retrieveDataTeacher = async () => {
     try {
-      const stringValue = await AsyncStorage.getItem("teacherData");
-      if (stringValue != null) {
-        const teacherData = JSON.parse(stringValue); // Parse the string back to an object
+      // Check if the file exists first
+      const file = new File(Paths.document, "teacherData.json");
+
+      // Check if the file exists safely
+      if (file.exists) {
+        // Use text() or textSync() depending on context
+        const stringData = await file.text();
+
+        const teacherData = JSON.parse(stringData);
+
         console.log("Retrieved TeacherData:", teacherData.length);
         this.setState({ teacher: teacherData });
         return teacherData;
       }
-      return null;
+
+      return null; // No data saved yet
     } catch (error) {
-      console.error("Error retrieving  teacherData:", error);
+      console.error("Error reading teacher data file:", error);
       return null;
     }
   };
@@ -512,37 +525,6 @@ export default class PBanglaClassObservationScreen extends React.Component {
       return null;
     }
   };
-  // Get All General Data
-
-  // fetchDataAndSave = async () => {
-  //   try {
-  //     const response = await fetch("YOUR_API_ENDPOINT"); // Replace with your API endpoint
-  //     const data = await response.json();
-
-  //     // Convert the data to a string before storing
-  //     const jsonValue = JSON.stringify(data);
-
-  //     await AsyncStorage.setItem("YOUR_STORAGE_KEY", jsonValue); // Choose a unique key
-  //     console.log("Data saved successfully!");
-  //   } catch (error) {
-  //     console.error("Error fetching or saving data:", error);
-  //   }
-  // };
-
-  // retrieveData = async () => {
-  //   try {
-  //     const jsonValue = await AsyncStorage.getItem("YOUR_STORAGE_KEY");
-  //     if (jsonValue != null) {
-  //       const data = JSON.parse(jsonValue); // Parse the string back to an object
-  //       console.log("Retrieved data:", data);
-  //       return data;
-  //     }
-  //     return null;
-  //   } catch (error) {
-  //     console.error("Error retrieving data:", error);
-  //     return null;
-  //   }
-  // };
   // Get All General Data
 
   // Update state
@@ -708,161 +690,23 @@ export default class PBanglaClassObservationScreen extends React.Component {
   };
   // Update state
 
-  // Get All Project
-  getAllProject = async () => {
-    try {
-      const response = await fetch("http://118.179.80.51:8080/api/v1/projects");
-      const json = await response.json();
-      this.setState({ allProject: json });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      this.setState({ isLoading: false });
-    }
-  };
-  // Get All Project
-
-  // Get All Office
-  getAllOffice = async () => {
-    try {
-      const response = await fetch("http://118.179.80.51:8080/api/v1/offices");
-      const json = await response.json();
-      this.setState({ allOffice: json });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      this.setState({ isLoading: false });
-    }
-  };
-  // Get All Office}
-
-  // Get All School
-  getAllSchool = async () => {
-    try {
-      const response = await axios(
-        "http://118.179.80.51:8080/api/v1/di-school",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      this.setState({ school: response.data, isLoading: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // Get All School
-
-  // Get All Teacher
-  getAllTeacher = async () => {
-    try {
-      const response = await fetch(
-        "http://118.179.80.51:8080/api/v1/di-teacher",
-      );
-      const json = await response.json();
-      this.setState({ teacher: json });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      this.setState({ isLoading: false });
-    }
-  };
-  // Get All Teacher
-
-  // Get All Employee
-  getAllEmployee = async () => {
-    try {
-      const response = await axios(
-        "http://118.179.80.51:8080/api/v1/di-employee",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      this.setState({ employee: response.data, isLoading: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // Get All Employee
-
-  // Get All Designation
-  getAllDesignation = async () => {
-    try {
-      const response = await axios(
-        "http://118.179.80.51:8080/api/v1/designations",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      this.setState({ allDesignation: response.data, isLoading: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // Get All Designation
-
-  // Get All Bangla Indicator
-  getAllBanglaIndicator = async () => {
-    try {
-      const response = await axios(
-        "http://118.179.80.51:8080/api/v1/di-bangla-indicator",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      this.setState({ allBanglaIndicator: response.data, isLoading: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // Get All Bangla Indicator
-
   // Get All Bangla Class Data for school
   getAllBanglaClassObservation = async () => {
     try {
-      const response = await axios(
-        "http://118.179.80.51:8080/api/v1/p-bangla-class",
-        {
-          method: "GET",
-          mode: "no-cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
+      const response = await axios(API_URL, {
+        method: "GET",
+        mode: "no-cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
-      );
+      });
 
       this.setState({
         allBanglaClassObservationData: response.data,
         isLoading: false,
       });
-      console.log(
-        "All Bangla-class Data: ",
-        this.state.allBanglaClassObservationData.length,
-      );
+      console.log("All Bangla-class Data: ", response.data.length);
     } catch (error) {
       console.log(error);
     }
@@ -1149,18 +993,15 @@ export default class PBanglaClassObservationScreen extends React.Component {
       // Send data to API
       if (this.state.isConnected) {
         try {
-          let response = await fetch(
-            "http://118.179.80.51:8080/api/v1/p-bangla-class",
-            {
-              method: "POST",
-              mode: "no-cors",
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(newBanglaClass),
+          let response = await fetch(API_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
             },
-          );
+            body: JSON.stringify(newBanglaClass),
+          });
           if (response.status >= 200 && response.status < 300) {
             Alert.alert(
               "Alert",
@@ -1176,12 +1017,12 @@ export default class PBanglaClassObservationScreen extends React.Component {
           // Offline: Store data locally
           this.storeLocally();
         }
-      } else {
+      }
+      // Send data to API
+      else {
         // Offline: Store data locally
         this.storeLocally();
       }
-
-      // Send data to API
     }
   };
   // Register new Bangla Class data
@@ -1535,7 +1376,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
       if (existingData) {
         const formsToSync = JSON.parse(existingData);
         for (const formData of formsToSync) {
-          await fetch("http://118.179.80.51:8080/api/v1/p-bangla-class", {
+          await fetch(API_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
@@ -1927,6 +1768,8 @@ export default class PBanglaClassObservationScreen extends React.Component {
         console.log("Saved data set successful: " + JSON.parse(existingData));
         console.log("Saved data set successful!");
         Alert.alert("Saved data set successful!");
+      } else {
+        Alert.alert("No Saved data here!");
       }
     } catch (error) {
       console.error("Error Saved data set successful", error);
@@ -2360,7 +2203,7 @@ export default class PBanglaClassObservationScreen extends React.Component {
                   marginBottom: 0,
                 }}
               >
-                PREVAIL বাংলা ক্লাস পর্যবেক্ষণ ফরম (Bangla Class Observation)
+                বাংলা ক্লাস পর্যবেক্ষণ ফরম (Bangla Class Observation)
               </Text>
             </View>
           </View>

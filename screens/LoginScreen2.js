@@ -1,9 +1,9 @@
 //  Author: Mohammad Jihad Hossain
 //  Create Date: 07/08/2021
-//  Modify Date: 08/12/2021
+//  Modify Date: 29/07/2026
 //  Description: Login component
 
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -13,156 +13,45 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Button } from "react-native-paper";
+import * as SecureStore from "expo-secure-store";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default class LoginScreen extends React.Component {
-  state = {
-    email: "",
-    password: "",
-  };
+import { useAuth } from "../Auth/AuthContext";
 
-  componentDidMount() {
-    this._unsubscribe = this.props.navigation.addListener("focus", () => {
-      //Alert.alert("Refreshed");
-    });
-  }
+const API_URL = "http://10.9.0.208:8080/api/auth/";
 
-  componentWillUnmount() {
-    this._unsubscribe();
-  }
+export default function LoginScreen() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const { login } = useAuth();
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={{ flexShrink: 1 }}>
-          <Text
-            style={{
-              color: "blue",
-              fontWeight: "bold",
-              fontSize: 20,
-              padding: 25,
-              alignContent: "center",
-              textAlign: "center",
-              alignSelf: "center",
-              marginTop: 100,
-              marginLeft: 100,
-              marginRight: 100,
-            }}
-          >
-            Room to Read BD
-          </Text>
-        </View>
-
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "row",
-            marginTop: 50,
-            marginBottom: 120,
-          }}
-        >
-          <View style={{ flex: 1, marginLeft: 200 }}>
-            <TouchableOpacity
-              onPress={() => loadInBrowser("http://google.com")}
-            >
-              <Image
-                style={styles.logoMain}
-                source={require("../assets/rtr.png")}
-              ></Image>
-            </TouchableOpacity>
-          </View>
-          <View style={{ flex: 1, marginRight: 200 }}>
-            <TouchableOpacity>
-              <Image
-                style={styles.logoMain}
-                source={require("../assets/wfp.png")}
-              ></Image>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.inputText}
-            placeholder="Email..."
-            placeholderTextColor="#FFFFFF"
-            onChangeText={(text) => this.setState({ email: text })}
-          />
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            secureTextEntry
-            style={styles.inputText}
-            placeholder="Password..."
-            placeholderTextColor="#FFFFFF"
-            onChangeText={(text) => this.setState({ password: text })}
-          />
-        </View>
-        {/* <TouchableOpacity>
-          <Text style={styles.forgot}>Forgot Password?</Text>
-        </TouchableOpacity> */}
-        <TouchableOpacity
-          style={styles.loginBtn}
-          onPress={() => this.props.navigation.navigate("Home2")}
-        >
-          <Text style={styles.loginText}>Login</Text>
-        </TouchableOpacity>
-        {/* <TouchableOpacity style={{ marginBottom: 200 }}>
-          <Text style={styles.forgot}>Signup</Text>
-        </TouchableOpacity> */}
-
-        <View>
-          <Text>&copy; All Rights Reserved, RoomtoRead Bangladesh</Text>
-        </View>
-      </View>
-    );
-  }
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Welcome Back</Text>
+      <TextInput
+        placeholder="Username"
+        value={username}
+        onChangeText={setUsername}
+        style={styles.input}
+        autoCapitalize="none"
+      />
+      <TextInput
+        placeholder="Password"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+        style={styles.input}
+      />
+      <Button title="Login" onPress={() => login(username, password)} />
+    </View>
+  );
 }
 
-const loadInBrowser = (url) => {
-  Linking.openURL(url).catch((err) => console.error("Couldn't load page", err));
-};
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  logoMain: {
-    height: 100,
-    width: 100,
-    resizeMode: "contain",
-  },
-  inputView: {
-    width: "80%",
-    backgroundColor: "#465881",
-    borderRadius: 25,
-    height: 50,
-    marginBottom: 20,
-    justifyContent: "center",
-    padding: 20,
-  },
-  inputText: {
-    height: 50,
-    color: "white",
-  },
-  forgot: {
-    color: "black",
-    fontSize: 11,
-  },
-  loginBtn: {
-    width: "80%",
-    backgroundColor: "#fb5b5a",
-    borderRadius: 25,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 40,
-    marginBottom: 10,
-  },
-  loginText: {
-    color: "white",
-  },
+  container: { flex: 1, justifyContent: "center", padding: 20 },
+  title: { fontSize: 24, marginBottom: 20, textAlign: "center" },
+  input: { borderBottomWidth: 1, marginBottom: 15, padding: 8 },
 });
